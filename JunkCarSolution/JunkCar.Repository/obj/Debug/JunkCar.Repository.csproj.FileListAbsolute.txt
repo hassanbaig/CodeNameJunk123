@@ -1,0 +1,15 @@
+c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Repository\bin\Debug\JunkCar.Repository.dll
+c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Repository\bin\Debug\JunkCar.Repository.pdb
+c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Repository\obj\Debug\JunkCar.Repository.dll
+c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Repository\obj\Debug\JunkCar.Repository.pdb
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Repository\bin\Debug\JunkCar.Repository.dll
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Repository\bin\Debug\JunkCar.Repository.pdb
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Repository\bin\Debug\JunkCar.Data.dll
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Repository\bin\Debug\JunkCar.DataModel.dll
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Repository\bin\Debug\JunkCar.Factory.dll
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Repository\bin\Debug\JunkCar.DataModel.pdb
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Repository\bin\Debug\JunkCar.Data.pdb
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Repository\bin\Debug\JunkCar.Factory.pdb
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Repository\obj\Debug\JunkCar.Repository.csprojResolveAssemblyReference.cache
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Repository\obj\Debug\JunkCar.Repository.dll
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Repository\obj\Debug\JunkCar.Repository.pdb

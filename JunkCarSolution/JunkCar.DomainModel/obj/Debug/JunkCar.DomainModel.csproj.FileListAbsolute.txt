@@ -1,0 +1,13 @@
+c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.DomainModel\bin\Debug\JunkCar.DomainModel.dll
+c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.DomainModel\bin\Debug\JunkCar.DomainModel.pdb
+c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.DomainModel\obj\Debug\JunkCar.DomainModel.dll
+c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.DomainModel\obj\Debug\JunkCar.DomainModel.pdb
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DomainModel\bin\Debug\JunkCar.DomainModel.dll
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DomainModel\bin\Debug\JunkCar.DomainModel.pdb
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DomainModel\bin\Debug\JunkCar.DataModel.dll
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DomainModel\bin\Debug\JunkCar.Factory.dll
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DomainModel\bin\Debug\JunkCar.DataModel.pdb
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DomainModel\bin\Debug\JunkCar.Factory.pdb
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DomainModel\obj\Debug\JunkCar.DomainModel.csprojResolveAssemblyReference.cache
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DomainModel\obj\Debug\JunkCar.DomainModel.dll
+C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DomainModel\obj\Debug\JunkCar.DomainModel.pdb

@@ -40,6 +40,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Enumerations\DomainModelEnum.cs" />
+    <Compile Include="Factories\AbstractDomainModel.cs" />
+    <Compile Include="Factories\AbstractDomainService.cs" />
+    <Compile Include="Factories\AbstractFactory.cs" />
+    <Compile Include="Factories\ConcreteDomainModel.cs" />
+    <Compile Include="Factories\ConcreteDomainService.cs" />
+    <Compile Include="Factories\ConcreteRepository.cs" />
+    <Compile Include="Factories\ConcreteUnitOfWork.cs" />
+    <Compile Include="Factories\FactoryFacade.cs" />
+    <Compile Include="Factories\IRepository.cs" />
+    <Compile Include="Factories\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -37,3 +37,35 @@ C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCa
 C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.WebAPI\obj\Debug\JunkCar.WebAPI.csprojResolveAssemblyReference.cache
 C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.WebAPI\obj\Debug\JunkCar.WebAPI.dll
 C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.WebAPI\obj\Debug\JunkCar.WebAPI.pdb
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\obj\Debug\JunkCar.WebAPI.csprojResolveAssemblyReference.cache
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.WebAPI.dll.config
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.WebAPI.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.WebAPI.pdb
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.Core.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.Data.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.DataModel.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.DomainModel.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.DomainService.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.Factory.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\Newtonsoft.Json.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\System.Net.Http.Formatting.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\System.Web.Http.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\System.Web.Http.WebHost.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\EntityFramework.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.UnitOfWork.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.Repository.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.Core.pdb
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.DataModel.pdb
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.Data.pdb
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.DomainModel.pdb
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.DomainService.pdb
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.Factory.pdb
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\Newtonsoft.Json.xml
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\System.Net.Http.Formatting.xml
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\System.Web.Http.xml
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\System.Web.Http.WebHost.xml
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\EntityFramework.xml
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.UnitOfWork.pdb
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.Repository.pdb
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\obj\Debug\JunkCar.WebAPI.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\obj\Debug\JunkCar.WebAPI.pdb

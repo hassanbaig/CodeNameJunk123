@@ -39,7 +39,69 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Sal_Customer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Sal_Offer_Status.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\usp_Set_Questionnaire_Result_Detail_Result.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\usp_Set_Zip_Code_Result.cs" />
+    <Compile Include="Models\usp_Set_State_Result.cs" />
+    <Compile Include="Models\usp_Set_Site_Result.cs" />
+    <Compile Include="Models\usp_Set_Site_Contact_Result.cs" />
+    <Compile Include="Models\usp_Set_Questionnaire_Result_Result.cs" />
+    <Compile Include="Models\usp_Set_Questionnaire_Result.cs" />
+    <Compile Include="Models\usp_Set_Questionnaire_Detail_Result.cs" />
+    <Compile Include="Models\usp_Set_Question_Result.cs" />
+    <Compile Include="Models\usp_Set_Model_Year_Result.cs" />
+    <Compile Include="Models\usp_Set_Model_Result.cs" />
+    <Compile Include="Models\usp_Set_Make_Result.cs" />
+    <Compile Include="Models\usp_Set_Document_Result.cs" />
+    <Compile Include="Models\usp_Set_County_Result.cs" />
+    <Compile Include="Models\usp_Set_Country_Result.cs" />
+    <Compile Include="Models\usp_Set_Contact_Type_Result.cs" />
+    <Compile Include="Models\usp_Set_City_Result.cs" />
+    <Compile Include="Models\usp_Set_Answer_Result.cs" />
+    <Compile Include="Models\usp_Sec_User_Result.cs" />
+    <Compile Include="Models\usp_Sec_User_Contact_Result.cs" />
+    <Compile Include="Models\usp_Sec_Role_Result.cs" />
+    <Compile Include="Models\usp_Sal_Offer_Status_Result.cs" />
+    <Compile Include="Models\usp_Sal_Offer_Result.cs" />
+    <Compile Include="Models\usp_Sal_Customer_Vehicle_Result.cs" />
+    <Compile Include="Models\usp_Sal_Customer_Vehicle_Doc_Result.cs" />
+    <Compile Include="Models\usp_Sal_Customer_Result.cs" />
+    <Compile Include="Models\usp_Sal_Customer_Offer_Result.cs" />
+    <Compile Include="Models\usp_Sal_Customer_Contact_Result.cs" />
+    <Compile Include="Models\Set_Zip_Code.cs" />
+    <Compile Include="Models\Set_State.cs" />
+    <Compile Include="Models\Set_Site_Contact.cs" />
+    <Compile Include="Models\Set_Site.cs" />
+    <Compile Include="Models\Set_Questionnaire_Result_Detail.cs" />
+    <Compile Include="Models\Set_Questionnaire_Result.cs" />
+    <Compile Include="Models\Set_Questionnaire_Detail.cs" />
+    <Compile Include="Models\Set_Questionnaire.cs" />
+    <Compile Include="Models\Set_Question.cs" />
+    <Compile Include="Models\Set_Model_Year.cs" />
+    <Compile Include="Models\Set_Model.cs" />
+    <Compile Include="Models\Set_Make.cs" />
+    <Compile Include="Models\Set_Document.cs" />
+    <Compile Include="Models\Set_County.cs" />
+    <Compile Include="Models\Set_Country.cs" />
+    <Compile Include="Models\Set_Contact_Type.cs" />
+    <Compile Include="Models\Set_City.cs" />
+    <Compile Include="Models\Set_Audit_Log.cs" />
+    <Compile Include="Models\Set_Answer.cs" />
+    <Compile Include="Models\Sec_User_Contact.cs" />
+    <Compile Include="Models\Sec_User.cs" />
+    <Compile Include="Models\Sec_Role.cs" />
+    <Compile Include="Models\Sal_Offer.cs" />
+    <Compile Include="Models\Sal_Customer_Vehicle_Doc.cs" />
+    <Compile Include="Models\Sal_Customer_Vehicle.cs" />
+    <Compile Include="Models\Sal_Customer_Offer.cs" />
+    <Compile Include="Models\Sal_Customer_Contact.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

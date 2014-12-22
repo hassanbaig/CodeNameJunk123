@@ -18,7 +18,7 @@ namespace JunkCar.DomainModel.Models
         #region Properties  
         public int OperationType { get; set; }        
         public string UserId { get; set; }    
-        public List<int?> Years { get; set; }
+        public List<JunkCar.DataModel.Models.Set_Model_Year> Years { get; set; }
         public string ResponseMessage { get; set; }            
         #endregion        
     

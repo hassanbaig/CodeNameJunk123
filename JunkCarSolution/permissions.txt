@@ -1,0 +1,18 @@
+C:\Users\hassanbaig>ICACLS C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI /grant "IIS AppPool\.NET v4.5":WRX
+processed file: C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI
+
+C:\Users\hassanbaig>ICACLS C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Presentation /grant "IIS AppPool\.NET v4.5":WRX
+processed file: C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Presentation
+
+is k bad 2 steps hotay hain
+[12:31:24 PM] Talha Shaikh: ??
+[12:31:36 PM] Hassan Mustafa Tariq Baig: security ma ja kar
+[12:31:56 PM] Hassan Mustafa Tariq Baig: webapi or presentation ki properties
+[12:31:59 PM] Hassan Mustafa Tariq Baig: security
+[12:32:02 PM] Hassan Mustafa Tariq Baig: thrn
+[12:32:17 PM] Hassan Mustafa Tariq Baig: .NET v4.5
+[12:32:27 PM] Hassan Mustafa Tariq Baig: is user ko full controll dena hota hay
+[12:32:35 PM] Hassan Mustafa Tariq Baig: then ek user IUser add kar k
+[12:32:42 PM] Hassan Mustafa Tariq Baig: ousay full controll dena hota hay
+dono applications ko
+[12:32:57 PM] Hassan Mustafa Tariq Baig: done

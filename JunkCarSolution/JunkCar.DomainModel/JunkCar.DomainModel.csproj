@@ -39,16 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Authenticate.cs" />
-    <Compile Include="Models\ChangePassword.cs" />
-    <Compile Include="Models\DoctorEditDetails.cs" />
-    <Compile Include="Models\DoctorsSearch.cs" />
-    <Compile Include="Models\EditProfile.cs" />
-    <Compile Include="Models\ForgotPassword.cs" />
-    <Compile Include="Models\PracticeEditDetails.cs" />
-    <Compile Include="Models\PracticesSearch.cs" />
-    <Compile Include="Models\ProviderRegistration.cs" />
-    <Compile Include="Models\Staff.cs" />
+    <Compile Include="Models\Home.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

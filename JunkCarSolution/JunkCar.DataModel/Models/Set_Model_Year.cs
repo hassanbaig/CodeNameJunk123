@@ -26,7 +26,7 @@ namespace JunkCar.DataModel.Models
         public Nullable<int> Modified_By { get; set; }
         public Nullable<long> Audit_Id { get; set; }
         public string User_IP { get; set; }
-        public int Site_Id { get; set; }
+        public int Site_Id { get; set; }       
     
         #endregion
 

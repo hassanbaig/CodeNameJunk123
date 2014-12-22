@@ -1,0 +1,765 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="Content/Images/favicon.png">
+
+    <title>::: JunkCarTrader :::</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="Content/Assets/CSS/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="Content/Assets/CSS/main.css" rel="stylesheet">
+    <link href="Content/Assets/CSS/custom.css" rel="stylesheet">
+
+
+    <!-- Fonts from Google Fonts -->
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Helvetica" />
+    <link href="Content/Assets/CSS/demo.css" rel="stylesheet">
+    <link href="Content/Assets/CSS/style1.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <script type="text/javascript" src="Content/Assets/JS/jquery-1.3.2.min.js"></script>
+  </head>
+<script type="text/javascript">
+ 
+$(document).ready(function(){
+	
+	$('#page_effect').fadeIn(1000);
+    
+});
+
+</script>
+<style>
+
+.tabbable {
+
+    height: auto;
+    overflow: hidden;
+  
+}
+
+.nav-tabs {
+    margin: 0;
+}
+
+.tab-content {
+    height: 100%; 
+   
+}
+h1{margin-top:30px;}
+#apDiv1 {
+	position: absolute;
+	height: 100px;
+	width: 100px;
+	background-color: #F00;
+	top: 166px;
+	z-index: 100;
+	left: 1021px;
+}
+input {width:0px;
+}
+
+.bt { width:230px; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;padding: 10px 10px 10px 10px; text-decoration:none; display:inline-block;text-shadow: -1px -1px 0 rgba(0,0,0,0.3); color: #FFFFFF;background: #ee2c3d;
+  background-image: -webkit-linear-gradient(top, #ee2c3d, #d1020d);
+  background-image: -moz-linear-gradient(top, #ee2c3d, #d1020d);
+  background-image: -ms-linear-gradient(top, #ee2c3d, #d1020d);
+  background-image: -o-linear-gradient(top, #ee2c3d, #d1020d);
+  background-image: linear-gradient(to bottom, #ee2c3d, #d1020d);
+  text-decoration: none;}
+
+.gt {width:230px; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;padding: 10px 10px 10px 10px; text-decoration:none; display:inline-block;text-shadow: -1px -1px 0 rgba(0,0,0,0.3); color: #FFFFFF;
+background-color: #31a507;background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none; }
+
+.st {color:#FFF; border:1px solid #31a507; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;padding: 10px 10px 10px 10px; text-decoration:none; display:inline-block;text-shadow: -1px -1px 0 rgba(0,0,0,0.3); color: #FFFFFF;
+background-color: #31a507; background-image: -webkit-gradient(linear, left top, left bottom, from(#31a507), to(#63ce3c));
+background-image: -webkit-linear-gradient(top, #31a507, #63ce3c);
+background-image: -moz-linear-gradient(top, #31a507, #63ce3c);
+background-image: -ms-linear-gradient(top, #31a507, #63ce3c);
+background-image: -o-linear-gradient(top, #31a507, #63ce3c);
+background-image: linear-gradient(to bottom, #31a507, #63ce3c);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#31a507, endColorstr=#63ce3c); }
+
+
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
+}
+
+
+</style>
+<body id="page" style="background-color:#39F;" >
+ 
+ <ul class="cb-slideshow hidden-xs">
+ <li><span>Image 01</span></li>
+ <li><span>Image 02</span></li>
+ <li><span>Image 03</span></li>
+ <li><span>Image 04</span></li>
+ <li><span>Image 05</span></li>
+ <li><span>Image 06</span></li>
+ </ul>
+
+<div class="container">
+<!--First Row-->
+<header class="row">
+<div class="navbar navbar-default navbar-fixed-top" >
+<div class="container">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<div class="navbar-brand" style=" padding:3px;"> <img src="Content/Images/logo.png" /></div>
+</div>
+  
+<div class="navbar-collapse collapse">
+<ul class="nav navbar-nav navbar-left" style=" padding-top:18px; font-size:12px;" >
+<li ><a href="#">Get an offer</a></li>
+<li><a href="#">How it works</a></li>
+<li><a href="#">Testimonials</a></li>
+<li><a href="#">About Us</a></li>
+<li><a href="#">Contact Us</a></li>
+<li ><a href="#">Login</a></li>
+<li style="font-size:20px; padding-left:20px" ><a href="#" data-toggle="modal"
+   data-target="#Modal2" style="color:#ee2c3d"><span class="glyphicon glyphicon-phone-alt"></span> <b>Call Us</b></a></li>
+</ul>
+
+</div>
+<!--/.nav-collapse -->
+</div>
+</div>
+</header>  
+<!--End First Row-->
+ 
+
+<!-- Second Row --> 
+<div class="row"  >
+
+<div  class="col-lg-8">
+<div id="mo"  style=" border-radius:20px; height:auto; padding:20px; background-image:url(Content/Images/bg1.png); margin-top:40px; margin-bottom:70px;">
+<h1 style="margin-bottom:5px; margin-top:5px; font-weight:bold"> Sell your car online </h1>
+<h3 style="text-align:center; color:#aa1a1f"> <b>in few steps instantly</b> </h3><br>
+<div class="tabbable " style="  margin:0 auto; " >
+<ul class="nav nav-pills" role="tablist" id="myTab" style="margin-top:10px; margin-bottom:20px">
+<li class="active"><a href="#tab1" role="tab" data-toggle="tab" ><b>Car Model & Year</b></a></li>
+<li><a href="#tab2" role="tab" data-toggle="tab"><b>Location</b></a></li>
+<li><a href="#tab3" role="tab" data-toggle="tab"><b>Questionnaire</b></a></li>
+<li><a href="#tab4" role="tab" data-toggle="tab"><b>Photo</b></a></li>
+<li><a href="#tab5" role="tab" data-toggle="tab"><b>Offer</b></a></li>
+<!--<li><a href="#tab6 " role="tab" data-toggle="tab"><b>Personal Information</b></a></li>-->
+<!--<li><a href="#tab5" role="tab" data-toggle="tab">Step 5</a></li>
+<li><a href="#tab6" role="tab" data-toggle="tab">Step 6</a></li>-->
+</ul>
+
+<div class="tab-content" style="margin-bottom:20px"  >
+<div class="tab-pane active" id="tab1">
+<form class="form" role="form">
+
+<div class="form-group">
+<select class="form-control">
+<option>Year</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+</select>
+</div>
+
+
+<div class="form-group">
+<select class="form-control">
+<option>Make</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+</select>
+</div>
+ 
+<div class="form-group">
+<select class="form-control">
+<option>Model</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+</select>
+</div>
+  
+
+</form>
+</div>
+
+
+
+
+
+<div class="tab-pane" id="tab2">
+<h3  style="text-align:center; color:#aa1a1f; margin-top:10px; margin-bottom:10px;"><b>Where is the car located? </b></h3>
+
+
+<form class="form" role="form">
+
+<div class="form-group">
+<label class="sr-only" for="exampleInputEmail2">Email address</label>
+<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Zip">
+</div>
+
+ 
+<div class="form-group" >
+ <div class="row" style="margin-top:10px; margin-bottom:10px">
+ <div class="col-sm-6" style="padding:5px;" ><button type="button" class="btn gt btn-lg" data-toggle="modal"
+   data-target="#basicModal"><b>Get an offer</b></button></div>
+  
+  <div class="col-sm-6"  style="padding:5px;" ><button type="button" class="btn bt btn-lg"><b>Get a better offer</b></button></div>
+</div>
+  </div>
+
+</form>
+</div>
+
+
+<div class="tab-pane" id="tab3"  >
+<div class="row" style="padding-top:10px; padding-bottom:10px; margin-top:20px; ">
+<div class="col-sm-9" style="padding-left:25px;text-align:left">
+<h4 style="padding-top:10px; color:#000">2015 Acura RDX Technology in Florahome, FL</h4>
+</div>
+
+<div class="col-sm-3">
+<button type="button"  data-toggle="modal" data-target=".bs-example-modal-sm" class="btn bt btn-md" style="width:auto">Edit this</button>
+</div>
+</div>
+<h3 style="text-align:left; color:#000; margin-top:10px; margin-bottom:10px; padding-left:10px"><b>Condition</b></h3>
+<h5 style="text-align:left; margin-top:-10px;padding-left:10px">Answer the following question: </h5><br>
+<h4  style="text-align:left; color:#aa1a1f; margin-top:10px; margin-bottom:10px;padding-left:10px"><b>Drivetrain </b></h4><hr>
+<div class="row" style="padding-top:10px;">
+<div class="col-sm-9" style="padding-left:25px;text-align:left">
+<b>Are all tires inflated with air?</b>
+</div>
+
+<div class="col-sm-3">
+<input type="checkbox" id="inlineCheckbox2" value="option1"> Yes
+<input type="checkbox" id="inlineCheckbox2" value="option2"> No
+</div>
+</div>
+
+<div class="row" style="padding-top:10px; margin-top:10px;">
+<div class="col-sm-9" style="padding-left:25px;text-align:left">
+<b>Can you verify it drives in its current condition upon inspection?</b>
+</div>
+
+<div class="col-sm-3">
+<input type="checkbox" id="inlineCheckbox2" value="option1"> Yes
+<input type="checkbox" id="inlineCheckbox2" value="option2"> No
+</div>
+</div>
+
+<div class="row" style="padding-top:10px; margin-top:10px;">
+<div class="col-sm-9" style="padding-left:25px;text-align:left">
+<b>What is the mileage shown on the odometer?</b>
+</div>
+
+<div class="col-sm-3">
+<div class="form-group">
+<select class="form-control">
+<option>Select Range</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+</select>
+</div>
+</div>
+</div>
+<br>
+<h3  style="text-align:left; color:#aa1a1f; margin-top:10px; margin-bottom:10px;padding-left:10px"><b>Exterior/Interior</b></h3><hr>
+<div class="row" style="padding-top:10px;">
+<div class="col-sm-9" style="padding-left:25px;text-align:left">
+<b>Are all the major body panels, like the doors, still intact on the car?</b>
+</div>
+
+<div class="col-sm-3">
+<input type="checkbox" id="inlineCheckbox2" value="option1"> Yes
+<input type="checkbox" id="inlineCheckbox2" value="option2"> No
+</div>
+</div>
+
+<div class="row" style="padding-top:10px;margin-top:10px;">
+<div class="col-sm-9" style="padding-left:25px;text-align:left">
+<b>Is the car free of baseball-sized damage or larger?</b>
+</div>
+
+<div class="col-sm-3">
+<input type="checkbox" id="inlineCheckbox2" value="option1"> Yes
+<input type="checkbox" id="inlineCheckbox2" value="option2"> No
+</div>
+</div>
+
+
+<div class="row" style="padding-top:10px;margin-top:10px;">
+<div class="col-sm-9" style="padding-left:25px;text-align:left">
+<b>Are the mirrors, glass and lights intact?</b>
+</div>
+
+<div class="col-sm-3">
+<input type="checkbox" id="inlineCheckbox2" value="option1"> Yes
+<input type="checkbox" id="inlineCheckbox2" value="option2"> No
+</div>
+</div>
+
+
+<div class="row" style="padding-top:10px;margin-top:10px;">
+<div class="col-sm-9" style="padding-left:25px;text-align:left">
+<b>Is the car free of flood or fire damages?</b>
+</div>
+
+<div class="col-sm-3">
+<input type="checkbox" id="inlineCheckbox2" value="option1"> Yes
+<input type="checkbox" id="inlineCheckbox2" value="option2"> No
+</div>
+</div>
+
+
+<div class="row" style="padding-top:10px;margin-top:10px;">
+<div class="col-sm-9" style="padding-left:25px;text-align:left">
+<b>Are all interior components, like the seats, airbags, and radio, intact?
+</b>
+</div>
+
+<div class="col-sm-3">
+<input type="checkbox" id="inlineCheckbox2" value="option1"> Yes
+<input type="checkbox" id="inlineCheckbox2" value="option2"> No
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+<div class="tab-pane" id="tab4">
+
+<button type="button" class="btn gt btn-lg" data-toggle="modal"
+   data-target="#Modal3"><b>Upload Up to 5 Images</b></button>
+
+
+</div>
+
+<div class="tab-pane" id="tab5">
+
+<div class="form-group" >
+<h3  style="text-align:center; color:#aa1a1f; margin-top:10px; margin-bottom:10px;"><b>Please call for negotiation</b></h3>
+<div class="row" style="margin-top:10px; margin-bottom:10px">
+<div class="col-sm-12" style=" margin-bottom:10px"><h2><span class="label label-default">(888) 787-5772</span></h2> </div>
+<div class="col-sm-12" style="padding:5px;" align="center"  ><button type="button" class="btn gt btn-lg"><b>Confirm</b></button></div>
+  
+
+</div>
+</div>
+  
+</div>
+
+ 
+<div style="margin-top:10px;">
+<a href="javascript:tabPrev();" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"> </span> </a>
+<a href="javascript:tabNext();" class="btn btn-default"> <span class="glyphicon glyphicon-chevron-right">  </span> </a>
+</div>
+
+
+</div>
+
+</div><!--End First col-->
+
+
+
+
+<div  class="col-lg-4 " >
+
+  
+
+</div>
+
+
+</div>
+<!-- End Second Row -->  
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" style="background-color:#27bbed;">
+     <div style="padding:20px">
+     <form role="form">
+          <div class="form-group">
+<select class="form-control">
+<option>2015</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+</select>
+</div>
+           <div class="form-group">
+<select class="form-control">
+<option>Acura</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+</select>
+</div>
+ <div class="form-group">
+<select class="form-control">
+<option>RDX</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+</select>
+</div>
+ <div class="form-group">
+<select class="form-control">
+<option>Technology</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+</select>
+</div>
+          <div class="form-group">
+            
+            <input type="text" class="form-control" id="recipient-name" placeholder="32140">
+          </div>
+          
+          <div class="form-group">
+            
+           <button type="button" class="btn bt btn-lg"><b>Save</b></button>
+          </div>
+          
+        </form>
+        </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+<!--Modal 2-->
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color:#27bbed;" >
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+           <!-- <h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
+            </div>
+            <div class="modal-body">
+               <div style="padding:20px">
+     <form role="form">
+          <div class="form-group">
+ <input type="text" class="form-control" id="recipient-name" placeholder="Name">
+</div>
+           <div class="form-group">
+ <input type="text" class="form-control" id="recipient-name" placeholder="Address">
+</div>
+ <div class="form-group">
+ <input type="text" class="form-control" id="recipient-name" placeholder="City"></div>
+ <div class="form-group">
+ <input type="text" class="form-control" id="recipient-name" placeholder="Zip">
+</div>
+          <div class="form-group">
+            
+            <input type="text" class="form-control" id="recipient-name" placeholder="State">
+          </div>
+          
+          <div class="form-group">
+            
+            <input type="text" class="form-control" id="recipient-name" placeholder="Phone">
+          </div>
+          
+          <div class="form-group">
+            
+            <input type="text" class="form-control" id="recipient-name" placeholder="Email">
+          </div>
+          
+         <div class="form-group">
+            
+           <button type="button" class="btn bt btn-lg"><b>Save</b></button>
+          </div>
+          
+        </form>
+        </div>
+                
+            </div>
+           
+    </div>
+  </div>
+</div>
+<!--End Modal 2-->
+
+
+<!--Modal 3-->
+<div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content" style="background-color:#27bbed;">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+</div>
+<div class="modal-body">
+<div style="padding:20px">
+<form role="form">
+<div class="form-group">
+<input type="text" class="form-control" id="recipient-name" placeholder="Enter Zipcode">
+</div>
+<h3><span class="label label-default" style="background-color:#ee2c3d">(888) 787-5772</span></h3> 
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--End Modal 3-->
+
+<!--Modal 4-->
+<div class="modal fade" id="Modal3" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content" style="height:auto; background-color:#27bbed">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+</div>
+<div class="modal-body">
+<div style="padding:20px">
+<div class="row" >
+<div class="col-lg-10">
+<div class="input-group">
+<span class="input-group-btn">
+<span class="btn btn-primary btn-file">
+Browse&hellip; <input type="file" multiple>
+</span>
+</span>
+<input type="text" class="form-control" style="height:34px" readonly>
+</div>
+
+</div>
+<div class="col-lg-1 "></div> 
+<div class="col-lg-2 "><button type="button" class="btn bt btn-xs" style="width:auto"><b>Delete</b></button> </div>
+</div>
+
+<div class="row" style="margin-top:5px">
+<div class="col-lg-10 ">
+<div class="input-group">
+<span class="input-group-btn">
+<span class="btn btn-primary btn-file">
+Browse&hellip; <input type="file" multiple>
+</span>
+</span>
+<input type="text" class="form-control" style="height:34px" readonly>
+</div>
+
+</div> 
+<div class="col-lg-1 "></div>
+<div class="col-lg-2 "><button type="button" class="btn bt btn-xs" style="width:auto"><b>Delete</b></button> </div>
+</div>
+<div class="row" style="margin-top:5px">
+<div class="col-lg-10 ">
+<div class="input-group">
+<span class="input-group-btn">
+<span class="btn btn-primary btn-file">
+Browse&hellip; <input type="file" multiple>
+</span>
+</span>
+<input type="text" class="form-control" style="height:34px" readonly>
+</div>
+
+</div>
+<div class="col-lg-1 "></div> 
+<div class="col-lg-2 "><button type="button" class="btn bt btn-xs" style="width:auto"><b>Delete</b></button> </div>
+</div>
+<div class="row" style="margin-top:5px">
+<div class="col-lg-10 ">
+<div class="input-group">
+<span class="input-group-btn">
+<span class="btn btn-primary btn-file">
+Browse&hellip; <input type="file" multiple>
+</span>
+</span>
+<input type="text" class="form-control" style="height:34px" readonly>
+</div>
+
+</div> 
+<div class="col-lg-1 "></div>
+<div class="col-lg-2 "><button type="button" class="btn bt btn-xs" style="width:auto"><b>Delete</b></button> </div>
+</div>
+<div class="row" style="margin-top:5px">
+<div class="col-lg-10 ">
+<div class="input-group">
+<span class="input-group-btn">
+<span class="btn btn-primary btn-file">
+Browse&hellip; <input type="file" multiple>
+</span>
+</span>
+<input type="text" class="form-control" style="height:34px" readonly>
+</div>
+
+</div> 
+<div class="col-lg-1 "></div>
+<div class="col-lg-2 "><button type="button" class="btn bt btn-xs" style="width:auto"><b>Delete</b></button> </div>
+</div>
+<button type="button" class="btn bt btn-lg" ><b>Upload</b></button>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--End Modal 4-->
+
+<div id="footer" class="row">
+    <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color:#000">
+        <div class="navbar-inner navbar-content-center">
+        <div class="col-lg-4 centered" >
+        <a href="#" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">About Us</a>
+        <a href="#" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">How it works</a>
+        <a href="#" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">Privacy</a>
+        <a href="#" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">Contact Us</a>
+        
+        </div>
+        <div class="col-lg-4">
+        
+        </div>
+        <div class="col-lg-4 centered">
+        	<span  style="font-size:11px; color:#FFF">Copyright © 2014 junkcartrader.com. All Rights Reserved</span>
+
+        </div>
+        
+        </div>
+    </nav>
+</div>
+
+<script>
+var myTab, myTabsActive, tabNext, tabPrev;
+$(function() {
+    myTabs = $('#myTab li').length;
+    myTabsActive = 0; //or yours active tab
+
+    tabNext = function() {
+        var index = myTabsActive + 1;
+        index = index >= myTabs ? 0 : index;
+
+        $('#myTab li:eq(' + index + ') a').tab('show');
+        myTabsActive = index;
+    }
+
+    tabPrev = function() {
+        var index = myTabsActive - 1;
+        index = index < 0 ? myTabs - 1 : index;
+
+        $('#myTab li:eq(' + index + ') a').tab('show');
+        myTabsActive = index;
+    }
+});
+</script>
+
+
+
+
+
+
+	</div><!-- /container -->
+	
+
+   
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="Content/Assets/JS/bootstrap.min.js"></script>
+    
+</body>
+</html>
+
+  <script>
+  $('#myTab a[href="#home"]').tab('show') // Select tab by name
+  $(".dropdown-menu li a").click(function(){
+  var selText = $(this).text();
+  $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+});
+
+$("#btnSearch").click(function(){
+	alert($('.btn-select').text()+", "+$('.btn-select2').text());
+});
+  
+  
+  </script>
+  <script type="text/javascript">
+  (function($) {
+      fakewaffle.responsiveTabs(['xs', 'sm']);
+  })(jQuery);
+</script>
+<script>
+ $('.btnNext').click(function(){
+  $('.nav-tabs > .active').next('li').find('a').trigger('click');
+});
+
+  $('.btnPrevious').click(function(){
+  $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+});
+</script>
+
+<script>
+$(document).on('change', '.btn-file :file', function() {
+  var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+  input.trigger('fileselect', [numFiles, label]);
+});
+
+$(document).ready( function() {
+    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+        
+        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
+        
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+        
+    });
+});
+</script>

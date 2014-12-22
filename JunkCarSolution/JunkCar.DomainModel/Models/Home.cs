@@ -8,19 +8,18 @@ using System.Reflection;
 using JunkCar.DataModel.Models;
 namespace JunkCar.DomainModel.Models
 {
-    public class ChangePassword:AbstractDomainModel
+    public class Home:AbstractDomainModel
     {
-        public ChangePassword()
+        public Home()
         {
-
+             
         }
-
-        #region Properties
-        public string ResponseMessage { get; set; }
-        public string UserId { get; set; }
-        public string CurrentPassword { get; set; }
-        public string NewPassword { get; set; } 
         
+        #region Properties  
+        public int OperationType { get; set; }        
+        public string UserId { get; set; }    
+        public List<int?> Years { get; set; }
+        public string ResponseMessage { get; set; }            
         #endregion        
     
         public override void Fill(System.Collections.Hashtable dataTable)

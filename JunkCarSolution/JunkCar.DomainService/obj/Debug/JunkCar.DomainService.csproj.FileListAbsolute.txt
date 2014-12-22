@@ -15,7 +15,6 @@ C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCa
 C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DomainService\obj\Debug\JunkCar.DomainService.csprojResolveAssemblyReference.cache
 C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DomainService\obj\Debug\JunkCar.DomainService.dll
 C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DomainService\obj\Debug\JunkCar.DomainService.pdb
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainService\obj\Debug\JunkCar.DomainService.csprojResolveAssemblyReference.cache
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainService\bin\Debug\JunkCar.DomainService.dll
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainService\bin\Debug\JunkCar.DomainService.pdb
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainService\bin\Debug\JunkCar.Core.dll
@@ -32,5 +31,6 @@ C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Dom
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainService\bin\Debug\JunkCar.Data.pdb
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainService\bin\Debug\JunkCar.Repository.pdb
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainService\bin\Debug\EntityFramework.xml
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainService\obj\Debug\JunkCar.DomainService.csprojResolveAssemblyReference.cache
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainService\obj\Debug\JunkCar.DomainService.dll
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainService\obj\Debug\JunkCar.DomainService.pdb

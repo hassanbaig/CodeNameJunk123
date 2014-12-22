@@ -12,12 +12,11 @@ using JunkCar.Repository.RepositoryClasses;
 using JunkCar.Core.Common;
 namespace JunkCar.UnitOfWork
 {
-    public class AuthenticateUOW : BaseUnitOfWork, IUnitOfWork
-    {
-        private UserRepository userRepository;
-        private ProviderRepository providerRepository;
-        private Authenticate authenticate;
-        public AuthenticateUOW()
+    public class HomeUOW : BaseUnitOfWork, IUnitOfWork
+    {       
+        private HomeRepository homeRepository;
+        private DomainModel.Models.Home home;
+        public HomeUOW()
             : base()
         {
             if (base.Context == null)
@@ -29,7 +28,7 @@ namespace JunkCar.UnitOfWork
                 ((IUnitOfWork)this).InitializeRepositories();
             }
         }
-        public AuthenticateUOW(shiner49_JunkCarEntities context)
+        public HomeUOW(shiner49_JunkCarEntities context)
             : base(context)
         {
             if (context == null)
@@ -44,10 +43,8 @@ namespace JunkCar.UnitOfWork
 
         void IUnitOfWork.InitializeRepositories()
         {
-            userRepository = (UserRepository)base.Factory.RepositoryFactory.CreateRepository(typeof(UserRepository));
-            providerRepository = (ProviderRepository)base.Factory.RepositoryFactory.CreateRepository(typeof(ProviderRepository));
-            userRepository.DataContext = base.Context;
-            providerRepository.DataContext = base.Context;
+            homeRepository = (HomeRepository)base.Factory.RepositoryFactory.CreateRepository(typeof(HomeRepository));
+            homeRepository.DataContext = base.Context;
         }
 
 
@@ -90,41 +87,19 @@ namespace JunkCar.UnitOfWork
         public AbstractDomainModel Get(AbstractDomainModel domainModel)
         {
             throw new NotImplementedException();
-            //authenticate = (DomainModel.Models.Authenticate)domainModel;
-            //string encryptedPass = Encryption.Encrypt("#", authenticate.Password);
-            //User user = userRepository.GetUser(authenticate.UserId, encryptedPass);
-            //if (user != null)
-            //{
-            //    JunkCar.DataModel.Models.Provider provider = new JunkCar.DataModel.Models.Provider();
-
-            //    switch (user.UserRoleId)
-            //    {
-            //        case 1:
-            //            provider = providerRepository.GetProviderByUserId(authenticate.UserId);
-            //            if (provider != null)
-            //            {
-            //                authenticate.ProviderId = provider.ProviderId;
-            //            }
-
-            //            else
-            //            {
-            //                throw new Exception("Please check login credentials and then try again.");
-            //            }
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //}
-            //else
-            //{
-            //    throw new Exception("Please check login credentials and then try again.");
-            //}
-
-            //return authenticate;
         }
         public AbstractDomainModel GetAll(Core.Enumerations.SearchCriteriaEnum searchCriteria)
         {
-            throw new NotImplementedException();
+            home = new DomainModel.Models.Home();
+            switch (searchCriteria)
+            {               
+                case Core.Enumerations.SearchCriteriaEnum.GET_REGISTRATION_YEARS:
+                    home.Years = homeRepository.GetAllYears();
+                    break;
+                default:
+                    break;
+            }
+            return home;
         }
     }
 }

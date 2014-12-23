@@ -48,214 +48,218 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MedicareModel.Context.cs">
+    <Compile Include="JunkCarModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MedicareModel.Context.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="MedicareModel.cs">
+    <Compile Include="JunkCarModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="MedicareModel.Designer.cs">
+    <Compile Include="JunkCarModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MedicareModel.edmx</DependentUpon>
+      <DependentUpon>JunkCarModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sal_Customer.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sal_Customer_Contact.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sal_Customer_Offer.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sal_Customer_Vehicle.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sal_Customer_Vehicle_Doc.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sal_Offer.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sal_Offer_Status.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sec_Role.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sec_User.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sec_User_Contact.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Answer.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Audit_Log.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_City.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Contact_Type.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Country.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_County.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Document.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Make.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Model.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Model_Year.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Question.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Questionnaire.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Questionnaire_Detail.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Questionnaire_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Questionnaire_Result_Detail.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Site.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Site_Contact.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_State.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Zip_Code.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sal_Customer_Contact_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sal_Customer_Offer_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sal_Customer_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sal_Customer_Vehicle_Doc_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sal_Customer_Vehicle_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sal_Offer_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sal_Offer_Status_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Sal_Suggested_Offer_Result.cs">
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sec_Role_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sec_User_Contact_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sec_User_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Answer_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_City_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Contact_Type_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Country_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_County_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Set_Default_Contact_No_Select_Result.cs">
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Document_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Make_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Model_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Model_Year_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Questionnaire_Detail_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Questionnaire_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Questionnaire_Result_Detail_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Questionnaire_Result_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Question_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Site_Contact_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Site_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_State_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Zip_Code_Result.cs">
-      <DependentUpon>MedicareModel.tt</DependentUpon>
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="MedicareModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MedicareModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="MedicareModel.Context.tt">
+    <EntityDeploy Include="JunkCarModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>JunkCarModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="JunkCarModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MedicareModel.edmx</DependentUpon>
-      <LastGenOutput>MedicareModel.Context.cs</LastGenOutput>
+      <DependentUpon>JunkCarModel.edmx</DependentUpon>
+      <LastGenOutput>JunkCarModel.Context.cs</LastGenOutput>
     </None>
-    <None Include="MedicareModel.edmx.diagram">
-      <DependentUpon>MedicareModel.edmx</DependentUpon>
+    <None Include="JunkCarModel.edmx.diagram">
+      <DependentUpon>JunkCarModel.edmx</DependentUpon>
     </None>
-    <None Include="MedicareModel.tt">
+    <None Include="JunkCarModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MedicareModel.edmx</DependentUpon>
-      <LastGenOutput>MedicareModel.cs</LastGenOutput>
+      <DependentUpon>JunkCarModel.edmx</DependentUpon>
+      <LastGenOutput>JunkCarModel.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

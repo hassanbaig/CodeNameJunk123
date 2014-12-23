@@ -20,6 +20,7 @@ namespace JunkCar.Data
         public Nullable<bool> Is_Default { get; set; }
         public string User_Contact { get; set; }
         public Nullable<int> City_Id { get; set; }
+        public Nullable<int> County_Id { get; set; }
         public Nullable<int> State_Id { get; set; }
         public Nullable<int> Country_Id { get; set; }
         public string Zip_Code { get; set; }

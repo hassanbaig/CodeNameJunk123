@@ -20,10 +20,10 @@ namespace JunkCar.Data
         }
     
         public int Offer_Id { get; set; }
-        public int Model_Year_Id { get; set; }
-        public int Zip_Id { get; set; }
-        public int Questionnaire_Id { get; set; }
-        public int Questionnaire_Result_Id { get; set; }
+        public Nullable<int> Model_Year_Id { get; set; }
+        public Nullable<int> Zip_Id { get; set; }
+        public Nullable<int> Questionnaire_Id { get; set; }
+        public Nullable<int> Questionnaire_Result_Id { get; set; }
         public int Offer_Price { get; set; }
         public bool Is_Negotiable { get; set; }
         public string Remarks { get; set; }

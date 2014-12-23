@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8b7bbc4e1bf54e94bc65c1d01dac9bb7" Name="Diagram1">
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Sal_Customer" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Sal_Customer_Contact" Width="1.5" PointX="16.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Sal_Customer_Offer" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Sal_Customer_Vehicle" Width="1.5" PointX="7.5" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Sal_Customer_Vehicle_Doc" Width="1.5" PointX="9.75" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Sal_Offer" Width="1.5" PointX="3" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Sal_Offer_Status" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Sec_Role" Width="1.5" PointX="1.5" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Sec_User" Width="1.5" PointX="0.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Sec_User_Contact" Width="1.5" PointX="3" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Answer" Width="1.5" PointX="10.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Audit_Log" Width="1.5" PointX="10.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_City" Width="1.5" PointX="16.25" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Contact_Type" Width="1.5" PointX="14" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Country" Width="1.5" PointX="11.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_County" Width="1.5" PointX="19.25" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Document" Width="1.5" PointX="7.5" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Make" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Model" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Model_Year" Width="1.5" PointX="8.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Question" Width="1.5" PointX="12.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Questionnaire" Width="1.5" PointX="0.75" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Questionnaire_Detail" Width="1.5" PointX="12.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Questionnaire_Result" Width="1.5" PointX="0.75" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Questionnaire_Result_Detail" Width="1.5" PointX="14.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Site" Width="1.5" PointX="5.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Site_Contact" Width="1.5" PointX="8" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_State" Width="1.5" PointX="14" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Zip_Code" Width="1.5" PointX="21.5" PointY="19.625" IsExpanded="true" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Customer_Contact_Customer_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Customer_Offer_Customer_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Customer_User_Code" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Customer_Contact_City_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Customer_Contact_Contact_Type_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Customer_Contact_Country_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Customer_Contact_State_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Customer_Offer_Make_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Customer_Offer_Model_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Customer_Offer_Offer_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Customer_Offer_Offer_Status_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Customer_Offer_Questionnaire_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Customer_Vehicle_Customer_Offer_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Customer_Vehicle_Doc_Customer_Vehicle_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Customer_Vehicle_Doc_Document_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Offer_Questionnaire_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sal_Offer_Questionnaire_Result_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sec_User_Role_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Sec_User_Contact_User_Code" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_City_Country_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_City_County_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_City_State_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Zip_Code_City_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_County_Country_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_State_Country_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Zip_Code_Country_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_County_State_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Zip_Code_County_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Model_Make_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Model_Year_Make_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Model_Year_Model_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Site_Contact_Site_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Zip_Code_State_Id" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

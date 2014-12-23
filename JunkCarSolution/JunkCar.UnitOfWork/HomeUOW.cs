@@ -93,7 +93,7 @@ namespace JunkCar.UnitOfWork
             home = new DomainModel.Models.Home();
             switch (searchCriteria)
             {               
-                case Core.Enumerations.SearchCriteriaEnum.GET_REGISTRATION_YEARS:
+                case Core.Enumerations.SearchCriteriaEnum.GET_REGISTRATION_YEARS:                    
                     home.Years = homeRepository.GetAllYears();
                     break;
                 default:

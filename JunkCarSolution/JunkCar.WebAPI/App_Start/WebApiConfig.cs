@@ -16,9 +16,15 @@ namespace JunkCar.WebAPI
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "junkcar/v" + JunkCar.WebAPI.Configurations.APIConfig.apiVersion + "{controller}/{action}/{id}",
+                //routeTemplate: "junkcar/v" + JunkCar.WebAPI.Configurations.APIConfig.apiVersion + "{controller}/{action}/{id}",
+                routeTemplate: "junkcar.v" + JunkCar.WebAPI.Configurations.APIConfig.apiVersion.ToString() + "/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            // Removed XML formatter and added JSON formatter for response data from controllers` action methods
+            var json = config.Formatters.JsonFormatter;
+            json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
     }
 }

@@ -8,6 +8,6 @@ namespace JunkCar.Factory.Enumerations
 {
     public enum DomainModelEnum
     {
-        
+        GET_MAKES
     }
 }

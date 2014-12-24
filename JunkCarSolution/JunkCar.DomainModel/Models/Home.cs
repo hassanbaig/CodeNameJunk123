@@ -18,8 +18,10 @@ namespace JunkCar.DomainModel.Models
         
         #region Properties  
         public int OperationType { get; set; }        
-        public string UserId { get; set; }          
+        public string UserId { get; set; }
+        public int SelectedYear { get; set; }        
         public List<int?> Years { get; set; }
+        public List<string> Makes { get; set; }
         public string ResponseMessage { get; set; }
         public Home Info { get; set; }
         #endregion        

@@ -86,7 +86,21 @@ namespace JunkCar.UnitOfWork
 
         public AbstractDomainModel Get(AbstractDomainModel domainModel)
         {
-            throw new NotImplementedException();
+            home = (Home)domainModel;
+            switch (home.OperationType)
+            {
+                case 1:
+                    home.Makes = homeRepository.GetAllMakes(home.SelectedYear);
+                    if(home.Makes == null)
+                    {
+                        throw new Exception("No item(s) in a list");
+                    }
+                    break;
+              
+                default:
+                    break;
+            }
+            return home;              
         }
         public AbstractDomainModel GetAll(Core.Enumerations.SearchCriteriaEnum searchCriteria)
         {

@@ -22,8 +22,16 @@ namespace JunkCar.WebAPI.Controllers
         {
             FactoryFacade factory = new FactoryFacade();
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
-            return ((DomainModel.Models.Home)domainService.Query(JunkCar.Core.Enumerations.SearchCriteriaEnum.GET_REGISTRATION_YEARS)).Years.AsQueryable();
-        }   
+            return ((DomainModel.Models.Home)domainService.Query(JunkCar.Core.Enumerations.SearchCriteriaEnum.GET_REGISTRATION_YEARS)).Years.AsQueryable();            
+        }
+        public IQueryable GetRegistrationModels(int year)
+        {
+            FactoryFacade factory = new FactoryFacade();
+            domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Home));
+            domainModel.Fill(HashHelper.GetMakes(year,1));
+            domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
+            return ((DomainModel.Models.Home)domainService.Query(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.GET_MAKES)).Makes.AsQueryable();            
+        }      
     }
 }
 

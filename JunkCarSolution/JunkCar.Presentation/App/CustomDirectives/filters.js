@@ -1,5 +1,4 @@
-﻿angular.module('filters', []).
-filter('textOrNumber', function ($filter) {
+﻿angular.module('filters', []).filter('textOrNumber', function ($filter) {
     return function (input, fractionSize) {
         if (isNaN(input)) {
             return input;

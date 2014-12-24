@@ -2065,5 +2065,22 @@ namespace JunkCar.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Set_Zip_Code_Result>("usp_Set_Zip_Code", action_TypeParameter, zip_Id, zip_CodeParameter, zip_TypeParameter, city_IdParameter, county_IdParameter, state_IdParameter, country_IdParameter, acceptable_CitiesParameter, unacceptable_CitiesParameter, time_ZoneParameter, area_CodesParameter, latitudeParameter, longitudeParameter, world_RegionParameter, is_DecommissionedParameter, estimated_PopulationParameter, notesParameter, is_ActiveParameter, created_DateParameter, created_ByParameter, modified_DateParameter, modified_ByParameter, audit_IdParameter, user_IPParameter, site_IdParameter);
         }
+    
+        public virtual ObjectResult<string> GetMakesByYear(string parameter_Type, Nullable<int> registration_Year, Nullable<int> make_Id)
+        {
+            var parameter_TypeParameter = parameter_Type != null ?
+                new ObjectParameter("Parameter_Type", parameter_Type) :
+                new ObjectParameter("Parameter_Type", typeof(string));
+    
+            var registration_YearParameter = registration_Year.HasValue ?
+                new ObjectParameter("Registration_Year", registration_Year) :
+                new ObjectParameter("Registration_Year", typeof(int));
+    
+            var make_IdParameter = make_Id.HasValue ?
+                new ObjectParameter("Make_Id", make_Id) :
+                new ObjectParameter("Make_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetMakesByYear", parameter_TypeParameter, registration_YearParameter, make_IdParameter);
+        }
     }
 }

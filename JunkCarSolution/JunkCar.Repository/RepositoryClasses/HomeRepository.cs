@@ -29,13 +29,12 @@ namespace JunkCar.Repository.RepositoryClasses
         public List<int?> GetAllYears()
         {
             var data = _context.usp_Set_Offer_Parameter_Select("YEAR", null, null).ToList();
-            return data;            
-            //var data = (from rdy in _context.Set_Model_Year
-            //            select rdy).AsEnumerable().Select(x => new JunkCar.DataModel.Models.Set_Model_Year
-            //            {Registration_Year = x.Registration_Year }
-            //            ).ToList();
-            //return data;
-
+            return data; 
+        }
+        public List<string> GetAllMakes(int selectedYear)
+        {
+            var data = _context.GetMakesByYear("MAKE", selectedYear, null).ToList();
+            return data;           
         }      
     }
 }

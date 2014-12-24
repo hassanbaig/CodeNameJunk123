@@ -3504,6 +3504,11 @@ warning 6013: The table/view 'shiner49_JunkCar.shiner49_devuser.STG_Zip_Detail' 
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetMakesByYear" ReturnType="Collection(String)">
+            <Parameter Name="Parameter_Type" Mode="In" Type="String" />
+            <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
+            <Parameter Name="Make_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Sal_Customer_Result">
           <Property Type="Decimal" Name="ActionType" Nullable="true" Precision="10" Scale="0" />
@@ -5184,6 +5189,7 @@ warning 6013: The table/view 'shiner49_JunkCar.shiner49_devuser.STG_Zip_Detail' 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetMakesByYear" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Offer_Parameter_Select" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

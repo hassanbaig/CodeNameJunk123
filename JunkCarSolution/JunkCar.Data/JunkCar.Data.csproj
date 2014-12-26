@@ -151,6 +151,7 @@
     <Compile Include="Set_Zip_Code.cs">
       <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="shiner49_JunkCarEntities.cs" />
     <Compile Include="usp_Sal_Customer_Contact_Result.cs">
       <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>

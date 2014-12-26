@@ -1737,7 +1737,17 @@
       <Parameter Name="User_IP" Mode="In" Type="String" />
       <Parameter Name="Site_Id" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="GetMakesByYear" ReturnType="Collection(String)">
+    <FunctionImport Name="GetMakes" EntitySet="Set_Make" ReturnType="Collection(shiner49_JunkCarModel.Set_Make)">
+      <Parameter Name="Parameter_Type" Mode="In" Type="String" />
+      <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
+      <Parameter Name="Make_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetModels" EntitySet="Set_Model" ReturnType="Collection(shiner49_JunkCarModel.Set_Model)">
+      <Parameter Name="Parameter_Type" Mode="In" Type="String" />
+      <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
+      <Parameter Name="Make_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetYears" EntitySet="Set_Model_Year" ReturnType="Collection(shiner49_JunkCarModel.Set_Model_Year)">
       <Parameter Name="Parameter_Type" Mode="In" Type="String" />
       <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
       <Parameter Name="Make_Id" Mode="In" Type="Int32" />

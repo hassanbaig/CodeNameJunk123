@@ -59,7 +59,7 @@
 
         // Home controller methods
         homeControllerVM.getRegistrationYears = getRegistrationYears;
-        homeControllerVM.getRegistrationMakesByYear = getRegistrationMakesByYear;
+        homeControllerVM.getMakesByYear = getMakesByYear;
    
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -92,11 +92,11 @@
                 });
         }
         
-        function getRegistrationMakesByYear()
+        function getMakesByYear()
         {
             var regYear = parseInt(homeControllerVM.homeSelectedRegistrationYear);
             $scope.startSpin();
-            return homeService.getRegistrationMakesByYear({ year: regYear })
+            return homeService.getMakesByYear({ year: regYear })
                 .then(function (serviceResponse) {
                     var response = serviceResponse.data;
                     homeControllerVM.makesList = response;

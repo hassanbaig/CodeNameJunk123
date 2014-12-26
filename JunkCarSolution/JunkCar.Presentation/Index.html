@@ -211,41 +211,26 @@ input[readonly] {
                         <div class="tab-content" style="margin-bottom:20px" data-ng-controller="homeController as homeControllerVM">
                             <div class="tab-pane active" id="tab1" data-ng-init="homeControllerVM.getRegistrationYears();">
                                 <form class="form" role="form">                                                                      
-
                                     <div class="form-group">
-                                        <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedRegistrationYear" data-ng-change="homeControllerVM.getRegistrationMakesByYear();" list="homeRegistrationYearsDatalist" placeholder="Year">
-
+                                        <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedRegistrationYear" data-ng-change="homeControllerVM.getMakesByYear();" list="homeRegistrationYearsDatalist" placeholder="Year">
                                         <datalist id="homeRegistrationYearsDatalist" spellcheck="true">
-                                            <option data-ng-repeat="year in homeControllerVM.registrationYearsList" value="{{year}}">
+                                            <option data-ng-repeat="year in homeControllerVM.registrationYearsList" value="{{year.Registration_Year}}">
                                         </datalist>
                                     </div>
-
-
                                     <div class="form-group">
                                         <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedMake" list="homeMakesDatalist" placeholder="Make">
-
                                         <datalist id="homeMakesDatalist" spellcheck="true">
-                                            <option data-ng-repeat="make in homeControllerVM.makesList" value="{{make}}">
+                                            <option data-ng-repeat="make in homeControllerVM.makesList" value="{{make.Make_Name}}">
                                         </datalist>
                                     </div>
-
                                     <div class="form-group">
-                                        <select class="form-control">
-                                            <option>Model</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
+                                        <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedModel" list="homeModelsDatalist" placeholder="Model">
+                                        <datalist id="homeModelsDatalist" spellcheck="true">
+                                            <option data-ng-repeat="model in homeControllerVM.modelsList" value="{{model.Model_Name}}">
+                                        </datalist>
                                     </div>
-
-
                                 </form>
                             </div>
-
-
-
-
 
                             <div class="tab-pane" id="tab2">
                                 <h3 style="text-align:center; color:#aa1a1f; margin-top:10px; margin-bottom:10px;"><b>Where is the car located? </b></h3>

@@ -15,6 +15,14 @@ namespace JunkCar.Core.Common
             getMakes["SelectedYear"] = selectedYear;
             getMakes["OperationType"] = operationType;
             return getMakes;
-        }        
+        }
+        public static Hashtable GetModels(int selectedYear,int selectedMakeId, int operationType)
+        {
+            Hashtable getModels = new Hashtable();
+            getModels["SelectedYear"] = selectedYear;
+            getModels["SelectedMakeId"] = selectedMakeId;
+            getModels["OperationType"] = operationType;
+            return getModels;
+        }       
     }
 }

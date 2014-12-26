@@ -90,13 +90,19 @@ namespace JunkCar.UnitOfWork
             switch (home.OperationType)
             {
                 case 1:
-                    home.Makes = homeRepository.GetAllMakes(home.SelectedYear);
+                    home.Makes = homeRepository.GetMakesByYear(home.SelectedYear);
                     if(home.Makes == null)
                     {
                         throw new Exception("No item(s) in a list");
                     }
                     break;
-              
+                case 2:
+                    home.Models = homeRepository.GetModelsByYearMake(home.SelectedYear, home.SelectedMakeId);
+                    if (home.Models == null)
+                    {
+                        throw new Exception("No item(s) in a list");
+                    }
+                    break;              
                 default:
                     break;
             }

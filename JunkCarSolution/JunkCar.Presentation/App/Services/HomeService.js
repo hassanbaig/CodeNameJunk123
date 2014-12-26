@@ -8,7 +8,7 @@
 
         var service = {
             getRegistrationYears: getRegistrationYears,
-            getRegistrationMakesByYear: getRegistrationMakesByYear
+            getMakesByYear: getMakesByYear
         };
 
         return service;
@@ -41,12 +41,12 @@
             return promise;
         }
 
-        function getRegistrationMakesByYear(params) {
+        function getMakesByYear(params) {
             var response = '';
             var promise = $http({
                 method: 'GET',
                 params:params,
-                url: 'http://localhost/JunkCarWebAPI/junkcar.v1/Home/GetRegistrationModels'
+                url: 'http://localhost/JunkCarWebAPI/junkcar.v1/Home/GetMakes'
             }).success(function (data, status, headers) {
                 response = data;
                 return response;

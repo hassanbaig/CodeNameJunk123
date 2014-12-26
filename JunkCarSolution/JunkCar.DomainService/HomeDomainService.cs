@@ -51,6 +51,23 @@ namespace JunkCar.DomainService
                                 home.ResponseMessage = "Valid";
                             }
                             break;
+                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_MODELS:
+                            home = (DomainModel.Models.Home)domainModel;
+                            if (home.SelectedYear <= 0)
+                            {
+                                home.ResponseMessage = "Must select a year";
+                            }
+                            else if (home.SelectedMakeId <= 0)
+                            {
+                                home.ResponseMessage = "Must select a model";
+                            }
+                            else
+                            {
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home);
+                                home.ResponseMessage = "Valid";
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -60,6 +77,9 @@ namespace JunkCar.DomainService
                     switch (domainModelType)
                     {
                         case JunkCar.Factory.Enumerations.DomainModelEnum.GET_MAKES:
+                            home.ResponseMessage = "Invalid domain model";
+                            break;
+                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_MODELS:
                             home.ResponseMessage = "Invalid domain model";
                             break;
                         default:
@@ -74,6 +94,9 @@ namespace JunkCar.DomainService
                     case JunkCar.Factory.Enumerations.DomainModelEnum.GET_MAKES:
                         home.ResponseMessage = ex.Message;
                         break;
+                    case JunkCar.Factory.Enumerations.DomainModelEnum.GET_MODELS:
+                        home.ResponseMessage = ex.Message;
+                        break;
                     default:
                         break;
                 }
@@ -82,6 +105,8 @@ namespace JunkCar.DomainService
             switch (domainModelType)
             {
                 case JunkCar.Factory.Enumerations.DomainModelEnum.GET_MAKES:
+                    return home;
+                case JunkCar.Factory.Enumerations.DomainModelEnum.GET_MODELS:
                     return home;
                 default:
                     break;

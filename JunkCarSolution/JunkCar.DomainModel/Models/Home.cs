@@ -19,9 +19,11 @@ namespace JunkCar.DomainModel.Models
         #region Properties  
         public int OperationType { get; set; }        
         public string UserId { get; set; }
-        public int SelectedYear { get; set; }        
-        public List<int?> Years { get; set; }
-        public List<string> Makes { get; set; }
+        public int SelectedYear { get; set; }
+        public int SelectedMakeId { get; set; }
+        public List<Set_Model_Year> Years { get; set; }
+        public List<JunkCar.DataModel.Models.Set_Make> Makes { get; set; }
+        public List<JunkCar.DataModel.Models.Set_Model> Models { get; set; }
         public string ResponseMessage { get; set; }
         public Home Info { get; set; }
         #endregion        

@@ -3156,7 +3156,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Default_Contact_No_Select" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Default_Contact_No_Select_Result)">
+          <FunctionImport Name="usp_Set_Default_Contact_No_Select">
           <Parameter Name="Zip_Code" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_Set_Document" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Document_Result)">
@@ -3446,7 +3446,15 @@
             <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
             <Parameter Name="Make_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetYears" EntitySet="Set_Model_Year" ReturnType="Collection(shiner49_JunkCarModel.Set_Model_Year)">
+          <FunctionImport Name="GetYears" ReturnType="Collection(Int32)">
+            <Parameter Name="Parameter_Type" Mode="In" Type="String" />
+            <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
+            <Parameter Name="Make_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CheckZipCode" ReturnType="Collection(shiner49_JunkCarModel.CheckZipCode_Result)">
+          <Parameter Name="Zip_Code" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetQuestionnaire" EntitySet="Set_Questionnaire_Detail" ReturnType="Collection(shiner49_JunkCarModel.Set_Questionnaire_Detail)">
             <Parameter Name="Parameter_Type" Mode="In" Type="String" />
             <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
             <Parameter Name="Make_Id" Mode="In" Type="Int32" />
@@ -3719,10 +3727,6 @@
           <Property Type="String" Name="User_IP" Nullable="true" MaxLength="25" />
           <Property Type="Int32" Name="Site_Id" Nullable="false" />
         </ComplexType>
-        <ComplexType Name="usp_Set_Default_Contact_No_Select_Result">
-          <Property Type="String" Name="Column1" Nullable="true" MaxLength="200" />
-          <Property Type="Int32" Name="Column2" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="usp_Set_Document_Result">
           <Property Type="Decimal" Name="ActionType" Nullable="true" Precision="10" Scale="0" />
           <Property Type="Int32" Name="Document_Id" Nullable="false" />
@@ -3934,6 +3938,12 @@
           <Property Type="Int64" Name="Audit_Id" Nullable="true" />
           <Property Type="String" Name="User_IP" Nullable="true" MaxLength="25" />
           <Property Type="Int32" Name="Site_Id" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="CheckZipCode_Result">
+          <Property Type="String" Name="Contact_No" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="User_Code" Nullable="true" />
+          <Property Type="Boolean" Name="Is_Valid_Zip_Code" Nullable="true" />
+          <Property Type="String" Name="Notes" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4855,12 +4865,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_Set_Default_Contact_No_Select" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Default_Contact_No_Select">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Default_Contact_No_Select_Result">
-                <ScalarProperty Name="Column1" ColumnName="Column1" />
-                <ScalarProperty Name="Column2" ColumnName="Column2" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_Set_Document" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Document">
             <ResultMapping>
@@ -5134,6 +5138,17 @@
           <FunctionImportMapping FunctionImportName="GetMakes" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Offer_Parameter_Select" />
           <FunctionImportMapping FunctionImportName="GetModels" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Offer_Parameter_Select" />
           <FunctionImportMapping FunctionImportName="GetYears" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Offer_Parameter_Select" />
+          <FunctionImportMapping FunctionImportName="CheckZipCode" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Default_Contact_No_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.CheckZipCode_Result">
+                <ScalarProperty Name="Contact_No" ColumnName="Contact_No" />
+                <ScalarProperty Name="User_Code" ColumnName="User_Code" />
+                <ScalarProperty Name="Is_Valid_Zip_Code" ColumnName="Is_Valid_Zip_Code" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetQuestionnaire" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Offer_Parameter_Select" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -48,6 +48,7 @@
     <Compile Include="Models\usp_Set_Questionnaire_Result_Detail_Result.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\CheckZipCode_Result.cs" />
     <Compile Include="Models\usp_Set_Zip_Code_Result.cs" />
     <Compile Include="Models\usp_Set_State_Result.cs" />
     <Compile Include="Models\usp_Set_Site_Result.cs" />

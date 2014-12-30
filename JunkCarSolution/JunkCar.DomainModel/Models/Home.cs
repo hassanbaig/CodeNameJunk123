@@ -21,11 +21,16 @@ namespace JunkCar.DomainModel.Models
         public string UserId { get; set; }
         public int SelectedYear { get; set; }
         public int SelectedMakeId { get; set; }
-        public List<Set_Model_Year> Years { get; set; }
+        public string ZipCode { get; set; }
+        public int StateId { get; set; }
+        public List<int?> Years { get; set; }
         public List<JunkCar.DataModel.Models.Set_Make> Makes { get; set; }
         public List<JunkCar.DataModel.Models.Set_Model> Models { get; set; }
         public string ResponseMessage { get; set; }
-        public Home Info { get; set; }
+        public JunkCar.DataModel.Models.CheckZipCode_Result ZipCodeResult { get; set; }
+        public List<Set_State> States { get; set; }
+        public List<Set_City> Cities { get; set; }
+        public List<Set_Questionnaire_Detail> Questionnaire { get; set; }
         #endregion        
     
         public override void Fill(System.Collections.Hashtable dataTable)

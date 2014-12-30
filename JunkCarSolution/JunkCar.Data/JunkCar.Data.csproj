@@ -48,6 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheckZipCode_Result.cs">
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="JunkCarModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -198,9 +201,6 @@
       <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_County_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="usp_Set_Default_Contact_No_Select_Result.cs">
       <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Document_Result.cs">

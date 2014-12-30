@@ -9,6 +9,8 @@ namespace JunkCar.Factory.Enumerations
     public enum DomainModelEnum
     {
         GET_MAKES,
-        GET_MODELS
+        GET_MODELS,
+        CHECK_ZIPCODE,
+        GET_CITIES
     }
 }

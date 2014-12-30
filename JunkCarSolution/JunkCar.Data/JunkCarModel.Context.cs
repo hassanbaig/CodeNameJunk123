@@ -1071,13 +1071,13 @@ namespace JunkCar.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Set_County_Result>("usp_Set_County", action_TypeParameter, county_Id, county_CodeParameter, county_NameParameter, state_IdParameter, country_IdParameter, is_ActiveParameter, created_DateParameter, created_ByParameter, modified_DateParameter, modified_ByParameter, audit_IdParameter, user_IPParameter, site_IdParameter);
         }
     
-        public virtual ObjectResult<usp_Set_Default_Contact_No_Select_Result> usp_Set_Default_Contact_No_Select(string zip_Code)
+        public virtual int usp_Set_Default_Contact_No_Select(string zip_Code)
         {
             var zip_CodeParameter = zip_Code != null ?
                 new ObjectParameter("Zip_Code", zip_Code) :
                 new ObjectParameter("Zip_Code", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Set_Default_Contact_No_Select_Result>("usp_Set_Default_Contact_No_Select", zip_CodeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Set_Default_Contact_No_Select", zip_CodeParameter);
         }
     
         public virtual ObjectResult<usp_Set_Document_Result> usp_Set_Document(Nullable<decimal> action_Type, ObjectParameter document_Id, string document_Code, string document_Name, string document_Description, Nullable<short> sort_Order, Nullable<int> created_By, Nullable<System.DateTime> created_Date, Nullable<int> modified_By, Nullable<System.DateTime> modified_Date, Nullable<byte> is_Active, string user_IP, Nullable<long> audit_Id, Nullable<int> site_Id)
@@ -2134,7 +2134,7 @@ namespace JunkCar.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Set_Model>("GetModels", mergeOption, parameter_TypeParameter, registration_YearParameter, make_IdParameter);
         }
     
-        public virtual ObjectResult<Set_Model_Year> GetYears(string parameter_Type, Nullable<int> registration_Year, Nullable<int> make_Id)
+        public virtual ObjectResult<Nullable<int>> GetYears(string parameter_Type, Nullable<int> registration_Year, Nullable<int> make_Id)
         {
             var parameter_TypeParameter = parameter_Type != null ?
                 new ObjectParameter("Parameter_Type", parameter_Type) :
@@ -2148,10 +2148,19 @@ namespace JunkCar.Data
                 new ObjectParameter("Make_Id", make_Id) :
                 new ObjectParameter("Make_Id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Set_Model_Year>("GetYears", parameter_TypeParameter, registration_YearParameter, make_IdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetYears", parameter_TypeParameter, registration_YearParameter, make_IdParameter);
         }
     
-        public virtual ObjectResult<Set_Model_Year> GetYears(string parameter_Type, Nullable<int> registration_Year, Nullable<int> make_Id, MergeOption mergeOption)
+        public virtual ObjectResult<CheckZipCode_Result> CheckZipCode(string zip_Code)
+        {
+            var zip_CodeParameter = zip_Code != null ?
+                new ObjectParameter("Zip_Code", zip_Code) :
+                new ObjectParameter("Zip_Code", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CheckZipCode_Result>("CheckZipCode", zip_CodeParameter);
+        }
+    
+        public virtual ObjectResult<Set_Questionnaire_Detail> GetQuestionnaire(string parameter_Type, Nullable<int> registration_Year, Nullable<int> make_Id)
         {
             var parameter_TypeParameter = parameter_Type != null ?
                 new ObjectParameter("Parameter_Type", parameter_Type) :
@@ -2165,7 +2174,24 @@ namespace JunkCar.Data
                 new ObjectParameter("Make_Id", make_Id) :
                 new ObjectParameter("Make_Id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Set_Model_Year>("GetYears", mergeOption, parameter_TypeParameter, registration_YearParameter, make_IdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Set_Questionnaire_Detail>("GetQuestionnaire", parameter_TypeParameter, registration_YearParameter, make_IdParameter);
+        }
+    
+        public virtual ObjectResult<Set_Questionnaire_Detail> GetQuestionnaire(string parameter_Type, Nullable<int> registration_Year, Nullable<int> make_Id, MergeOption mergeOption)
+        {
+            var parameter_TypeParameter = parameter_Type != null ?
+                new ObjectParameter("Parameter_Type", parameter_Type) :
+                new ObjectParameter("Parameter_Type", typeof(string));
+    
+            var registration_YearParameter = registration_Year.HasValue ?
+                new ObjectParameter("Registration_Year", registration_Year) :
+                new ObjectParameter("Registration_Year", typeof(int));
+    
+            var make_IdParameter = make_Id.HasValue ?
+                new ObjectParameter("Make_Id", make_Id) :
+                new ObjectParameter("Make_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Set_Questionnaire_Detail>("GetQuestionnaire", mergeOption, parameter_TypeParameter, registration_YearParameter, make_IdParameter);
         }
     }
 }

@@ -8,7 +8,11 @@
 
         var service = {
             getRegistrationYears: getRegistrationYears,
-            getMakesByYear: getMakesByYear
+            getMakesByYear: getMakesByYear,
+            getModelsByYearMake: getModelsByYearMake,
+            checkZipCode:checkZipCode,
+            getStates: getStates,
+            getCities: getCities
         };
 
         return service;
@@ -47,6 +51,73 @@
                 method: 'GET',
                 params:params,
                 url: 'http://localhost/JunkCarWebAPI/junkcar.v1/Home/GetMakes'
+            }).success(function (data, status, headers) {
+                response = data;
+                return response;
+            })
+            .error(function (data, status, headers) {
+                response = data;
+                return response;
+            });
+            return promise;
+        }
+
+        function getModelsByYearMake(params) {
+            var response = '';
+            var promise = $http({
+                method: 'GET',
+                params: params,
+                url: 'http://localhost/JunkCarWebAPI/junkcar.v1/Home/GetModels'
+            }).success(function (data, status, headers) {
+                response = data;
+                return response;
+            })
+            .error(function (data, status, headers) {
+                response = data;
+                return response;
+            });
+            return promise;
+        }
+
+        function checkZipCode(params) {
+            var response = '';
+            var promise = $http({
+                method: 'GET',
+                params: params,
+                url: 'http://localhost/JunkCarWebAPI/junkcar.v1/Home/CheckZipCode'
+            }).success(function (data, status, headers) {
+                response = data;
+                return response;
+            })
+            .error(function (data, status, headers) {
+                response = data;
+                return response;
+            });
+            return promise;
+        }
+
+        function getStates() {
+            var response = '';
+            var promise = $http({
+                method: 'GET',
+                url: 'http://localhost/JunkCarWebAPI/junkcar.v1/Home/GetStates'
+            }).success(function (data, status, headers) {
+                response = data;
+                return response;
+            })
+            .error(function (data, status, headers) {
+                response = data;
+                return response;
+            });
+            return promise;
+        }
+
+        function getCities(params) {
+            var response = '';
+            var promise = $http({
+                method: 'GET',
+                params: params,
+                url: 'http://localhost/JunkCarWebAPI/junkcar.v1/Home/GetCities'
             }).success(function (data, status, headers) {
                 response = data;
                 return response;

@@ -102,7 +102,21 @@ namespace JunkCar.UnitOfWork
                     {
                         throw new Exception("No item(s) in a list");
                     }
-                    break;              
+                    break;
+                case 3:
+                    home.ZipCodeResult = homeRepository.CheckZipCode(home.ZipCode);
+                    if (home.ZipCodeResult.Is_Valid_Zip_Code == false)
+                    {
+                        throw new Exception("Please enter a valid zipcode");
+                    }                   
+                    break;
+                case 4:
+                    home.Cities = homeRepository.GetCitiesByState(home.StateId);
+                    if (home.Cities == null)
+                    {
+                        throw new Exception("No item(s) in a list");
+                    }
+                    break;   
                 default:
                     break;
             }
@@ -115,6 +129,12 @@ namespace JunkCar.UnitOfWork
             {               
                 case Core.Enumerations.SearchCriteriaEnum.GET_REGISTRATION_YEARS:                    
                     home.Years = homeRepository.GetAllYears();
+                    break;
+                case Core.Enumerations.SearchCriteriaEnum.GET_STATES:
+                    home.States = homeRepository.GetAllStates();
+                    break;
+                case Core.Enumerations.SearchCriteriaEnum.GET_QUESTIONNAIRE:
+                    home.Questionnaire = homeRepository.GetQuestionnaire();
                     break;
                 default:
                     break;

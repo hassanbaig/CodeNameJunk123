@@ -11,9 +11,11 @@ namespace JunkCar.Data
 {
     using System;
     
-    public partial class usp_Set_Default_Contact_No_Select_Result
+    public partial class CheckZipCode_Result
     {
-        public string Column1 { get; set; }
-        public Nullable<int> Column2 { get; set; }
+        public string Contact_No { get; set; }
+        public Nullable<int> User_Code { get; set; }
+        public Nullable<bool> Is_Valid_Zip_Code { get; set; }
+        public string Notes { get; set; }
     }
 }

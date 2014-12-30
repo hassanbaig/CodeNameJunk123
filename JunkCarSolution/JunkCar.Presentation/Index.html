@@ -210,15 +210,15 @@ input[readonly] {
 
                         <div class="tab-content" style="margin-bottom:20px" data-ng-controller="homeController as homeControllerVM">
                             <div class="tab-pane active" id="tab1" data-ng-init="homeControllerVM.getRegistrationYears();">
-                                <form class="form" role="form">                                                                      
+                                <form class="form" role="form">
                                     <div class="form-group">
                                         <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedRegistrationYear" data-ng-change="homeControllerVM.getMakesByYear();" list="homeRegistrationYearsDatalist" placeholder="Year">
                                         <datalist id="homeRegistrationYearsDatalist" spellcheck="true">
-                                            <option data-ng-repeat="year in homeControllerVM.registrationYearsList" value="{{year.Registration_Year}}">
+                                            <option data-ng-repeat="year in homeControllerVM.registrationYearsList" value="{{year}}">
                                         </datalist>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedMake" list="homeMakesDatalist" placeholder="Make">
+                                        <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedMake" data-ng-change="homeControllerVM.getModelsByYearMake();" list="homeMakesDatalist" placeholder="Make">
                                         <datalist id="homeMakesDatalist" spellcheck="true">
                                             <option data-ng-repeat="make in homeControllerVM.makesList" value="{{make.Make_Name}}">
                                         </datalist>
@@ -238,22 +238,26 @@ input[readonly] {
 
                                 <form class="form" role="form">
 
-                                    <div class="form-group">
-                                        <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Zip">
+                                    <div class="form-group">                                        
+                                        <input type="number" data-ng-model="homeControllerVM.homeZipCode" class="form-control" id="exampleInputEmail2" placeholder="Zip">
                                     </div>
 
 
                                     <div class="form-group">
                                         <div class="row" style="margin-top:10px; margin-bottom:10px">
                                             <div class="col-sm-6" style="padding:5px;">
-                                                <button type="button" class="btn gt btn-lg" data-toggle="modal"
-                                                        data-target="#basicModal">
+                                                <button type="button" data-ng-click="homeControllerVM.checkZipCode();" class="btn gt btn-lg">
                                                     <b>Get an offer</b>
                                                 </button>
                                             </div>
 
-                                            <div class="col-sm-6" style="padding:5px;"><button type="button" class="btn bt btn-lg"><b>Get a better offer</b></button></div>
+                                            <div class="col-sm-6" style="padding:5px;">
+                                                <button type="button" data-ng-click="homeControllerVM.checkZipCode();homeControllerVM.getStates();" data-toggle="modal"
+                                                        data-target="#basicModal" class="btn bt btn-lg">
+                                                    <b>Get a better offer</b>
+                                                </button>
+                                            </div>
+
                                         </div>
                                     </div>
 
@@ -502,34 +506,34 @@ input[readonly] {
                             <div style="padding:20px">
                                 <form role="form">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="recipient-name" placeholder="Name">
+                                        <input type="text" class="form-control" id="recipient-name" data-ng-model="homeControllerVM.homeBetterOfferName" placeholder="Name">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="recipient-name" placeholder="Address">
+                                        <input type="text" class="form-control" id="recipient-name" data-ng-model="homeControllerVM.homeBetterOfferAddress" placeholder="Address">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="recipient-name" placeholder="City">
+                                        <input type="text" class="form-control" data-ng-model="homeControllerVM.homeBetterOfferState" data-ng-change="homeControllerVM.getCities();" list="homeStatesDatalist" placeholder="State">
+                                        <datalist id="homeStatesDatalist" spellcheck="true">
+                                            <option data-ng-repeat="state in homeControllerVM.statesList" value="{{state.State_Name}}">
+                                        </datalist>                                        
+                                    </div>
+                                    <div class="form-group">                                        
+                                        <input type="text" class="form-control" data-ng-model="homeControllerVM.homeBetterOfferCity" list="homeCitiesDatalist" placeholder="City">
+                                        <datalist id="homeCitiesDatalist" spellcheck="true">
+                                            <option data-ng-repeat="city in homeControllerVM.citiesList" value="{{city.City_Name}}">
+</datalist>  
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="recipient-name" placeholder="Zip">
+                                        <input type="text" class="form-control" id="recipient-name" data-ng-model="homeControllerVM.homeBetterOfferZip" placeholder="Zip">
                                     </div>
                                     <div class="form-group">
-
-                                        <input type="text" class="form-control" id="recipient-name" placeholder="State">
+                                        <input type="text" class="form-control" id="recipient-name" data-ng-model="homeControllerVM.homeBetterOfferPhone" placeholder="Phone">
                                     </div>
-
                                     <div class="form-group">
-
-                                        <input type="text" class="form-control" id="recipient-name" placeholder="Phone">
+                                        <input type="text" class="form-control" id="recipient-name" data-ng-model="homeControllerVM.homeBetterOfferEmail" placeholder="Email">
                                     </div>
 
                                     <div class="form-group">
-
-                                        <input type="text" class="form-control" id="recipient-name" placeholder="Email">
-                                    </div>
-
-                                    <div class="form-group">
-
                                         <button type="button" class="btn bt btn-lg"><b>Save</b></button>
                                     </div>
 

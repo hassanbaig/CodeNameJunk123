@@ -127,14 +127,16 @@ namespace JunkCar.Repository.RepositoryClasses
         }
         public List<JunkCar.DataModel.Models.Set_Questionnaire_Detail> GetQuestionnaire()
         {
-            var data = _context.GetQuestionnaire("QUESTIONNAIRE", null, null).ToList();
+            var data = _context.GetQuestionnaire("QUESTIONNAIRE", null, null).ToList();            
             var finalData = (from d in data
                              select d).AsEnumerable().Select(x => new JunkCar.DataModel.Models.Set_Questionnaire_Detail
                                  {
                                      Questionnaire_Detail_Id = x.Questionnaire_Detail_Id,
-                                     Questionnaire_Id = x.Questionnaire_Id,
+                                     Questionnaire_Id = x.Questionnaire_Id,                                                                          
                                      Question_Id = x.Question_Id,
+                                     Question = GetQuestion(x.Question_Id),
                                      Answer_Id = x.Answer_Id,
+                                     Answers = GetAnswers(x.Question_Id),
                                      Sort_Order = x.Sort_Order,
                                      Is_Active = x.Is_Active,
                                      Created_Date = x.Created_Date,
@@ -145,7 +147,82 @@ namespace JunkCar.Repository.RepositoryClasses
                                      User_IP = x.User_IP,
                                      Site_Id = x.Site_Id
                                  }).ToList();
-            return finalData;
+
+            List<JunkCar.DataModel.Models.Set_Questionnaire_Detail> distinctList = new List<DataModel.Models.Set_Questionnaire_Detail>();
+            distinctList = finalData.GroupBy(x => x.Question.Question).Select(y => y.First()).ToList();
+            return distinctList;
+          
+        }
+        private JunkCar.DataModel.Models.Set_Question GetQuestion(int questionId)
+        {           
+            using (var context = base.GetConnection())
+            {
+                var data = (from que in context.Set_Question
+                            where que.Question_Id == questionId
+                            select que).AsEnumerable().Select(x => new JunkCar.DataModel.Models.Set_Question 
+                            {
+                            Question_Id = x.Question_Id,
+                            Question = x.Question,
+                            Sort_Order = x.Sort_Order,
+                            Is_Active = x.Is_Active,
+                            Created_Date = x.Created_Date,
+                            Created_By = x.Created_By,
+                            Modified_Date = x.Modified_Date,
+                            Modified_By = x.Modified_By,
+                            Audit_Id = x.Audit_Id,
+                            User_IP = x.User_IP,
+                            Site_Id = x.Site_Id
+                            }).FirstOrDefault();
+              return data;
+            }           
+        }
+        private List<JunkCar.DataModel.Models.Set_Answer> GetAnswers(int questionId)
+        {
+            using (var context = base.GetConnection())
+            {
+                var data = (from ans in context.Set_Answer
+                            join queDet in context.Set_Questionnaire_Detail on ans.Answer_Id equals queDet.Answer_Id
+                            where queDet.Question_Id == questionId
+                            select ans).AsEnumerable().Select(x => new JunkCar.DataModel.Models.Set_Answer
+                            {
+                                Answer_Id = x.Answer_Id,
+                                Answer = x.Answer,
+                                Sort_Order = x.Sort_Order,
+                                Is_Active = x.Is_Active,
+                                Created_Date = x.Created_Date,
+                                Created_By = x.Created_By,
+                                Modified_Date = x.Modified_Date,
+                                Modified_By = x.Modified_By,
+                                Audit_Id = x.Audit_Id,
+                                User_IP = x.User_IP,
+                                Site_Id = x.Site_Id
+                            }).ToList();
+                return data;
+            }
+        }
+        public List<JunkCar.DataModel.Models.Set_Questionnaire> GetAllQuestionnaires()
+        {
+            using (var context = base.GetConnection())
+            {
+                var data = (from que in context.Set_Questionnaire
+                            join queDet in context.Set_Questionnaire_Detail on que.Questionnaire_Id equals queDet.Questionnaire_Id                            
+                            select que).AsEnumerable().Select(x => new JunkCar.DataModel.Models.Set_Questionnaire
+                            {
+                                Questionnaire_Id = x.Questionnaire_Id,
+                                Questionnaire_Description = x.Questionnaire_Description,
+                                Parent_Questionnaire_Id = x.Parent_Questionnaire_Id,
+                                Sort_Order = x.Sort_Order,
+                                Is_Active = x.Is_Active,
+                                Created_Date = x.Created_Date,
+                                Created_By = x.Created_By,
+                                Modified_Date = x.Modified_Date,
+                                Modified_By = x.Modified_By,
+                                Audit_Id = x.Audit_Id,
+                                User_IP = x.User_IP,
+                                Site_Id = x.Site_Id
+                            }).ToList();
+                return data;
+            }
         }
     }
 }

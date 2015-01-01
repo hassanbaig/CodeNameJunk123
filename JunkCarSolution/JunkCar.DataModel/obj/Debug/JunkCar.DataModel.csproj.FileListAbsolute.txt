@@ -12,4 +12,3 @@ C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Dat
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\bin\Debug\JunkCar.DataModel.pdb
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\obj\Debug\JunkCar.DataModel.dll
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\obj\Debug\JunkCar.DataModel.pdb
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\obj\Debug\JunkCar.DataModel.csprojResolveAssemblyReference.cache

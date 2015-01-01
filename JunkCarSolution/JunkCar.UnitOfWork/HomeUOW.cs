@@ -126,15 +126,15 @@ namespace JunkCar.UnitOfWork
         {
             home = new DomainModel.Models.Home();
             switch (searchCriteria)
-            {               
-                case Core.Enumerations.SearchCriteriaEnum.GET_REGISTRATION_YEARS:                    
+            {
+                case Core.Enumerations.SearchCriteriaEnum.GET_REGISTRATION_YEARS:
                     home.Years = homeRepository.GetAllYears();
                     break;
                 case Core.Enumerations.SearchCriteriaEnum.GET_STATES:
                     home.States = homeRepository.GetAllStates();
                     break;
                 case Core.Enumerations.SearchCriteriaEnum.GET_QUESTIONNAIRE:
-                    home.Questionnaire = homeRepository.GetQuestionnaire();
+                    home.Questionnaire = homeRepository.GetQuestionnaire();                
                     break;
                 default:
                     break;

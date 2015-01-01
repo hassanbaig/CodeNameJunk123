@@ -272,117 +272,36 @@ input[readonly] {
                                     </div>
 
                                     <div class="col-sm-3">
-                                        <button type="button" data-toggle="modal" data-target=".bs-example-modal-sm" class="btn bt btn-md" style="width:auto">Edit this</button>
+                                        <button type="button" data-toggle="modal" data-ng-click="homeControllerVM.getQuestionnaire();" data-target=".bs-example-modal-sm" class="btn bt btn-md" style="width:auto">Edit this</button>
                                     </div>
                                 </div>
                                 <h3 style="text-align:left; color:#000; margin-top:10px; margin-bottom:10px; padding-left:10px"><b>Condition</b></h3>
-                                <h5 style="text-align:left; margin-top:-10px;padding-left:10px">Answer the following question: </h5><br>
+                                <h5 style="text-align:left; margin-top:-10px;padding-left:10px">Answer the following questions: </h5><br>
                                 <h4 style="text-align:left; color:#aa1a1f; margin-top:10px; margin-bottom:10px;padding-left:10px"><b>Drivetrain </b></h4><hr>
-                                <div class="row" style="padding-top:10px;">
+                                <div class="row" style="padding-top:10px;" data-ng-repeat="drivetrainQuestion in homeControllerVM.drivetrainQuestionnaireList">
                                     <div class="col-sm-9" style="padding-left:25px;text-align:left">
-                                        <b>Are all tires inflated with air?</b>
+                                        <b>{{ drivetrainQuestion.Question.Question }}</b>
                                     </div>
-
                                     <div class="col-sm-3">
-                                        <input type="checkbox" id="inlineCheckbox2" value="option1"> Yes
-                                        <input type="checkbox" id="inlineCheckbox2" value="option2"> No
+                                        <select>
+                                            <option data-ng-repeat="answer in drivetrainQuestion.Answers" value="{{answer.Answer}}">{{answer.Answer}}</option>                                            
+                                        </select>                                        
                                     </div>
-                                </div>
-
-                                <div class="row" style="padding-top:10px; margin-top:10px;">
-                                    <div class="col-sm-9" style="padding-left:25px;text-align:left">
-                                        <b>Can you verify it drives in its current condition upon inspection?</b>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <input type="checkbox" id="inlineCheckbox2" value="option1"> Yes
-                                        <input type="checkbox" id="inlineCheckbox2" value="option2"> No
-                                    </div>
-                                </div>
-
-                                <div class="row" style="padding-top:10px; margin-top:10px;">
-                                    <div class="col-sm-9" style="padding-left:25px;text-align:left">
-                                        <b>What is the mileage shown on the odometer?</b>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <select class="form-control">
-                                                <option>Select Range</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> 
+                                                                
                                 <br>
                                 <h3 style="text-align:left; color:#aa1a1f; margin-top:10px; margin-bottom:10px;padding-left:10px"><b>Exterior/Interior</b></h3><hr>
-                                <div class="row" style="padding-top:10px;">
+                                <div class="row" style="padding-top:10px;" data-ng-repeat="interiorExteriorQuestion in homeControllerVM.interiorExteriorQuestionnaireList">
                                     <div class="col-sm-9" style="padding-left:25px;text-align:left">
-                                        <b>Are all the major body panels, like the doors, still intact on the car?</b>
+                                        <b>{{ interiorExteriorQuestion.Question.Question }}</b>
                                     </div>
 
                                     <div class="col-sm-3">
-                                        <input type="checkbox" id="inlineCheckbox2" value="option1"> Yes
-                                        <input type="checkbox" id="inlineCheckbox2" value="option2"> No
+                                        <select>
+                                            <option data-ng-repeat="answer in interiorExteriorQuestion.Answers" value="{{answer.Answer}}">{{answer.Answer}}</option>
+                                        </select>
                                     </div>
-                                </div>
-
-                                <div class="row" style="padding-top:10px;margin-top:10px;">
-                                    <div class="col-sm-9" style="padding-left:25px;text-align:left">
-                                        <b>Is the car free of baseball-sized damage or larger?</b>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <input type="checkbox" id="inlineCheckbox2" value="option1"> Yes
-                                        <input type="checkbox" id="inlineCheckbox2" value="option2"> No
-                                    </div>
-                                </div>
-
-
-                                <div class="row" style="padding-top:10px;margin-top:10px;">
-                                    <div class="col-sm-9" style="padding-left:25px;text-align:left">
-                                        <b>Are the mirrors, glass and lights intact?</b>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <input type="checkbox" id="inlineCheckbox2" value="option1"> Yes
-                                        <input type="checkbox" id="inlineCheckbox2" value="option2"> No
-                                    </div>
-                                </div>
-
-
-                                <div class="row" style="padding-top:10px;margin-top:10px;">
-                                    <div class="col-sm-9" style="padding-left:25px;text-align:left">
-                                        <b>Is the car free of flood or fire damages?</b>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <input type="checkbox" id="inlineCheckbox2" value="option1"> Yes
-                                        <input type="checkbox" id="inlineCheckbox2" value="option2"> No
-                                    </div>
-                                </div>
-
-
-                                <div class="row" style="padding-top:10px;margin-top:10px;">
-                                    <div class="col-sm-9" style="padding-left:25px;text-align:left">
-                                        <b>
-                                            Are all interior components, like the seats, airbags, and radio, intact?
-                                        </b>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <input type="checkbox" id="inlineCheckbox2" value="option1"> Yes
-                                        <input type="checkbox" id="inlineCheckbox2" value="option2"> No
-                                    </div>
-                                </div>
-
-
-
-
-
+                                </div>                               
 
                             </div>
 
@@ -521,7 +440,7 @@ input[readonly] {
                                         <input type="text" class="form-control" data-ng-model="homeControllerVM.homeBetterOfferCity" list="homeCitiesDatalist" placeholder="City">
                                         <datalist id="homeCitiesDatalist" spellcheck="true">
                                             <option data-ng-repeat="city in homeControllerVM.citiesList" value="{{city.City_Name}}">
-</datalist>  
+                                        </datalist>  
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="recipient-name" data-ng-model="homeControllerVM.homeBetterOfferZip" placeholder="Zip">

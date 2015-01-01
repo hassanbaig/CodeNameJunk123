@@ -55,6 +55,9 @@
         homeControllerVM.modelsList = [];
         homeControllerVM.statesList = [];
         homeControllerVM.citiesList = [];
+        homeControllerVM.questionnaireList = [];
+        homeControllerVM.drivetrainQuestionnaireList = [];
+        homeControllerVM.interiorExteriorQuestionnaireList = [];
 
         homeControllerVM.homeSelectedRegistrationYear = '';
         homeControllerVM.homeSelectedMake = '';        
@@ -78,6 +81,7 @@
         homeControllerVM.checkZipCode = checkZipCode;
         homeControllerVM.getStates = getStates;
         homeControllerVM.getCities = getCities;
+        homeControllerVM.getQuestionnaire = getQuestionnaire;
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
        
@@ -212,5 +216,37 @@
                     return null;
                 });
         }
+
+        function getQuestionnaire() {          
+            $scope.startSpin();
+            return homeService.getQuestionnaire()
+                .then(function (serviceResponse) {
+                    var response = serviceResponse.data;
+                    homeControllerVM.questionnaireList = response;
+                    fillQuestionnairesLists();
+                    $scope.reset();
+                    $scope.stopSpin();
+                    return homeControllerVM.questionnaireList = response;
+                }).catch(function (serviceError) {
+                    failureAlert(serviceError.data);
+                    console.log(serviceError.data);
+                    return null;
+                });
+        }
+
+        function fillQuestionnairesLists()
+        {
+            for (var i = 0; i < homeControllerVM.questionnaireList.length; i++) {
+                if (homeControllerVM.questionnaireList[i].Questionnaire_Id == 2) {
+                    homeControllerVM.drivetrainQuestionnaireList.push(homeControllerVM.questionnaireList[i]);
+                }
+                else if (homeControllerVM.questionnaireList[i].Questionnaire_Id == 3)
+                { homeControllerVM.interiorExteriorQuestionnaireList.push(homeControllerVM.questionnaireList[i]); }
+            }            
+
+            console.log(homeControllerVM.drivetrainQuestionnaireList);
+            console.log(homeControllerVM.interiorExteriorQuestionnaireList);
+        }
+
     }
 })();

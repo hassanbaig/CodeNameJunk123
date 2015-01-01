@@ -12,7 +12,8 @@
             getModelsByYearMake: getModelsByYearMake,
             checkZipCode:checkZipCode,
             getStates: getStates,
-            getCities: getCities
+            getCities: getCities,
+            getQuestionnaire: getQuestionnaire
         };
 
         return service;
@@ -128,6 +129,23 @@
             });
             return promise;
         }
+
+        function getQuestionnaire() {
+            var response = '';
+            var promise = $http({
+                method: 'GET',                
+                url: 'http://localhost/JunkCarWebAPI/junkcar.v1/Home/GetQuestionnaire'
+            }).success(function (data, status, headers) {
+                response = data;
+                return response;
+            })
+            .error(function (data, status, headers) {
+                response = data;
+                return response;
+            });
+            return promise;
+        }
+        
     }
 }
 )();

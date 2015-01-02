@@ -28,6 +28,8 @@ namespace JunkCar.DataModel.Models
         public Nullable<long> Audit_Id { get; set; }
         public string User_IP { get; set; }
         public int Site_Id { get; set; }
+        public int Sub_Questionnaire_Id { get; set; }
+
         #endregion
 
        

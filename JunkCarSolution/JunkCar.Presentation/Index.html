@@ -187,7 +187,7 @@ input[readonly] {
         </header>
         <!--End First Row-->
         <!-- Second Row -->
-        
+
         <div class="row">
 
             <span us-spinner="{radius:50, width:16, length: 32}" spinner-key="spinner-1"></span>
@@ -238,7 +238,7 @@ input[readonly] {
 
                                 <form class="form" role="form">
 
-                                    <div class="form-group">                                        
+                                    <div class="form-group">
                                         <input type="number" data-ng-model="homeControllerVM.homeZipCode" class="form-control" id="exampleInputEmail2" placeholder="Zip">
                                     </div>
 
@@ -252,7 +252,7 @@ input[readonly] {
                                             </div>
 
                                             <div class="col-sm-6" style="padding:5px;">
-                                                <button type="button" data-ng-click="homeControllerVM.checkZipCode();homeControllerVM.getStates();" data-toggle="modal"
+                                                <button type="button" data-ng-click="homeControllerVM.getStates();" data-toggle="modal"
                                                         data-target="#basicModal" class="btn bt btn-lg">
                                                     <b>Get a better offer</b>
                                                 </button>
@@ -272,7 +272,7 @@ input[readonly] {
                                     </div>
 
                                     <div class="col-sm-3">
-                                        <button type="button" data-toggle="modal" data-ng-click="homeControllerVM.getQuestionnaire();" data-target=".bs-example-modal-sm" class="btn bt btn-md" style="width:auto">Edit this</button>
+                                        <button type="button" data-toggle="modal" data-target=".bs-example-modal-sm" data-ng-init="homeControllerVM.getQuestionnaire();" class="btn bt btn-md" style="width:auto">Edit this</button>
                                     </div>
                                 </div>
                                 <h3 style="text-align:left; color:#000; margin-top:10px; margin-bottom:10px; padding-left:10px"><b>Condition</b></h3>
@@ -284,11 +284,11 @@ input[readonly] {
                                     </div>
                                     <div class="col-sm-3">
                                         <select>
-                                            <option data-ng-repeat="answer in drivetrainQuestion.Answers" value="{{answer.Answer}}">{{answer.Answer}}</option>                                            
-                                        </select>                                        
+                                            <option data-ng-repeat="answer in drivetrainQuestion.Answers" value="{{answer.Answer}}">{{answer.Answer}}</option>
+                                        </select>
                                     </div>
-                                </div> 
-                                                                
+                                </div>
+
                                 <br>
                                 <h3 style="text-align:left; color:#aa1a1f; margin-top:10px; margin-bottom:10px;padding-left:10px"><b>Exterior/Interior</b></h3><hr>
                                 <div class="row" style="padding-top:10px;" data-ng-repeat="interiorExteriorQuestion in homeControllerVM.interiorExteriorQuestionnaireList">
@@ -301,9 +301,15 @@ input[readonly] {
                                             <option data-ng-repeat="answer in interiorExteriorQuestion.Answers" value="{{answer.Answer}}">{{answer.Answer}}</option>
                                         </select>
                                     </div>
-                                </div>                               
+                                </div>
 
+                                <div class="col-sm-6" style="padding:5px;">
+                                    <button type="button" data-ng-click="homeControllerVM.getAnOffer();" class="btn gt btn-lg">
+                                        <b>Get an offer</b>
+                                    </button>
+                                </div>
                             </div>
+
 
                             <div class="tab-pane" id="tab4">
 
@@ -322,7 +328,6 @@ input[readonly] {
                                     <div class="row" style="margin-top:10px; margin-bottom:10px">
                                         <div class="col-sm-12" style=" margin-bottom:10px"><h2><span class="label label-default">(888) 787-5772</span></h2> </div>
                                         <div class="col-sm-12" style="padding:5px;" align="center"><button type="button" class="btn gt btn-lg"><b>Confirm</b></button></div>
-
 
                                     </div>
                                 </div>
@@ -434,13 +439,13 @@ input[readonly] {
                                         <input type="text" class="form-control" data-ng-model="homeControllerVM.homeBetterOfferState" data-ng-change="homeControllerVM.getCities();" list="homeStatesDatalist" placeholder="State">
                                         <datalist id="homeStatesDatalist" spellcheck="true">
                                             <option data-ng-repeat="state in homeControllerVM.statesList" value="{{state.State_Name}}">
-                                        </datalist>                                        
+                                        </datalist>
                                     </div>
-                                    <div class="form-group">                                        
+                                    <div class="form-group">
                                         <input type="text" class="form-control" data-ng-model="homeControllerVM.homeBetterOfferCity" list="homeCitiesDatalist" placeholder="City">
                                         <datalist id="homeCitiesDatalist" spellcheck="true">
                                             <option data-ng-repeat="city in homeControllerVM.citiesList" value="{{city.City_Name}}">
-                                        </datalist>  
+                                        </datalist>
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="recipient-name" data-ng-model="homeControllerVM.homeBetterOfferZip" placeholder="Zip">

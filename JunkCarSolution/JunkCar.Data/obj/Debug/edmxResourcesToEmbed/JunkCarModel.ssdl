@@ -421,6 +421,7 @@
     </Key>
     <Property Name="Questionnaire_Detail_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Questionnaire_Id" Type="int" Nullable="false" />
+    <Property Name="Sub_Questionnaire_Id" Type="int" Nullable="false" />
     <Property Name="Question_Id" Type="int" Nullable="false" />
     <Property Name="Answer_Id" Type="int" Nullable="false" />
     <Property Name="Sort_Order" Type="smallint" Nullable="false" />
@@ -872,6 +873,54 @@
       </Principal>
       <Dependent Role="Set_Model_Year">
         <PropertyRef Name="Model_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Set_Questionnaire_Detail_Answer_Id">
+    <End Role="Set_Answer" Type="Self.Set_Answer" Multiplicity="1" />
+    <End Role="Set_Questionnaire_Detail" Type="Self.Set_Questionnaire_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Set_Answer">
+        <PropertyRef Name="Answer_Id" />
+      </Principal>
+      <Dependent Role="Set_Questionnaire_Detail">
+        <PropertyRef Name="Answer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Set_Questionnaire_Detail_Question_Id">
+    <End Role="Set_Question" Type="Self.Set_Question" Multiplicity="1" />
+    <End Role="Set_Questionnaire_Detail" Type="Self.Set_Questionnaire_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Set_Question">
+        <PropertyRef Name="Question_Id" />
+      </Principal>
+      <Dependent Role="Set_Questionnaire_Detail">
+        <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Set_Questionnaire_Detail_Questionnaire_Id">
+    <End Role="Set_Questionnaire" Type="Self.Set_Questionnaire" Multiplicity="1" />
+    <End Role="Set_Questionnaire_Detail" Type="Self.Set_Questionnaire_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Set_Questionnaire">
+        <PropertyRef Name="Questionnaire_Id" />
+      </Principal>
+      <Dependent Role="Set_Questionnaire_Detail">
+        <PropertyRef Name="Questionnaire_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id">
+    <End Role="Set_Questionnaire" Type="Self.Set_Questionnaire" Multiplicity="1" />
+    <End Role="Set_Questionnaire_Detail" Type="Self.Set_Questionnaire_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Set_Questionnaire">
+        <PropertyRef Name="Questionnaire_Id" />
+      </Principal>
+      <Dependent Role="Set_Questionnaire_Detail">
+        <PropertyRef Name="Sub_Questionnaire_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1664,6 +1713,22 @@
     <AssociationSet Name="FK_Set_Model_Year_Model_Id" Association="Self.FK_Set_Model_Year_Model_Id">
       <End Role="Set_Model" EntitySet="Set_Model" />
       <End Role="Set_Model_Year" EntitySet="Set_Model_Year" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Set_Questionnaire_Detail_Answer_Id" Association="Self.FK_Set_Questionnaire_Detail_Answer_Id">
+      <End Role="Set_Answer" EntitySet="Set_Answer" />
+      <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Set_Questionnaire_Detail_Question_Id" Association="Self.FK_Set_Questionnaire_Detail_Question_Id">
+      <End Role="Set_Question" EntitySet="Set_Question" />
+      <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Set_Questionnaire_Detail_Questionnaire_Id" Association="Self.FK_Set_Questionnaire_Detail_Questionnaire_Id">
+      <End Role="Set_Questionnaire" EntitySet="Set_Questionnaire" />
+      <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id" Association="Self.FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id">
+      <End Role="Set_Questionnaire" EntitySet="Set_Questionnaire" />
+      <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
     </AssociationSet>
     <AssociationSet Name="FK_Set_Site_Contact_Site_Id" Association="Self.FK_Set_Site_Contact_Site_Id">
       <End Role="Set_Site" EntitySet="Set_Site" />

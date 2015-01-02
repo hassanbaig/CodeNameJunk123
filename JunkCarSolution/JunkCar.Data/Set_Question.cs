@@ -14,6 +14,11 @@ namespace JunkCar.Data
     
     public partial class Set_Question
     {
+        public Set_Question()
+        {
+            this.Set_Questionnaire_Detail = new HashSet<Set_Questionnaire_Detail>();
+        }
+    
         public int Question_Id { get; set; }
         public string Question { get; set; }
         public short Sort_Order { get; set; }
@@ -25,5 +30,7 @@ namespace JunkCar.Data
         public Nullable<long> Audit_Id { get; set; }
         public string User_IP { get; set; }
         public int Site_Id { get; set; }
+    
+        public virtual ICollection<Set_Questionnaire_Detail> Set_Questionnaire_Detail { get; set; }
     }
 }

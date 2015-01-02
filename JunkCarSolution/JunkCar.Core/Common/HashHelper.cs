@@ -37,6 +37,19 @@ namespace JunkCar.Core.Common
             getModels["StateId"] = stateId;
             getModels["OperationType"] = operationType;
             return getModels;
-        }       
+        }
+        public static Hashtable GetAnOffer(int? year, int? makeId, int? modelId, int operationType, string zipCode = "")
+        {
+            Hashtable getModels = new Hashtable();
+            getModels["SelectedYear"] = year;
+            getModels["SelectedMakeId"] = makeId;
+            getModels["SelectedModelId"] = modelId;
+            //getModels["SelectedQuestionnaire"] = questionnaire;
+            getModels["ZipCode"] = zipCode;
+            //getModels["CustomerInfo"] = customerInfo;
+            getModels["OperationType"] = operationType;
+            return getModels;
+        }     
+
     }
 }

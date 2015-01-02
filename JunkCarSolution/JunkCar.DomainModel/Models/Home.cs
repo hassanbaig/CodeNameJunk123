@@ -21,6 +21,7 @@ namespace JunkCar.DomainModel.Models
         public string UserId { get; set; }
         public int SelectedYear { get; set; }
         public int SelectedMakeId { get; set; }
+        public int SelectedModelId { get; set; }
         public string ZipCode { get; set; }
         public int StateId { get; set; }
         public List<int?> Years { get; set; }
@@ -31,6 +32,9 @@ namespace JunkCar.DomainModel.Models
         public List<Set_State> States { get; set; }
         public List<Set_City> Cities { get; set; }
         public List<Set_Questionnaire_Detail> Questionnaire { get; set; }
+        public string[] SelectedQuestionnaire { get; set; }
+        public string[] CustomerInfo { get; set; }
+        public int OfferPrice { get; set; }
         #endregion        
     
         public override void Fill(System.Collections.Hashtable dataTable)

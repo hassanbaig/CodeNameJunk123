@@ -145,6 +145,23 @@
             });
             return promise;
         }
+
+        function getAnOffer(params) {
+            var response = '';
+            var promise = $http({
+                method: 'GET',
+                params: params,
+                url: 'http://localhost/JunkCarWebAPI/junkcar.v1/Home/GetAnOffer'
+            }).success(function (data, status, headers) {
+                response = data;
+                return response;
+            })
+            .error(function (data, status, headers) {
+                response = data;
+                return response;
+            });
+            return promise;
+        }
         
     }
 }

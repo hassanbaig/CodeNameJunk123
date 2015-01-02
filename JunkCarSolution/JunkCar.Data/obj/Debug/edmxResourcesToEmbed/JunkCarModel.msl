@@ -441,6 +441,7 @@
     <EntitySetMapping Name="Set_Questionnaire_Detail">
       <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Questionnaire_Detail">
         <MappingFragment StoreEntitySet="Set_Questionnaire_Detail">
+          <ScalarProperty Name="Sub_Questionnaire_Id" ColumnName="Sub_Questionnaire_Id" />
           <ScalarProperty Name="Questionnaire_Detail_Id" ColumnName="Questionnaire_Detail_Id" />
           <ScalarProperty Name="Questionnaire_Id" ColumnName="Questionnaire_Id" />
           <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
@@ -1198,5 +1199,13 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="GetQuestionnaire" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Offer_Parameter_Select" />
+    <FunctionImportMapping FunctionImportName="GetAnOffer" FunctionName="shiner49_JunkCarModel.Store.usp_Sal_Suggested_Offer">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Sal_Suggested_Offer_Result">
+          <ScalarProperty Name="Offer_Price" ColumnName="Offer_Price" />
+          <ScalarProperty Name="Offer_Id" ColumnName="Offer_Id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

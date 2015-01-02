@@ -63,13 +63,15 @@
         homeControllerVM.homeSelectedMake = '';        
         homeControllerVM.homeSelectedModel = '';
         homeControllerVM.homeZipCode = '';
-        homeControllerVM.homeBetterOfferName = 'Hassan';
+        homeControllerVM.homeBetterOfferName = '';
         homeControllerVM.homeBetterOfferAddress = '';
         homeControllerVM.homeBetterOfferCity = '';
         homeControllerVM.homeBetterOfferZip = '';
         homeControllerVM.homeBetterOfferState = '';
         homeControllerVM.homeBetterOfferPhone = '';
         homeControllerVM.homeBetterOfferEmail = '';
+
+        homeControllerVM.offerPrice = '';
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
                
@@ -155,16 +157,20 @@
                     return null;
                 });
         }
-
-        function checkZipCode() {           
+        
+        function checkZipCode() {            
             var zipCode = homeControllerVM.homeZipCode;
-            if(zipCode.length > 0)
+            if(zipCode.length != 0)
             {
                 $scope.startSpin();      
                 return homeService.checkZipCode({ zipCode: zipCode })
                     .then(function (serviceResponse) {
                         var response = serviceResponse.data;
-                        console.log(response);
+                        if (response == false)
+                        {
+                            homeControllerVM.homeZipCode = '';
+                            alert("Please enter a valid zipcode")
+                        }
                         $scope.reset();
                         $scope.stopSpin();
                         return response;
@@ -234,18 +240,54 @@
                 });
         }
 
-        function fillQuestionnairesLists()
-        {
+        function fillQuestionnairesLists() {
             for (var i = 0; i < homeControllerVM.questionnaireList.length; i++) {
-                if (homeControllerVM.questionnaireList[i].Questionnaire_Id == 2) {
+                if (homeControllerVM.questionnaireList[i].Sub_Questionnaire_Id == 2) {
                     homeControllerVM.drivetrainQuestionnaireList.push(homeControllerVM.questionnaireList[i]);
                 }
-                else if (homeControllerVM.questionnaireList[i].Questionnaire_Id == 3)
+                else if (homeControllerVM.questionnaireList[i].Sub_Questionnaire_Id == 3)
                 { homeControllerVM.interiorExteriorQuestionnaireList.push(homeControllerVM.questionnaireList[i]); }
-            }            
+            }
+        }
 
-            console.log(homeControllerVM.drivetrainQuestionnaireList);
-            console.log(homeControllerVM.interiorExteriorQuestionnaireList);
+        function getAnOffer() {
+            debugger;
+            var year = homeControllerVM.homeSelectedRegistrationYear;
+            var make = homeControllerVM.homeSelectedMake;
+            var model = homeControllerVM.homeSelectedModel;
+            var zipcode = homeControllerVM.homeZipCode;            
+            
+            var makeId = '';
+            var modelId = '';
+
+            for (var i = 0; i < homeControllerVM.makesList.length; i++) {
+                if (homeControllerVM.makesList[i].Make_Name == state) {
+                    makeId = parseInt(homeControllerVM.makesList[i].Make_Id);
+                    break;
+                }
+            }
+            
+            for (var i = 0; i < homeControllerVM.modelsList.length; i++) {
+                if (homeControllerVM.modelsList[i].Model_Name == state) {
+                    modelId = parseInt(homeControllerVM.modelsList[i].Model_Id);
+                    break;
+                }
+            }
+
+            $scope.startSpin();
+            return homeService.getAnOffer({ year:year, makeId: makeId, modelId:modelId, zipCode:zipcode })
+                .then(function (serviceResponse) {
+                    var response = serviceResponse.data;
+                    offerPrice = response;
+                    alert(offerPrice);
+                    $scope.reset();
+                    $scope.stopSpin();
+                    return offerPrice;
+                }).catch(function (serviceError) {
+                    failureAlert(serviceError.data);
+                    console.log(serviceError.data);
+                    return null;
+                });
         }
 
     }

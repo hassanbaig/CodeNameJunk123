@@ -132,8 +132,9 @@ namespace JunkCar.Repository.RepositoryClasses
                              select d).AsEnumerable().Select(x => new JunkCar.DataModel.Models.Set_Questionnaire_Detail
                                  {
                                      Questionnaire_Detail_Id = x.Questionnaire_Detail_Id,
-                                     Questionnaire_Id = x.Questionnaire_Id,                                                                          
-                                     Question_Id = x.Question_Id,
+                                     Questionnaire_Id = x.Questionnaire_Id,
+                                     Sub_Questionnaire_Id = x.Sub_Questionnaire_Id,
+                                     Question_Id = x.Question_Id,                                     
                                      Question = GetQuestion(x.Question_Id),
                                      Answer_Id = x.Answer_Id,
                                      Answers = GetAnswers(x.Question_Id),
@@ -223,6 +224,11 @@ namespace JunkCar.Repository.RepositoryClasses
                             }).ToList();
                 return data;
             }
+        }
+        public int GetAnOffer(int? year, int?makeId, int? modelId, string questionnaire, string zipCode, string customerInfo)
+        {
+            var offerPrice = _context.GetAnOffer(year, makeId, modelId, questionnaire, zipCode, customerInfo).FirstOrDefault();
+            return Convert.ToInt32(offerPrice.Offer_Price);
         }
     }
 }

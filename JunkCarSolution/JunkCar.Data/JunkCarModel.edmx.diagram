@@ -67,6 +67,10 @@
         <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Model_Year_Model_Id" ManuallyRouted="false" />
         <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Site_Contact_Site_Id" ManuallyRouted="false" />
         <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Zip_Code_State_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Answer_Id" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Question_Id" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Questionnaire_Id" />
+        <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

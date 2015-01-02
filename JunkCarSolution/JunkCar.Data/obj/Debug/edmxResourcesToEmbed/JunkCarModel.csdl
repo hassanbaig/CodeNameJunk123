@@ -251,6 +251,7 @@
     <Property Name="Audit_Id" Type="Int64" />
     <Property Name="User_IP" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
     <Property Name="Site_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Set_Questionnaire_Detail" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Answer_Id" FromRole="Set_Answer" ToRole="Set_Questionnaire_Detail" />
   </EntityType>
   <EntityType Name="Set_Audit_Log">
     <Key>
@@ -449,6 +450,7 @@
     <Property Name="Audit_Id" Type="Int64" />
     <Property Name="User_IP" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
     <Property Name="Site_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Set_Questionnaire_Detail" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Question_Id" FromRole="Set_Question" ToRole="Set_Questionnaire_Detail" />
   </EntityType>
   <EntityType Name="Set_Questionnaire">
     <Key>
@@ -468,6 +470,8 @@
     <Property Name="Site_Id" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Sal_Customer_Offer" Relationship="Self.FK_Sal_Customer_Offer_Questionnaire_Id" FromRole="Set_Questionnaire" ToRole="Sal_Customer_Offer" />
     <NavigationProperty Name="Sal_Offer" Relationship="Self.FK_Sal_Offer_Questionnaire_Id" FromRole="Set_Questionnaire" ToRole="Sal_Offer" />
+    <NavigationProperty Name="Set_Questionnaire_Detail" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Questionnaire_Id" FromRole="Set_Questionnaire" ToRole="Set_Questionnaire_Detail" />
+    <NavigationProperty Name="Set_Questionnaire_Detail1" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id" FromRole="Set_Questionnaire" ToRole="Set_Questionnaire_Detail" />
   </EntityType>
   <EntityType Name="Set_Questionnaire_Detail">
     <Key>
@@ -486,6 +490,11 @@
     <Property Name="Audit_Id" Type="Int64" />
     <Property Name="User_IP" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
     <Property Name="Site_Id" Type="Int32" Nullable="false" />
+    <Property Name="Sub_Questionnaire_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Set_Answer" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Answer_Id" FromRole="Set_Questionnaire_Detail" ToRole="Set_Answer" />
+    <NavigationProperty Name="Set_Question" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Question_Id" FromRole="Set_Questionnaire_Detail" ToRole="Set_Question" />
+    <NavigationProperty Name="Set_Questionnaire" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Questionnaire_Id" FromRole="Set_Questionnaire_Detail" ToRole="Set_Questionnaire" />
+    <NavigationProperty Name="Set_Questionnaire1" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id" FromRole="Set_Questionnaire_Detail" ToRole="Set_Questionnaire" />
   </EntityType>
   <EntityType Name="Set_Questionnaire_Result">
     <Key>
@@ -1760,6 +1769,30 @@
       <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
       <Parameter Name="Make_Id" Mode="In" Type="Int32" />
     </FunctionImport>
+    <AssociationSet Name="FK_Set_Questionnaire_Detail_Answer_Id" Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Answer_Id">
+      <End Role="Set_Answer" EntitySet="Set_Answer" />
+      <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Set_Questionnaire_Detail_Question_Id" Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Question_Id">
+      <End Role="Set_Question" EntitySet="Set_Question" />
+      <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Set_Questionnaire_Detail_Questionnaire_Id" Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Questionnaire_Id">
+      <End Role="Set_Questionnaire" EntitySet="Set_Questionnaire" />
+      <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id" Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id">
+      <End Role="Set_Questionnaire" EntitySet="Set_Questionnaire" />
+      <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
+    </AssociationSet>
+    <FunctionImport Name="GetAnOffer" ReturnType="Collection(shiner49_JunkCarModel.usp_Sal_Suggested_Offer_Result)">
+      <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
+      <Parameter Name="Make_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Model_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Questioneer" Mode="In" Type="String" />
+      <Parameter Name="Zip_Code" Mode="In" Type="String" />
+      <Parameter Name="Customer_Info" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="usp_Sal_Customer_Result">
     <Property Type="Decimal" Name="ActionType" Nullable="true" Precision="10" Scale="0" />
@@ -2246,4 +2279,52 @@
     <Property Type="Boolean" Name="Is_Valid_Zip_Code" Nullable="true" />
     <Property Type="String" Name="Notes" Nullable="true" />
   </ComplexType>
+  <Association Name="FK_Set_Questionnaire_Detail_Answer_Id">
+    <End Type="shiner49_JunkCarModel.Set_Answer" Role="Set_Answer" Multiplicity="1" />
+    <End Type="shiner49_JunkCarModel.Set_Questionnaire_Detail" Role="Set_Questionnaire_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Set_Answer">
+        <PropertyRef Name="Answer_Id" />
+      </Principal>
+      <Dependent Role="Set_Questionnaire_Detail">
+        <PropertyRef Name="Answer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Set_Questionnaire_Detail_Question_Id">
+    <End Type="shiner49_JunkCarModel.Set_Question" Role="Set_Question" Multiplicity="1" />
+    <End Type="shiner49_JunkCarModel.Set_Questionnaire_Detail" Role="Set_Questionnaire_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Set_Question">
+        <PropertyRef Name="Question_Id" />
+      </Principal>
+      <Dependent Role="Set_Questionnaire_Detail">
+        <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Set_Questionnaire_Detail_Questionnaire_Id">
+    <End Type="shiner49_JunkCarModel.Set_Questionnaire" Role="Set_Questionnaire" Multiplicity="1" />
+    <End Type="shiner49_JunkCarModel.Set_Questionnaire_Detail" Role="Set_Questionnaire_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Set_Questionnaire">
+        <PropertyRef Name="Questionnaire_Id" />
+      </Principal>
+      <Dependent Role="Set_Questionnaire_Detail">
+        <PropertyRef Name="Questionnaire_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id">
+    <End Type="shiner49_JunkCarModel.Set_Questionnaire" Role="Set_Questionnaire" Multiplicity="1" />
+    <End Type="shiner49_JunkCarModel.Set_Questionnaire_Detail" Role="Set_Questionnaire_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Set_Questionnaire">
+        <PropertyRef Name="Questionnaire_Id" />
+      </Principal>
+      <Dependent Role="Set_Questionnaire_Detail">
+        <PropertyRef Name="Sub_Questionnaire_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -11,6 +11,7 @@ namespace JunkCar.Factory.Enumerations
         GET_MAKES,
         GET_MODELS,
         CHECK_ZIPCODE,
-        GET_CITIES
+        GET_CITIES,
+        GET_AN_OFFER
     }
 }

@@ -94,6 +94,19 @@ namespace JunkCar.DomainService
                                 home.ResponseMessage = "Valid";
                             }
                             break;
+                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER:
+                            home = (DomainModel.Models.Home)domainModel;
+                            //if (home.SelectedQuestionnaire.Count() <= 0)
+                            //{
+                            //    home.ResponseMessage = "Must fill questionnaire";
+                            //}
+                            //else
+                            //{
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home);
+                                home.ResponseMessage = "Valid";
+                            //}
+                            break;
                         default:
                             break;
                     }
@@ -112,6 +125,9 @@ namespace JunkCar.DomainService
                             home.ResponseMessage = "Invalid domain model";
                             break;
                         case JunkCar.Factory.Enumerations.DomainModelEnum.GET_CITIES:
+                            home.ResponseMessage = "Invalid domain model";
+                            break;
+                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER:
                             home.ResponseMessage = "Invalid domain model";
                             break;
                         default:
@@ -135,6 +151,9 @@ namespace JunkCar.DomainService
                     case JunkCar.Factory.Enumerations.DomainModelEnum.GET_CITIES:
                         home.ResponseMessage = ex.Message;
                         break;
+                    case JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER:
+                        home.ResponseMessage = ex.Message;
+                        break;
                     default:
                         break;
                 }
@@ -149,6 +168,8 @@ namespace JunkCar.DomainService
                 case JunkCar.Factory.Enumerations.DomainModelEnum.CHECK_ZIPCODE:
                     return home;
                 case JunkCar.Factory.Enumerations.DomainModelEnum.GET_CITIES:
+                    return home;
+                case JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER:
                     return home;
                 default:
                     break;

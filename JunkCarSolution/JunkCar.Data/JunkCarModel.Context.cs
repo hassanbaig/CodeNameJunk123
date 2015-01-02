@@ -2193,5 +2193,34 @@ namespace JunkCar.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Set_Questionnaire_Detail>("GetQuestionnaire", mergeOption, parameter_TypeParameter, registration_YearParameter, make_IdParameter);
         }
+    
+        public virtual ObjectResult<usp_Sal_Suggested_Offer_Result> GetAnOffer(Nullable<int> registration_Year, Nullable<int> make_Id, Nullable<int> model_Id, string questioneer, string zip_Code, string customer_Info)
+        {
+            var registration_YearParameter = registration_Year.HasValue ?
+                new ObjectParameter("Registration_Year", registration_Year) :
+                new ObjectParameter("Registration_Year", typeof(int));
+    
+            var make_IdParameter = make_Id.HasValue ?
+                new ObjectParameter("Make_Id", make_Id) :
+                new ObjectParameter("Make_Id", typeof(int));
+    
+            var model_IdParameter = model_Id.HasValue ?
+                new ObjectParameter("Model_Id", model_Id) :
+                new ObjectParameter("Model_Id", typeof(int));
+    
+            var questioneerParameter = questioneer != null ?
+                new ObjectParameter("Questioneer", questioneer) :
+                new ObjectParameter("Questioneer", typeof(string));
+    
+            var zip_CodeParameter = zip_Code != null ?
+                new ObjectParameter("Zip_Code", zip_Code) :
+                new ObjectParameter("Zip_Code", typeof(string));
+    
+            var customer_InfoParameter = customer_Info != null ?
+                new ObjectParameter("Customer_Info", customer_Info) :
+                new ObjectParameter("Customer_Info", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Sal_Suggested_Offer_Result>("GetAnOffer", registration_YearParameter, make_IdParameter, model_IdParameter, questioneerParameter, zip_CodeParameter, customer_InfoParameter);
+        }
     }
 }

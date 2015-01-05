@@ -57,8 +57,8 @@
         homeControllerVM.citiesList = [];
         homeControllerVM.questionnaireList = [];
         homeControllerVM.drivetrainQuestionnaireList = [];
-        homeControllerVM.interiorExteriorQuestionnaireList = [];
-
+        homeControllerVM.interiorExteriorQuestionnaireList = [];             
+        
         homeControllerVM.homeSelectedRegistrationYear = '';
         homeControllerVM.homeSelectedMake = '';        
         homeControllerVM.homeSelectedModel = '';
@@ -81,9 +81,13 @@
         homeControllerVM.getMakesByYear = getMakesByYear;
         homeControllerVM.getModelsByYearMake = getModelsByYearMake;
         homeControllerVM.checkZipCode = checkZipCode;
+        homeControllerVM.getAnOffer = getAnOffer;
+        homeControllerVM.getABetterOffer = getABetterOffer;
         homeControllerVM.getStates = getStates;
         homeControllerVM.getCities = getCities;
         homeControllerVM.getQuestionnaire = getQuestionnaire;
+        
+       
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
        
@@ -180,7 +184,7 @@
                         return null;
                     });
             }
-        }
+        }       
 
         function getStates() {
             debugger;
@@ -223,6 +227,90 @@
                 });
         }
 
+        function getAnOffer() {
+            debugger;
+            var year = homeControllerVM.homeSelectedRegistrationYear;
+            var make = homeControllerVM.homeSelectedMake;
+            var model = homeControllerVM.homeSelectedModel;
+            var zipcode = homeControllerVM.homeZipCode;
+
+            var makeId = '';
+            var modelId = '';
+
+            for (var i = 0; i < homeControllerVM.makesList.length; i++) {
+                if (homeControllerVM.makesList[i].Make_Name == state) {
+                    makeId = parseInt(homeControllerVM.makesList[i].Make_Id);
+                    break;
+                }
+            }
+
+            for (var i = 0; i < homeControllerVM.modelsList.length; i++) {
+                if (homeControllerVM.modelsList[i].Model_Name == state) {
+                    modelId = parseInt(homeControllerVM.modelsList[i].Model_Id);
+                    break;
+                }
+            }
+
+            $scope.startSpin();
+            return homeService.getAnOffer({ year: year, makeId: makeId, modelId: modelId, zipCode: zipcode })
+                .then(function (serviceResponse) {
+                    var response = serviceResponse.data;
+                    offerPrice = response;
+                    alert(offerPrice);
+                    $scope.reset();
+                    $scope.stopSpin();
+                    return offerPrice;
+                }).catch(function (serviceError) {
+                    failureAlert(serviceError.data);
+                    console.log(serviceError.data);
+                    return null;
+                });
+        }
+
+
+        function getABetterOffer() {
+
+            var name = homeControllerVM.homeBetterOfferName;
+            var address = homeControllerVM.homeBetterOfferAddress;
+            var city = homeControllerVM.homeBetterOfferCity;
+            var zipCode = homeControllerVM.homeBetterOfferZip;
+            var state = homeControllerVM.homeBetterOfferState;
+            var phone = homeControllerVM.homeBetterOfferPhone;
+            var email = homeControllerVM.homeBetterOfferEmail;
+
+            var stateId = '';
+            var cityId = '';
+
+            for (var i = 0; i < homeControllerVM.statesList.length; i++) {
+                if (homeControllerVM.statesList[i].State_Name == state) {
+                    stateId = parseInt(homeControllerVM.statesList[i].State_Id);
+                    break;
+                }
+            }
+
+            for (var i = 0; i < homeControllerVM.citiesList.length; i++) {
+                if (homeControllerVM.citiesList[i].City_Name == city) {
+                    cityId = parseInt(homeControllerVM.citiesList[i].City_Id);
+                    break;
+                }
+            }
+
+            $scope.startSpin();
+            return homeService.getABetterOffer({ name: name, address: address, stateId: stateId, cityId: cityId, zipCode: zipCode, phone: phone, emailAddress: email })
+                .then(function (serviceResponse) {
+                    var response = serviceResponse.data;
+
+                    $scope.reset();
+                    $scope.stopSpin();
+                    return response;
+                }).catch(function (serviceError) {
+                    failureAlert(serviceError.data);
+                    console.log(serviceError.data);
+                    return null;
+                });
+
+        }
+
         function getQuestionnaire() {          
             $scope.startSpin();
             return homeService.getQuestionnaire()
@@ -249,46 +337,6 @@
                 { homeControllerVM.interiorExteriorQuestionnaireList.push(homeControllerVM.questionnaireList[i]); }
             }
         }
-
-        function getAnOffer() {
-            debugger;
-            var year = homeControllerVM.homeSelectedRegistrationYear;
-            var make = homeControllerVM.homeSelectedMake;
-            var model = homeControllerVM.homeSelectedModel;
-            var zipcode = homeControllerVM.homeZipCode;            
-            
-            var makeId = '';
-            var modelId = '';
-
-            for (var i = 0; i < homeControllerVM.makesList.length; i++) {
-                if (homeControllerVM.makesList[i].Make_Name == state) {
-                    makeId = parseInt(homeControllerVM.makesList[i].Make_Id);
-                    break;
-                }
-            }
-            
-            for (var i = 0; i < homeControllerVM.modelsList.length; i++) {
-                if (homeControllerVM.modelsList[i].Model_Name == state) {
-                    modelId = parseInt(homeControllerVM.modelsList[i].Model_Id);
-                    break;
-                }
-            }
-
-            $scope.startSpin();
-            return homeService.getAnOffer({ year:year, makeId: makeId, modelId:modelId, zipCode:zipcode })
-                .then(function (serviceResponse) {
-                    var response = serviceResponse.data;
-                    offerPrice = response;
-                    alert(offerPrice);
-                    $scope.reset();
-                    $scope.stopSpin();
-                    return offerPrice;
-                }).catch(function (serviceError) {
-                    failureAlert(serviceError.data);
-                    console.log(serviceError.data);
-                    return null;
-                });
-        }
-
+                
     }
 })();

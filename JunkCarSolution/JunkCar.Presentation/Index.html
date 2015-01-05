@@ -236,7 +236,7 @@ input[readonly] {
                                 <h3 style="text-align:center; color:#aa1a1f; margin-top:10px; margin-bottom:10px;"><b>Where is the car located? </b></h3>
 
 
-                                <form class="form" role="form">
+                                <form class="form" role="form" data-ng-init="homeControllerVM.getStates();">
 
                                     <div class="form-group">
                                         <input type="number" data-ng-model="homeControllerVM.homeZipCode" class="form-control" id="exampleInputEmail2" placeholder="Zip">
@@ -252,8 +252,7 @@ input[readonly] {
                                             </div>
 
                                             <div class="col-sm-6" style="padding:5px;">
-                                                <button type="button" data-ng-click="homeControllerVM.getStates();" data-toggle="modal"
-                                                        data-target="#basicModal" class="btn bt btn-lg">
+                                                <button type="button" data-toggle="modal" data-target="#basicModal" class="btn bt btn-lg">
                                                     <b>Get a better offer</b>
                                                 </button>
                                             </div>
@@ -339,22 +338,11 @@ input[readonly] {
                                 <a href="javascript:tabPrev();" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"> </span> </a>
                                 <a href="javascript:tabNext();" class="btn btn-default"> <span class="glyphicon glyphicon-chevron-right">  </span> </a>
                             </div>
-
-
                         </div>
-
                     </div><!--End First col-->
-
-
-
-
+                    
                     <div class="col-lg-4 ">
-
-
-
                     </div>
-
-
                 </div>
                 <!-- End Second Row -->
 
@@ -406,7 +394,7 @@ input[readonly] {
 
                                     <div class="form-group">
 
-                                        <button type="button" class="btn bt btn-lg"><b>Save</b></button>
+                                        <button type="button" class="btn bt btn-lg" data-dismiss="modal"><b>Save</b></button>
                                     </div>
 
                                 </form>
@@ -428,7 +416,7 @@ input[readonly] {
                         </div>
                         <div class="modal-body">
                             <div style="padding:20px">
-                                <form role="form">
+                                <form role="form" data-ng-controller="homeController as homeControllerVM">
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="recipient-name" data-ng-model="homeControllerVM.homeBetterOfferName" placeholder="Name">
                                     </div>
@@ -458,7 +446,7 @@ input[readonly] {
                                     </div>
 
                                     <div class="form-group">
-                                        <button type="button" class="btn bt btn-lg"><b>Save</b></button>
+                                        <button type="button" class="btn bt btn-lg" data-dismiss="modal" data-ng-click="homeControllerVM.getABetterOffer();"><b>Save</b></button>
                                     </div>
 
                                 </form>

@@ -24,6 +24,11 @@ namespace JunkCar.DomainModel.Models
         public int SelectedModelId { get; set; }
         public string ZipCode { get; set; }
         public int StateId { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public int cityId { get; set; }
+        public string Phone { get; set; }
+        public string EmailAddress { get; set; }
         public List<int?> Years { get; set; }
         public List<JunkCar.DataModel.Models.Set_Make> Makes { get; set; }
         public List<JunkCar.DataModel.Models.Set_Model> Models { get; set; }

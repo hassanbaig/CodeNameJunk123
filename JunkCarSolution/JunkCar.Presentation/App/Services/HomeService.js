@@ -13,7 +13,9 @@
             checkZipCode:checkZipCode,
             getStates: getStates,
             getCities: getCities,
-            getQuestionnaire: getQuestionnaire
+            getQuestionnaire: getQuestionnaire,
+            getAnOffer:getAnOffer,
+            getABetterOffer: getABetterOffer
         };
 
         return service;
@@ -152,6 +154,22 @@
                 method: 'GET',
                 params: params,
                 url: 'http://localhost/JunkCarWebAPI/junkcar.v1/Home/GetAnOffer'
+            }).success(function (data, status, headers) {
+                response = data;
+                return response;
+            })
+            .error(function (data, status, headers) {
+                response = data;
+                return response;
+            });
+            return promise;
+        }
+        function getABetterOffer(params) {
+            var response = '';
+            var promise = $http({
+                method: 'GET',
+                params: params,
+                url: 'http://localhost/JunkCarWebAPI/junkcar.v1/Home/GetABetterOffer'
             }).success(function (data, status, headers) {
                 response = data;
                 return response;

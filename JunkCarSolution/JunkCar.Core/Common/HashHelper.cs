@@ -80,9 +80,12 @@ namespace JunkCar.Core.Common
             getAnOffer["OperationType"] = operationType;
             return getAnOffer;
         }
-        public static Hashtable GetABetterOffer(string name, string address, int stateId, int cityId, string zipCode, string phone, string emailAddress,int operationType)
+        public static Hashtable GetABetterOffer(int? year, int? makeId, int? modelId, string name, string address, int stateId, int cityId, string zipCode, string phone, string emailAddress, int operationType)
         {
             Hashtable getABetterOffer = new Hashtable();
+            getABetterOffer["SelectedYear"] = year;
+            getABetterOffer["SelectedMakeId"] = makeId;
+            getABetterOffer["SelectedModelId"] = modelId;
             getABetterOffer["Name"] = name;
             getABetterOffer["Address"] = address;
             getABetterOffer["StateId"] = stateId;

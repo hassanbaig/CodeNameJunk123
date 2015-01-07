@@ -212,36 +212,34 @@ input[readonly] {
                             <div class="tab-pane active" id="tab1" data-ng-init="homeControllerVM.getRegistrationYears();">
                                 <form class="form" role="form">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedRegistrationYear" data-ng-change="homeControllerVM.getMakesByYear();" list="homeRegistrationYearsDatalist" placeholder="Year">
+                                        <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedRegistrationYear" data-ng-change="homeControllerVM.saveYearData();homeControllerVM.getMakesByYear();" list="homeRegistrationYearsDatalist" placeholder="Year">
                                         <datalist id="homeRegistrationYearsDatalist" spellcheck="true">
                                             <option data-ng-repeat="year in homeControllerVM.registrationYearsList" value="{{year}}">
                                         </datalist>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedMake" data-ng-change="homeControllerVM.getModelsByYearMake();" list="homeMakesDatalist" placeholder="Make">
+                                        <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedMake" data-ng-change="homeControllerVM.saveMakeData();homeControllerVM.getModelsByYearMake();" list="homeMakesDatalist" placeholder="Make">
                                         <datalist id="homeMakesDatalist" spellcheck="true">
                                             <option data-ng-repeat="make in homeControllerVM.makesList" value="{{make.Make_Name}}">
                                         </datalist>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedModel" list="homeModelsDatalist" placeholder="Model">
+                                        <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedModel" data-ng-change="homeControllerVM.saveModelData();" list="homeModelsDatalist" placeholder="Model">
                                         <datalist id="homeModelsDatalist" spellcheck="true">
                                             <option data-ng-repeat="model in homeControllerVM.modelsList" value="{{model.Model_Name}}">
                                         </datalist>
                                     </div>
                                 </form>
-                            </div>
+                            </div>                    
 
                             <div class="tab-pane" id="tab2">
                                 <h3 style="text-align:center; color:#aa1a1f; margin-top:10px; margin-bottom:10px;"><b>Where is the car located? </b></h3>
 
-
-                                <form class="form" role="form" data-ng-init="homeControllerVM.getStates();">
+                                <form class="form" role="form">
 
                                     <div class="form-group">
                                         <input type="number" data-ng-model="homeControllerVM.homeZipCode" class="form-control" id="exampleInputEmail2" placeholder="Zip">
                                     </div>
-
 
                                     <div class="form-group">
                                         <div class="row" style="margin-top:10px; margin-bottom:10px">
@@ -267,7 +265,7 @@ input[readonly] {
                             <div class="tab-pane" id="tab3">
                                 <div class="row" style="padding-top:10px; padding-bottom:10px; margin-top:20px; ">
                                     <div class="col-sm-9" style="padding-left:25px;text-align:left">
-                                        <h4 style="padding-top:10px; color:#000">2015 Acura RDX Technology in Florahome, FL</h4>
+                                        <h4 style="padding-top:10px; color:#000">{{homeControllerVM.homeSelectedRegistrationYear}} {{homeControllerVM.homeSelectedMake}} {{homeControllerVM.homeSelectedModel}}</h4>
                                     </div>
 
                                     <div class="col-sm-3">
@@ -276,15 +274,18 @@ input[readonly] {
                                 </div>
                                 <h3 style="text-align:left; color:#000; margin-top:10px; margin-bottom:10px; padding-left:10px"><b>Condition</b></h3>
                                 <h5 style="text-align:left; margin-top:-10px;padding-left:10px">Answer the following questions: </h5><br>
-                                <h4 style="text-align:left; color:#aa1a1f; margin-top:10px; margin-bottom:10px;padding-left:10px"><b>Drivetrain </b></h4><hr>
+                                <h3 style="text-align:left; color:#aa1a1f; margin-top:10px; margin-bottom:10px;padding-left:10px"><b>Drivetrain </b></h3><hr>
                                 <div class="row" style="padding-top:10px;" data-ng-repeat="drivetrainQuestion in homeControllerVM.drivetrainQuestionnaireList">
                                     <div class="col-sm-9" style="padding-left:25px;text-align:left">
                                         <b>{{ drivetrainQuestion.Question.Question }}</b>
                                     </div>
                                     <div class="col-sm-3">
-                                        <select>
-                                            <option data-ng-repeat="answer in drivetrainQuestion.Answers" value="{{answer.Answer}}">{{answer.Answer}}</option>
-                                        </select>
+                                        <div class="form-group">
+                                            <select class="form-control" id="ddQ{{drivetrainQuestion.Question_Id}}">
+                                                <option value="" selected disabled>None</option>
+                                                <option data-ng-repeat="answer in drivetrainQuestion.Answers" value="{{answer.Answer_Id}}">{{answer.Answer}}</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -296,10 +297,13 @@ input[readonly] {
                                     </div>
 
                                     <div class="col-sm-3">
-                                        <select>
-                                            <option data-ng-repeat="answer in interiorExteriorQuestion.Answers" value="{{answer.Answer}}">{{answer.Answer}}</option>
-                                        </select>
-                                    </div>
+                                        <div class="form-group">
+                                            <select class="form-control" id="ddQ{{interiorExteriorQuestion.Question_Id}}">
+                                                <option value="" selected disabled>None</option>
+                                                <option data-ng-repeat="answer in interiorExteriorQuestion.Answers" value="{{answer.Answer_Id}}">{{answer.Answer}}</option>
+                                            </select>
+                                        </div>
+                                        </div>
                                 </div>
 
                                 <div class="col-sm-6" style="padding:5px;">
@@ -331,8 +335,7 @@ input[readonly] {
                                     </div>
                                 </div>
 
-                            </div>
-
+                            </div>                            
 
                             <div style="margin-top:10px;">
                                 <a href="javascript:tabPrev();" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"> </span> </a>
@@ -349,57 +352,44 @@ input[readonly] {
                 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content" style="background-color:#27bbed;">
-                            <div style="padding:20px">
-                                <form role="form">
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            <option>2015</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            <option>Acura</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            <option>RDX</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            <option>Technology</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-
-                                        <input type="text" class="form-control" id="recipient-name" placeholder="32140">
-                                    </div>
-
-                                    <div class="form-group">
-
-                                        <button type="button" class="btn bt btn-lg" data-dismiss="modal"><b>Save</b></button>
-                                    </div>
-
-                                </form>
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                                <!-- <h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
                             </div>
-                        </div>
+                            <div class="modal-body">
+                                <div style="padding:20px">
+                                    <form role="form" data-ng-controller="homeController as homeControllerVM">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedRegistrationYear" data-ng-change="homeControllerVM.getMakesByYear();" list="homeRegistrationYearsDatalist" placeholder="Year">
+                                            <datalist id="homeRegistrationYearsDatalist" spellcheck="true">
+                                                <option data-ng-repeat="year in homeControllerVM.registrationYearsList" value="{{year}}">
+                                            </datalist>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedMake" data-ng-change="homeControllerVM.getModelsByYearMake();" list="homeMakesDatalist" placeholder="Make">
+                                            <datalist id="homeMakesDatalist" spellcheck="true">
+                                                <option data-ng-repeat="make in homeControllerVM.makesList" value="{{make.Make_Name}}">
+                                            </datalist>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedModel" list="homeModelsDatalist" placeholder="Model">
+                                            <datalist id="homeModelsDatalist" spellcheck="true">
+                                                <option data-ng-repeat="model in homeControllerVM.modelsList" value="{{model.Model_Name}}">
+                                            </datalist>
+                                        </div>                                       
+                                        <div class="form-group">
+                                            <input type="number" data-ng-model="homeControllerVM.homeZipCode" class="form-control" id="exampleInputEmail2" placeholder="Zip">
+                                        </div>
+
+                                        <div class="form-group">
+
+                                            <button type="button" class="btn bt btn-lg" data-dismiss="modal"><b>Save</b></button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
 
                     </div>
                 </div>
@@ -416,7 +406,7 @@ input[readonly] {
                         </div>
                         <div class="modal-body">
                             <div style="padding:20px">
-                                <form role="form" data-ng-controller="homeController as homeControllerVM">
+                                <form role="form" data-ng-controller="homeController as homeControllerVM" data-ng-init="homeControllerVM.getStates();">
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="recipient-name" data-ng-model="homeControllerVM.homeBetterOfferName" placeholder="Name">
                                     </div>
@@ -436,7 +426,7 @@ input[readonly] {
                                         </datalist>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="recipient-name" data-ng-model="homeControllerVM.homeBetterOfferZip" placeholder="Zip">
+                                        <input type="text" class="form-control" id="recipient-name" data-ng-model="homeControllerVM.homeZipCode" placeholder="Zip">
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="recipient-name" data-ng-model="homeControllerVM.homeBetterOfferPhone" placeholder="Phone">

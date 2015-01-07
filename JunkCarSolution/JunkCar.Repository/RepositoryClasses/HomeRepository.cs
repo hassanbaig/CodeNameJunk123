@@ -225,7 +225,17 @@ namespace JunkCar.Repository.RepositoryClasses
                 return data;
             }
         }
-        public int GetAnOffer(int? year, int?makeId, int? modelId, string questionnaire, string zipCode, string customerInfo)
+        public int GetAnOffer(int? year, int?makeId, int? modelId, string zipCode)
+        {
+            var offerPrice = _context.GetAnOffer(year, makeId, modelId, null, zipCode, null).FirstOrDefault();
+            return Convert.ToInt32(offerPrice.Offer_Price);
+        }
+        public int GetAnOffer(int? year, int? makeId, int? modelId, string questionnaire, string zipCode)
+        {
+            var offerPrice = _context.GetAnOffer(year, makeId, modelId, questionnaire, zipCode, null).FirstOrDefault();
+            return Convert.ToInt32(offerPrice.Offer_Price);
+        }
+        public int GetAnOffer(int? year, int? makeId, int? modelId, string questionnaire, string zipCode, string customerInfo)
         {
             var offerPrice = _context.GetAnOffer(year, makeId, modelId, questionnaire, zipCode, customerInfo).FirstOrDefault();
             return Convert.ToInt32(offerPrice.Offer_Price);

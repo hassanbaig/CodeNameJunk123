@@ -65,8 +65,7 @@
         homeControllerVM.homeZipCode = '';
         homeControllerVM.homeBetterOfferName = '';
         homeControllerVM.homeBetterOfferAddress = '';
-        homeControllerVM.homeBetterOfferCity = '';
-        homeControllerVM.homeBetterOfferZip = '';
+        homeControllerVM.homeBetterOfferCity = '';        
         homeControllerVM.homeBetterOfferState = '';
         homeControllerVM.homeBetterOfferPhone = '';
         homeControllerVM.homeBetterOfferEmail = '';
@@ -86,8 +85,9 @@
         homeControllerVM.getStates = getStates;
         homeControllerVM.getCities = getCities;
         homeControllerVM.getQuestionnaire = getQuestionnaire;
-        
-       
+        homeControllerVM.saveYearData = saveYearData;
+        homeControllerVM.saveMakeData = saveMakeData;
+        homeControllerVM.saveModelData = saveModelData;
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
        
@@ -101,7 +101,55 @@
         //    return homeService.isValidEmail(emailAddress);
         //}
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-               
+        
+        // Local cache management
+        // cache year
+        function saveYearData() {
+            var year = homeControllerVM.homeSelectedRegistrationYear;
+            localStorage.setItem('selectedYear', year);
+            //var tempYear = localStorage.getItem('selectedYear');
+            //homeControllerVM.homeSelectedRegistrationYear = tempYear;
+        }
+        //var tempYear = localStorage.getItem('selectedYear');
+        //homeControllerVM.homeSelectedRegistrationYear = tempYear;
+
+        // cache make
+        function saveMakeData() {
+            var make = homeControllerVM.homeSelectedMake;
+            var makeId = '';            
+            for (var i = 0; i < homeControllerVM.makesList.length; i++) {
+                if (homeControllerVM.makesList[i].Make_Name == make) {
+                    makeId = parseInt(homeControllerVM.makesList[i].Make_Id);
+                    break;
+                }
+            }            
+            localStorage.setItem('selectedMake', makeId);
+            //var tempMake = localStorage.getItem('selectedMake');
+            //homeControllerVM.homeSelectedMake = tempMake;
+        }
+        //var tempMake = localStorage.getItem('selectedMake');
+        //homeControllerVM.homeSelectedMake = tempMake;
+
+        // cache model
+        function saveModelData() {
+            var model = homeControllerVM.homeSelectedModel;
+            var modelId = '';
+            for (var i = 0; i < homeControllerVM.modelsList.length; i++) {
+                if (homeControllerVM.modelsList[i].Model_Name == model) {
+                    modelId = parseInt(homeControllerVM.modelsList[i].Model_Id);
+                    break;
+                }
+            }
+            localStorage.setItem('selectedModel', modelId);
+            //var tempModel = localStorage.getItem('selectedModel');
+            //homeControllerVM.homeSelectedModel = tempModel;
+        }
+        //var tempModel = localStorage.getItem('selectedModel');
+        //homeControllerVM.homeSelectedModel = tempModel;
+
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        
         function getRegistrationYears() {
             debugger;
             $scope.startSpin();
@@ -162,19 +210,18 @@
                 });
         }
         
-        function checkZipCode() {            
+        function checkZipCode() {
             var zipCode = homeControllerVM.homeZipCode;
-            if(zipCode.length != 0)
-            {
-                $scope.startSpin();      
+            if (zipCode.length != 0) {
+                $scope.startSpin();
                 return homeService.checkZipCode({ zipCode: zipCode })
                     .then(function (serviceResponse) {
                         var response = serviceResponse.data;
-                        if (response == false)
-                        {
+                        if (response == false) {
                             homeControllerVM.homeZipCode = '';
                             alert("Please enter a valid zipcode")
                         }
+                        else { getAnOffer(); }
                         $scope.reset();
                         $scope.stopSpin();
                         return response;
@@ -184,7 +231,7 @@
                         return null;
                     });
             }
-        }       
+        }
 
         function getStates() {
             debugger;
@@ -192,7 +239,7 @@
             return homeService.getStates()
                 .then(function (serviceResponse) {
                     var response = serviceResponse.data;
-                    homeControllerVM.statesList = response;
+                    homeControllerVM.statesList = response;                    
                     $scope.reset();
                     $scope.stopSpin();
                     return homeControllerVM.statesList;
@@ -238,49 +285,51 @@
             var modelId = '';
 
             for (var i = 0; i < homeControllerVM.makesList.length; i++) {
-                if (homeControllerVM.makesList[i].Make_Name == state) {
+                if (homeControllerVM.makesList[i].Make_Name == make) {
                     makeId = parseInt(homeControllerVM.makesList[i].Make_Id);
                     break;
                 }
             }
 
             for (var i = 0; i < homeControllerVM.modelsList.length; i++) {
-                if (homeControllerVM.modelsList[i].Model_Name == state) {
+                if (homeControllerVM.modelsList[i].Model_Name == model) {
                     modelId = parseInt(homeControllerVM.modelsList[i].Model_Id);
                     break;
                 }
             }
 
             $scope.startSpin();
-            return homeService.getAnOffer({ year: year, makeId: makeId, modelId: modelId, zipCode: zipcode })
+            return homeService.getAnOffer({ makeId: makeId, modelId: modelId, year: year, zipCode: zipcode })
                 .then(function (serviceResponse) {
-                    var response = serviceResponse.data;
-                    offerPrice = response;
-                    alert(offerPrice);
+                    homeControllerVM.offerPrice = serviceResponse.data;                     
+                    alert(homeControllerVM.offerPrice);
                     $scope.reset();
                     $scope.stopSpin();
-                    return offerPrice;
+                    return homeControllerVM.offerPrice;
                 }).catch(function (serviceError) {
                     failureAlert(serviceError.data);
                     console.log(serviceError.data);
                     return null;
                 });
-        }
-
+        }       
 
         function getABetterOffer() {
+            debugger;
+            var year = parseInt(localStorage.getItem('selectedYear'));
+            var make = parseInt(localStorage.getItem('selectedMake'));
+            var model = parseInt(localStorage.getItem('selectedModel'));
 
             var name = homeControllerVM.homeBetterOfferName;
             var address = homeControllerVM.homeBetterOfferAddress;
             var city = homeControllerVM.homeBetterOfferCity;
-            var zipCode = homeControllerVM.homeBetterOfferZip;
+            var zipCode = homeControllerVM.homeZipCode;
             var state = homeControllerVM.homeBetterOfferState;
             var phone = homeControllerVM.homeBetterOfferPhone;
-            var email = homeControllerVM.homeBetterOfferEmail;
+            var email = homeControllerVM.homeBetterOfferEmail;              
 
             var stateId = '';
             var cityId = '';
-
+           
             for (var i = 0; i < homeControllerVM.statesList.length; i++) {
                 if (homeControllerVM.statesList[i].State_Name == state) {
                     stateId = parseInt(homeControllerVM.statesList[i].State_Id);
@@ -293,10 +342,10 @@
                     cityId = parseInt(homeControllerVM.citiesList[i].City_Id);
                     break;
                 }
-            }
+            }             
 
             $scope.startSpin();
-            return homeService.getABetterOffer({ name: name, address: address, stateId: stateId, cityId: cityId, zipCode: zipCode, phone: phone, emailAddress: email })
+            return homeService.getABetterOffer({ address: address, cityId: cityId, emailAddress: email, selectedMakeId: make, selectedModelId: model, name: name, phone: phone, stateId: stateId, selectedYear: year, zipCode: zipCode })
                 .then(function (serviceResponse) {
                     var response = serviceResponse.data;
 
@@ -308,7 +357,6 @@
                     console.log(serviceError.data);
                     return null;
                 });
-
         }
 
         function getQuestionnaire() {          
@@ -336,6 +384,7 @@
                 else if (homeControllerVM.questionnaireList[i].Sub_Questionnaire_Id == 3)
                 { homeControllerVM.interiorExteriorQuestionnaireList.push(homeControllerVM.questionnaireList[i]); }
             }
+            console.log(homeControllerVM.questionnaireList);
         }
                 
     }

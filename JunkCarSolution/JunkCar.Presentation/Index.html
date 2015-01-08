@@ -198,11 +198,11 @@ input[readonly] {
                     <h3 style="text-align:center; color:#aa1a1f"> <b>in few steps instantly</b> </h3><br>
                     <div class="tabbable " style="  margin:0 auto; ">
                         <ul class="nav nav-pills" role="tablist" id="myTab" style="margin-top:10px; margin-bottom:20px">
-                            <li class="active"><a href="#tab1" role="tab" data-toggle="tab"><b>Car Model & Year</b></a></li>
-                            <li><a href="#tab2" role="tab" data-toggle="tab"><b>Location</b></a></li>
-                            <li><a href="#tab3" role="tab" data-toggle="tab"><b>Questionnaire</b></a></li>
-                            <li><a href="#tab4" role="tab" data-toggle="tab"><b>Photo</b></a></li>
-                            <li><a href="#tab5" role="tab" data-toggle="tab"><b>Offer</b></a></li>
+                            <li id="tabYearMakeModel" class="active"><a href="#tab1" role="tab" data-toggle="tab"><b>Car Model & Year</b></a></li>
+                            <li id="tabLocation"><a href="#tab2" role="tab" data-toggle="tab"><b>Location</b></a></li>
+                            <li id="tabQuestionnaire"><a href="#tab3" role="tab" data-toggle="tab"><b>Questionnaire</b></a></li>
+                            <li id="tabPhoto"><a href="#tab4" role="tab" data-toggle="tab"><b>Photo</b></a></li>
+                            <li id="tabOffer"><a href="#tab5" id="tabOfferAnchor" onclick="offerTab();" role="tab" data-toggle="tab"><b>Offer</b></a></li>
                             <!--<li><a href="#tab6 " role="tab" data-toggle="tab"><b>Personal Information</b></a></li>-->
                             <!--<li><a href="#tab5" role="tab" data-toggle="tab">Step 5</a></li>
                             <li><a href="#tab6" role="tab" data-toggle="tab">Step 6</a></li>-->
@@ -327,6 +327,7 @@ input[readonly] {
                             <div class="tab-pane" id="tab5">
 
                                 <div class="form-group">
+                                    <span style="font-family:'Century Gothic'; color:darkgreen; font-size:xx-large;"><b>{{homeControllerVM.offerPrice}}</b></span>
                                     <h3 style="text-align:center; color:#aa1a1f; margin-top:10px; margin-bottom:10px;"><b>Please call for negotiation</b></h3>
                                     <div class="row" style="margin-top:10px; margin-bottom:10px">
                                         <div class="col-sm-12" style=" margin-bottom:10px"><h2><span class="label label-default">(888) 787-5772</span></h2> </div>
@@ -382,7 +383,6 @@ input[readonly] {
                                         </div>
 
                                         <div class="form-group">
-
                                             <button type="button" class="btn bt btn-lg" data-dismiss="modal"><b>Save</b></button>
                                         </div>
 
@@ -605,6 +605,12 @@ input[readonly] {
 
                         $('#myTab li:eq(' + index + ') a').tab('show');
                         myTabsActive = index;
+                    }
+
+                    offerTab = function ()
+                    {
+                        $('#myTab li:eq(4) a').tab('show');
+                        myTabsActive = 4;
                     }
                 });
             </script>

@@ -491,8 +491,8 @@
     <Property Name="Contact_Type_Id" Type="int" Nullable="false" />
     <Property Name="Is_Default" Type="bit" />
     <Property Name="User_Contact" Type="nvarchar" MaxLength="2000" />
-    <Property Name="County_Id" Type="int" />
     <Property Name="City_Id" Type="int" />
+    <Property Name="County_Id" Type="int" />
     <Property Name="State_Id" Type="int" />
     <Property Name="Country_Id" Type="int" />
     <Property Name="Zip_Code" Type="varchar" MaxLength="100" />
@@ -924,6 +924,54 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Set_Questionnaire_Result_Detail_Answer_Id">
+    <End Role="Set_Answer" Type="Self.Set_Answer" Multiplicity="1" />
+    <End Role="Set_Questionnaire_Result_Detail" Type="Self.Set_Questionnaire_Result_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Set_Answer">
+        <PropertyRef Name="Answer_Id" />
+      </Principal>
+      <Dependent Role="Set_Questionnaire_Result_Detail">
+        <PropertyRef Name="Answer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Set_Questionnaire_Result_Detail_Question_Id">
+    <End Role="Set_Question" Type="Self.Set_Question" Multiplicity="1" />
+    <End Role="Set_Questionnaire_Result_Detail" Type="Self.Set_Questionnaire_Result_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Set_Question">
+        <PropertyRef Name="Question_Id" />
+      </Principal>
+      <Dependent Role="Set_Questionnaire_Result_Detail">
+        <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Set_Questionnaire_Result_Detail_Questionnaire_Result_Id">
+    <End Role="Set_Questionnaire_Result" Type="Self.Set_Questionnaire_Result" Multiplicity="1" />
+    <End Role="Set_Questionnaire_Result_Detail" Type="Self.Set_Questionnaire_Result_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Set_Questionnaire_Result">
+        <PropertyRef Name="Questionnaire_Result_Id" />
+      </Principal>
+      <Dependent Role="Set_Questionnaire_Result_Detail">
+        <PropertyRef Name="Questionnaire_Result_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Set_Questionnaire_Result_Questionnaire_Id">
+    <End Role="Set_Questionnaire" Type="Self.Set_Questionnaire" Multiplicity="1" />
+    <End Role="Set_Questionnaire_Result" Type="Self.Set_Questionnaire_Result" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Set_Questionnaire">
+        <PropertyRef Name="Questionnaire_Id" />
+      </Principal>
+      <Dependent Role="Set_Questionnaire_Result">
+        <PropertyRef Name="Questionnaire_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Set_Site_Contact_Site_Id">
     <End Role="Set_Site" Type="Self.Set_Site" Multiplicity="1" />
     <End Role="Set_Site_Contact" Type="Self.Set_Site_Contact" Multiplicity="*" />
@@ -1160,14 +1208,6 @@
     <Parameter Name="Zip_Code" Type="varchar" Mode="In" />
     <Parameter Name="Customer_Info" Type="xml" Mode="In" />
   </Function>
-  <Function Name="usp_Sal_Suggested_Offer_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
-    <Parameter Name="Registration_Year" Type="int" Mode="In" />
-    <Parameter Name="Make_Id" Type="int" Mode="In" />
-    <Parameter Name="Model_Id" Type="int" Mode="In" />
-    <Parameter Name="Questioneer" Type="xml" Mode="In" />
-    <Parameter Name="Zip_Code" Type="varchar" Mode="In" />
-    <Parameter Name="Customer_Info" Type="xml" Mode="In" />
-  </Function>
   <Function Name="usp_Sec_Role" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
     <Parameter Name="Action_Type" Type="numeric" Mode="In" />
     <Parameter Name="Role_Id" Type="int" Mode="InOut" />
@@ -1370,66 +1410,6 @@
     <Parameter Name="Action_Type" Type="numeric" Mode="In" />
     <Parameter Name="Question_Id" Type="int" Mode="InOut" />
     <Parameter Name="Question" Type="varchar" Mode="In" />
-    <Parameter Name="Sort_Order" Type="smallint" Mode="In" />
-    <Parameter Name="Is_Active" Type="tinyint" Mode="In" />
-    <Parameter Name="Created_Date" Type="datetime" Mode="In" />
-    <Parameter Name="Created_By" Type="int" Mode="In" />
-    <Parameter Name="Modified_Date" Type="datetime" Mode="In" />
-    <Parameter Name="Modified_By" Type="int" Mode="In" />
-    <Parameter Name="Audit_Id" Type="bigint" Mode="In" />
-    <Parameter Name="User_IP" Type="varchar" Mode="In" />
-    <Parameter Name="Site_Id" Type="int" Mode="In" />
-  </Function>
-  <Function Name="usp_Set_Questioneer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
-    <Parameter Name="Action_Type" Type="numeric" Mode="In" />
-    <Parameter Name="Questioneer_Id" Type="int" Mode="InOut" />
-    <Parameter Name="Questioneer_Description" Type="varchar(max)" Mode="In" />
-    <Parameter Name="Parent_Questioneer_Id" Type="int" Mode="In" />
-    <Parameter Name="Sort_Order" Type="smallint" Mode="In" />
-    <Parameter Name="Is_Active" Type="tinyint" Mode="In" />
-    <Parameter Name="Created_Date" Type="datetime" Mode="In" />
-    <Parameter Name="Created_By" Type="int" Mode="In" />
-    <Parameter Name="Modified_Date" Type="datetime" Mode="In" />
-    <Parameter Name="Modified_By" Type="int" Mode="In" />
-    <Parameter Name="Audit_Id" Type="bigint" Mode="In" />
-    <Parameter Name="User_IP" Type="varchar" Mode="In" />
-    <Parameter Name="Site_Id" Type="int" Mode="In" />
-  </Function>
-  <Function Name="usp_Set_Questioneer_Detail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
-    <Parameter Name="Action_Type" Type="numeric" Mode="In" />
-    <Parameter Name="Questioneer_Detail_Id" Type="int" Mode="InOut" />
-    <Parameter Name="Questioneer_Id" Type="int" Mode="In" />
-    <Parameter Name="Question_Id" Type="int" Mode="In" />
-    <Parameter Name="Answer_Id" Type="int" Mode="In" />
-    <Parameter Name="Sort_Order" Type="smallint" Mode="In" />
-    <Parameter Name="Is_Active" Type="tinyint" Mode="In" />
-    <Parameter Name="Created_Date" Type="datetime" Mode="In" />
-    <Parameter Name="Created_By" Type="int" Mode="In" />
-    <Parameter Name="Modified_Date" Type="datetime" Mode="In" />
-    <Parameter Name="Modified_By" Type="int" Mode="In" />
-    <Parameter Name="Audit_Id" Type="bigint" Mode="In" />
-    <Parameter Name="User_IP" Type="varchar" Mode="In" />
-    <Parameter Name="Site_Id" Type="int" Mode="In" />
-  </Function>
-  <Function Name="usp_Set_Questioneer_Result" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
-    <Parameter Name="Action_Type" Type="numeric" Mode="In" />
-    <Parameter Name="Questioneer_Result_Id" Type="int" Mode="InOut" />
-    <Parameter Name="Questioneer_Id" Type="int" Mode="In" />
-    <Parameter Name="Sort_Order" Type="int" Mode="In" />
-    <Parameter Name="Created_Date" Type="datetime" Mode="In" />
-    <Parameter Name="Created_By" Type="int" Mode="In" />
-    <Parameter Name="Modified_Date" Type="datetime" Mode="In" />
-    <Parameter Name="Modified_By" Type="int" Mode="In" />
-    <Parameter Name="Audit_Id" Type="bigint" Mode="In" />
-    <Parameter Name="User_IP" Type="varchar" Mode="In" />
-    <Parameter Name="Site_Id" Type="int" Mode="In" />
-  </Function>
-  <Function Name="usp_Set_Questioneer_Result_Detail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
-    <Parameter Name="Action_Type" Type="numeric" Mode="In" />
-    <Parameter Name="Questioneer_Result_Detail_Id" Type="int" Mode="InOut" />
-    <Parameter Name="Questioneer_Result_Id" Type="int" Mode="In" />
-    <Parameter Name="Question_Id" Type="int" Mode="In" />
-    <Parameter Name="Answer_Id" Type="int" Mode="In" />
     <Parameter Name="Sort_Order" Type="smallint" Mode="In" />
     <Parameter Name="Is_Active" Type="tinyint" Mode="In" />
     <Parameter Name="Created_Date" Type="datetime" Mode="In" />
@@ -1729,6 +1709,22 @@
     <AssociationSet Name="FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id" Association="Self.FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id">
       <End Role="Set_Questionnaire" EntitySet="Set_Questionnaire" />
       <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Set_Questionnaire_Result_Detail_Answer_Id" Association="Self.FK_Set_Questionnaire_Result_Detail_Answer_Id">
+      <End Role="Set_Answer" EntitySet="Set_Answer" />
+      <End Role="Set_Questionnaire_Result_Detail" EntitySet="Set_Questionnaire_Result_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Set_Questionnaire_Result_Detail_Question_Id" Association="Self.FK_Set_Questionnaire_Result_Detail_Question_Id">
+      <End Role="Set_Question" EntitySet="Set_Question" />
+      <End Role="Set_Questionnaire_Result_Detail" EntitySet="Set_Questionnaire_Result_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Set_Questionnaire_Result_Detail_Questionnaire_Result_Id" Association="Self.FK_Set_Questionnaire_Result_Detail_Questionnaire_Result_Id">
+      <End Role="Set_Questionnaire_Result" EntitySet="Set_Questionnaire_Result" />
+      <End Role="Set_Questionnaire_Result_Detail" EntitySet="Set_Questionnaire_Result_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Set_Questionnaire_Result_Questionnaire_Id" Association="Self.FK_Set_Questionnaire_Result_Questionnaire_Id">
+      <End Role="Set_Questionnaire" EntitySet="Set_Questionnaire" />
+      <End Role="Set_Questionnaire_Result" EntitySet="Set_Questionnaire_Result" />
     </AssociationSet>
     <AssociationSet Name="FK_Set_Site_Contact_Site_Id" Association="Self.FK_Set_Site_Contact_Site_Id">
       <End Role="Set_Site" EntitySet="Set_Site" />

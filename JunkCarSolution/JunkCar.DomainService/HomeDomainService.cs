@@ -107,6 +107,27 @@ namespace JunkCar.DomainService
                                 home.ResponseMessage = "Valid";
                             //}
                             break;
+                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_A_BETTER_OFFER:
+                            home = (DomainModel.Models.Home)domainModel;
+                            if (home.SelectedYear <= 0)
+                            {
+                                home.ResponseMessage = "Must select a year";
+                            }
+                            else if (home.SelectedMakeId <= 0)
+                            {
+                                home.ResponseMessage = "Must select a make";
+                            }
+                            else if (home.SelectedModelId <= 0)
+                            {
+                                home.ResponseMessage = "Must select a model";
+                            }
+                            else
+                            {
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home);
+                                home.ResponseMessage = "Valid";
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -128,6 +149,9 @@ namespace JunkCar.DomainService
                             home.ResponseMessage = "Invalid domain model";
                             break;
                         case JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER:
+                            home.ResponseMessage = "Invalid domain model";
+                            break;
+                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_A_BETTER_OFFER:
                             home.ResponseMessage = "Invalid domain model";
                             break;
                         default:
@@ -154,6 +178,9 @@ namespace JunkCar.DomainService
                     case JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER:
                         home.ResponseMessage = ex.Message;
                         break;
+                    case JunkCar.Factory.Enumerations.DomainModelEnum.GET_A_BETTER_OFFER:
+                        home.ResponseMessage = ex.Message;
+                        break;
                     default:
                         break;
                 }
@@ -170,6 +197,8 @@ namespace JunkCar.DomainService
                 case JunkCar.Factory.Enumerations.DomainModelEnum.GET_CITIES:
                     return home;
                 case JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER:
+                    return home;
+                case JunkCar.Factory.Enumerations.DomainModelEnum.GET_A_BETTER_OFFER:
                     return home;
                 default:
                     break;
@@ -190,7 +219,7 @@ namespace JunkCar.DomainService
             {
                 switch (searchCriteria)
                 {                    
-                    case SearchCriteriaEnum.GET_REGISTRATION_YEARS:
+                    case SearchCriteriaEnum.GET_REGISTRATION_YEARS:                        
                         unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
                         home = (DomainModel.Models.Home)unitOfWork.GetAll(searchCriteria);
                         break;

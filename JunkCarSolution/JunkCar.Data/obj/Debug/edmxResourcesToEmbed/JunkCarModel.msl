@@ -754,7 +754,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="usp_Sal_Suggested_Offer_Select" FunctionName="shiner49_JunkCarModel.Store.usp_Sal_Suggested_Offer_Select" />
     <FunctionImportMapping FunctionImportName="usp_Sec_Role" FunctionName="shiner49_JunkCarModel.Store.usp_Sec_Role">
       <ResultMapping>
         <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Sec_Role_Result">
@@ -1013,10 +1012,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="usp_Set_Questioneer" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Questioneer" />
-    <FunctionImportMapping FunctionImportName="usp_Set_Questioneer_Detail" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Questioneer_Detail" />
-    <FunctionImportMapping FunctionImportName="usp_Set_Questioneer_Result" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Questioneer_Result" />
-    <FunctionImportMapping FunctionImportName="usp_Set_Questioneer_Result_Detail" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Questioneer_Result_Detail" />
     <FunctionImportMapping FunctionImportName="usp_Set_Questionnaire" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Questionnaire">
       <ResultMapping>
         <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Questionnaire_Result">

@@ -88,6 +88,7 @@
         homeControllerVM.saveYearData = saveYearData;
         homeControllerVM.saveMakeData = saveMakeData;
         homeControllerVM.saveModelData = saveModelData;
+        homeControllerVM.saveZipCodeData = saveZipCodeData;
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
        
@@ -103,6 +104,7 @@
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
         
         // Local cache management
+
         // cache year
         function saveYearData() {
             var year = homeControllerVM.homeSelectedRegistrationYear;
@@ -123,12 +125,9 @@
                     break;
                 }
             }            
-            localStorage.setItem('selectedMake', makeId);
-            //var tempMake = localStorage.getItem('selectedMake');
-            //homeControllerVM.homeSelectedMake = tempMake;
+            localStorage.setItem('selectedMake', makeId);         
         }
-        //var tempMake = localStorage.getItem('selectedMake');
-        //homeControllerVM.homeSelectedMake = tempMake;
+      
 
         // cache model
         function saveModelData() {
@@ -140,13 +139,14 @@
                     break;
                 }
             }
-            localStorage.setItem('selectedModel', modelId);
-            //var tempModel = localStorage.getItem('selectedModel');
-            //homeControllerVM.homeSelectedModel = tempModel;
-        }
-        //var tempModel = localStorage.getItem('selectedModel');
-        //homeControllerVM.homeSelectedModel = tempModel;
+            localStorage.setItem('selectedModel', modelId);        
+        }        
 
+        // cache zipcode
+        function saveZipCodeData() {
+            var zipCode = homeControllerVM.homeZipCode;
+            localStorage.setItem('selectedZipCode', zipCode);        
+        }
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         
@@ -301,8 +301,16 @@
             $scope.startSpin();
             return homeService.getAnOffer({ makeId: makeId, modelId: modelId, year: year, zipCode: zipcode })
                 .then(function (serviceResponse) {
-                    homeControllerVM.offerPrice = serviceResponse.data;                     
-                    alert(homeControllerVM.offerPrice);
+                    homeControllerVM.offerPrice = '$';
+                    homeControllerVM.offerPrice += serviceResponse.data;
+                    if (homeControllerVM.offerPrice.length > 0)
+                    {
+                        //clearAllActiveTabs();                        
+                        //var offerTab = document.getElementById("tabOffer").className = "active";
+                        document.getElementById("tabOfferAnchor").click();
+                        //document.location = '#tab5';
+                        //$('#myTab li:eq(4) a').tab('show');                        
+                    }
                     $scope.reset();
                     $scope.stopSpin();
                     return homeControllerVM.offerPrice;
@@ -322,7 +330,7 @@
             var name = homeControllerVM.homeBetterOfferName;
             var address = homeControllerVM.homeBetterOfferAddress;
             var city = homeControllerVM.homeBetterOfferCity;
-            var zipCode = homeControllerVM.homeZipCode;
+            var zipCode = localStorage.getItem('selectedZipCode');
             var state = homeControllerVM.homeBetterOfferState;
             var phone = homeControllerVM.homeBetterOfferPhone;
             var email = homeControllerVM.homeBetterOfferEmail;              
@@ -347,8 +355,8 @@
             $scope.startSpin();
             return homeService.getABetterOffer({ address: address, cityId: cityId, emailAddress: email, selectedMakeId: make, selectedModelId: model, name: name, phone: phone, stateId: stateId, selectedYear: year, zipCode: zipCode })
                 .then(function (serviceResponse) {
-                    var response = serviceResponse.data;
-
+                    homeControllerVM.offerPrice = '$';
+                    homeControllerVM.offerPrice += serviceResponse.data;                    
                     $scope.reset();
                     $scope.stopSpin();
                     return response;
@@ -386,6 +394,13 @@
             }
             console.log(homeControllerVM.questionnaireList);
         }
-                
+           
+        function clearAllActiveTabs() {            
+            document.getElementById("tabYearMakeModel").className = "";
+            document.getElementById("tabLocation").className = "";
+            document.getElementById("tabQuestionnaire").className = "";
+            document.getElementById("tabPhoto").className = "";
+            document.getElementById("tabOffer").className = "";     
+        }
     }
 })();

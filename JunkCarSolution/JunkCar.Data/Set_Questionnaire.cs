@@ -20,6 +20,7 @@ namespace JunkCar.Data
             this.Sal_Offer = new HashSet<Sal_Offer>();
             this.Set_Questionnaire_Detail = new HashSet<Set_Questionnaire_Detail>();
             this.Set_Questionnaire_Detail1 = new HashSet<Set_Questionnaire_Detail>();
+            this.Set_Questionnaire_Result = new HashSet<Set_Questionnaire_Result>();
         }
     
         public int Questionnaire_Id { get; set; }
@@ -39,5 +40,6 @@ namespace JunkCar.Data
         public virtual ICollection<Sal_Offer> Sal_Offer { get; set; }
         public virtual ICollection<Set_Questionnaire_Detail> Set_Questionnaire_Detail { get; set; }
         public virtual ICollection<Set_Questionnaire_Detail> Set_Questionnaire_Detail1 { get; set; }
+        public virtual ICollection<Set_Questionnaire_Result> Set_Questionnaire_Result { get; set; }
     }
 }

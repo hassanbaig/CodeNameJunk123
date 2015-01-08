@@ -234,10 +234,15 @@ namespace JunkCar.Repository.RepositoryClasses
         {
             var offerPrice = _context.GetAnOffer(year, makeId, modelId, questionnaire, zipCode, null).FirstOrDefault();
             return Convert.ToInt32(offerPrice.Offer_Price);
-        }
+        }       
         public int GetAnOffer(int? year, int? makeId, int? modelId, string questionnaire, string zipCode, string customerInfo)
         {
             var offerPrice = _context.GetAnOffer(year, makeId, modelId, questionnaire, zipCode, customerInfo).FirstOrDefault();
+            return Convert.ToInt32(offerPrice.Offer_Price);
+        }
+        public int GetABetterOffer(int? year, int? makeId, int? modelId, string zipCode, string customerInfo)
+        {
+            var offerPrice = _context.GetAnOffer(year, makeId, modelId, null, zipCode, customerInfo).FirstOrDefault();
             return Convert.ToInt32(offerPrice.Offer_Price);
         }
     }

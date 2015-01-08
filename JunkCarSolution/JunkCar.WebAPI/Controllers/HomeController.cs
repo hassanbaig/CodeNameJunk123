@@ -16,7 +16,7 @@ namespace JunkCar.WebAPI.Controllers
         private AbstractDomainModel domainModel;
         private AbstractDomainService domainService;                       
         public IQueryable GetRegistrationYears()
-        {
+        {            
             FactoryFacade factory = new FactoryFacade();
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
             return ((DomainModel.Models.Home)domainService.Query(JunkCar.Core.Enumerations.SearchCriteriaEnum.GET_REGISTRATION_YEARS)).Years.AsQueryable();            
@@ -112,8 +112,9 @@ namespace JunkCar.WebAPI.Controllers
             domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Home));
             domainModel.Fill(HashHelper.GetABetterOffer(selectedYear, selectedMakeId, selectedModelId, name, address, stateId, cityId, zipCode, phone, emailAddress, 8));
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
-            return ((DomainModel.Models.Home)domainService.Query(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER)).OfferPrice.ToString().AsQueryable();
+            return ((DomainModel.Models.Home)domainService.Query(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.GET_A_BETTER_OFFER)).OfferPrice.ToString().AsQueryable();
         }
+        //JunkCar.Core.ConfigurationEmails.ConfigurationEmail.SignupEmail("Hassan", "123", "mirzahassanbaig2006@gmail.com");
     }
 }
 

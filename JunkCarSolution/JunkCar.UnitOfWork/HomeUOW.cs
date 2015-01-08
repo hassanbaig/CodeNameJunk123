@@ -147,6 +147,21 @@ namespace JunkCar.UnitOfWork
                     {
                         throw new Exception("No offer");
                     }
+                    break;
+                case 8:
+                    //home.SelectedQuestionnaire
+                    //home.CustomerInfo                  
+
+                    home.OfferPrice = homeRepository.GetABetterOffer(home.SelectedYear, home.SelectedMakeId, home.SelectedModelId,home.ZipCode,
+                        "<Customer_Info><Customer_Name>"+home.Name+"</Customer_Name>"+
+                        "<Customer_Address>"+home.Address+"</Customer_Address>"+
+                        "<Customer_Phone>"+home.Phone+"</Customer_Phone>"+
+                        "<Customer_Email>"+home.EmailAddress+"</Customer_Email></Customer_Info>");
+
+                    if (home.OfferPrice <= 0)
+                    {
+                        throw new Exception("No offer");
+                    }
                     break;   
                 default:
                     break;

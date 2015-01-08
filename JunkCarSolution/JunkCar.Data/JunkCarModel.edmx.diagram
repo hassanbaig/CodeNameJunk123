@@ -75,6 +75,7 @@
         <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Result_Detail_Question_Id" />
         <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Result_Questionnaire_Id" />
         <AssociationConnector Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Result_Detail_Questionnaire_Result_Id" />
+        <EntityTypeShape EntityType="shiner49_JunkCarModel.Set_Email_Template" Width="1.5" PointX="15.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -118,6 +118,9 @@
     <Compile Include="Set_Document.cs">
       <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Set_Email_Template.cs">
+      <DependentUpon>JunkCarModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Set_Make.cs">
       <DependentUpon>JunkCarModel.tt</DependentUpon>
     </Compile>

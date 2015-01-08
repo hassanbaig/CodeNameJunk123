@@ -552,6 +552,29 @@
     <Property Name="User_IP" Type="varchar" MaxLength="25" />
     <Property Name="Site_Id" Type="int" Nullable="false" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'shiner49_JunkCarNew.dbo.STG_Make_Model_Year' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="STG_Make_Model_Year">
+          <Property Name="year" Type="int" />
+          <Property Name="make" Type="varchar" MaxLength="2000" />
+          <Property Name="model" Type="varchar" MaxLength="2000" />
+        </EntityType>-->
+  <EntityType Name="Set_Email_Template">
+    <Key>
+      <PropertyRef Name="Email_Template_Id" />
+    </Key>
+    <Property Name="Email_Template_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email_Type" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email_Subject" Type="varchar" MaxLength="2000" Nullable="false" />
+    <Property Name="Email_Body" Type="varchar(max)" Nullable="false" />
+    <Property Name="Is_Active" Type="tinyint" Nullable="false" />
+    <Property Name="Created_Date" Type="datetime" Nullable="false" />
+    <Property Name="Created_By" Type="int" Nullable="false" />
+    <Property Name="Modified_Date" Type="datetime" />
+    <Property Name="Modified_By" Type="int" />
+    <Property Name="Audit_Id" Type="bigint" />
+    <Property Name="User_IP" Type="varchar" MaxLength="25" />
+  </EntityType>
   <Association Name="FK_Sal_Customer_Contact_City_Id">
     <End Role="Set_City" Type="Self.Set_City" Multiplicity="0..1" />
     <End Role="Sal_Customer_Contact" Type="Self.Sal_Customer_Contact" Multiplicity="*" />
@@ -1586,6 +1609,7 @@
     <EntitySet Name="Set_Site_Contact" EntityType="Self.Set_Site_Contact" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Set_State" EntityType="Self.Set_State" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Set_Zip_Code" EntityType="Self.Set_Zip_Code" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Set_Email_Template" EntityType="Self.Set_Email_Template" Schema="shiner49_devuser" store:Type="Tables" />
     <AssociationSet Name="FK_Sal_Customer_Contact_City_Id" Association="Self.FK_Sal_Customer_Contact_City_Id">
       <End Role="Set_City" EntitySet="Set_City" />
       <End Role="Sal_Customer_Contact" EntitySet="Sal_Customer_Contact" />

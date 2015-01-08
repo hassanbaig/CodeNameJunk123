@@ -557,6 +557,22 @@
           <Property Name="User_IP" Type="varchar" MaxLength="25" />
           <Property Name="Site_Id" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Set_Email_Template">
+          <Key>
+            <PropertyRef Name="Email_Template_Id" />
+          </Key>
+          <Property Name="Email_Template_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email_Type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email_Subject" Type="varchar" MaxLength="2000" Nullable="false" />
+          <Property Name="Email_Body" Type="varchar(max)" Nullable="false" />
+          <Property Name="Is_Active" Type="tinyint" Nullable="false" />
+          <Property Name="Created_Date" Type="datetime" Nullable="false" />
+          <Property Name="Created_By" Type="int" Nullable="false" />
+          <Property Name="Modified_Date" Type="datetime" />
+          <Property Name="Modified_By" Type="int" />
+          <Property Name="Audit_Id" Type="bigint" />
+          <Property Name="User_IP" Type="varchar" MaxLength="25" />
+        </EntityType>
         <Association Name="FK_Sal_Customer_Contact_City_Id">
           <End Role="Set_City" Type="Self.Set_City" Multiplicity="0..1" />
           <End Role="Sal_Customer_Contact" Type="Self.Sal_Customer_Contact" Multiplicity="*" />
@@ -1213,6 +1229,11 @@
           <Parameter Name="Zip_Code" Type="varchar" Mode="In" />
           <Parameter Name="Customer_Info" Type="xml" Mode="In" />
         </Function>
+        <Function Name="usp_Sec_Auto_Email_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
+          <Parameter Name="Site_id" Type="int" Mode="In" />
+          <Parameter Name="User_Code" Type="int" Mode="In" />
+          <Parameter Name="Customer_Id" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_Sec_Role" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
           <Parameter Name="Action_Type" Type="numeric" Mode="In" />
           <Parameter Name="Role_Id" Type="int" Mode="InOut" />
@@ -1591,6 +1612,7 @@
           <EntitySet Name="Set_Site_Contact" EntityType="Self.Set_Site_Contact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Set_State" EntityType="Self.Set_State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Set_Zip_Code" EntityType="Self.Set_Zip_Code" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Set_Email_Template" EntityType="Self.Set_Email_Template" Schema="shiner49_devuser" store:Type="Tables" />
           <AssociationSet Name="FK_Sal_Customer_Contact_City_Id" Association="Self.FK_Sal_Customer_Contact_City_Id">
             <End Role="Set_City" EntitySet="Set_City" />
             <End Role="Sal_Customer_Contact" EntitySet="Sal_Customer_Contact" />
@@ -3577,6 +3599,12 @@
             <End Role="Set_Questionnaire_Result" EntitySet="Set_Questionnaire_Result" />
             <End Role="Set_Questionnaire_Result_Detail" EntitySet="Set_Questionnaire_Result_Detail" />
           </AssociationSet>
+          <EntitySet Name="Set_Email_Template" EntityType="shiner49_JunkCarModel.Set_Email_Template" />
+          <FunctionImport Name="usp_Sec_Auto_Email_Select" ReturnType="Collection(String)">
+            <Parameter Name="Site_id" Mode="In" Type="Int32" />
+            <Parameter Name="User_Code" Mode="In" Type="Int32" />
+            <Parameter Name="Customer_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Sal_Customer_Result">
           <Property Type="Decimal" Name="ActionType" Nullable="true" Precision="10" Scale="0" />
@@ -4159,6 +4187,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Set_Email_Template">
+          <Key>
+            <PropertyRef Name="Email_Template_Id" />
+          </Key>
+          <Property Name="Email_Template_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email_Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email_Subject" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Email_Body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Is_Active" Type="Byte" Nullable="false" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_By" Type="Int32" Nullable="false" />
+          <Property Name="Modified_Date" Type="DateTime" Precision="3" />
+          <Property Name="Modified_By" Type="Int32" />
+          <Property Name="Audit_Id" Type="Int64" />
+          <Property Name="User_IP" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5367,6 +5411,24 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Set_Email_Template">
+            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Email_Template">
+              <MappingFragment StoreEntitySet="Set_Email_Template">
+                <ScalarProperty Name="User_IP" ColumnName="User_IP" />
+                <ScalarProperty Name="Audit_Id" ColumnName="Audit_Id" />
+                <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
+                <ScalarProperty Name="Modified_Date" ColumnName="Modified_Date" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
+                <ScalarProperty Name="Email_Body" ColumnName="Email_Body" />
+                <ScalarProperty Name="Email_Subject" ColumnName="Email_Subject" />
+                <ScalarProperty Name="Email_Type" ColumnName="Email_Type" />
+                <ScalarProperty Name="Email_Template_Id" ColumnName="Email_Template_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_Sec_Auto_Email_Select" FunctionName="shiner49_JunkCarModel.Store.usp_Sec_Auto_Email_Select" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

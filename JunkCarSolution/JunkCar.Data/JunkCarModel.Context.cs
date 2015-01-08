@@ -56,6 +56,7 @@ namespace JunkCar.Data
         public virtual DbSet<Set_Site_Contact> Set_Site_Contact { get; set; }
         public virtual DbSet<Set_State> Set_State { get; set; }
         public virtual DbSet<Set_Zip_Code> Set_Zip_Code { get; set; }
+        public virtual DbSet<Set_Email_Template> Set_Email_Template { get; set; }
     
         public virtual int usp_Generate_Questionnaire_Result(Nullable<int> questionnaire_Id)
         {
@@ -2221,6 +2222,23 @@ namespace JunkCar.Data
                 new ObjectParameter("Customer_Info", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Sal_Suggested_Offer_Result>("GetAnOffer", registration_YearParameter, make_IdParameter, model_IdParameter, questioneerParameter, zip_CodeParameter, customer_InfoParameter);
+        }
+    
+        public virtual ObjectResult<string> usp_Sec_Auto_Email_Select(Nullable<int> site_id, Nullable<int> user_Code, Nullable<int> customer_Id)
+        {
+            var site_idParameter = site_id.HasValue ?
+                new ObjectParameter("Site_id", site_id) :
+                new ObjectParameter("Site_id", typeof(int));
+    
+            var user_CodeParameter = user_Code.HasValue ?
+                new ObjectParameter("User_Code", user_Code) :
+                new ObjectParameter("User_Code", typeof(int));
+    
+            var customer_IdParameter = customer_Id.HasValue ?
+                new ObjectParameter("Customer_Id", customer_Id) :
+                new ObjectParameter("Customer_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("usp_Sec_Auto_Email_Select", site_idParameter, user_CodeParameter, customer_IdParameter);
         }
     }
 }

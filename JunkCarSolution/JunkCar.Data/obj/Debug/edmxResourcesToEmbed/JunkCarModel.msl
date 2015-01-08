@@ -1202,5 +1202,22 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="Set_Email_Template">
+      <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Email_Template">
+        <MappingFragment StoreEntitySet="Set_Email_Template">
+          <ScalarProperty Name="User_IP" ColumnName="User_IP" />
+          <ScalarProperty Name="Audit_Id" ColumnName="Audit_Id" />
+          <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
+          <ScalarProperty Name="Modified_Date" ColumnName="Modified_Date" />
+          <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+          <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+          <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
+          <ScalarProperty Name="Email_Body" ColumnName="Email_Body" />
+          <ScalarProperty Name="Email_Subject" ColumnName="Email_Subject" />
+          <ScalarProperty Name="Email_Type" ColumnName="Email_Type" />
+          <ScalarProperty Name="Email_Template_Id" ColumnName="Email_Template_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

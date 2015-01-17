@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="shiner49_JunkCarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="shiner49_JunkCarNewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sal_Customer">
           <Key>
             <PropertyRef Name="Customer_Id" />
@@ -22,6 +22,9 @@
           <Property Name="Audit_Id" Type="bigint" />
           <Property Name="User_IP" Type="varchar" MaxLength="25" />
           <Property Name="Site_Id" Type="int" Nullable="false" />
+          <Property Name="Login_Name" Type="varchar" MaxLength="250" />
+          <Property Name="Login_Password" Type="varchar" MaxLength="250" />
+          <Property Name="Signup_Date" Type="datetime" />
         </EntityType>
         <EntityType Name="Sal_Customer_Contact">
           <Key>
@@ -58,8 +61,8 @@
           <Property Name="Make_Id" Type="int" Nullable="false" />
           <Property Name="Model_Id" Type="int" Nullable="false" />
           <Property Name="Registeration_Year" Type="int" Nullable="false" />
-          <Property Name="Questionnaire_Id" Type="int" Nullable="false" />
-          <Property Name="Offer_Id" Type="int" Nullable="false" />
+          <Property Name="Questionnaire_Id" Type="int" />
+          <Property Name="Offer_Id" Type="int" />
           <Property Name="Offer_Date" Type="datetime" Nullable="false" />
           <Property Name="Offer_Status_Id" Type="int" Nullable="false" />
           <Property Name="Initial_Offer_Price" Type="int" Nullable="false" />
@@ -557,6 +560,16 @@
           <Property Name="User_IP" Type="varchar" MaxLength="25" />
           <Property Name="Site_Id" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="Set_Email_Template">
           <Key>
             <PropertyRef Name="Email_Template_Id" />
@@ -670,7 +683,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Sal_Customer_Offer_Offer_Id">
-          <End Role="Sal_Offer" Type="Self.Sal_Offer" Multiplicity="1" />
+          <End Role="Sal_Offer" Type="Self.Sal_Offer" Multiplicity="0..1" />
           <End Role="Sal_Customer_Offer" Type="Self.Sal_Customer_Offer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sal_Offer">
@@ -694,7 +707,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Sal_Customer_Offer_Questionnaire_Id">
-          <End Role="Set_Questionnaire" Type="Self.Set_Questionnaire" Multiplicity="1" />
+          <End Role="Set_Questionnaire" Type="Self.Set_Questionnaire" Multiplicity="0..1" />
           <End Role="Sal_Customer_Offer" Type="Self.Sal_Customer_Offer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Set_Questionnaire">
@@ -1065,6 +1078,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="greatest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
           <Parameter Name="p_value_1" Type="int" Mode="In" />
           <Parameter Name="p_value_2" Type="int" Mode="In" />
@@ -1083,6 +1097,36 @@
           <Parameter Name="length" Type="int" Mode="In" />
           <Parameter Name="padChar" Type="char" Mode="In" />
         </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_Generate_Questionnaire_Result" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
           <Parameter Name="Questionnaire_Id" Type="int" Mode="In" />
         </Function>
@@ -1148,6 +1192,24 @@
           <Parameter Name="Audit_Id" Type="bigint" Mode="In" />
           <Parameter Name="User_IP" Type="varchar" Mode="In" />
           <Parameter Name="Site_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_Sal_Customer_Signup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
+          <Parameter Name="Customer_Id" Type="int" Mode="In" />
+          <Parameter Name="Login_Password" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Customer_Name" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Customer_Address" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Customer_Phone" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Customer_Email" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Zip_Code" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_Sal_Customer_Validate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
+          <Parameter Name="Customer_Id" Type="int" Mode="InOut" />
+          <Parameter Name="Login_Password" Type="varchar(max)" Mode="InOut" />
+          <Parameter Name="Customer_Name" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Customer_Address" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Customer_Phone" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Customer_Email" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Zip_Code" Type="varchar" Mode="In" />
         </Function>
         <Function Name="usp_Sal_Customer_Vehicle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
           <Parameter Name="Action_Type" Type="numeric" Mode="In" />
@@ -1582,7 +1644,7 @@
           <Parameter Name="User_IP" Type="varchar" Mode="In" />
           <Parameter Name="Site_Id" Type="int" Mode="In" />
         </Function>
-        <EntityContainer Name="shiner49_JunkCarModelStoreContainer">
+        <EntityContainer Name="shiner49_JunkCarNewModelStoreContainer">
           <EntitySet Name="Sal_Customer" EntityType="Self.Sal_Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sal_Customer_Contact" EntityType="Self.Sal_Customer_Contact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sal_Customer_Offer" EntityType="Self.Sal_Customer_Offer" Schema="dbo" store:Type="Tables" />
@@ -1612,6 +1674,7 @@
           <EntitySet Name="Set_Site_Contact" EntityType="Self.Set_Site_Contact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Set_State" EntityType="Self.Set_State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Set_Zip_Code" EntityType="Self.Set_Zip_Code" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Set_Email_Template" EntityType="Self.Set_Email_Template" Schema="shiner49_devuser" store:Type="Tables" />
           <AssociationSet Name="FK_Sal_Customer_Contact_City_Id" Association="Self.FK_Sal_Customer_Contact_City_Id">
             <End Role="Set_City" EntitySet="Set_City" />
@@ -1781,7 +1844,7 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="shiner49_JunkCarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="shiner49_JunkCarNewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Sal_Customer">
           <Key>
             <PropertyRef Name="Customer_Id" />
@@ -1802,6 +1865,9 @@
           <NavigationProperty Name="Sal_Customer_Contact" Relationship="Self.FK_Sal_Customer_Contact_Customer_Id" FromRole="Sal_Customer" ToRole="Sal_Customer_Contact" />
           <NavigationProperty Name="Sal_Customer_Offer" Relationship="Self.FK_Sal_Customer_Offer_Customer_Id" FromRole="Sal_Customer" ToRole="Sal_Customer_Offer" />
           <NavigationProperty Name="Sec_User" Relationship="Self.FK_Sal_Customer_User_Code" FromRole="Sal_Customer" ToRole="Sec_User" />
+          <Property Name="Login_Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Login_Password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Signup_Date" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Sal_Customer_Contact">
           <Key>
@@ -1843,8 +1909,8 @@
           <Property Name="Make_Id" Type="Int32" Nullable="false" />
           <Property Name="Model_Id" Type="Int32" Nullable="false" />
           <Property Name="Registeration_Year" Type="Int32" Nullable="false" />
-          <Property Name="Questionnaire_Id" Type="Int32" Nullable="false" />
-          <Property Name="Offer_Id" Type="Int32" Nullable="false" />
+          <Property Name="Questionnaire_Id" Type="Int32" />
+          <Property Name="Offer_Id" Type="Int32" />
           <Property Name="Offer_Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Offer_Status_Id" Type="Int32" Nullable="false" />
           <Property Name="Initial_Offer_Price" Type="Int32" Nullable="false" />
@@ -2033,8 +2099,8 @@
           <Property Name="Audit_Id" Type="Int64" />
           <Property Name="User_IP" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Site_Id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Set_Questionnaire_Detail" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Answer_Id" FromRole="Set_Answer" ToRole="Set_Questionnaire_Detail" />
-          <NavigationProperty Name="Set_Questionnaire_Result_Detail" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Result_Detail_Answer_Id" FromRole="Set_Answer" ToRole="Set_Questionnaire_Result_Detail" />
+          <NavigationProperty Name="Set_Questionnaire_Detail" Relationship="Self.FK_Set_Questionnaire_Detail_Answer_Id" FromRole="Set_Answer" ToRole="Set_Questionnaire_Detail" />
+          <NavigationProperty Name="Set_Questionnaire_Result_Detail" Relationship="Self.FK_Set_Questionnaire_Result_Detail_Answer_Id" FromRole="Set_Answer" ToRole="Set_Questionnaire_Result_Detail" />
         </EntityType>
         <EntityType Name="Set_Audit_Log">
           <Key>
@@ -2233,8 +2299,8 @@
           <Property Name="Audit_Id" Type="Int64" />
           <Property Name="User_IP" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Site_Id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Set_Questionnaire_Detail" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Question_Id" FromRole="Set_Question" ToRole="Set_Questionnaire_Detail" />
-          <NavigationProperty Name="Set_Questionnaire_Result_Detail" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Result_Detail_Question_Id" FromRole="Set_Question" ToRole="Set_Questionnaire_Result_Detail" />
+          <NavigationProperty Name="Set_Questionnaire_Detail" Relationship="Self.FK_Set_Questionnaire_Detail_Question_Id" FromRole="Set_Question" ToRole="Set_Questionnaire_Detail" />
+          <NavigationProperty Name="Set_Questionnaire_Result_Detail" Relationship="Self.FK_Set_Questionnaire_Result_Detail_Question_Id" FromRole="Set_Question" ToRole="Set_Questionnaire_Result_Detail" />
         </EntityType>
         <EntityType Name="Set_Questionnaire">
           <Key>
@@ -2254,9 +2320,9 @@
           <Property Name="Site_Id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sal_Customer_Offer" Relationship="Self.FK_Sal_Customer_Offer_Questionnaire_Id" FromRole="Set_Questionnaire" ToRole="Sal_Customer_Offer" />
           <NavigationProperty Name="Sal_Offer" Relationship="Self.FK_Sal_Offer_Questionnaire_Id" FromRole="Set_Questionnaire" ToRole="Sal_Offer" />
-          <NavigationProperty Name="Set_Questionnaire_Detail" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Questionnaire_Id" FromRole="Set_Questionnaire" ToRole="Set_Questionnaire_Detail" />
-          <NavigationProperty Name="Set_Questionnaire_Detail1" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id" FromRole="Set_Questionnaire" ToRole="Set_Questionnaire_Detail" />
-          <NavigationProperty Name="Set_Questionnaire_Result" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Result_Questionnaire_Id" FromRole="Set_Questionnaire" ToRole="Set_Questionnaire_Result" />
+          <NavigationProperty Name="Set_Questionnaire_Detail" Relationship="Self.FK_Set_Questionnaire_Detail_Questionnaire_Id" FromRole="Set_Questionnaire" ToRole="Set_Questionnaire_Detail" />
+          <NavigationProperty Name="Set_Questionnaire_Detail1" Relationship="Self.FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id" FromRole="Set_Questionnaire" ToRole="Set_Questionnaire_Detail" />
+          <NavigationProperty Name="Set_Questionnaire_Result" Relationship="Self.FK_Set_Questionnaire_Result_Questionnaire_Id" FromRole="Set_Questionnaire" ToRole="Set_Questionnaire_Result" />
         </EntityType>
         <EntityType Name="Set_Questionnaire_Detail">
           <Key>
@@ -2264,6 +2330,7 @@
           </Key>
           <Property Name="Questionnaire_Detail_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Questionnaire_Id" Type="Int32" Nullable="false" />
+          <Property Name="Sub_Questionnaire_Id" Type="Int32" Nullable="false" />
           <Property Name="Question_Id" Type="Int32" Nullable="false" />
           <Property Name="Answer_Id" Type="Int32" Nullable="false" />
           <Property Name="Sort_Order" Type="Int16" Nullable="false" />
@@ -2275,11 +2342,10 @@
           <Property Name="Audit_Id" Type="Int64" />
           <Property Name="User_IP" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Site_Id" Type="Int32" Nullable="false" />
-          <Property Name="Sub_Questionnaire_Id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Set_Answer" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Answer_Id" FromRole="Set_Questionnaire_Detail" ToRole="Set_Answer" />
-          <NavigationProperty Name="Set_Question" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Question_Id" FromRole="Set_Questionnaire_Detail" ToRole="Set_Question" />
-          <NavigationProperty Name="Set_Questionnaire" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Questionnaire_Id" FromRole="Set_Questionnaire_Detail" ToRole="Set_Questionnaire" />
-          <NavigationProperty Name="Set_Questionnaire1" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id" FromRole="Set_Questionnaire_Detail" ToRole="Set_Questionnaire" />
+          <NavigationProperty Name="Set_Answer" Relationship="Self.FK_Set_Questionnaire_Detail_Answer_Id" FromRole="Set_Questionnaire_Detail" ToRole="Set_Answer" />
+          <NavigationProperty Name="Set_Question" Relationship="Self.FK_Set_Questionnaire_Detail_Question_Id" FromRole="Set_Questionnaire_Detail" ToRole="Set_Question" />
+          <NavigationProperty Name="Set_Questionnaire" Relationship="Self.FK_Set_Questionnaire_Detail_Questionnaire_Id" FromRole="Set_Questionnaire_Detail" ToRole="Set_Questionnaire" />
+          <NavigationProperty Name="Set_Questionnaire1" Relationship="Self.FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id" FromRole="Set_Questionnaire_Detail" ToRole="Set_Questionnaire" />
         </EntityType>
         <EntityType Name="Set_Questionnaire_Result">
           <Key>
@@ -2296,8 +2362,8 @@
           <Property Name="User_IP" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Site_Id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sal_Offer" Relationship="Self.FK_Sal_Offer_Questionnaire_Result_Id" FromRole="Set_Questionnaire_Result" ToRole="Sal_Offer" />
-          <NavigationProperty Name="Set_Questionnaire" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Result_Questionnaire_Id" FromRole="Set_Questionnaire_Result" ToRole="Set_Questionnaire" />
-          <NavigationProperty Name="Set_Questionnaire_Result_Detail" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Result_Detail_Questionnaire_Result_Id" FromRole="Set_Questionnaire_Result" ToRole="Set_Questionnaire_Result_Detail" />
+          <NavigationProperty Name="Set_Questionnaire" Relationship="Self.FK_Set_Questionnaire_Result_Questionnaire_Id" FromRole="Set_Questionnaire_Result" ToRole="Set_Questionnaire" />
+          <NavigationProperty Name="Set_Questionnaire_Result_Detail" Relationship="Self.FK_Set_Questionnaire_Result_Detail_Questionnaire_Result_Id" FromRole="Set_Questionnaire_Result" ToRole="Set_Questionnaire_Result_Detail" />
         </EntityType>
         <EntityType Name="Set_Questionnaire_Result_Detail">
           <Key>
@@ -2316,9 +2382,9 @@
           <Property Name="Audit_Id" Type="Int64" />
           <Property Name="User_IP" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Site_Id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Set_Answer" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Result_Detail_Answer_Id" FromRole="Set_Questionnaire_Result_Detail" ToRole="Set_Answer" />
-          <NavigationProperty Name="Set_Question" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Result_Detail_Question_Id" FromRole="Set_Questionnaire_Result_Detail" ToRole="Set_Question" />
-          <NavigationProperty Name="Set_Questionnaire_Result" Relationship="shiner49_JunkCarModel.FK_Set_Questionnaire_Result_Detail_Questionnaire_Result_Id" FromRole="Set_Questionnaire_Result_Detail" ToRole="Set_Questionnaire_Result" />
+          <NavigationProperty Name="Set_Answer" Relationship="Self.FK_Set_Questionnaire_Result_Detail_Answer_Id" FromRole="Set_Questionnaire_Result_Detail" ToRole="Set_Answer" />
+          <NavigationProperty Name="Set_Question" Relationship="Self.FK_Set_Questionnaire_Result_Detail_Question_Id" FromRole="Set_Questionnaire_Result_Detail" ToRole="Set_Question" />
+          <NavigationProperty Name="Set_Questionnaire_Result" Relationship="Self.FK_Set_Questionnaire_Result_Detail_Questionnaire_Result_Id" FromRole="Set_Questionnaire_Result_Detail" ToRole="Set_Questionnaire_Result" />
         </EntityType>
         <EntityType Name="Set_Site">
           <Key>
@@ -2345,8 +2411,8 @@
           <Property Name="Contact_Type_Id" Type="Int32" Nullable="false" />
           <Property Name="Is_Default" Type="Boolean" />
           <Property Name="User_Contact" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="County_Id" Type="Int32" />
           <Property Name="City_Id" Type="Int32" />
+          <Property Name="County_Id" Type="Int32" />
           <Property Name="State_Id" Type="Int32" />
           <Property Name="Country_Id" Type="Int32" />
           <Property Name="Zip_Code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -2415,6 +2481,32 @@
           <NavigationProperty Name="Set_Country" Relationship="Self.FK_Set_Zip_Code_Country_Id" FromRole="Set_Zip_Code" ToRole="Set_Country" />
           <NavigationProperty Name="Set_County" Relationship="Self.FK_Set_Zip_Code_County_Id" FromRole="Set_Zip_Code" ToRole="Set_County" />
           <NavigationProperty Name="Set_State" Relationship="Self.FK_Set_Zip_Code_State_Id" FromRole="Set_Zip_Code" ToRole="Set_State" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Set_Email_Template">
+          <Key>
+            <PropertyRef Name="Email_Template_Id" />
+          </Key>
+          <Property Name="Email_Template_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email_Subject" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email_Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Is_Active" Type="Byte" Nullable="false" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_By" Type="Int32" Nullable="false" />
+          <Property Name="Modified_Date" Type="DateTime" Precision="3" />
+          <Property Name="Modified_By" Type="Int32" />
+          <Property Name="Audit_Id" Type="Int64" />
+          <Property Name="User_IP" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Sal_Customer_Contact_Customer_Id">
           <End Role="Sal_Customer" Type="Self.Sal_Customer" Multiplicity="1" />
@@ -2525,7 +2617,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Sal_Customer_Offer_Offer_Id">
-          <End Role="Sal_Offer" Type="Self.Sal_Offer" Multiplicity="1" />
+          <End Role="Sal_Offer" Type="Self.Sal_Offer" Multiplicity="0..1" />
           <End Role="Sal_Customer_Offer" Type="Self.Sal_Customer_Offer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sal_Offer">
@@ -2549,7 +2641,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Sal_Customer_Offer_Questionnaire_Id">
-          <End Role="Set_Questionnaire" Type="Self.Set_Questionnaire" Multiplicity="1" />
+          <End Role="Set_Questionnaire" Type="Self.Set_Questionnaire" Multiplicity="0..1" />
           <End Role="Sal_Customer_Offer" Type="Self.Sal_Customer_Offer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Set_Questionnaire">
@@ -2641,6 +2733,30 @@
             </Principal>
             <Dependent Role="Sec_User_Contact">
               <PropertyRef Name="User_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Set_Questionnaire_Detail_Answer_Id">
+          <End Role="Set_Answer" Type="Self.Set_Answer" Multiplicity="1" />
+          <End Role="Set_Questionnaire_Detail" Type="Self.Set_Questionnaire_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Set_Answer">
+              <PropertyRef Name="Answer_Id" />
+            </Principal>
+            <Dependent Role="Set_Questionnaire_Detail">
+              <PropertyRef Name="Answer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Set_Questionnaire_Result_Detail_Answer_Id">
+          <End Role="Set_Answer" Type="Self.Set_Answer" Multiplicity="1" />
+          <End Role="Set_Questionnaire_Result_Detail" Type="Self.Set_Questionnaire_Result_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Set_Answer">
+              <PropertyRef Name="Answer_Id" />
+            </Principal>
+            <Dependent Role="Set_Questionnaire_Result_Detail">
+              <PropertyRef Name="Answer_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2788,6 +2904,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Set_Questionnaire_Detail_Question_Id">
+          <End Role="Set_Question" Type="Self.Set_Question" Multiplicity="1" />
+          <End Role="Set_Questionnaire_Detail" Type="Self.Set_Questionnaire_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Set_Question">
+              <PropertyRef Name="Question_Id" />
+            </Principal>
+            <Dependent Role="Set_Questionnaire_Detail">
+              <PropertyRef Name="Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Set_Questionnaire_Result_Detail_Question_Id">
+          <End Role="Set_Question" Type="Self.Set_Question" Multiplicity="1" />
+          <End Role="Set_Questionnaire_Result_Detail" Type="Self.Set_Questionnaire_Result_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Set_Question">
+              <PropertyRef Name="Question_Id" />
+            </Principal>
+            <Dependent Role="Set_Questionnaire_Result_Detail">
+              <PropertyRef Name="Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Set_Questionnaire_Detail_Questionnaire_Id">
+          <End Role="Set_Questionnaire" Type="Self.Set_Questionnaire" Multiplicity="1" />
+          <End Role="Set_Questionnaire_Detail" Type="Self.Set_Questionnaire_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Set_Questionnaire">
+              <PropertyRef Name="Questionnaire_Id" />
+            </Principal>
+            <Dependent Role="Set_Questionnaire_Detail">
+              <PropertyRef Name="Questionnaire_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id">
+          <End Role="Set_Questionnaire" Type="Self.Set_Questionnaire" Multiplicity="1" />
+          <End Role="Set_Questionnaire_Detail" Type="Self.Set_Questionnaire_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Set_Questionnaire">
+              <PropertyRef Name="Questionnaire_Id" />
+            </Principal>
+            <Dependent Role="Set_Questionnaire_Detail">
+              <PropertyRef Name="Sub_Questionnaire_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Set_Questionnaire_Result_Questionnaire_Id">
+          <End Role="Set_Questionnaire" Type="Self.Set_Questionnaire" Multiplicity="1" />
+          <End Role="Set_Questionnaire_Result" Type="Self.Set_Questionnaire_Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Set_Questionnaire">
+              <PropertyRef Name="Questionnaire_Id" />
+            </Principal>
+            <Dependent Role="Set_Questionnaire_Result">
+              <PropertyRef Name="Questionnaire_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Set_Questionnaire_Result_Detail_Questionnaire_Result_Id">
+          <End Role="Set_Questionnaire_Result" Type="Self.Set_Questionnaire_Result" Multiplicity="1" />
+          <End Role="Set_Questionnaire_Result_Detail" Type="Self.Set_Questionnaire_Result_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Set_Questionnaire_Result">
+              <PropertyRef Name="Questionnaire_Result_Id" />
+            </Principal>
+            <Dependent Role="Set_Questionnaire_Result_Detail">
+              <PropertyRef Name="Questionnaire_Result_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Set_Site_Contact_Site_Id">
           <End Role="Set_Site" Type="Self.Set_Site" Multiplicity="1" />
           <End Role="Set_Site_Contact" Type="Self.Set_Site_Contact" Multiplicity="*" />
@@ -2812,7 +3000,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="shiner49_JunkCarEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="shiner49_JunkCarNewEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Sal_Customer" EntityType="Self.Sal_Customer" />
           <EntitySet Name="Sal_Customer_Contact" EntityType="Self.Sal_Customer_Contact" />
           <EntitySet Name="Sal_Customer_Offer" EntityType="Self.Sal_Customer_Offer" />
@@ -2842,6 +3030,8 @@
           <EntitySet Name="Set_Site_Contact" EntityType="Self.Set_Site_Contact" />
           <EntitySet Name="Set_State" EntityType="Self.Set_State" />
           <EntitySet Name="Set_Zip_Code" EntityType="Self.Set_Zip_Code" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Set_Email_Template" EntityType="Self.Set_Email_Template" />
           <AssociationSet Name="FK_Sal_Customer_Contact_Customer_Id" Association="Self.FK_Sal_Customer_Contact_Customer_Id">
             <End Role="Sal_Customer" EntitySet="Sal_Customer" />
             <End Role="Sal_Customer_Contact" EntitySet="Sal_Customer_Contact" />
@@ -2918,6 +3108,14 @@
             <End Role="Sec_User" EntitySet="Sec_User" />
             <End Role="Sec_User_Contact" EntitySet="Sec_User_Contact" />
           </AssociationSet>
+          <AssociationSet Name="FK_Set_Questionnaire_Detail_Answer_Id" Association="Self.FK_Set_Questionnaire_Detail_Answer_Id">
+            <End Role="Set_Answer" EntitySet="Set_Answer" />
+            <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Set_Questionnaire_Result_Detail_Answer_Id" Association="Self.FK_Set_Questionnaire_Result_Detail_Answer_Id">
+            <End Role="Set_Answer" EntitySet="Set_Answer" />
+            <End Role="Set_Questionnaire_Result_Detail" EntitySet="Set_Questionnaire_Result_Detail" />
+          </AssociationSet>
           <AssociationSet Name="FK_Set_City_Country_Id" Association="Self.FK_Set_City_Country_Id">
             <End Role="Set_Country" EntitySet="Set_Country" />
             <End Role="Set_City" EntitySet="Set_City" />
@@ -2966,6 +3164,30 @@
             <End Role="Set_Model" EntitySet="Set_Model" />
             <End Role="Set_Model_Year" EntitySet="Set_Model_Year" />
           </AssociationSet>
+          <AssociationSet Name="FK_Set_Questionnaire_Detail_Question_Id" Association="Self.FK_Set_Questionnaire_Detail_Question_Id">
+            <End Role="Set_Question" EntitySet="Set_Question" />
+            <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Set_Questionnaire_Result_Detail_Question_Id" Association="Self.FK_Set_Questionnaire_Result_Detail_Question_Id">
+            <End Role="Set_Question" EntitySet="Set_Question" />
+            <End Role="Set_Questionnaire_Result_Detail" EntitySet="Set_Questionnaire_Result_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Set_Questionnaire_Detail_Questionnaire_Id" Association="Self.FK_Set_Questionnaire_Detail_Questionnaire_Id">
+            <End Role="Set_Questionnaire" EntitySet="Set_Questionnaire" />
+            <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id" Association="Self.FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id">
+            <End Role="Set_Questionnaire" EntitySet="Set_Questionnaire" />
+            <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Set_Questionnaire_Result_Questionnaire_Id" Association="Self.FK_Set_Questionnaire_Result_Questionnaire_Id">
+            <End Role="Set_Questionnaire" EntitySet="Set_Questionnaire" />
+            <End Role="Set_Questionnaire_Result" EntitySet="Set_Questionnaire_Result" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Set_Questionnaire_Result_Detail_Questionnaire_Result_Id" Association="Self.FK_Set_Questionnaire_Result_Detail_Questionnaire_Result_Id">
+            <End Role="Set_Questionnaire_Result" EntitySet="Set_Questionnaire_Result" />
+            <End Role="Set_Questionnaire_Result_Detail" EntitySet="Set_Questionnaire_Result_Detail" />
+          </AssociationSet>
           <AssociationSet Name="FK_Set_Site_Contact_Site_Id" Association="Self.FK_Set_Site_Contact_Site_Id">
             <End Role="Set_Site" EntitySet="Set_Site" />
             <End Role="Set_Site_Contact" EntitySet="Set_Site_Contact" />
@@ -2974,10 +3196,40 @@
             <End Role="Set_State" EntitySet="Set_State" />
             <End Role="Set_Zip_Code" EntitySet="Set_Zip_Code" />
           </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(shiner49_JunkCarNewModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(shiner49_JunkCarNewModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
           <FunctionImport Name="usp_Generate_Questionnaire_Result">
           <Parameter Name="Questionnaire_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Sal_Customer" ReturnType="Collection(shiner49_JunkCarModel.usp_Sal_Customer_Result)">
+          <FunctionImport Name="usp_Sal_Customer" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sal_Customer_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Customer_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Customer_Code" Mode="In" Type="String" />
@@ -2993,7 +3245,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Sal_Customer_Contact" ReturnType="Collection(shiner49_JunkCarModel.usp_Sal_Customer_Contact_Result)">
+          <FunctionImport Name="usp_Sal_Customer_Contact" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sal_Customer_Contact_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Customer_Contact_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Customer_Id" Mode="In" Type="Int32" />
@@ -3014,7 +3266,7 @@
             <Parameter Name="Audit_Id" Mode="In" Type="Int64" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Sal_Customer_Offer" ReturnType="Collection(shiner49_JunkCarModel.usp_Sal_Customer_Offer_Result)">
+          <FunctionImport Name="usp_Sal_Customer_Offer" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sal_Customer_Offer_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Customer_Offer_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Customer_Id" Mode="In" Type="Int32" />
@@ -3040,7 +3292,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Sal_Customer_Vehicle" ReturnType="Collection(shiner49_JunkCarModel.usp_Sal_Customer_Vehicle_Result)">
+          <FunctionImport Name="usp_Sal_Customer_Vehicle" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sal_Customer_Vehicle_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Customer_Vehicle_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Customer_Offer_Id" Mode="In" Type="Int32" />
@@ -3061,7 +3313,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Sal_Customer_Vehicle_Doc" ReturnType="Collection(shiner49_JunkCarModel.usp_Sal_Customer_Vehicle_Doc_Result)">
+          <FunctionImport Name="usp_Sal_Customer_Vehicle_Doc" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sal_Customer_Vehicle_Doc_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Customer_Vehicle_Doc_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Customer_Vehicle_Id" Mode="In" Type="Int32" />
@@ -3079,7 +3331,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Sal_Offer" ReturnType="Collection(shiner49_JunkCarModel.usp_Sal_Offer_Result)">
+          <FunctionImport Name="usp_Sal_Offer" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sal_Offer_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Offer_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Model_Year_Id" Mode="In" Type="Int32" />
@@ -3098,7 +3350,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Sal_Offer_Status" ReturnType="Collection(shiner49_JunkCarModel.usp_Sal_Offer_Status_Result)">
+          <FunctionImport Name="usp_Sal_Offer_Status" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sal_Offer_Status_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Offer_Status_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Offer_Status" Mode="In" Type="String" />
@@ -3112,7 +3364,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Sal_Suggested_Offer" ReturnType="Collection(shiner49_JunkCarModel.usp_Sal_Suggested_Offer_Result)">
+          <FunctionImport Name="usp_Sal_Suggested_Offer" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sal_Suggested_Offer_Result)">
             <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
             <Parameter Name="Make_Id" Mode="In" Type="Int32" />
             <Parameter Name="Model_Id" Mode="In" Type="Int32" />
@@ -3120,15 +3372,12 @@
             <Parameter Name="Zip_Code" Mode="In" Type="String" />
             <Parameter Name="Customer_Info" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="usp_Sal_Suggested_Offer_Select" ReturnType="Collection(Int32)">
-            <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
-            <Parameter Name="Make_Id" Mode="In" Type="Int32" />
-            <Parameter Name="Model_Id" Mode="In" Type="Int32" />
-            <Parameter Name="Questioneer" Mode="In" Type="String" />
-            <Parameter Name="Zip_Code" Mode="In" Type="String" />
-            <Parameter Name="Customer_Info" Mode="In" Type="String" />
+          <FunctionImport Name="usp_Sec_Auto_Email_Select" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sec_Auto_Email_Select_Result)">
+            <Parameter Name="Site_id" Mode="In" Type="Int32" />
+            <Parameter Name="User_Code" Mode="In" Type="Int32" />
+            <Parameter Name="Customer_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Sec_Role" ReturnType="Collection(shiner49_JunkCarModel.usp_Sec_Role_Result)">
+          <FunctionImport Name="usp_Sec_Role" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sec_Role_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Role_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Role_Name" Mode="In" Type="String" />
@@ -3143,7 +3392,7 @@
             <Parameter Name="Audit_Id" Mode="In" Type="Int64" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Sec_User" ReturnType="Collection(shiner49_JunkCarModel.usp_Sec_User_Result)">
+          <FunctionImport Name="usp_Sec_User" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sec_User_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="User_Code" Mode="InOut" Type="Int32" />
             <Parameter Name="User_Login_Id" Mode="In" Type="String" />
@@ -3158,7 +3407,7 @@
             <Parameter Name="Audit_Id" Mode="In" Type="Int64" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Sec_User_Contact" ReturnType="Collection(shiner49_JunkCarModel.usp_Sec_User_Contact_Result)">
+          <FunctionImport Name="usp_Sec_User_Contact" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sec_User_Contact_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="User_Contact_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="User_Code" Mode="In" Type="Int32" />
@@ -3179,7 +3428,7 @@
             <Parameter Name="Audit_Id" Mode="In" Type="Int64" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Answer" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Answer_Result)">
+          <FunctionImport Name="usp_Set_Answer" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_Answer_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Answer_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Answer" Mode="In" Type="String" />
@@ -3193,7 +3442,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_City" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_City_Result)">
+          <FunctionImport Name="usp_Set_City" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_City_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="City_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="City_Code" Mode="In" Type="String" />
@@ -3210,7 +3459,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Contact_Type" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Contact_Type_Result)">
+          <FunctionImport Name="usp_Set_Contact_Type" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_Contact_Type_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Contact_Type_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Contact_Type" Mode="In" Type="String" />
@@ -3226,7 +3475,7 @@
             <Parameter Name="Audit_Id" Mode="In" Type="Int64" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Country" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Country_Result)">
+          <FunctionImport Name="usp_Set_Country" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_Country_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Country_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Country_Code" Mode="In" Type="String" />
@@ -3240,7 +3489,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_County" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_County_Result)">
+          <FunctionImport Name="usp_Set_County" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_County_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="County_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="County_Code" Mode="In" Type="String" />
@@ -3256,10 +3505,10 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Default_Contact_No_Select">
+          <FunctionImport Name="usp_Set_Default_Contact_No_Select" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_Default_Contact_No_Select_Result)">
           <Parameter Name="Zip_Code" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Document" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Document_Result)">
+          <FunctionImport Name="usp_Set_Document" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_Document_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Document_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Document_Code" Mode="In" Type="String" />
@@ -3275,7 +3524,7 @@
             <Parameter Name="Audit_Id" Mode="In" Type="Int64" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Make" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Make_Result)">
+          <FunctionImport Name="usp_Set_Make" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_Make_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Make_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Make_Name" Mode="In" Type="String" />
@@ -3289,7 +3538,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Model" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Model_Result)">
+          <FunctionImport Name="usp_Set_Model" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_Model_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Model_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Model_Name" Mode="In" Type="String" />
@@ -3304,7 +3553,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Model_Year" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Model_Year_Result)">
+          <FunctionImport Name="usp_Set_Model_Year" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_Model_Year_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Model_Year_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
@@ -3326,7 +3575,7 @@
             <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
             <Parameter Name="Make_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Question" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Question_Result)">
+          <FunctionImport Name="usp_Set_Question" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_Question_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Question_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Question" Mode="In" Type="String" />
@@ -3340,67 +3589,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Questioneer">
-            <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
-            <Parameter Name="Questioneer_Id" Mode="InOut" Type="Int32" />
-            <Parameter Name="Questioneer_Description" Mode="In" Type="String" />
-            <Parameter Name="Parent_Questioneer_Id" Mode="In" Type="Int32" />
-            <Parameter Name="Sort_Order" Mode="In" Type="Int16" />
-            <Parameter Name="Is_Active" Mode="In" Type="Byte" />
-            <Parameter Name="Created_Date" Mode="In" Type="DateTime" />
-            <Parameter Name="Created_By" Mode="In" Type="Int32" />
-            <Parameter Name="Modified_Date" Mode="In" Type="DateTime" />
-            <Parameter Name="Modified_By" Mode="In" Type="Int32" />
-            <Parameter Name="Audit_Id" Mode="In" Type="Int64" />
-            <Parameter Name="User_IP" Mode="In" Type="String" />
-            <Parameter Name="Site_Id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="usp_Set_Questioneer_Detail">
-            <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
-            <Parameter Name="Questioneer_Detail_Id" Mode="InOut" Type="Int32" />
-            <Parameter Name="Questioneer_Id" Mode="In" Type="Int32" />
-            <Parameter Name="Question_Id" Mode="In" Type="Int32" />
-            <Parameter Name="Answer_Id" Mode="In" Type="Int32" />
-            <Parameter Name="Sort_Order" Mode="In" Type="Int16" />
-            <Parameter Name="Is_Active" Mode="In" Type="Byte" />
-            <Parameter Name="Created_Date" Mode="In" Type="DateTime" />
-            <Parameter Name="Created_By" Mode="In" Type="Int32" />
-            <Parameter Name="Modified_Date" Mode="In" Type="DateTime" />
-            <Parameter Name="Modified_By" Mode="In" Type="Int32" />
-            <Parameter Name="Audit_Id" Mode="In" Type="Int64" />
-            <Parameter Name="User_IP" Mode="In" Type="String" />
-            <Parameter Name="Site_Id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="usp_Set_Questioneer_Result">
-            <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
-            <Parameter Name="Questioneer_Result_Id" Mode="InOut" Type="Int32" />
-            <Parameter Name="Questioneer_Id" Mode="In" Type="Int32" />
-            <Parameter Name="Sort_Order" Mode="In" Type="Int32" />
-            <Parameter Name="Created_Date" Mode="In" Type="DateTime" />
-            <Parameter Name="Created_By" Mode="In" Type="Int32" />
-            <Parameter Name="Modified_Date" Mode="In" Type="DateTime" />
-            <Parameter Name="Modified_By" Mode="In" Type="Int32" />
-            <Parameter Name="Audit_Id" Mode="In" Type="Int64" />
-            <Parameter Name="User_IP" Mode="In" Type="String" />
-            <Parameter Name="Site_Id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="usp_Set_Questioneer_Result_Detail">
-            <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
-            <Parameter Name="Questioneer_Result_Detail_Id" Mode="InOut" Type="Int32" />
-            <Parameter Name="Questioneer_Result_Id" Mode="In" Type="Int32" />
-            <Parameter Name="Question_Id" Mode="In" Type="Int32" />
-            <Parameter Name="Answer_Id" Mode="In" Type="Int32" />
-            <Parameter Name="Sort_Order" Mode="In" Type="Int16" />
-            <Parameter Name="Is_Active" Mode="In" Type="Byte" />
-            <Parameter Name="Created_Date" Mode="In" Type="DateTime" />
-            <Parameter Name="Created_By" Mode="In" Type="Int32" />
-            <Parameter Name="Modified_Date" Mode="In" Type="DateTime" />
-            <Parameter Name="Modified_By" Mode="In" Type="Int32" />
-            <Parameter Name="Audit_Id" Mode="In" Type="Int64" />
-            <Parameter Name="User_IP" Mode="In" Type="String" />
-            <Parameter Name="Site_Id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="usp_Set_Questionnaire" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Questionnaire_Result)">
+          <FunctionImport Name="usp_Set_Questionnaire" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_Questionnaire_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Questionnaire_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Questionnaire_Description" Mode="In" Type="String" />
@@ -3415,7 +3604,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Questionnaire_Detail" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Questionnaire_Detail_Result)">
+          <FunctionImport Name="usp_Set_Questionnaire_Detail" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_Questionnaire_Detail_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Questionnaire_Detail_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Questionnaire_Id" Mode="In" Type="Int32" />
@@ -3431,7 +3620,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Questionnaire_Result" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Questionnaire_Result_Result)">
+          <FunctionImport Name="usp_Set_Questionnaire_Result" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_Questionnaire_Result_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Questionnaire_Result_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Questionnaire_Id" Mode="In" Type="Int32" />
@@ -3444,7 +3633,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Questionnaire_Result_Detail" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Questionnaire_Result_Detail_Result)">
+          <FunctionImport Name="usp_Set_Questionnaire_Result_Detail" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_Questionnaire_Result_Detail_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Questionnaire_Result_Detail_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Questionnaire_Result_Id" Mode="In" Type="Int32" />
@@ -3460,7 +3649,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Site" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Site_Result)">
+          <FunctionImport Name="usp_Set_Site" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_Site_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Site_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Site_Name" Mode="In" Type="String" />
@@ -3473,7 +3662,7 @@
             <Parameter Name="Audit_Id" Mode="In" Type="Int64" />
             <Parameter Name="User_IP" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Site_Contact" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Site_Contact_Result)">
+          <FunctionImport Name="usp_Set_Site_Contact" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_Site_Contact_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Site_Contact_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
@@ -3493,7 +3682,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Audit_Id" Mode="In" Type="Int64" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_State" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_State_Result)">
+          <FunctionImport Name="usp_Set_State" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_State_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="State_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="State_Code" Mode="In" Type="String" />
@@ -3508,7 +3697,7 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Set_Zip_Code" ReturnType="Collection(shiner49_JunkCarModel.usp_Set_Zip_Code_Result)">
+          <FunctionImport Name="usp_Set_Zip_Code" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Set_Zip_Code_Result)">
             <Parameter Name="Action_Type" Mode="In" Type="Decimal" />
             <Parameter Name="Zip_Id" Mode="InOut" Type="Int32" />
             <Parameter Name="Zip_Code" Mode="In" Type="String" />
@@ -3536,12 +3725,28 @@
             <Parameter Name="User_IP" Mode="In" Type="String" />
             <Parameter Name="Site_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetMakes" EntitySet="Set_Make" ReturnType="Collection(shiner49_JunkCarModel.Set_Make)">
+          <FunctionImport Name="CheckZipCode" ReturnType="Collection(shiner49_JunkCarNewModel.CheckZipCode_Result)">
+          <Parameter Name="Zip_Code" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAnOffer" ReturnType="Collection(shiner49_JunkCarNewModel.GetAnOffer_Result)">
+            <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
+            <Parameter Name="Make_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Model_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Questioneer" Mode="In" Type="String" />
+            <Parameter Name="Zip_Code" Mode="In" Type="String" />
+            <Parameter Name="Customer_Info" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetMakes" EntitySet="Set_Make" ReturnType="Collection(shiner49_JunkCarNewModel.Set_Make)">
             <Parameter Name="Parameter_Type" Mode="In" Type="String" />
             <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
             <Parameter Name="Make_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetModels" EntitySet="Set_Model" ReturnType="Collection(shiner49_JunkCarModel.Set_Model)">
+          <FunctionImport Name="GetModels" EntitySet="Set_Model" ReturnType="Collection(shiner49_JunkCarNewModel.Set_Model)">
+            <Parameter Name="Parameter_Type" Mode="In" Type="String" />
+            <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
+            <Parameter Name="Make_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetQuestionnaire" EntitySet="Set_Questionnaire_Detail" ReturnType="Collection(shiner49_JunkCarNewModel.Set_Questionnaire_Detail)">
             <Parameter Name="Parameter_Type" Mode="In" Type="String" />
             <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
             <Parameter Name="Make_Id" Mode="In" Type="Int32" />
@@ -3551,61 +3756,45 @@
             <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
             <Parameter Name="Make_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="CheckZipCode" ReturnType="Collection(shiner49_JunkCarModel.CheckZipCode_Result)">
-          <Parameter Name="Zip_Code" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetQuestionnaire" EntitySet="Set_Questionnaire_Detail" ReturnType="Collection(shiner49_JunkCarModel.Set_Questionnaire_Detail)">
-            <Parameter Name="Parameter_Type" Mode="In" Type="String" />
-            <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
-            <Parameter Name="Make_Id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <AssociationSet Name="FK_Set_Questionnaire_Detail_Answer_Id" Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Answer_Id">
-            <End Role="Set_Answer" EntitySet="Set_Answer" />
-            <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Set_Questionnaire_Detail_Question_Id" Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Question_Id">
-            <End Role="Set_Question" EntitySet="Set_Question" />
-            <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Set_Questionnaire_Detail_Questionnaire_Id" Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Questionnaire_Id">
-            <End Role="Set_Questionnaire" EntitySet="Set_Questionnaire" />
-            <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id" Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id">
-            <End Role="Set_Questionnaire" EntitySet="Set_Questionnaire" />
-            <End Role="Set_Questionnaire_Detail" EntitySet="Set_Questionnaire_Detail" />
-          </AssociationSet>
-          <FunctionImport Name="GetAnOffer" ReturnType="Collection(shiner49_JunkCarModel.usp_Sal_Suggested_Offer_Result)">
-            <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
-            <Parameter Name="Make_Id" Mode="In" Type="Int32" />
-            <Parameter Name="Model_Id" Mode="In" Type="Int32" />
-            <Parameter Name="Questioneer" Mode="In" Type="String" />
+          <FunctionImport Name="usp_Sal_Customer_Validate">
+            <Parameter Name="Customer_Id" Mode="InOut" Type="Int32" />
+            <Parameter Name="Login_Password" Mode="InOut" Type="String" />
+            <Parameter Name="Customer_Name" Mode="In" Type="String" />
+            <Parameter Name="Customer_Address" Mode="In" Type="String" />
+            <Parameter Name="Customer_Phone" Mode="In" Type="String" />
+            <Parameter Name="Customer_Email" Mode="In" Type="String" />
             <Parameter Name="Zip_Code" Mode="In" Type="String" />
-            <Parameter Name="Customer_Info" Mode="In" Type="String" />
           </FunctionImport>
-          <AssociationSet Name="FK_Set_Questionnaire_Result_Detail_Answer_Id" Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Result_Detail_Answer_Id">
-            <End Role="Set_Answer" EntitySet="Set_Answer" />
-            <End Role="Set_Questionnaire_Result_Detail" EntitySet="Set_Questionnaire_Result_Detail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Set_Questionnaire_Result_Detail_Question_Id" Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Result_Detail_Question_Id">
-            <End Role="Set_Question" EntitySet="Set_Question" />
-            <End Role="Set_Questionnaire_Result_Detail" EntitySet="Set_Questionnaire_Result_Detail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Set_Questionnaire_Result_Questionnaire_Id" Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Result_Questionnaire_Id">
-            <End Role="Set_Questionnaire" EntitySet="Set_Questionnaire" />
-            <End Role="Set_Questionnaire_Result" EntitySet="Set_Questionnaire_Result" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Set_Questionnaire_Result_Detail_Questionnaire_Result_Id" Association="shiner49_JunkCarModel.FK_Set_Questionnaire_Result_Detail_Questionnaire_Result_Id">
-            <End Role="Set_Questionnaire_Result" EntitySet="Set_Questionnaire_Result" />
-            <End Role="Set_Questionnaire_Result_Detail" EntitySet="Set_Questionnaire_Result_Detail" />
-          </AssociationSet>
-          <EntitySet Name="Set_Email_Template" EntityType="shiner49_JunkCarModel.Set_Email_Template" />
-          <FunctionImport Name="usp_Sec_Auto_Email_Select" ReturnType="Collection(String)">
-            <Parameter Name="Site_id" Mode="In" Type="Int32" />
-            <Parameter Name="User_Code" Mode="In" Type="Int32" />
+          <FunctionImport Name="usp_Sal_Customer_Signup" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sal_Customer_Signup_Result)">
             <Parameter Name="Customer_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Login_Password" Mode="In" Type="String" />
+            <Parameter Name="Customer_Name" Mode="In" Type="String" />
+            <Parameter Name="Customer_Address" Mode="In" Type="String" />
+            <Parameter Name="Customer_Phone" Mode="In" Type="String" />
+            <Parameter Name="Customer_Email" Mode="In" Type="String" />
+            <Parameter Name="Zip_Code" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="RegisterUser" ReturnType="Collection(shiner49_JunkCarNewModel.RegisterUser_Result)">
+            <Parameter Name="Customer_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Login_Password" Mode="In" Type="String" />
+            <Parameter Name="Customer_Name" Mode="In" Type="String" />
+            <Parameter Name="Customer_Address" Mode="In" Type="String" />
+            <Parameter Name="Customer_Phone" Mode="In" Type="String" />
+            <Parameter Name="Customer_Email" Mode="In" Type="String" />
+            <Parameter Name="Zip_Code" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="usp_Sal_Customer_Result">
           <Property Type="Decimal" Name="ActionType" Nullable="true" Precision="10" Scale="0" />
           <Property Type="Int32" Name="Customer_Id" Nullable="false" />
@@ -3652,8 +3841,8 @@
           <Property Type="Int32" Name="Make_Id" Nullable="false" />
           <Property Type="Int32" Name="Model_Id" Nullable="false" />
           <Property Type="Int32" Name="Registeration_Year" Nullable="false" />
-          <Property Type="Int32" Name="Questionnaire_Id" Nullable="false" />
-          <Property Type="Int32" Name="Offer_Id" Nullable="false" />
+          <Property Type="Int32" Name="Questionnaire_Id" Nullable="true" />
+          <Property Type="Int32" Name="Offer_Id" Nullable="true" />
           <Property Type="DateTime" Name="Offer_Date" Nullable="false" Precision="23" />
           <Property Type="Int32" Name="Offer_Status_Id" Nullable="false" />
           <Property Type="Int32" Name="Initial_Offer_Price" Nullable="false" />
@@ -3744,6 +3933,10 @@
         <ComplexType Name="usp_Sal_Suggested_Offer_Result">
           <Property Type="Int32" Name="Offer_Price" Nullable="true" />
           <Property Type="Int32" Name="Offer_Id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_Sec_Auto_Email_Select_Result">
+          <Property Type="String" Name="User_Contact" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="my_Description" Nullable="true" />
         </ComplexType>
         <ComplexType Name="usp_Sec_Role_Result">
           <Property Type="Decimal" Name="ActionType" Nullable="true" Precision="10" Scale="0" />
@@ -3872,6 +4065,12 @@
           <Property Type="Int64" Name="Audit_Id" Nullable="true" />
           <Property Type="String" Name="User_IP" Nullable="true" MaxLength="25" />
           <Property Type="Int32" Name="Site_Id" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_Set_Default_Contact_No_Select_Result">
+          <Property Type="String" Name="Contact_No" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="User_Code" Nullable="true" />
+          <Property Type="Boolean" Name="Is_Valid_Zip_Code" Nullable="true" />
+          <Property Type="String" Name="Notes" Nullable="true" />
         </ComplexType>
         <ComplexType Name="usp_Set_Document_Result">
           <Property Type="Decimal" Name="ActionType" Nullable="true" Precision="10" Scale="0" />
@@ -4091,127 +4290,30 @@
           <Property Type="Boolean" Name="Is_Valid_Zip_Code" Nullable="true" />
           <Property Type="String" Name="Notes" Nullable="true" />
         </ComplexType>
-        <Association Name="FK_Set_Questionnaire_Detail_Answer_Id">
-          <End Type="shiner49_JunkCarModel.Set_Answer" Role="Set_Answer" Multiplicity="1" />
-          <End Type="shiner49_JunkCarModel.Set_Questionnaire_Detail" Role="Set_Questionnaire_Detail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Set_Answer">
-              <PropertyRef Name="Answer_Id" />
-            </Principal>
-            <Dependent Role="Set_Questionnaire_Detail">
-              <PropertyRef Name="Answer_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Set_Questionnaire_Detail_Question_Id">
-          <End Type="shiner49_JunkCarModel.Set_Question" Role="Set_Question" Multiplicity="1" />
-          <End Type="shiner49_JunkCarModel.Set_Questionnaire_Detail" Role="Set_Questionnaire_Detail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Set_Question">
-              <PropertyRef Name="Question_Id" />
-            </Principal>
-            <Dependent Role="Set_Questionnaire_Detail">
-              <PropertyRef Name="Question_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Set_Questionnaire_Detail_Questionnaire_Id">
-          <End Type="shiner49_JunkCarModel.Set_Questionnaire" Role="Set_Questionnaire" Multiplicity="1" />
-          <End Type="shiner49_JunkCarModel.Set_Questionnaire_Detail" Role="Set_Questionnaire_Detail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Set_Questionnaire">
-              <PropertyRef Name="Questionnaire_Id" />
-            </Principal>
-            <Dependent Role="Set_Questionnaire_Detail">
-              <PropertyRef Name="Questionnaire_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Set_Questionnaire_Detail_Sub_Questionnaire_Id">
-          <End Type="shiner49_JunkCarModel.Set_Questionnaire" Role="Set_Questionnaire" Multiplicity="1" />
-          <End Type="shiner49_JunkCarModel.Set_Questionnaire_Detail" Role="Set_Questionnaire_Detail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Set_Questionnaire">
-              <PropertyRef Name="Questionnaire_Id" />
-            </Principal>
-            <Dependent Role="Set_Questionnaire_Detail">
-              <PropertyRef Name="Sub_Questionnaire_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Set_Questionnaire_Result_Detail_Answer_Id">
-          <End Type="shiner49_JunkCarModel.Set_Answer" Role="Set_Answer" Multiplicity="1" />
-          <End Type="shiner49_JunkCarModel.Set_Questionnaire_Result_Detail" Role="Set_Questionnaire_Result_Detail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Set_Answer">
-              <PropertyRef Name="Answer_Id" />
-            </Principal>
-            <Dependent Role="Set_Questionnaire_Result_Detail">
-              <PropertyRef Name="Answer_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Set_Questionnaire_Result_Detail_Question_Id">
-          <End Type="shiner49_JunkCarModel.Set_Question" Role="Set_Question" Multiplicity="1" />
-          <End Type="shiner49_JunkCarModel.Set_Questionnaire_Result_Detail" Role="Set_Questionnaire_Result_Detail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Set_Question">
-              <PropertyRef Name="Question_Id" />
-            </Principal>
-            <Dependent Role="Set_Questionnaire_Result_Detail">
-              <PropertyRef Name="Question_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Set_Questionnaire_Result_Questionnaire_Id">
-          <End Type="shiner49_JunkCarModel.Set_Questionnaire" Role="Set_Questionnaire" Multiplicity="1" />
-          <End Type="shiner49_JunkCarModel.Set_Questionnaire_Result" Role="Set_Questionnaire_Result" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Set_Questionnaire">
-              <PropertyRef Name="Questionnaire_Id" />
-            </Principal>
-            <Dependent Role="Set_Questionnaire_Result">
-              <PropertyRef Name="Questionnaire_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Set_Questionnaire_Result_Detail_Questionnaire_Result_Id">
-          <End Type="shiner49_JunkCarModel.Set_Questionnaire_Result" Role="Set_Questionnaire_Result" Multiplicity="1" />
-          <End Type="shiner49_JunkCarModel.Set_Questionnaire_Result_Detail" Role="Set_Questionnaire_Result_Detail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Set_Questionnaire_Result">
-              <PropertyRef Name="Questionnaire_Result_Id" />
-            </Principal>
-            <Dependent Role="Set_Questionnaire_Result_Detail">
-              <PropertyRef Name="Questionnaire_Result_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Set_Email_Template">
-          <Key>
-            <PropertyRef Name="Email_Template_Id" />
-          </Key>
-          <Property Name="Email_Template_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Email_Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email_Subject" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="Email_Body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Is_Active" Type="Byte" Nullable="false" />
-          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Created_By" Type="Int32" Nullable="false" />
-          <Property Name="Modified_Date" Type="DateTime" Precision="3" />
-          <Property Name="Modified_By" Type="Int32" />
-          <Property Name="Audit_Id" Type="Int64" />
-          <Property Name="User_IP" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-        </EntityType>
+        <ComplexType Name="GetAnOffer_Result">
+          <Property Type="Int32" Name="Offer_Price" Nullable="true" />
+          <Property Type="Int32" Name="Offer_Id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_Sal_Customer_Signup_Result">
+          <Property Type="Int32" Name="Column1" Nullable="true" />
+          <Property Type="String" Name="Column2" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="RegisterUser_Result">
+          <Property Type="Int32" Name="Customer_Id" Nullable="true" />
+          <Property Type="String" Name="Login_Password" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="shiner49_JunkCarModelStoreContainer" CdmEntityContainer="shiner49_JunkCarEntities">
+        <EntityContainerMapping StorageEntityContainer="shiner49_JunkCarNewModelStoreContainer" CdmEntityContainer="shiner49_JunkCarNewEntities">
           <EntitySetMapping Name="Sal_Customer">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Sal_Customer">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Sal_Customer">
               <MappingFragment StoreEntitySet="Sal_Customer">
+                <ScalarProperty Name="Signup_Date" ColumnName="Signup_Date" />
+                <ScalarProperty Name="Login_Password" ColumnName="Login_Password" />
+                <ScalarProperty Name="Login_Name" ColumnName="Login_Name" />
                 <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
                 <ScalarProperty Name="Customer_Code" ColumnName="Customer_Code" />
                 <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
@@ -4229,7 +4331,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sal_Customer_Contact">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Sal_Customer_Contact">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Sal_Customer_Contact">
               <MappingFragment StoreEntitySet="Sal_Customer_Contact">
                 <ScalarProperty Name="Customer_Contact_Id" ColumnName="Customer_Contact_Id" />
                 <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
@@ -4254,7 +4356,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sal_Customer_Offer">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Sal_Customer_Offer">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Sal_Customer_Offer">
               <MappingFragment StoreEntitySet="Sal_Customer_Offer">
                 <ScalarProperty Name="Customer_Offer_Id" ColumnName="Customer_Offer_Id" />
                 <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
@@ -4283,7 +4385,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sal_Customer_Vehicle">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Sal_Customer_Vehicle">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Sal_Customer_Vehicle">
               <MappingFragment StoreEntitySet="Sal_Customer_Vehicle">
                 <ScalarProperty Name="Customer_Vehicle_Id" ColumnName="Customer_Vehicle_Id" />
                 <ScalarProperty Name="Customer_Offer_Id" ColumnName="Customer_Offer_Id" />
@@ -4307,7 +4409,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sal_Customer_Vehicle_Doc">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Sal_Customer_Vehicle_Doc">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Sal_Customer_Vehicle_Doc">
               <MappingFragment StoreEntitySet="Sal_Customer_Vehicle_Doc">
                 <ScalarProperty Name="Customer_Vehicle_Doc_Id" ColumnName="Customer_Vehicle_Doc_Id" />
                 <ScalarProperty Name="Customer_Vehicle_Id" ColumnName="Customer_Vehicle_Id" />
@@ -4328,7 +4430,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sal_Offer">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Sal_Offer">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Sal_Offer">
               <MappingFragment StoreEntitySet="Sal_Offer">
                 <ScalarProperty Name="Offer_Id" ColumnName="Offer_Id" />
                 <ScalarProperty Name="Model_Year_Id" ColumnName="Model_Year_Id" />
@@ -4350,7 +4452,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sal_Offer_Status">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Sal_Offer_Status">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Sal_Offer_Status">
               <MappingFragment StoreEntitySet="Sal_Offer_Status">
                 <ScalarProperty Name="Offer_Status_Id" ColumnName="Offer_Status_Id" />
                 <ScalarProperty Name="Offer_Status" ColumnName="Offer_Status" />
@@ -4367,7 +4469,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sec_Role">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Sec_Role">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Sec_Role">
               <MappingFragment StoreEntitySet="Sec_Role">
                 <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
                 <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
@@ -4385,7 +4487,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sec_User">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Sec_User">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Sec_User">
               <MappingFragment StoreEntitySet="Sec_User">
                 <ScalarProperty Name="User_Code" ColumnName="User_Code" />
                 <ScalarProperty Name="User_Login_Id" ColumnName="User_Login_Id" />
@@ -4403,7 +4505,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sec_User_Contact">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Sec_User_Contact">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Sec_User_Contact">
               <MappingFragment StoreEntitySet="Sec_User_Contact">
                 <ScalarProperty Name="User_Contact_Id" ColumnName="User_Contact_Id" />
                 <ScalarProperty Name="User_Code" ColumnName="User_Code" />
@@ -4428,7 +4530,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_Answer">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Answer">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Answer">
               <MappingFragment StoreEntitySet="Set_Answer">
                 <ScalarProperty Name="Answer_Id" ColumnName="Answer_Id" />
                 <ScalarProperty Name="Answer" ColumnName="Answer" />
@@ -4445,7 +4547,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_Audit_Log">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Audit_Log">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Audit_Log">
               <MappingFragment StoreEntitySet="Set_Audit_Log">
                 <ScalarProperty Name="Audit_Id" ColumnName="Audit_Id" />
                 <ScalarProperty Name="Primary_Key" ColumnName="Primary_Key" />
@@ -4463,7 +4565,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_City">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_City">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_City">
               <MappingFragment StoreEntitySet="Set_City">
                 <ScalarProperty Name="City_Id" ColumnName="City_Id" />
                 <ScalarProperty Name="City_Code" ColumnName="City_Code" />
@@ -4483,7 +4585,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_Contact_Type">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Contact_Type">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Contact_Type">
               <MappingFragment StoreEntitySet="Set_Contact_Type">
                 <ScalarProperty Name="Contact_Type_Id" ColumnName="Contact_Type_Id" />
                 <ScalarProperty Name="Contact_Type" ColumnName="Contact_Type" />
@@ -4502,7 +4604,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_Country">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Country">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Country">
               <MappingFragment StoreEntitySet="Set_Country">
                 <ScalarProperty Name="Country_Id" ColumnName="Country_Id" />
                 <ScalarProperty Name="Country_Code" ColumnName="Country_Code" />
@@ -4519,7 +4621,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_County">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_County">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_County">
               <MappingFragment StoreEntitySet="Set_County">
                 <ScalarProperty Name="County_Id" ColumnName="County_Id" />
                 <ScalarProperty Name="County_Code" ColumnName="County_Code" />
@@ -4538,7 +4640,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_Document">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Document">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Document">
               <MappingFragment StoreEntitySet="Set_Document">
                 <ScalarProperty Name="Document_Id" ColumnName="Document_Id" />
                 <ScalarProperty Name="Document_Code" ColumnName="Document_Code" />
@@ -4557,7 +4659,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_Make">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Make">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Make">
               <MappingFragment StoreEntitySet="Set_Make">
                 <ScalarProperty Name="Make_Id" ColumnName="Make_Id" />
                 <ScalarProperty Name="Make_Name" ColumnName="Make_Name" />
@@ -4574,7 +4676,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_Model">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Model">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Model">
               <MappingFragment StoreEntitySet="Set_Model">
                 <ScalarProperty Name="Model_Id" ColumnName="Model_Id" />
                 <ScalarProperty Name="Model_Name" ColumnName="Model_Name" />
@@ -4592,7 +4694,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_Model_Year">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Model_Year">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Model_Year">
               <MappingFragment StoreEntitySet="Set_Model_Year">
                 <ScalarProperty Name="Model_Year_Id" ColumnName="Model_Year_Id" />
                 <ScalarProperty Name="Registration_Year" ColumnName="Registration_Year" />
@@ -4612,7 +4714,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_Question">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Question">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Question">
               <MappingFragment StoreEntitySet="Set_Question">
                 <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
                 <ScalarProperty Name="Question" ColumnName="Question" />
@@ -4629,7 +4731,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_Questionnaire">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Questionnaire">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Questionnaire">
               <MappingFragment StoreEntitySet="Set_Questionnaire">
                 <ScalarProperty Name="Questionnaire_Id" ColumnName="Questionnaire_Id" />
                 <ScalarProperty Name="Questionnaire_Description" ColumnName="Questionnaire_Description" />
@@ -4647,11 +4749,11 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_Questionnaire_Detail">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Questionnaire_Detail">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Questionnaire_Detail">
               <MappingFragment StoreEntitySet="Set_Questionnaire_Detail">
-                <ScalarProperty Name="Sub_Questionnaire_Id" ColumnName="Sub_Questionnaire_Id" />
                 <ScalarProperty Name="Questionnaire_Detail_Id" ColumnName="Questionnaire_Detail_Id" />
                 <ScalarProperty Name="Questionnaire_Id" ColumnName="Questionnaire_Id" />
+                <ScalarProperty Name="Sub_Questionnaire_Id" ColumnName="Sub_Questionnaire_Id" />
                 <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
                 <ScalarProperty Name="Answer_Id" ColumnName="Answer_Id" />
                 <ScalarProperty Name="Sort_Order" ColumnName="Sort_Order" />
@@ -4667,7 +4769,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_Questionnaire_Result">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Questionnaire_Result">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Questionnaire_Result">
               <MappingFragment StoreEntitySet="Set_Questionnaire_Result">
                 <ScalarProperty Name="Questionnaire_Result_Id" ColumnName="Questionnaire_Result_Id" />
                 <ScalarProperty Name="Questionnaire_Id" ColumnName="Questionnaire_Id" />
@@ -4683,7 +4785,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_Questionnaire_Result_Detail">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Questionnaire_Result_Detail">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Questionnaire_Result_Detail">
               <MappingFragment StoreEntitySet="Set_Questionnaire_Result_Detail">
                 <ScalarProperty Name="Questionnaire_Result_Detail_Id" ColumnName="Questionnaire_Result_Detail_Id" />
                 <ScalarProperty Name="Questionnaire_Result_Id" ColumnName="Questionnaire_Result_Id" />
@@ -4702,7 +4804,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_Site">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Site">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Site">
               <MappingFragment StoreEntitySet="Set_Site">
                 <ScalarProperty Name="Site_Id" ColumnName="Site_Id" />
                 <ScalarProperty Name="Site_Name" ColumnName="Site_Name" />
@@ -4718,15 +4820,15 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_Site_Contact">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Site_Contact">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Site_Contact">
               <MappingFragment StoreEntitySet="Set_Site_Contact">
                 <ScalarProperty Name="Site_Contact_Id" ColumnName="Site_Contact_Id" />
                 <ScalarProperty Name="Site_Id" ColumnName="Site_Id" />
                 <ScalarProperty Name="Contact_Type_Id" ColumnName="Contact_Type_Id" />
                 <ScalarProperty Name="Is_Default" ColumnName="Is_Default" />
                 <ScalarProperty Name="User_Contact" ColumnName="User_Contact" />
-                <ScalarProperty Name="County_Id" ColumnName="County_Id" />
                 <ScalarProperty Name="City_Id" ColumnName="City_Id" />
+                <ScalarProperty Name="County_Id" ColumnName="County_Id" />
                 <ScalarProperty Name="State_Id" ColumnName="State_Id" />
                 <ScalarProperty Name="Country_Id" ColumnName="Country_Id" />
                 <ScalarProperty Name="Zip_Code" ColumnName="Zip_Code" />
@@ -4742,7 +4844,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_State">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_State">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_State">
               <MappingFragment StoreEntitySet="Set_State">
                 <ScalarProperty Name="State_Id" ColumnName="State_Id" />
                 <ScalarProperty Name="State_Code" ColumnName="State_Code" />
@@ -4760,7 +4862,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Set_Zip_Code">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Zip_Code">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Zip_Code">
               <MappingFragment StoreEntitySet="Set_Zip_Code">
                 <ScalarProperty Name="Zip_Id" ColumnName="Zip_Id" />
                 <ScalarProperty Name="Zip_Code" ColumnName="Zip_Code" />
@@ -4790,10 +4892,62 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_Generate_Questionnaire_Result" FunctionName="shiner49_JunkCarModel.Store.usp_Generate_Questionnaire_Result" />
-          <FunctionImportMapping FunctionImportName="usp_Sal_Customer" FunctionName="shiner49_JunkCarModel.Store.usp_Sal_Customer">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Set_Email_Template">
+            <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Set_Email_Template">
+              <MappingFragment StoreEntitySet="Set_Email_Template">
+                <ScalarProperty Name="Email_Template_Id" ColumnName="Email_Template_Id" />
+                <ScalarProperty Name="Email_Type" ColumnName="Email_Type" />
+                <ScalarProperty Name="Email_Subject" ColumnName="Email_Subject" />
+                <ScalarProperty Name="Email_Body" ColumnName="Email_Body" />
+                <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Modified_Date" ColumnName="Modified_Date" />
+                <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
+                <ScalarProperty Name="Audit_Id" ColumnName="Audit_Id" />
+                <ScalarProperty Name="User_IP" ColumnName="User_IP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="shiner49_JunkCarNewModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="shiner49_JunkCarNewModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="shiner49_JunkCarNewModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="shiner49_JunkCarNewModel.Store.sp_helpdiagramdefinition">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Sal_Customer_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="shiner49_JunkCarNewModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="shiner49_JunkCarNewModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="shiner49_JunkCarNewModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="usp_Generate_Questionnaire_Result" FunctionName="shiner49_JunkCarNewModel.Store.usp_Generate_Questionnaire_Result" />
+          <FunctionImportMapping FunctionImportName="usp_Sal_Customer" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sal_Customer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Sal_Customer_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
                 <ScalarProperty Name="Customer_Code" ColumnName="Customer_Code" />
@@ -4811,9 +4965,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Sal_Customer_Contact" FunctionName="shiner49_JunkCarModel.Store.usp_Sal_Customer_Contact">
+          <FunctionImportMapping FunctionImportName="usp_Sal_Customer_Contact" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sal_Customer_Contact">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Sal_Customer_Contact_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Sal_Customer_Contact_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Customer_Contact_Id" ColumnName="Customer_Contact_Id" />
                 <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
@@ -4836,9 +4990,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Sal_Customer_Offer" FunctionName="shiner49_JunkCarModel.Store.usp_Sal_Customer_Offer">
+          <FunctionImportMapping FunctionImportName="usp_Sal_Customer_Offer" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sal_Customer_Offer">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Sal_Customer_Offer_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Sal_Customer_Offer_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Customer_Offer_Id" ColumnName="Customer_Offer_Id" />
                 <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
@@ -4866,9 +5020,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Sal_Customer_Vehicle" FunctionName="shiner49_JunkCarModel.Store.usp_Sal_Customer_Vehicle">
+          <FunctionImportMapping FunctionImportName="usp_Sal_Customer_Vehicle" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sal_Customer_Vehicle">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Sal_Customer_Vehicle_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Sal_Customer_Vehicle_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Customer_Vehicle_Id" ColumnName="Customer_Vehicle_Id" />
                 <ScalarProperty Name="Customer_Offer_Id" ColumnName="Customer_Offer_Id" />
@@ -4891,9 +5045,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Sal_Customer_Vehicle_Doc" FunctionName="shiner49_JunkCarModel.Store.usp_Sal_Customer_Vehicle_Doc">
+          <FunctionImportMapping FunctionImportName="usp_Sal_Customer_Vehicle_Doc" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sal_Customer_Vehicle_Doc">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Sal_Customer_Vehicle_Doc_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Sal_Customer_Vehicle_Doc_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Customer_Vehicle_Doc_Id" ColumnName="Customer_Vehicle_Doc_Id" />
                 <ScalarProperty Name="Customer_Vehicle_Id" ColumnName="Customer_Vehicle_Id" />
@@ -4913,9 +5067,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Sal_Offer" FunctionName="shiner49_JunkCarModel.Store.usp_Sal_Offer">
+          <FunctionImportMapping FunctionImportName="usp_Sal_Offer" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sal_Offer">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Sal_Offer_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Sal_Offer_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Offer_Id" ColumnName="Offer_Id" />
                 <ScalarProperty Name="Model_Year_Id" ColumnName="Model_Year_Id" />
@@ -4936,9 +5090,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Sal_Offer_Status" FunctionName="shiner49_JunkCarModel.Store.usp_Sal_Offer_Status">
+          <FunctionImportMapping FunctionImportName="usp_Sal_Offer_Status" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sal_Offer_Status">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Sal_Offer_Status_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Sal_Offer_Status_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Offer_Status_Id" ColumnName="Offer_Status_Id" />
                 <ScalarProperty Name="Offer_Status" ColumnName="Offer_Status" />
@@ -4954,17 +5108,25 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Sal_Suggested_Offer" FunctionName="shiner49_JunkCarModel.Store.usp_Sal_Suggested_Offer">
+          <FunctionImportMapping FunctionImportName="usp_Sal_Suggested_Offer" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sal_Suggested_Offer">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Sal_Suggested_Offer_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Sal_Suggested_Offer_Result">
                 <ScalarProperty Name="Offer_Price" ColumnName="Offer_Price" />
                 <ScalarProperty Name="Offer_Id" ColumnName="Offer_Id" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Sec_Role" FunctionName="shiner49_JunkCarModel.Store.usp_Sec_Role">
+          <FunctionImportMapping FunctionImportName="usp_Sec_Auto_Email_Select" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sec_Auto_Email_Select">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Sec_Role_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Sec_Auto_Email_Select_Result">
+                <ScalarProperty Name="User_Contact" ColumnName="User_Contact" />
+                <ScalarProperty Name="my_Description" ColumnName="my_Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Sec_Role" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sec_Role">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Sec_Role_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
                 <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
@@ -4981,9 +5143,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Sec_User" FunctionName="shiner49_JunkCarModel.Store.usp_Sec_User">
+          <FunctionImportMapping FunctionImportName="usp_Sec_User" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sec_User">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Sec_User_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Sec_User_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="User_Code" ColumnName="User_Code" />
                 <ScalarProperty Name="User_Login_Id" ColumnName="User_Login_Id" />
@@ -5000,9 +5162,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Sec_User_Contact" FunctionName="shiner49_JunkCarModel.Store.usp_Sec_User_Contact">
+          <FunctionImportMapping FunctionImportName="usp_Sec_User_Contact" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sec_User_Contact">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Sec_User_Contact_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Sec_User_Contact_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="User_Contact_Id" ColumnName="User_Contact_Id" />
                 <ScalarProperty Name="User_Code" ColumnName="User_Code" />
@@ -5025,9 +5187,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_Answer" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Answer">
+          <FunctionImportMapping FunctionImportName="usp_Set_Answer" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Answer">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Answer_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_Answer_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Answer_Id" ColumnName="Answer_Id" />
                 <ScalarProperty Name="Answer" ColumnName="Answer" />
@@ -5043,9 +5205,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_City" FunctionName="shiner49_JunkCarModel.Store.usp_Set_City">
+          <FunctionImportMapping FunctionImportName="usp_Set_City" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_City">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_City_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_City_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="City_Id" ColumnName="City_Id" />
                 <ScalarProperty Name="City_Code" ColumnName="City_Code" />
@@ -5064,9 +5226,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_Contact_Type" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Contact_Type">
+          <FunctionImportMapping FunctionImportName="usp_Set_Contact_Type" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Contact_Type">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Contact_Type_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_Contact_Type_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Contact_Type_Id" ColumnName="Contact_Type_Id" />
                 <ScalarProperty Name="Contact_Type" ColumnName="Contact_Type" />
@@ -5084,9 +5246,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_Country" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Country">
+          <FunctionImportMapping FunctionImportName="usp_Set_Country" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Country">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Country_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_Country_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Country_Id" ColumnName="Country_Id" />
                 <ScalarProperty Name="Country_Code" ColumnName="Country_Code" />
@@ -5102,9 +5264,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_County" FunctionName="shiner49_JunkCarModel.Store.usp_Set_County">
+          <FunctionImportMapping FunctionImportName="usp_Set_County" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_County">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_County_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_County_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="County_Id" ColumnName="County_Id" />
                 <ScalarProperty Name="County_Code" ColumnName="County_Code" />
@@ -5122,11 +5284,19 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_Default_Contact_No_Select" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Default_Contact_No_Select">
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_Document" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Document">
+          <FunctionImportMapping FunctionImportName="usp_Set_Default_Contact_No_Select" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Default_Contact_No_Select">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Document_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_Default_Contact_No_Select_Result">
+                <ScalarProperty Name="Contact_No" ColumnName="Contact_No" />
+                <ScalarProperty Name="User_Code" ColumnName="User_Code" />
+                <ScalarProperty Name="Is_Valid_Zip_Code" ColumnName="Is_Valid_Zip_Code" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Set_Document" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Document">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_Document_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Document_Id" ColumnName="Document_Id" />
                 <ScalarProperty Name="Document_Code" ColumnName="Document_Code" />
@@ -5144,9 +5314,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_Make" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Make">
+          <FunctionImportMapping FunctionImportName="usp_Set_Make" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Make">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Make_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_Make_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Make_Id" ColumnName="Make_Id" />
                 <ScalarProperty Name="Make_Name" ColumnName="Make_Name" />
@@ -5162,9 +5332,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_Model" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Model">
+          <FunctionImportMapping FunctionImportName="usp_Set_Model" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Model">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Model_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_Model_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Model_Id" ColumnName="Model_Id" />
                 <ScalarProperty Name="Model_Name" ColumnName="Model_Name" />
@@ -5181,9 +5351,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_Model_Year" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Model_Year">
+          <FunctionImportMapping FunctionImportName="usp_Set_Model_Year" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Model_Year">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Model_Year_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_Model_Year_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Model_Year_Id" ColumnName="Model_Year_Id" />
                 <ScalarProperty Name="Registration_Year" ColumnName="Registration_Year" />
@@ -5202,10 +5372,10 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_Offer_Parameter_Select" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Offer_Parameter_Select" />
-          <FunctionImportMapping FunctionImportName="usp_Set_Question" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Question">
+          <FunctionImportMapping FunctionImportName="usp_Set_Offer_Parameter_Select" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Offer_Parameter_Select" />
+          <FunctionImportMapping FunctionImportName="usp_Set_Question" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Question">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Question_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_Question_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
                 <ScalarProperty Name="Question" ColumnName="Question" />
@@ -5221,9 +5391,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_Questionnaire" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Questionnaire">
+          <FunctionImportMapping FunctionImportName="usp_Set_Questionnaire" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Questionnaire">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Questionnaire_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_Questionnaire_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Questionnaire_Id" ColumnName="Questionnaire_Id" />
                 <ScalarProperty Name="Questionnaire_Description" ColumnName="Questionnaire_Description" />
@@ -5240,9 +5410,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_Questionnaire_Detail" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Questionnaire_Detail">
+          <FunctionImportMapping FunctionImportName="usp_Set_Questionnaire_Detail" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Questionnaire_Detail">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Questionnaire_Detail_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_Questionnaire_Detail_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Questionnaire_Detail_Id" ColumnName="Questionnaire_Detail_Id" />
                 <ScalarProperty Name="Questionnaire_Id" ColumnName="Questionnaire_Id" />
@@ -5260,9 +5430,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_Questionnaire_Result" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Questionnaire_Result">
+          <FunctionImportMapping FunctionImportName="usp_Set_Questionnaire_Result" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Questionnaire_Result">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Questionnaire_Result_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_Questionnaire_Result_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Questionnaire_Result_Id" ColumnName="Questionnaire_Result_Id" />
                 <ScalarProperty Name="Questionnaire_Id" ColumnName="Questionnaire_Id" />
@@ -5277,9 +5447,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_Questionnaire_Result_Detail" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Questionnaire_Result_Detail">
+          <FunctionImportMapping FunctionImportName="usp_Set_Questionnaire_Result_Detail" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Questionnaire_Result_Detail">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Questionnaire_Result_Detail_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_Questionnaire_Result_Detail_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Questionnaire_Result_Detail_Id" ColumnName="Questionnaire_Result_Detail_Id" />
                 <ScalarProperty Name="Questionnaire_Result_Id" ColumnName="Questionnaire_Result_Id" />
@@ -5297,9 +5467,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_Site" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Site">
+          <FunctionImportMapping FunctionImportName="usp_Set_Site" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Site">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Site_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_Site_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Site_Id" ColumnName="Site_Id" />
                 <ScalarProperty Name="Site_Name" ColumnName="Site_Name" />
@@ -5314,9 +5484,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_Site_Contact" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Site_Contact">
+          <FunctionImportMapping FunctionImportName="usp_Set_Site_Contact" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Site_Contact">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Site_Contact_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_Site_Contact_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Site_Contact_Id" ColumnName="Site_Contact_Id" />
                 <ScalarProperty Name="Site_Id" ColumnName="Site_Id" />
@@ -5338,9 +5508,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_State" FunctionName="shiner49_JunkCarModel.Store.usp_Set_State">
+          <FunctionImportMapping FunctionImportName="usp_Set_State" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_State">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_State_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_State_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="State_Id" ColumnName="State_Id" />
                 <ScalarProperty Name="State_Code" ColumnName="State_Code" />
@@ -5357,9 +5527,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Set_Zip_Code" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Zip_Code">
+          <FunctionImportMapping FunctionImportName="usp_Set_Zip_Code" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Zip_Code">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Set_Zip_Code_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Set_Zip_Code_Result">
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Zip_Id" ColumnName="Zip_Id" />
                 <ScalarProperty Name="Zip_Code" ColumnName="Zip_Code" />
@@ -5389,12 +5559,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetMakes" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Offer_Parameter_Select" />
-          <FunctionImportMapping FunctionImportName="GetModels" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Offer_Parameter_Select" />
-          <FunctionImportMapping FunctionImportName="GetYears" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Offer_Parameter_Select" />
-          <FunctionImportMapping FunctionImportName="CheckZipCode" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Default_Contact_No_Select">
+          <FunctionImportMapping FunctionImportName="CheckZipCode" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Default_Contact_No_Select">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.CheckZipCode_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.CheckZipCode_Result">
                 <ScalarProperty Name="Contact_No" ColumnName="Contact_No" />
                 <ScalarProperty Name="User_Code" ColumnName="User_Code" />
                 <ScalarProperty Name="Is_Valid_Zip_Code" ColumnName="Is_Valid_Zip_Code" />
@@ -5402,33 +5569,35 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetQuestionnaire" FunctionName="shiner49_JunkCarModel.Store.usp_Set_Offer_Parameter_Select" />
-          <FunctionImportMapping FunctionImportName="GetAnOffer" FunctionName="shiner49_JunkCarModel.Store.usp_Sal_Suggested_Offer">
+          <FunctionImportMapping FunctionImportName="GetAnOffer" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sal_Suggested_Offer">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="shiner49_JunkCarModel.usp_Sal_Suggested_Offer_Result">
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.GetAnOffer_Result">
                 <ScalarProperty Name="Offer_Price" ColumnName="Offer_Price" />
                 <ScalarProperty Name="Offer_Id" ColumnName="Offer_Id" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="Set_Email_Template">
-            <EntityTypeMapping TypeName="shiner49_JunkCarModel.Set_Email_Template">
-              <MappingFragment StoreEntitySet="Set_Email_Template">
-                <ScalarProperty Name="User_IP" ColumnName="User_IP" />
-                <ScalarProperty Name="Audit_Id" ColumnName="Audit_Id" />
-                <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
-                <ScalarProperty Name="Modified_Date" ColumnName="Modified_Date" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
-                <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
-                <ScalarProperty Name="Email_Body" ColumnName="Email_Body" />
-                <ScalarProperty Name="Email_Subject" ColumnName="Email_Subject" />
-                <ScalarProperty Name="Email_Type" ColumnName="Email_Type" />
-                <ScalarProperty Name="Email_Template_Id" ColumnName="Email_Template_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_Sec_Auto_Email_Select" FunctionName="shiner49_JunkCarModel.Store.usp_Sec_Auto_Email_Select" />
+          <FunctionImportMapping FunctionImportName="GetMakes" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Offer_Parameter_Select" />
+          <FunctionImportMapping FunctionImportName="GetModels" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Offer_Parameter_Select" />
+          <FunctionImportMapping FunctionImportName="GetQuestionnaire" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Offer_Parameter_Select" />
+          <FunctionImportMapping FunctionImportName="GetYears" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Offer_Parameter_Select" />
+          <FunctionImportMapping FunctionImportName="usp_Sal_Customer_Validate" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sal_Customer_Validate" />
+          <FunctionImportMapping FunctionImportName="usp_Sal_Customer_Signup" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sal_Customer_Signup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.usp_Sal_Customer_Signup_Result">
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+                <ScalarProperty Name="Column2" ColumnName="Column2" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RegisterUser" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sal_Customer_Signup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.RegisterUser_Result">
+                <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+                <ScalarProperty Name="Login_Password" ColumnName="Login_Password" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

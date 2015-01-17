@@ -15,10 +15,10 @@ namespace JunkCar.Data
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class shiner49_JunkCarEntities : DbContext
+    public partial class shiner49_JunkCarNewEntities : DbContext
     {
-        public shiner49_JunkCarEntities()
-            : base("name=shiner49_JunkCarEntities")
+        public shiner49_JunkCarNewEntities()
+            : base("name=shiner49_JunkCarNewEntities")
         {
         }
     
@@ -56,7 +56,111 @@ namespace JunkCar.Data
         public virtual DbSet<Set_Site_Contact> Set_Site_Contact { get; set; }
         public virtual DbSet<Set_State> Set_State { get; set; }
         public virtual DbSet<Set_Zip_Code> Set_Zip_Code { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Set_Email_Template> Set_Email_Template { get; set; }
+    
+        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
     
         public virtual int usp_Generate_Questionnaire_Result(Nullable<int> questionnaire_Id)
         {
@@ -587,33 +691,21 @@ namespace JunkCar.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Sal_Suggested_Offer_Result>("usp_Sal_Suggested_Offer", registration_YearParameter, make_IdParameter, model_IdParameter, questioneerParameter, zip_CodeParameter, customer_InfoParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> usp_Sal_Suggested_Offer_Select(Nullable<int> registration_Year, Nullable<int> make_Id, Nullable<int> model_Id, string questioneer, string zip_Code, string customer_Info)
+        public virtual ObjectResult<usp_Sec_Auto_Email_Select_Result> usp_Sec_Auto_Email_Select(Nullable<int> site_id, Nullable<int> user_Code, Nullable<int> customer_Id)
         {
-            var registration_YearParameter = registration_Year.HasValue ?
-                new ObjectParameter("Registration_Year", registration_Year) :
-                new ObjectParameter("Registration_Year", typeof(int));
+            var site_idParameter = site_id.HasValue ?
+                new ObjectParameter("Site_id", site_id) :
+                new ObjectParameter("Site_id", typeof(int));
     
-            var make_IdParameter = make_Id.HasValue ?
-                new ObjectParameter("Make_Id", make_Id) :
-                new ObjectParameter("Make_Id", typeof(int));
+            var user_CodeParameter = user_Code.HasValue ?
+                new ObjectParameter("User_Code", user_Code) :
+                new ObjectParameter("User_Code", typeof(int));
     
-            var model_IdParameter = model_Id.HasValue ?
-                new ObjectParameter("Model_Id", model_Id) :
-                new ObjectParameter("Model_Id", typeof(int));
+            var customer_IdParameter = customer_Id.HasValue ?
+                new ObjectParameter("Customer_Id", customer_Id) :
+                new ObjectParameter("Customer_Id", typeof(int));
     
-            var questioneerParameter = questioneer != null ?
-                new ObjectParameter("Questioneer", questioneer) :
-                new ObjectParameter("Questioneer", typeof(string));
-    
-            var zip_CodeParameter = zip_Code != null ?
-                new ObjectParameter("Zip_Code", zip_Code) :
-                new ObjectParameter("Zip_Code", typeof(string));
-    
-            var customer_InfoParameter = customer_Info != null ?
-                new ObjectParameter("Customer_Info", customer_Info) :
-                new ObjectParameter("Customer_Info", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("usp_Sal_Suggested_Offer_Select", registration_YearParameter, make_IdParameter, model_IdParameter, questioneerParameter, zip_CodeParameter, customer_InfoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Sec_Auto_Email_Select_Result>("usp_Sec_Auto_Email_Select", site_idParameter, user_CodeParameter, customer_IdParameter);
         }
     
         public virtual ObjectResult<usp_Sec_Role_Result> usp_Sec_Role(Nullable<decimal> action_Type, ObjectParameter role_Id, string role_Name, string role_Description, Nullable<short> sort_Order, Nullable<int> created_By, Nullable<System.DateTime> created_Date, Nullable<int> modified_By, Nullable<System.DateTime> modified_Date, Nullable<byte> is_Active, string user_IP, Nullable<long> audit_Id, Nullable<int> site_Id)
@@ -1072,13 +1164,13 @@ namespace JunkCar.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Set_County_Result>("usp_Set_County", action_TypeParameter, county_Id, county_CodeParameter, county_NameParameter, state_IdParameter, country_IdParameter, is_ActiveParameter, created_DateParameter, created_ByParameter, modified_DateParameter, modified_ByParameter, audit_IdParameter, user_IPParameter, site_IdParameter);
         }
     
-        public virtual int usp_Set_Default_Contact_No_Select(string zip_Code)
+        public virtual ObjectResult<usp_Set_Default_Contact_No_Select_Result> usp_Set_Default_Contact_No_Select(string zip_Code)
         {
             var zip_CodeParameter = zip_Code != null ?
                 new ObjectParameter("Zip_Code", zip_Code) :
                 new ObjectParameter("Zip_Code", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Set_Default_Contact_No_Select", zip_CodeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Set_Default_Contact_No_Select_Result>("usp_Set_Default_Contact_No_Select", zip_CodeParameter);
         }
     
         public virtual ObjectResult<usp_Set_Document_Result> usp_Set_Document(Nullable<decimal> action_Type, ObjectParameter document_Id, string document_Code, string document_Name, string document_Description, Nullable<short> sort_Order, Nullable<int> created_By, Nullable<System.DateTime> created_Date, Nullable<int> modified_By, Nullable<System.DateTime> modified_Date, Nullable<byte> is_Active, string user_IP, Nullable<long> audit_Id, Nullable<int> site_Id)
@@ -1365,218 +1457,6 @@ namespace JunkCar.Data
                 new ObjectParameter("Site_Id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Set_Question_Result>("usp_Set_Question", action_TypeParameter, question_Id, questionParameter, sort_OrderParameter, is_ActiveParameter, created_DateParameter, created_ByParameter, modified_DateParameter, modified_ByParameter, audit_IdParameter, user_IPParameter, site_IdParameter);
-        }
-    
-        public virtual int usp_Set_Questioneer(Nullable<decimal> action_Type, ObjectParameter questioneer_Id, string questioneer_Description, Nullable<int> parent_Questioneer_Id, Nullable<short> sort_Order, Nullable<byte> is_Active, Nullable<System.DateTime> created_Date, Nullable<int> created_By, Nullable<System.DateTime> modified_Date, Nullable<int> modified_By, Nullable<long> audit_Id, string user_IP, Nullable<int> site_Id)
-        {
-            var action_TypeParameter = action_Type.HasValue ?
-                new ObjectParameter("Action_Type", action_Type) :
-                new ObjectParameter("Action_Type", typeof(decimal));
-    
-            var questioneer_DescriptionParameter = questioneer_Description != null ?
-                new ObjectParameter("Questioneer_Description", questioneer_Description) :
-                new ObjectParameter("Questioneer_Description", typeof(string));
-    
-            var parent_Questioneer_IdParameter = parent_Questioneer_Id.HasValue ?
-                new ObjectParameter("Parent_Questioneer_Id", parent_Questioneer_Id) :
-                new ObjectParameter("Parent_Questioneer_Id", typeof(int));
-    
-            var sort_OrderParameter = sort_Order.HasValue ?
-                new ObjectParameter("Sort_Order", sort_Order) :
-                new ObjectParameter("Sort_Order", typeof(short));
-    
-            var is_ActiveParameter = is_Active.HasValue ?
-                new ObjectParameter("Is_Active", is_Active) :
-                new ObjectParameter("Is_Active", typeof(byte));
-    
-            var created_DateParameter = created_Date.HasValue ?
-                new ObjectParameter("Created_Date", created_Date) :
-                new ObjectParameter("Created_Date", typeof(System.DateTime));
-    
-            var created_ByParameter = created_By.HasValue ?
-                new ObjectParameter("Created_By", created_By) :
-                new ObjectParameter("Created_By", typeof(int));
-    
-            var modified_DateParameter = modified_Date.HasValue ?
-                new ObjectParameter("Modified_Date", modified_Date) :
-                new ObjectParameter("Modified_Date", typeof(System.DateTime));
-    
-            var modified_ByParameter = modified_By.HasValue ?
-                new ObjectParameter("Modified_By", modified_By) :
-                new ObjectParameter("Modified_By", typeof(int));
-    
-            var audit_IdParameter = audit_Id.HasValue ?
-                new ObjectParameter("Audit_Id", audit_Id) :
-                new ObjectParameter("Audit_Id", typeof(long));
-    
-            var user_IPParameter = user_IP != null ?
-                new ObjectParameter("User_IP", user_IP) :
-                new ObjectParameter("User_IP", typeof(string));
-    
-            var site_IdParameter = site_Id.HasValue ?
-                new ObjectParameter("Site_Id", site_Id) :
-                new ObjectParameter("Site_Id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Set_Questioneer", action_TypeParameter, questioneer_Id, questioneer_DescriptionParameter, parent_Questioneer_IdParameter, sort_OrderParameter, is_ActiveParameter, created_DateParameter, created_ByParameter, modified_DateParameter, modified_ByParameter, audit_IdParameter, user_IPParameter, site_IdParameter);
-        }
-    
-        public virtual int usp_Set_Questioneer_Detail(Nullable<decimal> action_Type, ObjectParameter questioneer_Detail_Id, Nullable<int> questioneer_Id, Nullable<int> question_Id, Nullable<int> answer_Id, Nullable<short> sort_Order, Nullable<byte> is_Active, Nullable<System.DateTime> created_Date, Nullable<int> created_By, Nullable<System.DateTime> modified_Date, Nullable<int> modified_By, Nullable<long> audit_Id, string user_IP, Nullable<int> site_Id)
-        {
-            var action_TypeParameter = action_Type.HasValue ?
-                new ObjectParameter("Action_Type", action_Type) :
-                new ObjectParameter("Action_Type", typeof(decimal));
-    
-            var questioneer_IdParameter = questioneer_Id.HasValue ?
-                new ObjectParameter("Questioneer_Id", questioneer_Id) :
-                new ObjectParameter("Questioneer_Id", typeof(int));
-    
-            var question_IdParameter = question_Id.HasValue ?
-                new ObjectParameter("Question_Id", question_Id) :
-                new ObjectParameter("Question_Id", typeof(int));
-    
-            var answer_IdParameter = answer_Id.HasValue ?
-                new ObjectParameter("Answer_Id", answer_Id) :
-                new ObjectParameter("Answer_Id", typeof(int));
-    
-            var sort_OrderParameter = sort_Order.HasValue ?
-                new ObjectParameter("Sort_Order", sort_Order) :
-                new ObjectParameter("Sort_Order", typeof(short));
-    
-            var is_ActiveParameter = is_Active.HasValue ?
-                new ObjectParameter("Is_Active", is_Active) :
-                new ObjectParameter("Is_Active", typeof(byte));
-    
-            var created_DateParameter = created_Date.HasValue ?
-                new ObjectParameter("Created_Date", created_Date) :
-                new ObjectParameter("Created_Date", typeof(System.DateTime));
-    
-            var created_ByParameter = created_By.HasValue ?
-                new ObjectParameter("Created_By", created_By) :
-                new ObjectParameter("Created_By", typeof(int));
-    
-            var modified_DateParameter = modified_Date.HasValue ?
-                new ObjectParameter("Modified_Date", modified_Date) :
-                new ObjectParameter("Modified_Date", typeof(System.DateTime));
-    
-            var modified_ByParameter = modified_By.HasValue ?
-                new ObjectParameter("Modified_By", modified_By) :
-                new ObjectParameter("Modified_By", typeof(int));
-    
-            var audit_IdParameter = audit_Id.HasValue ?
-                new ObjectParameter("Audit_Id", audit_Id) :
-                new ObjectParameter("Audit_Id", typeof(long));
-    
-            var user_IPParameter = user_IP != null ?
-                new ObjectParameter("User_IP", user_IP) :
-                new ObjectParameter("User_IP", typeof(string));
-    
-            var site_IdParameter = site_Id.HasValue ?
-                new ObjectParameter("Site_Id", site_Id) :
-                new ObjectParameter("Site_Id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Set_Questioneer_Detail", action_TypeParameter, questioneer_Detail_Id, questioneer_IdParameter, question_IdParameter, answer_IdParameter, sort_OrderParameter, is_ActiveParameter, created_DateParameter, created_ByParameter, modified_DateParameter, modified_ByParameter, audit_IdParameter, user_IPParameter, site_IdParameter);
-        }
-    
-        public virtual int usp_Set_Questioneer_Result(Nullable<decimal> action_Type, ObjectParameter questioneer_Result_Id, Nullable<int> questioneer_Id, Nullable<int> sort_Order, Nullable<System.DateTime> created_Date, Nullable<int> created_By, Nullable<System.DateTime> modified_Date, Nullable<int> modified_By, Nullable<long> audit_Id, string user_IP, Nullable<int> site_Id)
-        {
-            var action_TypeParameter = action_Type.HasValue ?
-                new ObjectParameter("Action_Type", action_Type) :
-                new ObjectParameter("Action_Type", typeof(decimal));
-    
-            var questioneer_IdParameter = questioneer_Id.HasValue ?
-                new ObjectParameter("Questioneer_Id", questioneer_Id) :
-                new ObjectParameter("Questioneer_Id", typeof(int));
-    
-            var sort_OrderParameter = sort_Order.HasValue ?
-                new ObjectParameter("Sort_Order", sort_Order) :
-                new ObjectParameter("Sort_Order", typeof(int));
-    
-            var created_DateParameter = created_Date.HasValue ?
-                new ObjectParameter("Created_Date", created_Date) :
-                new ObjectParameter("Created_Date", typeof(System.DateTime));
-    
-            var created_ByParameter = created_By.HasValue ?
-                new ObjectParameter("Created_By", created_By) :
-                new ObjectParameter("Created_By", typeof(int));
-    
-            var modified_DateParameter = modified_Date.HasValue ?
-                new ObjectParameter("Modified_Date", modified_Date) :
-                new ObjectParameter("Modified_Date", typeof(System.DateTime));
-    
-            var modified_ByParameter = modified_By.HasValue ?
-                new ObjectParameter("Modified_By", modified_By) :
-                new ObjectParameter("Modified_By", typeof(int));
-    
-            var audit_IdParameter = audit_Id.HasValue ?
-                new ObjectParameter("Audit_Id", audit_Id) :
-                new ObjectParameter("Audit_Id", typeof(long));
-    
-            var user_IPParameter = user_IP != null ?
-                new ObjectParameter("User_IP", user_IP) :
-                new ObjectParameter("User_IP", typeof(string));
-    
-            var site_IdParameter = site_Id.HasValue ?
-                new ObjectParameter("Site_Id", site_Id) :
-                new ObjectParameter("Site_Id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Set_Questioneer_Result", action_TypeParameter, questioneer_Result_Id, questioneer_IdParameter, sort_OrderParameter, created_DateParameter, created_ByParameter, modified_DateParameter, modified_ByParameter, audit_IdParameter, user_IPParameter, site_IdParameter);
-        }
-    
-        public virtual int usp_Set_Questioneer_Result_Detail(Nullable<decimal> action_Type, ObjectParameter questioneer_Result_Detail_Id, Nullable<int> questioneer_Result_Id, Nullable<int> question_Id, Nullable<int> answer_Id, Nullable<short> sort_Order, Nullable<byte> is_Active, Nullable<System.DateTime> created_Date, Nullable<int> created_By, Nullable<System.DateTime> modified_Date, Nullable<int> modified_By, Nullable<long> audit_Id, string user_IP, Nullable<int> site_Id)
-        {
-            var action_TypeParameter = action_Type.HasValue ?
-                new ObjectParameter("Action_Type", action_Type) :
-                new ObjectParameter("Action_Type", typeof(decimal));
-    
-            var questioneer_Result_IdParameter = questioneer_Result_Id.HasValue ?
-                new ObjectParameter("Questioneer_Result_Id", questioneer_Result_Id) :
-                new ObjectParameter("Questioneer_Result_Id", typeof(int));
-    
-            var question_IdParameter = question_Id.HasValue ?
-                new ObjectParameter("Question_Id", question_Id) :
-                new ObjectParameter("Question_Id", typeof(int));
-    
-            var answer_IdParameter = answer_Id.HasValue ?
-                new ObjectParameter("Answer_Id", answer_Id) :
-                new ObjectParameter("Answer_Id", typeof(int));
-    
-            var sort_OrderParameter = sort_Order.HasValue ?
-                new ObjectParameter("Sort_Order", sort_Order) :
-                new ObjectParameter("Sort_Order", typeof(short));
-    
-            var is_ActiveParameter = is_Active.HasValue ?
-                new ObjectParameter("Is_Active", is_Active) :
-                new ObjectParameter("Is_Active", typeof(byte));
-    
-            var created_DateParameter = created_Date.HasValue ?
-                new ObjectParameter("Created_Date", created_Date) :
-                new ObjectParameter("Created_Date", typeof(System.DateTime));
-    
-            var created_ByParameter = created_By.HasValue ?
-                new ObjectParameter("Created_By", created_By) :
-                new ObjectParameter("Created_By", typeof(int));
-    
-            var modified_DateParameter = modified_Date.HasValue ?
-                new ObjectParameter("Modified_Date", modified_Date) :
-                new ObjectParameter("Modified_Date", typeof(System.DateTime));
-    
-            var modified_ByParameter = modified_By.HasValue ?
-                new ObjectParameter("Modified_By", modified_By) :
-                new ObjectParameter("Modified_By", typeof(int));
-    
-            var audit_IdParameter = audit_Id.HasValue ?
-                new ObjectParameter("Audit_Id", audit_Id) :
-                new ObjectParameter("Audit_Id", typeof(long));
-    
-            var user_IPParameter = user_IP != null ?
-                new ObjectParameter("User_IP", user_IP) :
-                new ObjectParameter("User_IP", typeof(string));
-    
-            var site_IdParameter = site_Id.HasValue ?
-                new ObjectParameter("Site_Id", site_Id) :
-                new ObjectParameter("Site_Id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Set_Questioneer_Result_Detail", action_TypeParameter, questioneer_Result_Detail_Id, questioneer_Result_IdParameter, question_IdParameter, answer_IdParameter, sort_OrderParameter, is_ActiveParameter, created_DateParameter, created_ByParameter, modified_DateParameter, modified_ByParameter, audit_IdParameter, user_IPParameter, site_IdParameter);
         }
     
         public virtual ObjectResult<usp_Set_Questionnaire_Result> usp_Set_Questionnaire(Nullable<decimal> action_Type, ObjectParameter questionnaire_Id, string questionnaire_Description, Nullable<int> parent_Questionnaire_Id, Nullable<short> sort_Order, Nullable<byte> is_Active, Nullable<System.DateTime> created_Date, Nullable<int> created_By, Nullable<System.DateTime> modified_Date, Nullable<int> modified_By, Nullable<long> audit_Id, string user_IP, Nullable<int> site_Id)
@@ -2067,6 +1947,44 @@ namespace JunkCar.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Set_Zip_Code_Result>("usp_Set_Zip_Code", action_TypeParameter, zip_Id, zip_CodeParameter, zip_TypeParameter, city_IdParameter, county_IdParameter, state_IdParameter, country_IdParameter, acceptable_CitiesParameter, unacceptable_CitiesParameter, time_ZoneParameter, area_CodesParameter, latitudeParameter, longitudeParameter, world_RegionParameter, is_DecommissionedParameter, estimated_PopulationParameter, notesParameter, is_ActiveParameter, created_DateParameter, created_ByParameter, modified_DateParameter, modified_ByParameter, audit_IdParameter, user_IPParameter, site_IdParameter);
         }
     
+        public virtual ObjectResult<CheckZipCode_Result> CheckZipCode(string zip_Code)
+        {
+            var zip_CodeParameter = zip_Code != null ?
+                new ObjectParameter("Zip_Code", zip_Code) :
+                new ObjectParameter("Zip_Code", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CheckZipCode_Result>("CheckZipCode", zip_CodeParameter);
+        }
+    
+        public virtual ObjectResult<GetAnOffer_Result> GetAnOffer(Nullable<int> registration_Year, Nullable<int> make_Id, Nullable<int> model_Id, string questioneer, string zip_Code, string customer_Info)
+        {
+            var registration_YearParameter = registration_Year.HasValue ?
+                new ObjectParameter("Registration_Year", registration_Year) :
+                new ObjectParameter("Registration_Year", typeof(int));
+    
+            var make_IdParameter = make_Id.HasValue ?
+                new ObjectParameter("Make_Id", make_Id) :
+                new ObjectParameter("Make_Id", typeof(int));
+    
+            var model_IdParameter = model_Id.HasValue ?
+                new ObjectParameter("Model_Id", model_Id) :
+                new ObjectParameter("Model_Id", typeof(int));
+    
+            var questioneerParameter = questioneer != null ?
+                new ObjectParameter("Questioneer", questioneer) :
+                new ObjectParameter("Questioneer", typeof(string));
+    
+            var zip_CodeParameter = zip_Code != null ?
+                new ObjectParameter("Zip_Code", zip_Code) :
+                new ObjectParameter("Zip_Code", typeof(string));
+    
+            var customer_InfoParameter = customer_Info != null ?
+                new ObjectParameter("Customer_Info", customer_Info) :
+                new ObjectParameter("Customer_Info", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAnOffer_Result>("GetAnOffer", registration_YearParameter, make_IdParameter, model_IdParameter, questioneerParameter, zip_CodeParameter, customer_InfoParameter);
+        }
+    
         public virtual ObjectResult<Set_Make> GetMakes(string parameter_Type, Nullable<int> registration_Year, Nullable<int> make_Id)
         {
             var parameter_TypeParameter = parameter_Type != null ?
@@ -2135,32 +2053,6 @@ namespace JunkCar.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Set_Model>("GetModels", mergeOption, parameter_TypeParameter, registration_YearParameter, make_IdParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> GetYears(string parameter_Type, Nullable<int> registration_Year, Nullable<int> make_Id)
-        {
-            var parameter_TypeParameter = parameter_Type != null ?
-                new ObjectParameter("Parameter_Type", parameter_Type) :
-                new ObjectParameter("Parameter_Type", typeof(string));
-    
-            var registration_YearParameter = registration_Year.HasValue ?
-                new ObjectParameter("Registration_Year", registration_Year) :
-                new ObjectParameter("Registration_Year", typeof(int));
-    
-            var make_IdParameter = make_Id.HasValue ?
-                new ObjectParameter("Make_Id", make_Id) :
-                new ObjectParameter("Make_Id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetYears", parameter_TypeParameter, registration_YearParameter, make_IdParameter);
-        }
-    
-        public virtual ObjectResult<CheckZipCode_Result> CheckZipCode(string zip_Code)
-        {
-            var zip_CodeParameter = zip_Code != null ?
-                new ObjectParameter("Zip_Code", zip_Code) :
-                new ObjectParameter("Zip_Code", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CheckZipCode_Result>("CheckZipCode", zip_CodeParameter);
-        }
-    
         public virtual ObjectResult<Set_Questionnaire_Detail> GetQuestionnaire(string parameter_Type, Nullable<int> registration_Year, Nullable<int> make_Id)
         {
             var parameter_TypeParameter = parameter_Type != null ?
@@ -2195,8 +2087,12 @@ namespace JunkCar.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Set_Questionnaire_Detail>("GetQuestionnaire", mergeOption, parameter_TypeParameter, registration_YearParameter, make_IdParameter);
         }
     
-        public virtual ObjectResult<usp_Sal_Suggested_Offer_Result> GetAnOffer(Nullable<int> registration_Year, Nullable<int> make_Id, Nullable<int> model_Id, string questioneer, string zip_Code, string customer_Info)
+        public virtual ObjectResult<Nullable<int>> GetYears(string parameter_Type, Nullable<int> registration_Year, Nullable<int> make_Id)
         {
+            var parameter_TypeParameter = parameter_Type != null ?
+                new ObjectParameter("Parameter_Type", parameter_Type) :
+                new ObjectParameter("Parameter_Type", typeof(string));
+    
             var registration_YearParameter = registration_Year.HasValue ?
                 new ObjectParameter("Registration_Year", registration_Year) :
                 new ObjectParameter("Registration_Year", typeof(int));
@@ -2205,40 +2101,98 @@ namespace JunkCar.Data
                 new ObjectParameter("Make_Id", make_Id) :
                 new ObjectParameter("Make_Id", typeof(int));
     
-            var model_IdParameter = model_Id.HasValue ?
-                new ObjectParameter("Model_Id", model_Id) :
-                new ObjectParameter("Model_Id", typeof(int));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetYears", parameter_TypeParameter, registration_YearParameter, make_IdParameter);
+        }
     
-            var questioneerParameter = questioneer != null ?
-                new ObjectParameter("Questioneer", questioneer) :
-                new ObjectParameter("Questioneer", typeof(string));
+        public virtual int usp_Sal_Customer_Validate(ObjectParameter customer_Id, ObjectParameter login_Password, string customer_Name, string customer_Address, string customer_Phone, string customer_Email, string zip_Code)
+        {
+            var customer_NameParameter = customer_Name != null ?
+                new ObjectParameter("Customer_Name", customer_Name) :
+                new ObjectParameter("Customer_Name", typeof(string));
+    
+            var customer_AddressParameter = customer_Address != null ?
+                new ObjectParameter("Customer_Address", customer_Address) :
+                new ObjectParameter("Customer_Address", typeof(string));
+    
+            var customer_PhoneParameter = customer_Phone != null ?
+                new ObjectParameter("Customer_Phone", customer_Phone) :
+                new ObjectParameter("Customer_Phone", typeof(string));
+    
+            var customer_EmailParameter = customer_Email != null ?
+                new ObjectParameter("Customer_Email", customer_Email) :
+                new ObjectParameter("Customer_Email", typeof(string));
     
             var zip_CodeParameter = zip_Code != null ?
                 new ObjectParameter("Zip_Code", zip_Code) :
                 new ObjectParameter("Zip_Code", typeof(string));
     
-            var customer_InfoParameter = customer_Info != null ?
-                new ObjectParameter("Customer_Info", customer_Info) :
-                new ObjectParameter("Customer_Info", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Sal_Suggested_Offer_Result>("GetAnOffer", registration_YearParameter, make_IdParameter, model_IdParameter, questioneerParameter, zip_CodeParameter, customer_InfoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Sal_Customer_Validate", customer_Id, login_Password, customer_NameParameter, customer_AddressParameter, customer_PhoneParameter, customer_EmailParameter, zip_CodeParameter);
         }
     
-        public virtual ObjectResult<string> usp_Sec_Auto_Email_Select(Nullable<int> site_id, Nullable<int> user_Code, Nullable<int> customer_Id)
+        public virtual ObjectResult<usp_Sal_Customer_Signup_Result> usp_Sal_Customer_Signup(Nullable<int> customer_Id, string login_Password, string customer_Name, string customer_Address, string customer_Phone, string customer_Email, string zip_Code)
         {
-            var site_idParameter = site_id.HasValue ?
-                new ObjectParameter("Site_id", site_id) :
-                new ObjectParameter("Site_id", typeof(int));
-    
-            var user_CodeParameter = user_Code.HasValue ?
-                new ObjectParameter("User_Code", user_Code) :
-                new ObjectParameter("User_Code", typeof(int));
-    
             var customer_IdParameter = customer_Id.HasValue ?
                 new ObjectParameter("Customer_Id", customer_Id) :
                 new ObjectParameter("Customer_Id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("usp_Sec_Auto_Email_Select", site_idParameter, user_CodeParameter, customer_IdParameter);
+            var login_PasswordParameter = login_Password != null ?
+                new ObjectParameter("Login_Password", login_Password) :
+                new ObjectParameter("Login_Password", typeof(string));
+    
+            var customer_NameParameter = customer_Name != null ?
+                new ObjectParameter("Customer_Name", customer_Name) :
+                new ObjectParameter("Customer_Name", typeof(string));
+    
+            var customer_AddressParameter = customer_Address != null ?
+                new ObjectParameter("Customer_Address", customer_Address) :
+                new ObjectParameter("Customer_Address", typeof(string));
+    
+            var customer_PhoneParameter = customer_Phone != null ?
+                new ObjectParameter("Customer_Phone", customer_Phone) :
+                new ObjectParameter("Customer_Phone", typeof(string));
+    
+            var customer_EmailParameter = customer_Email != null ?
+                new ObjectParameter("Customer_Email", customer_Email) :
+                new ObjectParameter("Customer_Email", typeof(string));
+    
+            var zip_CodeParameter = zip_Code != null ?
+                new ObjectParameter("Zip_Code", zip_Code) :
+                new ObjectParameter("Zip_Code", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Sal_Customer_Signup_Result>("usp_Sal_Customer_Signup", customer_IdParameter, login_PasswordParameter, customer_NameParameter, customer_AddressParameter, customer_PhoneParameter, customer_EmailParameter, zip_CodeParameter);
+        }
+    
+        public virtual ObjectResult<RegisterUser_Result> RegisterUser(Nullable<int> customer_Id, string login_Password, string customer_Name, string customer_Address, string customer_Phone, string customer_Email, string zip_Code)
+        {
+            var customer_IdParameter = customer_Id.HasValue ?
+                new ObjectParameter("Customer_Id", customer_Id) :
+                new ObjectParameter("Customer_Id", typeof(int));
+    
+            var login_PasswordParameter = login_Password != null ?
+                new ObjectParameter("Login_Password", login_Password) :
+                new ObjectParameter("Login_Password", typeof(string));
+    
+            var customer_NameParameter = customer_Name != null ?
+                new ObjectParameter("Customer_Name", customer_Name) :
+                new ObjectParameter("Customer_Name", typeof(string));
+    
+            var customer_AddressParameter = customer_Address != null ?
+                new ObjectParameter("Customer_Address", customer_Address) :
+                new ObjectParameter("Customer_Address", typeof(string));
+    
+            var customer_PhoneParameter = customer_Phone != null ?
+                new ObjectParameter("Customer_Phone", customer_Phone) :
+                new ObjectParameter("Customer_Phone", typeof(string));
+    
+            var customer_EmailParameter = customer_Email != null ?
+                new ObjectParameter("Customer_Email", customer_Email) :
+                new ObjectParameter("Customer_Email", typeof(string));
+    
+            var zip_CodeParameter = zip_Code != null ?
+                new ObjectParameter("Zip_Code", zip_Code) :
+                new ObjectParameter("Zip_Code", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RegisterUser_Result>("RegisterUser", customer_IdParameter, login_PasswordParameter, customer_NameParameter, customer_AddressParameter, customer_PhoneParameter, customer_EmailParameter, zip_CodeParameter);
         }
     }
 }

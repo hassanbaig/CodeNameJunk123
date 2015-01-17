@@ -12,7 +12,8 @@
     <title>::: JunkCarTrader :::</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="Content/Assets/CSS/bootstrap.css" rel="stylesheet">
+      <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+      <link href="Content/Assets/CSS/bootstrap.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="Content/Assets/CSS/main.css" rel="stylesheet">
@@ -29,10 +30,13 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
       <script src="Scripts/angular.min.js"></script>
-
+      <script src="Scripts/angular-sanitize.js"></script>
+      <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>-->
+      <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>      
       <script src="App/Config/App.js"></script>      
       <script src="App/Controllers/HomeController.js"></script>
-      <script src="App/Services/HomeService.js"></script>
+      <script src="App/Services/HomeService.js"></script>     
+
 
       <script type="text/javascript" src="http://fgnass.github.io/spin.js/spin.min.js"></script>
       <script src="App/Animation/angular-spinner.js"></script>
@@ -40,8 +44,7 @@
       <link href="Content/animations.css" rel="stylesheet">
       <script type="text/javascript" src="App/Animation/alerts-manager.js"></script>
 
-      <script type="text/javascript" src="App/CustomDirectives/filters.js"></script>
-
+      <script type="text/javascript" src="App/CustomDirectives/filters.js"></script>      
       <link href="Content/Assets/CSS/angular.rangeSlider.css" rel="stylesheet">
       <script type="text/javascript" src="App/CustomDirectives/angular.rangeSlider.js"></script>
       <script type="text/javascript" src="App/CustomDirectives/rangeFilter.js"></script>
@@ -214,19 +217,19 @@ input[readonly] {
                                     <div class="form-group">
                                         <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedRegistrationYear" data-ng-change="homeControllerVM.saveYearData();homeControllerVM.getMakesByYear();" list="homeRegistrationYearsDatalist" placeholder="Year">
                                         <datalist id="homeRegistrationYearsDatalist" spellcheck="true">
-                                            <option data-ng-repeat="year in homeControllerVM.registrationYearsList" value="{{year}}">
+                                            <option data-ng-repeat="year in registrationYearsList" value="{{year}}">
                                         </datalist>
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedMake" data-ng-change="homeControllerVM.saveMakeData();homeControllerVM.getModelsByYearMake();" list="homeMakesDatalist" placeholder="Make">
                                         <datalist id="homeMakesDatalist" spellcheck="true">
-                                            <option data-ng-repeat="make in homeControllerVM.makesList" value="{{make.Make_Name}}">
+                                            <option data-ng-repeat="make in makesList" value="{{make.Make_Name}}">
                                         </datalist>
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedModel" data-ng-change="homeControllerVM.saveModelData();" list="homeModelsDatalist" placeholder="Model">
                                         <datalist id="homeModelsDatalist" spellcheck="true">
-                                            <option data-ng-repeat="model in homeControllerVM.modelsList" value="{{model.Model_Name}}">
+                                            <option data-ng-repeat="model in modelsList" value="{{model.Model_Name}}">
                                         </datalist>
                                     </div>
                                 </form>
@@ -244,7 +247,7 @@ input[readonly] {
                                     <div class="form-group">
                                         <div class="row" style="margin-top:10px; margin-bottom:10px">
                                             <div class="col-sm-6" style="padding:5px;">
-                                                <button type="button" data-ng-click="homeControllerVM.checkZipCode();" class="btn gt btn-lg">
+                                                <button type="button" data-toggle="modal" data-target="#basicModal" data-ng-click="homeControllerVM.checkZipCode();" class="btn gt btn-lg">
                                                     <b>Get an offer</b>
                                                 </button>
                                             </div>
@@ -269,7 +272,7 @@ input[readonly] {
                                     </div>
 
                                     <div class="col-sm-3">
-                                        <button type="button" data-toggle="modal" data-target=".bs-example-modal-sm" data-ng-init="homeControllerVM.getQuestionnaire();" class="btn bt btn-md" style="width:auto">Edit this</button>
+                                        <button type="button" data-toggle="modal" data-target=".bs-example-modal-sm" data-ng-click="open();" data-ng-init="homeControllerVM.getQuestionnaire();" class="btn bt btn-md" style="width:auto">Edit this</button>
                                     </div>
                                 </div>
                                 <h3 style="text-align:left; color:#000; margin-top:10px; margin-bottom:10px; padding-left:10px"><b>Condition</b></h3>
@@ -307,12 +310,11 @@ input[readonly] {
                                 </div>
 
                                 <div class="col-sm-6" style="padding:5px;">
-                                    <button type="button" data-ng-click="homeControllerVM.getAnOffer();" class="btn gt btn-lg">
+                                    <button type="button" data-ng-click="homeControllerVM.getAnOfferWithQuestionnaire();" class="btn gt btn-lg">
                                         <b>Get an offer</b>
                                     </button>
                                 </div>
                             </div>
-
 
                             <div class="tab-pane" id="tab4">
 
@@ -321,17 +323,16 @@ input[readonly] {
                                     <b>Upload Up to 5 Images</b>
                                 </button>
 
-
                             </div>
 
                             <div class="tab-pane" id="tab5">
 
                                 <div class="form-group">
-                                    <span style="font-family:'Century Gothic'; color:darkgreen; font-size:xx-large;"><b>{{homeControllerVM.offerPrice}}</b></span>
+                                    <span style="font-family:'Century Gothic'; color:darkgreen; font-size:100px;" data-ng-bind-template="{{offerPrice}}"><b></b></span>
                                     <h3 style="text-align:center; color:#aa1a1f; margin-top:10px; margin-bottom:10px;"><b>Please call for negotiation</b></h3>
                                     <div class="row" style="margin-top:10px; margin-bottom:10px">
                                         <div class="col-sm-12" style=" margin-bottom:10px"><h2><span class="label label-default">(888) 787-5772</span></h2> </div>
-                                        <div class="col-sm-12" style="padding:5px;" align="center"><button type="button" class="btn gt btn-lg"><b>Confirm</b></button></div>
+                                        <div class="col-sm-12" data-ng-click="homeControllerVM.confirmOffer();" style="padding:5px;" align="center"><button type="button" class="btn gt btn-lg"><b>Confirm</b></button></div>
 
                                     </div>
                                 </div>
@@ -348,8 +349,7 @@ input[readonly] {
                     <div class="col-lg-4 ">
                     </div>
                 </div>
-                <!-- End Second Row -->
-
+                <!-- End Second Row -->                
                 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content" style="background-color:#27bbed;">
@@ -357,43 +357,44 @@ input[readonly] {
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
                                 <!-- <h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body" id="myModalForPopup.html">
                                 <div style="padding:20px">
                                     <form role="form" data-ng-controller="homeController as homeControllerVM">
                                         <div class="form-group">
                                             <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedRegistrationYear" data-ng-change="homeControllerVM.getMakesByYear();" list="homeRegistrationYearsDatalist" placeholder="Year">
                                             <datalist id="homeRegistrationYearsDatalist" spellcheck="true">
-                                                <option data-ng-repeat="year in homeControllerVM.registrationYearsList" value="{{year}}">
+                                                <option data-ng-repeat="year in registrationYearsList" value="{{year}}">
                                             </datalist>
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedMake" data-ng-change="homeControllerVM.getModelsByYearMake();" list="homeMakesDatalist" placeholder="Make">
                                             <datalist id="homeMakesDatalist" spellcheck="true">
-                                                <option data-ng-repeat="make in homeControllerVM.makesList" value="{{make.Make_Name}}">
+                                                <option data-ng-repeat="make in makesList" value="{{make.Make_Name}}">
                                             </datalist>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedModel" list="homeModelsDatalist" placeholder="Model">
+                                            <input type="text" class="form-control" data-ng-model="homeControllerVM.homeSelectedModel" data-ng-change="homeControllerVM.updateModel(homeControllerVM.homeSelectedModel);" list="homeModelsDatalist" placeholder="Model">
                                             <datalist id="homeModelsDatalist" spellcheck="true">
-                                                <option data-ng-repeat="model in homeControllerVM.modelsList" value="{{model.Model_Name}}">
+                                                <option data-ng-repeat="model in modelsList" value="{{model.Model_Name}}">
                                             </datalist>
-                                        </div>                                       
+                                        </div>
                                         <div class="form-group">
                                             <input type="number" data-ng-model="homeControllerVM.homeZipCode" class="form-control" id="exampleInputEmail2" placeholder="Zip">
                                         </div>
 
                                         <div class="form-group">
-                                            <button type="button" class="btn bt btn-lg" data-dismiss="modal"><b>Save</b></button>
+                                            <button type="button" class="btn bt btn-lg" data-dismiss="modal" data-ng-click="homeControllerVM.close();"><b>Save</b></button>
                                         </div>
 
                                     </form>
                                 </div>
-                                </div>
                             </div>
 
+                        </div>
                     </div>
                 </div>
-            </div>
+               
+</div>
 
 
             <!--Modal 2-->

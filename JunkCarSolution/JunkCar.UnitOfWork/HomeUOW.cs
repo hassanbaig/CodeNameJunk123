@@ -28,7 +28,7 @@ namespace JunkCar.UnitOfWork
                 ((IUnitOfWork)this).InitializeRepositories();
             }
         }
-        public HomeUOW(shiner49_JunkCarEntities context)
+        public HomeUOW(shiner49_JunkCarNewEntities context)
             : base(context)
         {
             if (context == null)
@@ -121,18 +121,27 @@ namespace JunkCar.UnitOfWork
                     //home.SelectedQuestionnaire
                     //home.CustomerInfo
                     home.OfferPrice = homeRepository.GetAnOffer(home.SelectedYear,home.SelectedMakeId,home.SelectedModelId,home.ZipCode);
-                    if (home.OfferPrice <= 0)
+                    if (home.OfferPrice.Length <= 0)
                     {
                         throw new Exception("No offer");
                     }
                     break;
                 case 6:
-                    //home.SelectedQuestionnaire
-                    //home.CustomerInfo
+                    string[] selectedQuestionnaire = home.SelectedQuestionnaire.Split(',');
+                    string questionnaireResult = string.Empty;
+                    for (int i = 0; i < selectedQuestionnaire.Length; i++)
+                    {
+                        if(i%2==0)
+                        {questionnaireResult += "<Questionnaire_Result><Question_Id>"+selectedQuestionnaire[i]+"</Question_Id>";}
+                        else
+                        { questionnaireResult += "<Answer_Id>"+selectedQuestionnaire[i]+"</Answer_Id></Questionnaire_Result>"; }
+                         
+                    }
+
                     home.OfferPrice = homeRepository.GetAnOffer(home.SelectedYear, home.SelectedMakeId, home.SelectedModelId,
-                        "<Questionnaire_Result><Question_Id>1</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>2</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>3</Question_Id><Answer_Id>4</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>4</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>5</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>6</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>7</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>8</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result>",
+                        questionnaireResult,
                         home.ZipCode);
-                    if (home.OfferPrice <= 0)
+                    if (home.OfferPrice.Length <= 0)
                     {
                         throw new Exception("No offer");
                     }
@@ -143,25 +152,27 @@ namespace JunkCar.UnitOfWork
                     home.OfferPrice = homeRepository.GetAnOffer(home.SelectedYear, home.SelectedMakeId, home.SelectedModelId,
                         "<Questionnaire_Result><Question_Id>1</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>2</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>3</Question_Id><Answer_Id>4</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>4</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>5</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>6</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>7</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>8</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result>",
                         home.ZipCode,"");
-                    if (home.OfferPrice <= 0)
+                    if (home.OfferPrice.Length <= 0)
                     {
                         throw new Exception("No offer");
                     }
                     break;
                 case 8:
                     //home.SelectedQuestionnaire
-                    //home.CustomerInfo                  
-
+                    //home.CustomerInfo
                     home.OfferPrice = homeRepository.GetABetterOffer(home.SelectedYear, home.SelectedMakeId, home.SelectedModelId,home.ZipCode,
                         "<Customer_Info><Customer_Name>"+home.Name+"</Customer_Name>"+
                         "<Customer_Address>"+home.Address+"</Customer_Address>"+
                         "<Customer_Phone>"+home.Phone+"</Customer_Phone>"+
                         "<Customer_Email>"+home.EmailAddress+"</Customer_Email></Customer_Info>");
 
-                    if (home.OfferPrice <= 0)
+                    if (home.OfferPrice.Length <= 0)
                     {
                         throw new Exception("No offer");
                     }
+                    break;
+                case 9:
+                    JunkCar.Core.ConfigurationEmails.ConfigurationEmail.Offer(home.SelectedYear,home.SelectedMake,home.SelectedModel,home.OfferPrice,home.Name,home.Address,home.Phone,home.EmailAddress);
                     break;   
                 default:
                     break;

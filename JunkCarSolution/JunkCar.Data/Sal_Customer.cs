@@ -33,6 +33,9 @@ namespace JunkCar.Data
         public Nullable<long> Audit_Id { get; set; }
         public string User_IP { get; set; }
         public int Site_Id { get; set; }
+        public string Login_Name { get; set; }
+        public string Login_Password { get; set; }
+        public Nullable<System.DateTime> Signup_Date { get; set; }
     
         public virtual ICollection<Sal_Customer_Contact> Sal_Customer_Contact { get; set; }
         public virtual ICollection<Sal_Customer_Offer> Sal_Customer_Offer { get; set; }

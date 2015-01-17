@@ -67,18 +67,9 @@ namespace JunkCar.WebAPI.Controllers
             FactoryFacade factory = new FactoryFacade();
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
             return ((DomainModel.Models.Home)domainService.Query(JunkCar.Core.Enumerations.SearchCriteriaEnum.GET_QUESTIONNAIRE)).Questionnaire.AsQueryable();
-        }
-        //[HttpGet]
-        //public int GetAnOffer(int? year, int? makeId, int? modelId)
-        //{            
-        //    FactoryFacade factory = new FactoryFacade();
-        //    domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Home));
-        //    domainModel.Fill(HashHelper.GetAnOffer(year, makeId, modelId, 5));
-        //    domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
-        //    return ((DomainModel.Models.Home)domainService.Query(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER)).OfferPrice;
-        //}
+        }       
         [HttpGet]
-        public int GetAnOffer(int? makeId, int? modelId, int? year, string zipCode = "")
+        public string GetAnOffer(int? makeId, int? modelId, int? year, string zipCode = "")
         {         
             FactoryFacade factory = new FactoryFacade();
             domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Home));
@@ -86,35 +77,36 @@ namespace JunkCar.WebAPI.Controllers
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
             return ((DomainModel.Models.Home)domainService.Query(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER)).OfferPrice;
         }
-        //[HttpGet]
-        //public int GetAnOffer(int? year, int? makeId, int? modelId, string[] questionnaire, string zipCode="")
-        //{          
-        //    FactoryFacade factory = new FactoryFacade();
-        //    domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Home));
-        //    domainModel.Fill(HashHelper.GetAnOffer(year, makeId, modelId,questionnaire, 6, zipCode));
-        //    domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
-        //    return ((DomainModel.Models.Home)domainService.Query(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER)).OfferPrice;
-        //}
-        //[HttpGet]
-        //public int GetAnOffer(int? year, int? makeId, int? modelId, string[] questionnaire, string[] customerInfo, string zipCode="")
-        //{            
-        //    FactoryFacade factory = new FactoryFacade();
-        //    domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Home));
-        //    domainModel.Fill(HashHelper.GetAnOffer(year, makeId, modelId,questionnaire,customerInfo, 7, zipCode));
-        //    domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
-        //    return ((DomainModel.Models.Home)domainService.Query(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER)).OfferPrice;
-        //}
 
         [HttpGet]
-        public IQueryable GetABetterOffer(string address, int cityId, string emailAddress, int? selectedMakeId, int? selectedModelId, string name, string phone, int stateId, int? selectedYear, string zipCode)
+        public string GetAnOfferWithQuestionnaire(int? makeId, int? modelId, string questionnaire, int? year, string zipCode = "")
+        {
+            FactoryFacade factory = new FactoryFacade();
+            domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Home));
+            domainModel.Fill(HashHelper.GetAnOffer(year, makeId, modelId, questionnaire, 6, zipCode));
+            domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
+            return ((DomainModel.Models.Home)domainService.Query(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER)).OfferPrice;
+        }      
+
+        [HttpGet]
+        public string GetABetterOffer(string address, int cityId, string emailAddress, string name, string phone, int selectedMakeId, int selectedModelId, int selectedYear, int stateId, string zipCode)
         {
             FactoryFacade factory = new FactoryFacade();
             domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Home));
             domainModel.Fill(HashHelper.GetABetterOffer(selectedYear, selectedMakeId, selectedModelId, name, address, stateId, cityId, zipCode, phone, emailAddress, 8));
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
-            return ((DomainModel.Models.Home)domainService.Query(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.GET_A_BETTER_OFFER)).OfferPrice.ToString().AsQueryable();
+            return ((DomainModel.Models.Home)domainService.Query(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.GET_A_BETTER_OFFER)).OfferPrice;
         }
-        //JunkCar.Core.ConfigurationEmails.ConfigurationEmail.SignupEmail("Hassan", "123", "mirzahassanbaig2006@gmail.com");
+
+        [HttpGet]
+        public string ConfirmOffer(string address, int cityId, string emailAddress,string make,string model, string name, string phone,string price, int selectedMakeId, int selectedModelId, int selectedYear, int stateId, string zipCode)
+        {            
+            FactoryFacade factory = new FactoryFacade();
+            domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Home));
+            domainModel.Fill(HashHelper.ConfirmOffer(address,cityId,emailAddress,make,model,name,phone,price,selectedMakeId,selectedModelId,selectedYear,stateId,zipCode, 9));
+            domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
+            return ((DomainModel.Models.Home)domainService.Query(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER)).ResponseMessage;
+        }        
     }
 }
 

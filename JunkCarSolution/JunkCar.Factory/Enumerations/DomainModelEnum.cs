@@ -13,6 +13,8 @@ namespace JunkCar.Factory.Enumerations
         CHECK_ZIPCODE,
         GET_CITIES,
         GET_AN_OFFER,
-        GET_A_BETTER_OFFER
+        GET_A_BETTER_OFFER,
+        CONFIRM_OFFER,
+        SIGNUP
     }
 }

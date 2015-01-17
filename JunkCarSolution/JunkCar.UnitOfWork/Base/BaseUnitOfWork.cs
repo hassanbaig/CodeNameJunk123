@@ -12,7 +12,7 @@ namespace JunkCar.UnitOfWork.Base
     public class BaseUnitOfWork : IDisposable
     {
        protected FactoryFacade Factory;
-       protected shiner49_JunkCarEntities Context;
+       protected shiner49_JunkCarNewEntities Context;
        protected List<AbstractDomainModel> DomainModelCollection;
        private bool _disposed;
        private string InitializeConnectionString()
@@ -24,7 +24,7 @@ namespace JunkCar.UnitOfWork.Base
        public BaseUnitOfWork()
        {
            DomainModelCollection = new List<AbstractDomainModel>();
-           Context = new shiner49_JunkCarEntities();
+           Context = new shiner49_JunkCarNewEntities();
            Factory = new FactoryFacade();
            if (Context.Database.Connection.State == System.Data.ConnectionState.Closed)
            {
@@ -32,7 +32,7 @@ namespace JunkCar.UnitOfWork.Base
                Context.Database.Connection.Open();
            }
        }
-       public BaseUnitOfWork(shiner49_JunkCarEntities context)
+       public BaseUnitOfWork(shiner49_JunkCarNewEntities context)
        {
            if (context != null)
            {
@@ -44,7 +44,7 @@ namespace JunkCar.UnitOfWork.Base
                }
            }
        }
-       public BaseUnitOfWork(shiner49_JunkCarEntities context, List<AbstractDomainModel> domainModelCollection)
+       public BaseUnitOfWork(shiner49_JunkCarNewEntities context, List<AbstractDomainModel> domainModelCollection)
        {
            if (context != null)
            {
@@ -58,7 +58,7 @@ namespace JunkCar.UnitOfWork.Base
            DomainModelCollection = domainModelCollection;
           
        }
-       public BaseUnitOfWork(shiner49_JunkCarEntities context, List<AbstractDomainModel> domainModelCollection, FactoryFacade factory)
+       public BaseUnitOfWork(shiner49_JunkCarNewEntities context, List<AbstractDomainModel> domainModelCollection, FactoryFacade factory)
        {
            if (context != null)
            {

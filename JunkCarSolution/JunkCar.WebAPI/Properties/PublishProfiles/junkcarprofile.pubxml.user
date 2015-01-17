@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAh5zGvf/pyUusN1H6XoU+8AAAAAACAAAAAAAQZgAAAAEAACAAAADFc0wxjGdgwSTpEEJ0sOSS1Ao9U5NGbk0leq8uD+dWyAAAAAAOgAAAAAIAACAAAAAg40k8hpIts7FmfxKNKJ0xbndt2CUHsu4eG074Em/64yAAAABFq+IOn4Z01/OT2xHluzTq9H9zob0O0wuuXRTWGuXb3kAAAADVGGT7a6f00sOZOltCmNVb2wXWBAYrVdldBaYWwUMeHCDrq9xwLxBNHUipfVATroNSAGaOeG40wrGjI0cCWfnx</EncryptedPassword>
+    <_PublishTargetUrl>ftp://ftp.junkcartrader.com/API</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>12/23/2014 15:25:19</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>12/23/2014 15:25:19</publishTime>
+    </File>
+    <File Include="bin/JunkCar.Core.dll">
+      <publishTime>01/15/2015 19:42:26</publishTime>
+    </File>
+    <File Include="bin/JunkCar.Core.pdb">
+      <publishTime>01/15/2015 19:42:26</publishTime>
+    </File>
+    <File Include="bin/JunkCar.Data.dll">
+      <publishTime>01/15/2015 19:42:31</publishTime>
+    </File>
+    <File Include="bin/JunkCar.Data.pdb">
+      <publishTime>01/15/2015 19:42:31</publishTime>
+    </File>
+    <File Include="bin/JunkCar.DataModel.dll">
+      <publishTime>01/15/2015 19:42:27</publishTime>
+    </File>
+    <File Include="bin/JunkCar.DataModel.pdb">
+      <publishTime>01/15/2015 19:42:27</publishTime>
+    </File>
+    <File Include="bin/JunkCar.DomainModel.dll">
+      <publishTime>01/15/2015 19:42:32</publishTime>
+    </File>
+    <File Include="bin/JunkCar.DomainModel.pdb">
+      <publishTime>01/15/2015 19:42:32</publishTime>
+    </File>
+    <File Include="bin/JunkCar.DomainService.dll">
+      <publishTime>01/15/2015 19:42:33</publishTime>
+    </File>
+    <File Include="bin/JunkCar.DomainService.pdb">
+      <publishTime>01/15/2015 19:42:33</publishTime>
+    </File>
+    <File Include="bin/JunkCar.Factory.dll">
+      <publishTime>01/15/2015 19:42:31</publishTime>
+    </File>
+    <File Include="bin/JunkCar.Factory.pdb">
+      <publishTime>01/15/2015 19:42:31</publishTime>
+    </File>
+    <File Include="bin/JunkCar.Repository.dll">
+      <publishTime>01/15/2015 19:42:32</publishTime>
+    </File>
+    <File Include="bin/JunkCar.Repository.pdb">
+      <publishTime>01/15/2015 19:42:32</publishTime>
+    </File>
+    <File Include="bin/JunkCar.UnitOfWork.dll">
+      <publishTime>01/15/2015 19:42:32</publishTime>
+    </File>
+    <File Include="bin/JunkCar.UnitOfWork.pdb">
+      <publishTime>01/15/2015 19:42:32</publishTime>
+    </File>
+    <File Include="bin/JunkCar.WebAPI.dll">
+      <publishTime>01/16/2015 00:55:00</publishTime>
+    </File>
+    <File Include="bin/JunkCar.WebAPI.pdb">
+      <publishTime>01/16/2015 00:55:00</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>12/23/2014 15:26:54</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>12/17/2014 18:55:39</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>12/17/2014 18:55:39</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>12/17/2014 18:55:39</publishTime>
+    </File>
+    <File Include="EmailTemlates/ChangePasswordEmail.html">
+      <publishTime>12/18/2014 17:58:31</publishTime>
+    </File>
+    <File Include="EmailTemlates/ForgotPasswordEmail.html">
+      <publishTime>12/18/2014 17:58:31</publishTime>
+    </File>
+    <File Include="EmailTemlates/JunkcarOffer.html">
+      <publishTime>01/14/2015 13:25:39</publishTime>
+    </File>
+    <File Include="EmailTemlates/SignupEmail.html">
+      <publishTime>01/15/2015 15:42:39</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>12/17/2014 18:55:36</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>12/23/2014 15:26:55</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>01/17/2015 15:43:23</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

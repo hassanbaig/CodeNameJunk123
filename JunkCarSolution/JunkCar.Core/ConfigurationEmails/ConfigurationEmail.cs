@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace JunkCar.Core.ConfigurationEmails
 {
     public static class ConfigurationEmail
     {
-        public static void SignupEmail(string userID, string Pass, string toEmail)
+        public static void SignupEmail(string email, string name, string password, string sendToEmail)
         {
             try
             {
@@ -21,13 +22,12 @@ namespace JunkCar.Core.ConfigurationEmails
                 System.Web.HttpContext.Current.Server.Execute("~/EmailTemlates/SignupEmail.html", swEmail);
 
                 msg.From = new System.Net.Mail.MailAddress(System.Configuration.ConfigurationManager.AppSettings["FromEmail"].ToString(), "JunkCar Team");
-                
-                msg.To.Add(toEmail);
+
+                msg.To.Add(sendToEmail);
 
                 msg.Subject = "Welcome to JunkCar";
-                msg.Body = swEmail.GetStringBuilder().ToString().Replace("[Customer]",userID).Replace("[Password]",Pass);
+                msg.Body = swEmail.GetStringBuilder().ToString().Replace("[Customer]", name).Replace("[UserName]", email).Replace("[Password]", password).Replace("ï»¿", "");
                 msg.IsBodyHtml = true;
-
                 JunkCar.Core.Common.EmailHelper.SendMail(msg, Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["EmailPort"].ToString()));
             }
             catch (Exception ex)
@@ -82,6 +82,26 @@ namespace JunkCar.Core.ConfigurationEmails
                 msg.Body = swEmail.GetStringBuilder().ToString().Replace("[Customer]", userID).Replace("[Password]", Pass);
                 msg.IsBodyHtml = true;
 
+                JunkCar.Core.Common.EmailHelper.SendMail(msg, Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["EmailPort"].ToString()));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static void Offer(int year, string make, string model, string price, string name, string address, string phone, string toEmailAddress)
+        {
+            try
+            {
+                System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
+                System.IO.StringWriter swEmail = new System.IO.StringWriter();
+                System.Web.HttpContext.Current.Server.Execute("~/EmailTemlates/JunkcarOffer.html", swEmail);
+                msg.From = new System.Net.Mail.MailAddress(System.Configuration.ConfigurationManager.AppSettings["FromEmail"].ToString(), "JunkCar Team");
+                msg.To.Add(toEmailAddress);
+                msg.Subject = "We`ll pay " + price +" for your " + year.ToString() + " " + make + " " + model;
+                msg.Body = swEmail.GetStringBuilder().ToString().Replace("[Name]", name).Replace("[Address]", address).Replace("[Phone]", phone).Replace("[Year]", year.ToString()).Replace("[Make]", make).Replace("[Model]", model).Replace("[Price]", price).Replace("[DateMonth]", CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month)).Replace("[DateDay]", DateTime.Now.Day.ToString()).Replace("[DateYear]", DateTime.Now.Year.ToString()).Replace("ï»¿", "");
+                msg.IsBodyHtml = true;
                 JunkCar.Core.Common.EmailHelper.SendMail(msg, Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["EmailPort"].ToString()));
             }
             catch (Exception ex)

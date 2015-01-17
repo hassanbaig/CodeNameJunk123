@@ -1,4 +1,4 @@
 ﻿(function () {
     'use strict';
-    var app = angular.module('app', ['angularSpinner', 'ngAnimate','filters', 'rangeFilters', 'timeRangeFilters', 'ui-rangeSlider']);   
+    var app = angular.module('app', ['angularSpinner', 'filters', 'rangeFilters', 'timeRangeFilters', 'ui-rangeSlider', 'ui.bootstrap']);
 })();

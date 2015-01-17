@@ -49,221 +49,245 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckZipCode_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="JunkCarModel.Context.cs">
+    <Compile Include="GetAnOffer_Result.cs">
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JunkcarModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>JunkCarModel.Context.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="JunkCarModel.cs">
+    <Compile Include="JunkcarModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="JunkCarModel.Designer.cs">
+    <Compile Include="JunkcarModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>JunkCarModel.edmx</DependentUpon>
+      <DependentUpon>JunkcarModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegisterUser_Result.cs">
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sal_Customer.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sal_Customer_Contact.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sal_Customer_Offer.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sal_Customer_Vehicle.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sal_Customer_Vehicle_Doc.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sal_Offer.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sal_Offer_Status.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sec_Role.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sec_User.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sec_User_Contact.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Answer.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Audit_Log.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_City.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Contact_Type.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Country.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_County.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Document.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Email_Template.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Make.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Model.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Model_Year.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Question.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Questionnaire.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Questionnaire_Detail.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Questionnaire_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Questionnaire_Result_Detail.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Site.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Site_Contact.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_State.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Set_Zip_Code.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="shiner49_JunkCarEntities.cs" />
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_Sal_Customer_Contact_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sal_Customer_Offer_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sal_Customer_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Sal_Customer_Signup_Result.cs">
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sal_Customer_Vehicle_Doc_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sal_Customer_Vehicle_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sal_Offer_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sal_Offer_Status_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sal_Suggested_Offer_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Sec_Auto_Email_Select_Result.cs">
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sec_Role_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sec_User_Contact_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Sec_User_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Answer_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_City_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Contact_Type_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Country_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_County_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Set_Default_Contact_No_Select_Result.cs">
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Document_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Make_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Model_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Model_Year_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Questionnaire_Detail_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Questionnaire_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Questionnaire_Result_Detail_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Questionnaire_Result_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Question_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Site_Contact_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Site_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_State_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Set_Zip_Code_Result.cs">
-      <DependentUpon>JunkCarModel.tt</DependentUpon>
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="JunkCarModel.edmx">
+    <EntityDeploy Include="JunkcarModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>JunkCarModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>JunkcarModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="JunkCarModel.Context.tt">
+    <None Include="JunkcarModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>JunkCarModel.edmx</DependentUpon>
-      <LastGenOutput>JunkCarModel.Context.cs</LastGenOutput>
+      <DependentUpon>JunkcarModel.edmx</DependentUpon>
+      <LastGenOutput>JunkcarModel.Context.cs</LastGenOutput>
     </None>
-    <None Include="JunkCarModel.edmx.diagram">
-      <DependentUpon>JunkCarModel.edmx</DependentUpon>
+    <None Include="JunkcarModel.edmx.diagram">
+      <DependentUpon>JunkcarModel.edmx</DependentUpon>
     </None>
-    <None Include="JunkCarModel.tt">
+    <None Include="JunkcarModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>JunkCarModel.edmx</DependentUpon>
-      <LastGenOutput>JunkCarModel.cs</LastGenOutput>
+      <DependentUpon>JunkcarModel.edmx</DependentUpon>
+      <LastGenOutput>JunkcarModel.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

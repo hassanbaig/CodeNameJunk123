@@ -57,7 +57,7 @@ namespace JunkCar.Core.Common
             getAnOffer["OperationType"] = operationType;
             return getAnOffer;
         }
-        public static Hashtable GetAnOffer(int? year, int? makeId, int? modelId, string[] questionnaire, int operationType, string zipCode = "")
+        public static Hashtable GetAnOffer(int? year, int? makeId, int? modelId, string questionnaire, int operationType, string zipCode = "")
         {
             Hashtable getAnOffer = new Hashtable();
             getAnOffer["SelectedYear"] = year;
@@ -95,7 +95,39 @@ namespace JunkCar.Core.Common
             getABetterOffer["EmailAddress"] = emailAddress;
             getABetterOffer["OperationType"] = operationType;
             return getABetterOffer;
+        }
+        public static Hashtable ConfirmOffer(string address, int cityId, string emailAddress, string make, string model, string name, string phone, string price, int selectedMakeId, int selectedModelId, int selectedYear, int stateId, string zipCode, int operationType)
+        {
+            Hashtable confirmOffer = new Hashtable();
+            confirmOffer["SelectedYear"] = selectedYear;
+            confirmOffer["SelectedMakeId"] = selectedMakeId;
+            confirmOffer["SelectedMake"] = make;
+            confirmOffer["SelectedModelId"] = selectedModelId;
+            confirmOffer["SelectedModel"] = model;
+            confirmOffer["OfferPrice"] = price;
+            confirmOffer["Name"] = name;
+            confirmOffer["Address"] = address;
+            confirmOffer["StateId"] = stateId;
+            confirmOffer["CityId"] = cityId;
+            confirmOffer["ZipCode"] = zipCode;
+            confirmOffer["Phone"] = phone;
+            confirmOffer["EmailAddress"] = emailAddress;
+            confirmOffer["OperationType"] = operationType;
+            return confirmOffer;
+        }
+        public static Hashtable Signup(string address, string email, string name, string password, string phone, string zipCode, int operationType)
+        {
+            Hashtable signup = new Hashtable();
+            signup["Address"] = address;
+            signup["Email"] = email;
+            signup["Name"] = name;
+            signup["Password"] = password;
+            signup["Phone"] = phone;
+            signup["ZipCode"] = zipCode;
+            signup["OperationType"] = operationType;
+            return signup;
         }     
+        
        
     }
 }

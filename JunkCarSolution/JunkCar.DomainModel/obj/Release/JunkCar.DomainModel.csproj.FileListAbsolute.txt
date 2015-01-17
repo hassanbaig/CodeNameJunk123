@@ -1,0 +1,11 @@
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainModel\bin\Release\JunkCar.DomainModel.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainModel\bin\Release\JunkCar.DomainModel.pdb
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainModel\bin\Release\JunkCar.DataModel.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainModel\bin\Release\JunkCar.Factory.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainModel\bin\Release\JunkCar.Core.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainModel\bin\Release\JunkCar.DataModel.pdb
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainModel\bin\Release\JunkCar.Factory.pdb
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainModel\bin\Release\JunkCar.Core.pdb
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainModel\obj\Release\JunkCar.DomainModel.csprojResolveAssemblyReference.cache
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainModel\obj\Release\JunkCar.DomainModel.dll
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DomainModel\obj\Release\JunkCar.DomainModel.pdb

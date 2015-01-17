@@ -19,6 +19,7 @@ C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCa
 C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.UnitOfWork\obj\Debug\JunkCar.UnitOfWork.csprojResolveAssemblyReference.cache
 C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.UnitOfWork\obj\Debug\JunkCar.UnitOfWork.dll
 C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.UnitOfWork\obj\Debug\JunkCar.UnitOfWork.pdb
+C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.UnitOfWork\obj\Debug\JunkCar.UnitOfWork.csprojResolveAssemblyReference.cache
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.UnitOfWork\bin\Debug\JunkCar.UnitOfWork.dll.config
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.UnitOfWork\bin\Debug\JunkCar.UnitOfWork.dll
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.UnitOfWork\bin\Debug\JunkCar.UnitOfWork.pdb
@@ -38,6 +39,5 @@ C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Uni
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.UnitOfWork\bin\Debug\JunkCar.Repository.pdb
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.UnitOfWork\bin\Debug\EntityFramework.xml
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.UnitOfWork\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.UnitOfWork\obj\Debug\JunkCar.UnitOfWork.csprojResolveAssemblyReference.cache
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.UnitOfWork\obj\Debug\JunkCar.UnitOfWork.dll
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.UnitOfWork\obj\Debug\JunkCar.UnitOfWork.pdb

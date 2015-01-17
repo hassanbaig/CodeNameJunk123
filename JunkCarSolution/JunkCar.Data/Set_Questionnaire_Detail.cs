@@ -16,6 +16,7 @@ namespace JunkCar.Data
     {
         public int Questionnaire_Detail_Id { get; set; }
         public int Questionnaire_Id { get; set; }
+        public int Sub_Questionnaire_Id { get; set; }
         public int Question_Id { get; set; }
         public int Answer_Id { get; set; }
         public short Sort_Order { get; set; }
@@ -27,7 +28,6 @@ namespace JunkCar.Data
         public Nullable<long> Audit_Id { get; set; }
         public string User_IP { get; set; }
         public int Site_Id { get; set; }
-        public int Sub_Questionnaire_Id { get; set; }
     
         public virtual Set_Answer Set_Answer { get; set; }
         public virtual Set_Question Set_Question { get; set; }

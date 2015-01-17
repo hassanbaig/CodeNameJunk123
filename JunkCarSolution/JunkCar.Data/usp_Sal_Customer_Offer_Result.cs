@@ -21,8 +21,8 @@ namespace JunkCar.Data
         public int Make_Id { get; set; }
         public int Model_Id { get; set; }
         public int Registeration_Year { get; set; }
-        public int Questionnaire_Id { get; set; }
-        public int Offer_Id { get; set; }
+        public Nullable<int> Questionnaire_Id { get; set; }
+        public Nullable<int> Offer_Id { get; set; }
         public System.DateTime Offer_Date { get; set; }
         public int Offer_Status_Id { get; set; }
         public int Initial_Offer_Price { get; set; }

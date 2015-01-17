@@ -11,13 +11,13 @@ namespace JunkCar.Repository.Base
 {
     public class BaseRepository : IDisposable
     {
-      
-       private shiner49_JunkCarEntities _context;      
+
+        private shiner49_JunkCarNewEntities _context;      
        private bool _disposed;
-       protected shiner49_JunkCarEntities GetConnection()
+       protected shiner49_JunkCarNewEntities GetConnection()
        {
            string connectionString = System.Configuration.ConfigurationManager.AppSettings["customeConnectionString"].ToString();
-           _context = new shiner49_JunkCarEntities();
+           _context = new shiner49_JunkCarNewEntities();
            if (_context.Database.Connection.State == System.Data.ConnectionState.Closed)
            {
                _context.Database.Connection.ConnectionString = connectionString;

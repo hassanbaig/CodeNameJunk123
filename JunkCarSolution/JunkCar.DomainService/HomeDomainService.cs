@@ -128,6 +128,31 @@ namespace JunkCar.DomainService
                                 home.ResponseMessage = "Valid";
                             }
                             break;
+                        case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER:
+                            home = (DomainModel.Models.Home)domainModel;
+                            if (home.Name.Length <= 0)
+                            {
+                                home.ResponseMessage = "Please enter name";
+                            }
+                            else if (home.Address.Length <= 0)
+                            {
+                                home.ResponseMessage = "Please enter address";
+                            }
+                            else if (home.Phone.Length <= 0)
+                            {
+                                home.ResponseMessage = "Please enter phone number";
+                            }
+                            else if (home.EmailAddress.Length <= 0)
+                            {
+                                home.ResponseMessage = "Please enter email address";
+                            }
+                            else
+                            {                                
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home);
+                                home.ResponseMessage = "Valid";                                
+                            }
+                            break;                        
                         default:
                             break;
                     }
@@ -154,6 +179,9 @@ namespace JunkCar.DomainService
                         case JunkCar.Factory.Enumerations.DomainModelEnum.GET_A_BETTER_OFFER:
                             home.ResponseMessage = "Invalid domain model";
                             break;
+                        case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER:
+                            home.ResponseMessage = "Invalid domain model";
+                            break;                            
                         default:
                             break;
                     }
@@ -181,6 +209,9 @@ namespace JunkCar.DomainService
                     case JunkCar.Factory.Enumerations.DomainModelEnum.GET_A_BETTER_OFFER:
                         home.ResponseMessage = ex.Message;
                         break;
+                    case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER:
+                        home.ResponseMessage = ex.Message;
+                        break;
                     default:
                         break;
                 }
@@ -199,6 +230,8 @@ namespace JunkCar.DomainService
                 case JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER:
                     return home;
                 case JunkCar.Factory.Enumerations.DomainModelEnum.GET_A_BETTER_OFFER:
+                    return home;
+                case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER:
                     return home;
                 default:
                     break;

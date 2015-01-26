@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Questionnaire.cs" />
     <Compile Include="Models\RegisterUser_Result.cs" />
     <Compile Include="Models\Sal_Customer.cs">
       <SubType>Code</SubType>

@@ -62,6 +62,9 @@
         accountsControllerVM.signupAddress = '';
         accountsControllerVM.signupPhone = '';        
 
+        accountsControllerVM.loginEmail = '';
+        accountsControllerVM.loginPassword = '';        
+
         accountsControllerVM.changePasswordNewPassword = '';
         accountsControllerVM.changePasswordConfirmPassword = '';
 
@@ -116,18 +119,17 @@
 
         function authenticateUser() {
             $scope.reset();
-            $scope.startSpin();
-            var id = accountsControllerVM.signupEmail;
-            var pass = accountsControllerVM.signupPassword;
-            accountsService.authenticateUser({ userId: id, password: pass }).then(function (data) {              
-                var response = data.results;                
-
+            $scope.startSpin();            
+            var email = accountsControllerVM.loginEmail;
+            var pass = accountsControllerVM.loginPassword;
+            accountsService.authenticateUser({ userId: email, password: pass }).then(function (data) {
+                var response = data.results;
                 var mystring = new String(response);
                 mystring = mystring.substring(1, mystring.length - 1);                
 
                 if (mystring == "Valid") {
                     $scope.stopSpin();
-                    $scope.redirectPracticeEditDetails();
+                    $scope.redirectMain();
                 }
                 else {
                     $scope.stopSpin();
@@ -135,8 +137,8 @@
                 }
                 
             });           
-            accountsControllerVM.signupEmail = '';
-            accountsControllerVM.signupPassword = '';
+            accountsControllerVM.loginEmail = '';
+            accountsControllerVM.loginPassword = '';
         }
 
         function forgotPassword() {

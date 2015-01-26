@@ -95,11 +95,7 @@ namespace JunkCar.DomainService
                             }
                             break;
                         case JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER:
-                            home = (DomainModel.Models.Home)domainModel;
-                            //if (home.SelectedQuestionnaire.Count() <= 0)
-                            //{
-                            //    home.ResponseMessage = "Must fill questionnaire";
-                            //}
+                            home = (DomainModel.Models.Home)domainModel;                           
                             //else
                             //{
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
@@ -122,7 +118,7 @@ namespace JunkCar.DomainService
                                 home.ResponseMessage = "Must select a model";
                             }
                             else
-                            {
+                            {                                
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
                                 home = (DomainModel.Models.Home)unitOfWork.Get(home);
                                 home.ResponseMessage = "Valid";
@@ -147,12 +143,45 @@ namespace JunkCar.DomainService
                                 home.ResponseMessage = "Please enter email address";
                             }
                             else
-                            {                                
+                            {
+                                if (home.OfferPrice.Contains("$"))
+                                {
+                                   home.OfferPrice = home.OfferPrice.Replace("$","");
+                                }
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
                                 home = (DomainModel.Models.Home)unitOfWork.Get(home);
-                                home.ResponseMessage = "Valid";                                
+                                home.ResponseMessage = "Confirmed";                                
                             }
-                            break;                        
+                            break;
+                        case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
+                            home = (DomainModel.Models.Home)domainModel;
+                            if (home.Name.Length <= 0)
+                            {
+                                home.ResponseMessage = "Please enter name";
+                            }
+                            else if (home.Address.Length <= 0)
+                            {
+                                home.ResponseMessage = "Please enter address";
+                            }
+                            else if (home.Phone.Length <= 0)
+                            {
+                                home.ResponseMessage = "Please enter phone number";
+                            }
+                            else if (home.EmailAddress.Length <= 0)
+                            {
+                                home.ResponseMessage = "Please enter email address";
+                            }
+                            else
+                            {
+                                if (home.OfferPrice.Contains("$"))
+                                {
+                                    home.OfferPrice = home.OfferPrice.Replace("$", "");
+                                }
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home);
+                                home.ResponseMessage = "Confirmed";
+                            }
+                            break;  
                         default:
                             break;
                     }
@@ -181,7 +210,10 @@ namespace JunkCar.DomainService
                             break;
                         case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER:
                             home.ResponseMessage = "Invalid domain model";
-                            break;                            
+                            break;
+                        case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
+                            home.ResponseMessage = "Invalid domain model";
+                            break;        
                         default:
                             break;
                     }
@@ -212,6 +244,9 @@ namespace JunkCar.DomainService
                     case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER:
                         home.ResponseMessage = ex.Message;
                         break;
+                    case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
+                        home.ResponseMessage = ex.Message;
+                        break;
                     default:
                         break;
                 }
@@ -232,6 +267,8 @@ namespace JunkCar.DomainService
                 case JunkCar.Factory.Enumerations.DomainModelEnum.GET_A_BETTER_OFFER:
                     return home;
                 case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER:
+                    return home;
+                case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
                     return home;
                 default:
                     break;

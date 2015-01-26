@@ -17,7 +17,8 @@ namespace JunkCar.WebAPI
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 //routeTemplate: "junkcar/v" + JunkCar.WebAPI.Configurations.APIConfig.apiVersion + "{controller}/{action}/{id}",
-                routeTemplate: "junkcar.v" + JunkCar.WebAPI.Configurations.APIConfig.apiVersion.ToString() + "/{controller}/{action}/{id}",
+                //routeTemplate: "junkcar.v" + JunkCar.WebAPI.Configurations.APIConfig.apiVersion.ToString() + "/{controller}/{action}/{id}",
+                routeTemplate: "API/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
 

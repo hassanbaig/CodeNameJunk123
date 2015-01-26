@@ -27,27 +27,28 @@ namespace JunkCar.WebAPI.Controllers
             signup = (Signup)domainService.Save(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.SIGNUP);
             return signup.ResponseMessage;
         }
-      
-        //[HttpGet]
-        //public IHttpActionResult Authenticate(string userId, string password)
-        //{
-        //    if (userId == null || password == null)
-        //    {
-        //        return Ok("Please check login credentials and then try again.");
-        //    }
-        //    FactoryFacade factory = new FactoryFacade();
-        //    domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Authenticate));
-        //    domainModel.Fill(HashHelper.Authenticate(userId, password));
-        //    domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
-        //    domainModel = domainService.Query(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.AUTHENTICATE);
-        //    DomainModel.Models.Authenticate authenticate = (DomainModel.Models.Authenticate)domainModel;
-        //    if (authenticate.ResponseMessage != "User id is required" && authenticate.ResponseMessage != "Password is required" && authenticate.ResponseMessage != "Invalid domain model" && authenticate.ResponseMessage != "Please check login credentials and then try again.")
-        //    {
-        //        UserData userData = new UserData(userId, authenticate.ProviderId.ToString(), "");
-        //        TicketHelper.CreateAuthCookie(userData.UserId, userData.GetProviderUserData(), false);
-        //    }
-        //    return Ok(authenticate.ResponseMessage);
-        //}
+
+        [HttpGet]
+        public IHttpActionResult Authenticate(string password, string userId)
+        {
+            if (userId == null || password == null)
+            {
+                return Ok("Please check login credentials and then try again.");
+            }
+            FactoryFacade factory = new FactoryFacade();
+            domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Authenticate));
+            domainModel.Fill(HashHelper.Authenticate(userId, password,2));
+            domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
+            domainModel = domainService.Query(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.AUTHENTICATE);
+            DomainModel.Models.Authenticate authenticate = (DomainModel.Models.Authenticate)domainModel;
+            //if (authenticate.ResponseMessage != "User id is required" && authenticate.ResponseMessage != "Password is required" && authenticate.ResponseMessage != "Invalid domain model" && authenticate.ResponseMessage != "Please check login credentials and then try again.")
+            //{
+            //    UserData userData = new UserData(userId, authenticate.ProviderId.ToString(), "");
+            //    TicketHelper.CreateAuthCookie(userData.UserId, userData.GetProviderUserData(), false);
+            //}
+            return Ok(authenticate.IsAuthenticated);
+        }
+
         //[HttpGet]
         //public IHttpActionResult ChangePassword(string currentPassword, string newPassword)
         //{

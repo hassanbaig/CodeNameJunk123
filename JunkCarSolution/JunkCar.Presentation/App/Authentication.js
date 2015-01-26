@@ -84,9 +84,7 @@ function checkCookie() {
         else if (url.toLowerCase() != "practiceeditdetails") {
             //alert("Welcome again " + user);
             window.location = "PracticeEditDetails.html";
-        }
-       
-        
+        }       
     } else {
         if (url.toLowerCase() != "login") {
             window.location = "Login.html";
@@ -97,4 +95,5 @@ function checkCookie() {
         //    setCookie("username", user, 365);
         //}
     }
+
 }

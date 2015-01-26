@@ -90,11 +90,10 @@ a:after {
     padding: 0;
 }
 
-.navbar-default {
-	background-color: #000;
-	
-	border-color: transparent;
-
+.navbar-default-x {
+    background-color: #000;
+    border-color: transparent;
+}
 
 .navbar-default .navbar-brand {
 	color: white;

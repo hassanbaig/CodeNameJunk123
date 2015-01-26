@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticateUOW.cs" />
     <Compile Include="HomeUOW.cs" />
     <Compile Include="Base\BaseUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

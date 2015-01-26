@@ -225,6 +225,52 @@ namespace JunkCar.Repository.RepositoryClasses
                 return data;
             }
         }
+
+        public string GetCity(string zipCode)
+        {
+            var city = (from cit in _context.Set_City
+                        join zip in _context.Set_Zip_Code on cit.City_Id equals zip.City_Id
+                        where zip.Zip_Code == zipCode
+                        select cit.City_Name).FirstOrDefault();
+            return city;
+        }
+
+        public string GetState(string zipCode)
+        {
+            var state = (from sta in _context.Set_State
+                         join zip in _context.Set_Zip_Code on sta.State_Id equals zip.State_Id
+                         where zip.Zip_Code == zipCode
+                        select sta.State_Name).FirstOrDefault();
+            return state;
+        }
+
+        public List<string> GetQuestionnaireDescription(int[] selectedQuestionnaire)
+        {
+            List<string> questionnaireDescription = new List<string>();
+
+             for (int i = 0; i < selectedQuestionnaire.Length; i++)
+                    {
+                        if(i%2==0)
+                        {
+                            int id = selectedQuestionnaire[i];
+                            var question = (from que in _context.Set_Question
+                                            where que.Question_Id == id
+                                              select que.Question).FirstOrDefault();
+                            questionnaireDescription.Add(question);
+                        }
+                        else
+                        {
+                            int id = selectedQuestionnaire[i];
+                            var answer = (from que in _context.Set_Answer
+                                          where que.Answer_Id == id
+                                              select que.Answer).FirstOrDefault();
+                            questionnaireDescription.Add(answer);
+                        }                         
+                    }
+
+             return questionnaireDescription;
+        }
+
         public string GetAnOffer(int? year, int?makeId, int? modelId, string zipCode)
         {
             var offerPrice = _context.GetAnOffer(year, makeId, modelId, null, zipCode, null).FirstOrDefault();

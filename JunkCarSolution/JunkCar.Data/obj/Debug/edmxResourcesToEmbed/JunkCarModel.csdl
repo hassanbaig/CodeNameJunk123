@@ -1919,6 +1919,7 @@
       <Parameter Name="Customer_Phone" Mode="In" Type="String" />
       <Parameter Name="Customer_Email" Mode="In" Type="String" />
       <Parameter Name="Zip_Code" Mode="In" Type="String" />
+      <Parameter Name="Sign_Up" Mode="In" Type="Boolean" />
     </FunctionImport>
     <FunctionImport Name="usp_Sal_Customer_Signup" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sal_Customer_Signup_Result)">
       <Parameter Name="Customer_Id" Mode="In" Type="Int32" />
@@ -1928,6 +1929,7 @@
       <Parameter Name="Customer_Phone" Mode="In" Type="String" />
       <Parameter Name="Customer_Email" Mode="In" Type="String" />
       <Parameter Name="Zip_Code" Mode="In" Type="String" />
+      <Parameter Name="Sign_Up" Mode="In" Type="Boolean" />
     </FunctionImport>
     <FunctionImport Name="RegisterUser" ReturnType="Collection(shiner49_JunkCarNewModel.RegisterUser_Result)">
       <Parameter Name="Customer_Id" Mode="In" Type="Int32" />
@@ -1937,6 +1939,17 @@
       <Parameter Name="Customer_Phone" Mode="In" Type="String" />
       <Parameter Name="Customer_Email" Mode="In" Type="String" />
       <Parameter Name="Zip_Code" Mode="In" Type="String" />
+      <Parameter Name="Sign_Up" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="Authenticate" ReturnType="Collection(shiner49_JunkCarNewModel.RegisterUser_Result)">
+      <Parameter Name="Customer_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Login_Password" Mode="In" Type="String" />
+      <Parameter Name="Customer_Name" Mode="In" Type="String" />
+      <Parameter Name="Customer_Address" Mode="In" Type="String" />
+      <Parameter Name="Customer_Phone" Mode="In" Type="String" />
+      <Parameter Name="Customer_Email" Mode="In" Type="String" />
+      <Parameter Name="Zip_Code" Mode="In" Type="String" />
+      <Parameter Name="Sign_Up" Mode="In" Type="Boolean" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">

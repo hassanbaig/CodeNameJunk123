@@ -90,7 +90,61 @@ namespace JunkCar.DomainService
 
         public override AbstractDomainModel Query(AbstractDomainModel domainModel, JunkCar.Factory.Enumerations.DomainModelEnum domainModelType)
         {
-            throw new NotImplementedException();
+            DomainModel.Models.Authenticate authenticate = (DomainModel.Models.Authenticate)domainModel;
+            try
+            {
+                if (domainModel != null)
+                {
+                    switch (domainModelType)
+                    {
+                        case JunkCar.Factory.Enumerations.DomainModelEnum.AUTHENTICATE:
+                            if (authenticate.Email == null || authenticate.Email.Length <= 0)
+                            { authenticate.ResponseMessage = "Email is required"; }
+                            else if (authenticate.Password == null || authenticate.Password.Length <= 0)
+                            { authenticate.ResponseMessage = "Password is required"; }
+                            else
+                            {
+                                FactoryFacade factory = new FactoryFacade();
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.AuthenticateUOW));
+                                authenticate = (DomainModel.Models.Authenticate)unitOfWork.Get(authenticate);
+                                authenticate.ResponseMessage = "Valid";
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (domainModelType)
+                    {
+                        case JunkCar.Factory.Enumerations.DomainModelEnum.AUTHENTICATE:
+                            authenticate.ResponseMessage = "Invalid domain model";
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                switch (domainModelType)
+                {
+                    case JunkCar.Factory.Enumerations.DomainModelEnum.AUTHENTICATE:
+                        authenticate.ResponseMessage = ex.Message;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            switch (domainModelType)
+            {
+                case JunkCar.Factory.Enumerations.DomainModelEnum.AUTHENTICATE:
+                    return authenticate;
+                default:
+                    break;
+            }
+            return null;
         }
 
         public override AbstractDomainModel Query(AbstractDomainModel domainModel, Factory.Enumerations.DomainModelEnum domainModelType, SearchCriteriaEnum searchCriteria)

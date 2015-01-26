@@ -8,6 +8,7 @@ namespace JunkCar.Factory.Enumerations
 {
     public enum DomainModelEnum
     {
+        AUTHENTICATE,
         GET_MAKES,
         GET_MODELS,
         CHECK_ZIPCODE,
@@ -15,6 +16,8 @@ namespace JunkCar.Factory.Enumerations
         GET_AN_OFFER,
         GET_A_BETTER_OFFER,
         CONFIRM_OFFER,
-        SIGNUP
+        CONFIRM_OFFER_WITH_QUESTIONNAIRE,
+        SIGNUP,
+        GET_CONTACT_NO
     }
 }

@@ -1,9 +1,10 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('app').controller('homeController', ['homeService', '$scope', '$location', 'usSpinnerService', '$rootScope', 'alertsManager', homeController]);
+    angular.module('app').controller('homeController', ['homeService', '$scope', '$location', 'usSpinnerService', '$rootScope', 'alertsManager', '$http', '$timeout', '$upload', homeController]);
     //'$modal',
-    function homeController(homeService, $scope, $location, usSpinnerService, $rootScope, alertsManager) {
+    //
+    function homeController(homeService, $scope, $location, usSpinnerService, $rootScope, alertsManager, $http, $timeout, $upload) {
 
         $scope.alerts = alertsManager.alerts;
 
@@ -33,6 +34,7 @@
                 usSpinnerService.stop('spinner-1');
             }
         };
+
         $scope.spinneractive = false;
 
         $rootScope.$on('us-spinner:spin', function (event, key) {
@@ -44,9 +46,42 @@
         });
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        var allFiles = [];
+        $rootScope.onEachFileSelect = function ($files) {
+            allFiles.push($files);
+        }
 
+        $scope.upload = [];
+        //$scope.fileUploadObj = { testString1: "Test string 1", testString2: "Test string 2" };
 
-
+        $rootScope.onFileSelect = function () {      
+            //$files: an array of files selected, each file has name, size, and type.
+            for (var i = 0; i < allFiles.length; i++) {
+                var $file = allFiles[i];
+                (function (index) {
+                    $scope.upload[index] = $upload.upload({
+                        url: 'http://localhost/JunkCarWebAPI/API/Home/Upload', // webapi url
+                        method: 'POST',
+                        //data: { fileUploadObj: $scope.fileUploadObj },
+                        file: $file
+                    }).progress(function (evt) {
+                        // get upload percentage
+                        console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+                    }).success(function (data, status, headers, config) {
+                        // file is uploaded successfully
+                        console.log(data);
+                    }).error(function (data, status, headers, config) {
+                        // file failed to upload
+                        console.log(data);
+                    });
+                })(i);
+            }
+        }
+        $scope.abortUpload = function (index) {
+            $scope.upload[index].abort();
+        }      
+                
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //var modalInstance = '';
         //$scope.open = function () {
 
@@ -93,7 +128,7 @@
         //        setInput();
         //    });
         //};
-    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -115,15 +150,15 @@
         homeControllerVM.citiesList = [];
         $rootScope.questionnaireList = [];
         homeControllerVM.drivetrainQuestionnaireList = [];
-        homeControllerVM.interiorExteriorQuestionnaireList = [];             
-        
+        homeControllerVM.interiorExteriorQuestionnaireList = [];
+
         homeControllerVM.homeSelectedRegistrationYear = '';
-        homeControllerVM.homeSelectedMake = '';        
+        homeControllerVM.homeSelectedMake = '';
         homeControllerVM.homeSelectedModel = '';
         homeControllerVM.homeZipCode = '';
         homeControllerVM.homeBetterOfferName = '';
         homeControllerVM.homeBetterOfferAddress = '';
-        homeControllerVM.homeBetterOfferCity = '';        
+        homeControllerVM.homeBetterOfferCity = '';
         homeControllerVM.homeBetterOfferState = '';
         homeControllerVM.homeBetterOfferPhone = '';
         homeControllerVM.homeBetterOfferEmail = '';
@@ -133,18 +168,25 @@
         $rootScope.offerPrice = '';
         $rootScope.contactNo = '';
         $rootScope.questionnaireResult = '';
-        var isValidZipCode = false;
-        
+
+        $scope.isDisableGetAnOfferButton = false;
+        $scope.isDisableGetABetterOfferButton = false;
+
+        $rootScope.operationType = 0;
+
+        homeControllerVM.isValidZipCode = false;
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-               
+
 
         // Home controller methods
         homeControllerVM.getRegistrationYears = getRegistrationYears;
         homeControllerVM.getMakesByYear = getMakesByYear;
         homeControllerVM.getModelsByYearMake = getModelsByYearMake;
         homeControllerVM.checkZipCode = checkZipCode;
-        homeControllerVM.checkForCustomerInfoPopup = checkForCustomerInfoPopup;
+        homeControllerVM.checkForCustomerInfoPopupOnGetAnOffer = checkForCustomerInfoPopupOnGetAnOffer;
+        homeControllerVM.checkZipCodeBeforeQuestionnaireOnGetABetterOffer = checkZipCodeBeforeQuestionnaireOnGetABetterOffer;
+        homeControllerVM.checkZipCodeOnSaveEdit = checkZipCodeOnSaveEdit;
         homeControllerVM.getAnOffer = getAnOffer;
         homeControllerVM.getABetterOffer = getABetterOffer;
         homeControllerVM.getAnOfferWithQuestionnaire = getAnOfferWithQuestionnaire;
@@ -160,7 +202,7 @@
         homeControllerVM.confirmOfferWithQuestionnaire = confirmOfferWithQuestionnaire;
         homeControllerVM.updateYear = updateYear;
         homeControllerVM.updateMake = updateMake;
-        homeControllerVM.updateModel = updateModel;         
+        homeControllerVM.updateModel = updateModel;
         homeControllerVM.setInput = setInput;
         homeControllerVM.clearMake = clearMake;
         homeControllerVM.clearModel = clearModel;
@@ -168,15 +210,75 @@
         homeControllerVM.navigatePrevious = navigatePrevious;
         homeControllerVM.navigateNext = navigateNext;
         //homeControllerVM.figureoutUrl = figureoutUrl;
+              
+       
+        $rootScope.clearFile1 = function () {
+            document.getElementById("fileUpload1").value = null;
+            document.getElementById("file1Name").value = null;
+            allFiles.splice(0, 1);
+        }
+        $rootScope.clearFile2 = function () {
+            document.getElementById("fileUpload2").value = null;
+            document.getElementById("file2Name").value = null;
+            allFiles.splice(1, 1);
+        }
+        $rootScope.clearFile3 = function () {
+            document.getElementById("fileUpload3").value = null;
+            document.getElementById("file3Name").value = null;
+            allFiles.splice(2, 1);
+        }
+        $rootScope.clearFile4 = function () {
+            document.getElementById("fileUpload4").value = null;
+            document.getElementById("file4Name").value = null;
+            allFiles.splice(3, 1);
+        }
+        $rootScope.clearFile5 = function () {
+            document.getElementById("fileUpload5").value = null;
+            document.getElementById("file5Name").value = null;
+            allFiles.splice(4, 1);
+        }
+
+
+
+
+
+        //$rootScope.myFileUploadMethod = myFileUploadMethod;
+
+        //    function myFileUploadMethod() {
+        //    debugger;
+        //        $upload.upload({
+        //        url: 'http://localhost/JunkCarWebAPI/API/Home/Upload', // webapi url
+        //        method: 'POST',
+        //        //data: { fileUploadObj: $scope.fileUploadObj },
+        //        files: allFiles
+        //    }).progress(function (evt) {
+        //        // get upload percentage
+        //        console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+        //    }).success(function (data, status, headers, config) {
+        //        // file is uploaded successfully
+        //        console.log(data);
+        //    }).error(function (data, status, headers, config) {
+        //        // file failed to upload
+        //        console.log(data);
+        //    });
+        //}
+
+
+
+
+
 
         homeControllerVM.close = function () {
             setInput();
         }
 
-        $rootScope.onKeyPress = function (event) {
+        $rootScope.onKeyPress = function (event,zipCode) {
             if (event.which === 13) {
-                homeControllerVM.homeZipCode = document.getElementById("callUsZipCode").value;                
-                checkZipCode();
+                $rootScope.operationType = 4;                
+                debugger;
+                var zc = $("#callUsZipCode").val();
+                checkZipCode(zc);
+                homeControllerVM.homeZipCode = zc;
                 //alert("Enter");                
             }
             else {
@@ -184,8 +286,8 @@
             }
         }
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-              
-        
+
+
         //$scope.redirectLogin = function () {
         //    $location.path('/Login');
         //    window.location = "Login.html";
@@ -235,7 +337,7 @@
         // cache make
         function saveMakeData() {
             var make = homeControllerVM.homeSelectedMake;
-            var makeId = '';            
+            var makeId = '';
             for (var i = 0; i < $rootScope.makesList.length; i++) {
                 if ($rootScope.makesList[i].Make_Name == make) {
                     makeId = parseInt($rootScope.makesList[i].Make_Id);
@@ -243,9 +345,9 @@
                 }
             }
             localStorage.setItem('selectedMake', make);
-            localStorage.setItem('selectedMakeId', makeId);         
+            localStorage.setItem('selectedMakeId', makeId);
         }
-      
+
 
         // cache model
         function saveModelData() {
@@ -258,24 +360,24 @@
                 }
             }
             localStorage.setItem('selectedModel', model);
-            localStorage.setItem('selectedModelId', modelId);        
-        }        
+            localStorage.setItem('selectedModelId', modelId);
+        }
 
         // cache zipcode
         function saveZipCodeData() {
             var zipCode = homeControllerVM.homeZipCode;
             localStorage.setItem('selectedZipCode', zipCode);
-            homeControllerVM.homeZipCode = localStorage.getItem('selectedZipCode');            
+            homeControllerVM.homeZipCode = localStorage.getItem('selectedZipCode');
         }
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        
+
         function getRegistrationYears() {
             debugger;
             $scope.startSpin();
             return homeService.getRegistrationYears()
                 .then(function (serviceResponse) {
-                    var response = serviceResponse.data;                   
+                    var response = serviceResponse.data;
                     $rootScope.registrationYearsList = response;
                     $scope.reset();
                     $scope.stopSpin();
@@ -284,11 +386,10 @@
                     failureAlert(serviceError.data);
                     console.log(serviceError.data);
                     return null;
-                });            
+                });
         }
-        
-        function getMakesByYear()
-        {
+
+        function getMakesByYear() {
             var regYear = parseInt(homeControllerVM.homeSelectedRegistrationYear);
             homeControllerVM.updateYear(regYear);
             homeControllerVM.clearMake();
@@ -305,11 +406,11 @@
                     failureAlert(serviceError.data);
                     console.log(serviceError.data);
                     return null;
-                });            
+                });
         }
 
         function getModelsByYearMake() {
-            var regYear = parseInt(homeControllerVM.homeSelectedRegistrationYear);            
+            var regYear = parseInt(homeControllerVM.homeSelectedRegistrationYear);
             var make = homeControllerVM.homeSelectedMake;
 
             homeControllerVM.updateMake(make);
@@ -338,48 +439,153 @@
                 });
         }
 
-        function checkForCustomerInfoPopup() {
-            debugger;
-            checkZipCode();
-            if (localStorage.getItem("isValidZipCode") != null) {
-                var v = localStorage.getItem("isValidZipCode").toString();
-                if (v == "true")
-                { showCustomerInfoPopup(); }
-            }
+        function checkForCustomerInfoPopupOnGetAnOffer(zipCode) {
+            debugger;            
+            $rootScope.disableButtons();
+            $rootScope.operationType = 1;
+            var zc = $("#locationTabZipCode").val();               
+            checkZipCode(zc);
+            homeControllerVM.homeZipCode = zc;
+            //var isValid = homeService.getCookie("zipcode");
+            //console.log(isValid);
+            //if (isValid == "true") {
+            //    $("#locationTabZipCode").val(homeControllerVM.homeZipCode);
+            //    showCustomerInfoPopup();
+            //}
+            $rootScope.enableButtons();
         }
 
-        function checkZipCode() {
-            debugger;           
-            var zipCode = homeControllerVM.homeZipCode;            
+        function checkZipCodeBeforeQuestionnaireOnGetABetterOffer(zipCode) {
+            $rootScope.disableButtons();
+            $rootScope.operationType = 2;
+            var zc = $("#locationTabZipCode").val();               
+            checkZipCode(zc);
+            homeControllerVM.homeZipCode = zc;
+            //var isValid = homeService.getCookie("zipcode");
+            //console.log(isValid);
+            //if (isValid == "true") {
+            //    $("#locationTabZipCode").val(homeControllerVM.homeZipCode);
+            //    navigateToQuestionnaire();
+            //}
+            $rootScope.enableButtons();
+        }
+
+        function checkZipCodeOnSaveEdit(zipCode) {
+            $rootScope.disableButtons();
+            $rootScope.operationType = 3;
+            var zc = $("#editZipCode").val();           
+            checkZipCode(zc);
+            homeControllerVM.homeZipCode = zc;
+            //var isValid = homeService.getCookie("zipcode");
+            //console.log(isValid);
+            //if (isValid == "true") {
+            //    $("#locationTabZipCode").val(homeControllerVM.homeZipCode);
+            //    navigateToQuestionnaire();
+            //}
+            $rootScope.enableButtons();
+        }
+
+        $rootScope.disableButtons = function () {
+            $scope.isDisableGetAnOfferButton = true;
+            $scope.isDisableGetABetterOfferButton = true;
+        }
+
+        $rootScope.enableButtons = function () {
+            $scope.isDisableGetAnOfferButton = false;
+            $scope.isDisableGetABetterOfferButton = false;
+        }       
+
+        function checkZipCode(zipCode) {
+            debugger;            
             if (zipCode.length != 0) {
                 $scope.startSpin();
                 return homeService.checkZipCode({ zipCode: zipCode })
                     .then(function (serviceResponse) {
                         var response = serviceResponse.data;
-                        localStorage.setItem("isValidZipCode", response.Is_Valid_Zip_Code);
-                        if (response.Is_Valid_Zip_Code == false) {                            
-                            $rootScope.contactNo = '';                            
+                        //localStorage.setItem("isValidZipCode", response.Is_Valid_Zip_Code);
+                        if (response.Is_Valid_Zip_Code == false) {
+                            homeControllerVM.isValidZipCode = false;                      
+                            $rootScope.contactNo = '';
+                            $("#locationTabZipCode").val('');
+                            $("#basicModalZipCode").val('');
+                            $("#editZipCode").val('');
+                            $("#callUsZipCode").val('');
                             homeControllerVM.homeZipCode = '';
-                            alert("Please enter a valid zipcode")                                                        
+                            alert("Please enter a valid zipcode")
                         }
-                        else {                            
-                            homeControllerVM.saveZipCodeData();                                                                                
+                        else {
+                            //homeControllerVM.saveZipCodeData();                                 
+                            homeControllerVM.isValidZipCode = true;                                                        
                             $rootScope.contactNo = response.Contact_No;
-                            if ($rootScope.contactNo.length > 0)
-                            {                              
+                            switch ($rootScope.operationType) {
+                                case 1:
+                                    //Get an offer click
+                                    showCustomerInfoPopup();
+                                    $("#basicModalZipCode").val(zipCode);
+                                    $("#editZipCode").val(zipCode);
+                                    $("#callUsZipCode").val(zipCode);
+                                    homeControllerVM.homeZipCode = zipCode;
+                                    break;
+                                case 2:
+                                    // Get a better offer click
+                                    navigateToQuestionnaire();
+                                    //var editYear = $("#carMakeModelYear").val();
+                                    //var editMake = $("#carMakeModelMake").val();
+                                    //var editModel = $("#carMakeModelModel").val();
+                                    //homeControllerVM.homeSelectedRegistrationYear = editYear;
+                                    //homeControllerVM.homeSelectedMake = editMake;
+                                    //homeControllerVM.homeSelectedModel = editModel;
+                                    //$("#editYear").val(editYear);
+                                    //$("#editMake").val(editMake);
+                                    //$("#editModel").val(editModel);
+
+                                    $("#basicModalZipCode").val(zipCode);
+                                    $("#editZipCode").val(zipCode);
+                                    $("#callUsZipCode").val(zipCode);
+                                    homeControllerVM.homeZipCode = zipCode;
+                                    break;
+                                case 3:
+                                    // Save edit "Save" click
+                                    var carYear = $("#editYear").val();
+                                    var carMake = $("#editMake").val();
+                                    var carModel = $("#editModel").val();
+
+                                    $("#carMakeModelYear").val(carYear);
+                                    $("#carMakeModelMake").val(carMake);
+                                    $("#carMakeModelModel").val(carModel);
+
+                                    $("#basicModalZipCode").val(zipCode);
+                                    $("#locationTabZipCode").val(zipCode);
+                                    $("#callUsZipCode").val(zipCode);
+                                    homeControllerVM.homeZipCode = zipCode;
+                                    break;
+                                case 4:
+                                    // Call us enter keypress
+                                    $("#basicModalZipCode").val(zipCode);
+                                    $("#locationTabZipCode").val(zipCode);
+                                    $("#editZipCode").val(zipCode);
+                                    homeControllerVM.homeZipCode = zipCode;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            if ($rootScope.contactNo.length > 0) {
                                 homeControllerVM.offerTabNegotiationMessage = 'Please call for negotiation';
-                            }                           
+                            }
                         }
                         $scope.reset();
-                        $scope.stopSpin();                        
+                        $scope.stopSpin();
                     }).catch(function (serviceError) {
+                        $rootScope.contactNo = '';
+                        homeControllerVM.homeZipCode = '';
                         failureAlert(serviceError.data);
-                        console.log(serviceError.data);                       
+                        console.log(serviceError.data);
                     });
             }
             else {
                 alert("Enter zipcode");
             }
+            $rootScope.operationType = 0;            
         }
 
         function getStates() {
@@ -388,7 +594,7 @@
             return homeService.getStates()
                 .then(function (serviceResponse) {
                     var response = serviceResponse.data;
-                    homeControllerVM.statesList = response;                    
+                    homeControllerVM.statesList = response;
                     $scope.reset();
                     $scope.stopSpin();
                     return homeControllerVM.statesList;
@@ -454,12 +660,11 @@
                 .then(function (serviceResponse) {
                     $rootScope.offerPrice = '$';
                     $rootScope.offerPrice += serviceResponse.data;
-                    if ($rootScope.offerPrice.length > 0)
-                    {
+                    if ($rootScope.offerPrice.length > 0) {
                         offerTab();
                         //document.getElementById("tabOfferAnchor").click();
                     }
-                        $scope.reset();
+                    $scope.reset();
                     $scope.stopSpin();
                     return $rootScope.offerPrice;
                 }).catch(function (serviceError) {
@@ -467,7 +672,7 @@
                     console.log(serviceError.data);
                     return null;
                 });
-            
+
         }
 
         function getAnOfferWithQuestionnaire() {
@@ -507,12 +712,11 @@
             }
 
             $scope.startSpin();
-            return homeService.getAnOfferWithQuestionnaire({ address: address, cityId: cityId, emailAddress: email, make: make, model: model, name: name, phone: phone,questionnaire:questionnaireResult, selectedMakeId: makeId, selectedModelId: modelId, selectedYear: year, stateId: stateId, zipCode: zipCode })
+            return homeService.getAnOfferWithQuestionnaire({ address: address, cityId: cityId, emailAddress: email, make: make, model: model, name: name, phone: phone, questionnaire: questionnaireResult, selectedMakeId: makeId, selectedModelId: modelId, selectedYear: year, stateId: stateId, zipCode: zipCode })
                 .then(function (serviceResponse) {
                     $rootScope.offerPrice = '$';
                     $rootScope.offerPrice += serviceResponse.data;
-                    if ($rootScope.offerPrice.length > 0)
-                    {
+                    if ($rootScope.offerPrice.length > 0) {
                         offerTab();
                         //document.getElementById("tabOfferAnchor").click();
                     }
@@ -526,8 +730,7 @@
                 });
         }
 
-        function checkQuestionnaire()
-        {
+        function checkQuestionnaire() {
             $rootScope.questionnaireResult = '';
             for (var i = 0; i < $rootScope.questionnaireList.length; i++) {
                 if (i == 0) {
@@ -554,7 +757,7 @@
 
             $rootScope.questionnaireResult = '';
             var questionnaireResult = checkQuestionnaire();
-            
+
             var year = parseInt(localStorage.getItem('selectedYear'));
             var makeId = parseInt(localStorage.getItem('selectedMakeId'));
             var modelId = parseInt(localStorage.getItem('selectedModelId'));
@@ -593,7 +796,7 @@
             localStorage.setItem('Email', email);
 
             $scope.startSpin();
-            
+
             if (questionnaireResult.length > 0) {
                 getAnOfferWithQuestionnaire();
             }
@@ -619,14 +822,14 @@
                     });
             }
         }
-        
-        function getQuestionnaire() {          
+
+        function getQuestionnaire() {
             $scope.startSpin();
             return homeService.getQuestionnaire()
                 .then(function (serviceResponse) {
                     var response = serviceResponse.data;
-                    $rootScope.questionnaireList = response;                    
-                    fillQuestionnairesLists();                    
+                    $rootScope.questionnaireList = response;
+                    fillQuestionnairesLists();
                     $scope.reset();
                     $scope.stopSpin();
                     return $rootScope.questionnaireList = response;
@@ -644,7 +847,7 @@
                 }
                 else if ($rootScope.questionnaireList[i].Sub_Questionnaire_Id == 3)
                 { homeControllerVM.interiorExteriorQuestionnaireList.push($rootScope.questionnaireList[i]); }
-            }            
+            }
         }
 
         //function postQuestionnaire()
@@ -667,7 +870,7 @@
         //    }           
 
         //    console.log(questionnaire);
-            
+
         //    return homeService.postQuestionnaire({ questionnaire: questionnaire })
         //       .then(function (serviceResponse) {
         //           var response = serviceResponse.data;                  
@@ -680,7 +883,7 @@
         //}
 
         function confirmOffer() {
-            debugger;          
+            debugger;
             $rootScope.questionnaireResult = checkQuestionnaire();
             var year = parseInt(localStorage.getItem('selectedYear'));
             var makeId = parseInt(localStorage.getItem('selectedMakeId'));
@@ -742,11 +945,10 @@
                         return null;
                     });
             }
-        } 
+        }
 
-        function confirmOfferWithQuestionnaire()
-        {
-            debugger;            
+        function confirmOfferWithQuestionnaire() {
+            debugger;
             $rootScope.questionnaireResult = checkQuestionnaire();
             var year = parseInt(localStorage.getItem('selectedYear'));
             var makeId = parseInt(localStorage.getItem('selectedMakeId'));
@@ -805,8 +1007,7 @@
                 });
         }
 
-        function updateYear(year)
-        {
+        function updateYear(year) {
             debugger;
             homeControllerVM.homeSelectedRegistrationYear = year;
             localStorage.setItem('selectedYear', year);
@@ -814,10 +1015,9 @@
             //clearModel();
         }
 
-        function updateMake(make)
-        {
+        function updateMake(make) {
             debugger;
-            homeControllerVM.homeSelectedMake = make;           
+            homeControllerVM.homeSelectedMake = make;
             var makeId = '';
             for (var i = 0; i < $rootScope.makesList.length; i++) {
                 if ($rootScope.makesList[i].Make_Name == make) {
@@ -828,10 +1028,9 @@
             localStorage.setItem('selectedMake', make);
             localStorage.setItem('selectedMakeId', makeId);
             //clearModel();
-        }          
+        }
 
-        function updateModel(model)
-        {
+        function updateModel(model) {
             debugger;
             homeControllerVM.homeSelectedModel = model;
             var modelId = '';
@@ -845,34 +1044,29 @@
             localStorage.setItem('selectedModelId', modelId);
         }
 
-        function getOfferPrice()
-        {            
+        function getOfferPrice() {
             return localStorage.getItem('Price');
         }
 
-        function setInput()
-        {            
+        function setInput() {
             homeControllerVM.homeSelectedRegistrationYear = localStorage.getItem('selectedYear');
             homeControllerVM.homeSelectedMake = localStorage.getItem('selectedMake');
             homeControllerVM.homeSelectedModel = localStorage.getItem('selectedModel');
         }
-        
-        function clearMake()
-        {       
+
+        function clearMake() {
             homeControllerVM.homeSelectedMake = '';
             localStorage.setItem('selectedMake', '');
-            localStorage.setItem('selectedMakeId', '');            
+            localStorage.setItem('selectedMakeId', '');
         }
 
-        function clearModel()
-        {     
+        function clearModel() {
             homeControllerVM.homeSelectedModel = '';
             localStorage.setItem('selectedModel', '');
             localStorage.setItem('selectedModelId', '');
         }
 
-        function clearAllData()
-        {
+        function clearAllData() {
             homeControllerVM.homeSelectedRegistrationYear = '';
             homeControllerVM.homeSelectedMake = '';
             homeControllerVM.homeSelectedModel = '';
@@ -884,43 +1078,49 @@
             homeControllerVM.homeBetterOfferPhone = '';
             homeControllerVM.homeBetterOfferEmail = '';
 
-            homeControllerVM.offerTabNegotiationMessage = '';                  
+            homeControllerVM.offerTabNegotiationMessage = '';
 
-            for (var i = 0; i < $rootScope.questionnaireList.length; i++) {                    
-                    var ddl = document.getElementById("ddQ" + $rootScope.questionnaireList[i].Question_Id);
-                    ddl.selectedIndex = 0;
+            for (var i = 0; i < $rootScope.questionnaireList.length; i++) {
+                var ddl = document.getElementById("ddQ" + $rootScope.questionnaireList[i].Question_Id);
+                ddl.selectedIndex = 0;
             }
         }
 
-        function clearCustomerInfoPopup()
-        {
+        function clearCustomerInfoPopup() {
             $rootScope.offerPrice = '';
             $rootScope.contactNo = '';
-            
-            document.getElementById("callUsZipCode").value = '';
-
-            document.getElementById("basicModalName").value = '';
-            document.getElementById("basicModalAddress").value = '';
-            document.getElementById("basicModalState").value = '';
-            document.getElementById("basicModalCity").value = '';
-            document.getElementById("basicModalZipCode").value = '';
-            document.getElementById("basicModalPhone").value = '';
-            document.getElementById("basicModalEmail").value = '';          
+            $("#editYear").val('');
+            $("#editMake").val('');
+            $("#editModel").val('');
+            $("#editZipCode").val('');
+            $("#carMakeModelYear").val('');
+            $("#carMakeModelMake").val('');
+            $("#carMakeModelModel").val('');
+            $("#locationTabZipCode").val('');            
+            $("#callUsZipCode").val('');            
+            $("#basicModalName").val('');
+            $("#basicModalAddress").val('');
+            $("#basicModalState").val('');
+            $("#basicModalCity").val('');            
+            $("#basicModalZipCode").val('');
+            $("#basicModalPhone").val('');
+            $("#basicModalEmail").val('');
+            $rootScope.clearFile1();
+            $rootScope.clearFile2();
+            $rootScope.clearFile3();
+            $rootScope.clearFile4();
+            $rootScope.clearFile5();
         }
 
-        function navigateToQuestionnaire()
-        {
+        function navigateToQuestionnaire() {
             questionnaireTab();
         }
 
-        function navigatePrevious()
-        {
+        function navigatePrevious() {
             tabPrev();
         }
-        function navigateNext()
-        {
+        function navigateNext() {
             tabNext();
         }
-        
     }
 })();

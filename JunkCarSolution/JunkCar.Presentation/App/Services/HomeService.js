@@ -18,7 +18,9 @@
             getAnOfferWithQuestionnaire: getAnOfferWithQuestionnaire,
             //postQuestionnaire:postQuestionnaire,
             confirmOffer: confirmOffer,
-            confirmOfferWithQuestionnaire: confirmOfferWithQuestionnaire
+            confirmOfferWithQuestionnaire: confirmOfferWithQuestionnaire,
+            getCookie:getCookie,
+            setCookie:setCookie
         };
         return service;
         
@@ -92,8 +94,7 @@
                 url: getBaseUrl() + 'Home/CheckZipCode'
             }).success(function (data, status, headers) {
                 response = data;
-                var isValid = data.Is_Valid_Zip_Code;
-                localStorage.setItem("isValidZipCode", isValid);
+                setCookie("zipcode", response.Is_Valid_Zip_Code, 365);
                 return response;
             })
             .error(function (data, status, headers) {
@@ -257,7 +258,25 @@
         function getBaseUrl() {            
             var liveBaseUrl = 'API/API/';
             var localBaseUrl = 'http://localhost/JunkCarWebAPI/API/';
-            return liveBaseUrl;
+            return localBaseUrl;
+        }
+        
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + "; " + expires;
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1);
+                if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+            }
+            return "";
         }
     }
 }

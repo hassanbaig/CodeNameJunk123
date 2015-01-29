@@ -114,6 +114,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Uploads\Photos\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JunkCar.Core\JunkCar.Core.csproj">
@@ -157,6 +158,8 @@
           <DevelopmentServerPort>40342</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/JunkCarWebAPI</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost/JunkCarWebAPI</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

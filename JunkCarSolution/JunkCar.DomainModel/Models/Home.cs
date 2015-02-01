@@ -34,6 +34,8 @@ namespace JunkCar.DomainModel.Models
         public string Phone { get; set; }
         public string EmailAddress { get; set; }
         public List<int?> Years { get; set; }
+        public short CylindersQuantity { get; set; }
+        public List<int?> Cylinders { get; set; }
         public List<JunkCar.DataModel.Models.Set_Make> Makes { get; set; }
         public List<JunkCar.DataModel.Models.Set_Model> Models { get; set; }
         public string ResponseMessage { get; set; }

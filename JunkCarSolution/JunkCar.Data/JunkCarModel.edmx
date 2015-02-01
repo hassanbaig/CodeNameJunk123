@@ -141,6 +141,7 @@
           <Property Name="Audit_Id" Type="bigint" />
           <Property Name="User_IP" Type="varchar" MaxLength="25" />
           <Property Name="Site_Id" Type="int" Nullable="false" />
+          <Property Name="No_Of_Cylinder" Type="smallint" />
         </EntityType>
         <EntityType Name="Sal_Offer_Status">
           <Key>
@@ -1292,6 +1293,7 @@
           <Parameter Name="Questioneer" Type="xml" Mode="In" />
           <Parameter Name="Zip_Code" Type="varchar" Mode="In" />
           <Parameter Name="Customer_Info" Type="xml" Mode="In" />
+          <Parameter Name="No_Of_Cylinder" Type="smallint" Mode="In" />
         </Function>
         <Function Name="usp_Sec_Auto_Email_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
           <Parameter Name="Site_id" Type="int" Mode="In" />
@@ -2005,6 +2007,7 @@
           <NavigationProperty Name="Sal_Customer_Offer" Relationship="Self.FK_Sal_Customer_Offer_Offer_Id" FromRole="Sal_Offer" ToRole="Sal_Customer_Offer" />
           <NavigationProperty Name="Set_Questionnaire" Relationship="Self.FK_Sal_Offer_Questionnaire_Id" FromRole="Sal_Offer" ToRole="Set_Questionnaire" />
           <NavigationProperty Name="Set_Questionnaire_Result" Relationship="Self.FK_Sal_Offer_Questionnaire_Result_Id" FromRole="Sal_Offer" ToRole="Set_Questionnaire_Result" />
+          <Property Name="No_Of_Cylinder" Type="Int16" />
         </EntityType>
         <EntityType Name="Sal_Offer_Status">
           <Key>
@@ -3373,6 +3376,7 @@
             <Parameter Name="Questioneer" Mode="In" Type="String" />
             <Parameter Name="Zip_Code" Mode="In" Type="String" />
             <Parameter Name="Customer_Info" Mode="In" Type="String" />
+            <Parameter Name="No_Of_Cylinder" Mode="In" Type="Int16" />
           </FunctionImport>
           <FunctionImport Name="usp_Sec_Auto_Email_Select" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sec_Auto_Email_Select_Result)">
             <Parameter Name="Site_id" Mode="In" Type="Int32" />
@@ -3737,6 +3741,7 @@
             <Parameter Name="Questioneer" Mode="In" Type="String" />
             <Parameter Name="Zip_Code" Mode="In" Type="String" />
             <Parameter Name="Customer_Info" Mode="In" Type="String" />
+            <Parameter Name="No_Of_Cylinder" Mode="In" Type="Int16" />
           </FunctionImport>
           <FunctionImport Name="GetMakes" EntitySet="Set_Make" ReturnType="Collection(shiner49_JunkCarNewModel.Set_Make)">
             <Parameter Name="Parameter_Type" Mode="In" Type="String" />
@@ -3797,6 +3802,11 @@
             <Parameter Name="Customer_Email" Mode="In" Type="String" />
             <Parameter Name="Zip_Code" Mode="In" Type="String" />
             <Parameter Name="Sign_Up" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="GetCylinders" ReturnType="Collection(Int32)">
+            <Parameter Name="Parameter_Type" Mode="In" Type="String" />
+            <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
+            <Parameter Name="Make_Id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -4447,6 +4457,7 @@
           <EntitySetMapping Name="Sal_Offer">
             <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Sal_Offer">
               <MappingFragment StoreEntitySet="Sal_Offer">
+                <ScalarProperty Name="No_Of_Cylinder" ColumnName="No_Of_Cylinder" />
                 <ScalarProperty Name="Offer_Id" ColumnName="Offer_Id" />
                 <ScalarProperty Name="Model_Year_Id" ColumnName="Model_Year_Id" />
                 <ScalarProperty Name="Zip_Id" ColumnName="Zip_Id" />
@@ -5621,6 +5632,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCylinders" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Offer_Parameter_Select" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

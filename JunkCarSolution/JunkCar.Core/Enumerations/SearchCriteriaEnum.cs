@@ -9,6 +9,7 @@ namespace JunkCar.Core.Enumerations
     public enum SearchCriteriaEnum
     {
         GET_REGISTRATION_YEARS,
+        GET_CYLINDERS,
         GET_STATES,
         GET_QUESTIONNAIRE
     }

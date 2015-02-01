@@ -293,6 +293,10 @@ namespace JunkCar.DomainService
                         unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
                         home = (DomainModel.Models.Home)unitOfWork.GetAll(searchCriteria);
                         break;
+                    case SearchCriteriaEnum.GET_CYLINDERS:
+                        unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
+                        home = (DomainModel.Models.Home)unitOfWork.GetAll(searchCriteria);
+                        break;
                     case SearchCriteriaEnum.GET_STATES:
                         unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
                         home = (DomainModel.Models.Home)unitOfWork.GetAll(searchCriteria);
@@ -312,6 +316,9 @@ namespace JunkCar.DomainService
                     case SearchCriteriaEnum.GET_REGISTRATION_YEARS:
                         home.ResponseMessage = ex.Message;
                         break;
+                    case SearchCriteriaEnum.GET_CYLINDERS:
+                        home.ResponseMessage = ex.Message;
+                        break;
                     case SearchCriteriaEnum.GET_STATES:
                         home.ResponseMessage = ex.Message;
                         break;
@@ -329,6 +336,8 @@ namespace JunkCar.DomainService
             switch (searchCriteria)
             {
                 case SearchCriteriaEnum.GET_REGISTRATION_YEARS:
+                    return home;
+                case SearchCriteriaEnum.GET_CYLINDERS:
                     return home;
                 case SearchCriteriaEnum.GET_STATES:
                     return home;

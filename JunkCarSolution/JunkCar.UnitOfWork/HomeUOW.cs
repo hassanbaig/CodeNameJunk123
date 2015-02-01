@@ -118,10 +118,18 @@ namespace JunkCar.UnitOfWork
                     }
                     break;
                 case 5:                   
-                    home.OfferPrice = homeRepository.GetAnOffer(home.SelectedYear,home.SelectedMakeId,home.SelectedModelId,home.ZipCode);
+                    home.OfferPrice = homeRepository.GetAnOffer(home.SelectedYear,home.SelectedMakeId,home.SelectedModelId,home.ZipCode,
+                        "<Customer_Info><Customer_Name>" + home.Name + "</Customer_Name>" +
+                        "<Customer_Address>" + home.Address + "</Customer_Address>" +
+                        "<Customer_Phone>" + home.Phone + "</Customer_Phone>" +
+                        "<Customer_Email>" + home.EmailAddress + "</Customer_Email></Customer_Info>",home.CylindersQuantity);
                     if (home.OfferPrice.Length <= 0)
                     {
                         throw new Exception("No offer");
+                    }
+                    else 
+                    {
+                        JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Pending", home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");
                     }
                     break;
                 case 6:
@@ -142,46 +150,22 @@ namespace JunkCar.UnitOfWork
                          
                     }
 
-                    home.OfferPrice = homeRepository.GetAnOffer(home.SelectedYear, home.SelectedMakeId, home.SelectedModelId,
-                        questionnaireResult,
-                        home.ZipCode);
-                    if (home.OfferPrice.Length <= 0)
-                    {
-                        throw new Exception("No offer");
-                    }
-                    else
-                    {
-                        JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Pending", home.QuestionnaireDescription, home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");
-                    }
-                    break;
-                case 7:                  
-                    home.OfferPrice = homeRepository.GetAnOffer(home.SelectedYear, home.SelectedMakeId, home.SelectedModelId,
-                        "<Questionnaire_Result><Question_Id>1</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>2</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>3</Question_Id><Answer_Id>4</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>4</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>5</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>6</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>7</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result><Questionnaire_Result><Question_Id>8</Question_Id><Answer_Id>1</Answer_Id></Questionnaire_Result>",
-                        home.ZipCode,"");
-                    if (home.OfferPrice.Length <= 0)
-                    {
-                        throw new Exception("No offer");
-                    }
-                    break;
-                case 8:                    
                     home.OfferPrice = homeRepository.GetABetterOffer(home.SelectedYear, home.SelectedMakeId, home.SelectedModelId,home.ZipCode,
+                        questionnaireResult,
                         "<Customer_Info><Customer_Name>"+home.Name+"</Customer_Name>"+
                         "<Customer_Address>"+home.Address+"</Customer_Address>"+
                         "<Customer_Phone>"+home.Phone+"</Customer_Phone>"+
-                        "<Customer_Email>"+home.EmailAddress+"</Customer_Email></Customer_Info>");
-
-                    home.City = homeRepository.GetCity(home.ZipCode);
-                    home.State = homeRepository.GetState(home.ZipCode);
-
+                        "<Customer_Email>"+home.EmailAddress+"</Customer_Email></Customer_Info>",home.CylindersQuantity);        
+           
                     if (home.OfferPrice.Length <= 0)
                     {
                         throw new Exception("No offer");
                     }
                     else
                     {
-                        JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Pending", home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");
-                    }
-                    break;
+                        JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Pending", home.QuestionnaireDescription, home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");                        
+                    }                   
+                    break;                              
                 case 9:
                     JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Confirmed", home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");
                     JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForCustomer(home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.Phone,home.ContactNo, home.EmailAddress);
@@ -208,6 +192,9 @@ namespace JunkCar.UnitOfWork
             {
                 case Core.Enumerations.SearchCriteriaEnum.GET_REGISTRATION_YEARS:
                     home.Years = homeRepository.GetAllYears();
+                    break;
+                case Core.Enumerations.SearchCriteriaEnum.GET_CYLINDERS:
+                    home.Cylinders = homeRepository.GetCylinders();
                     break;
                 case Core.Enumerations.SearchCriteriaEnum.GET_STATES:
                     home.States = homeRepository.GetAllStates();

@@ -662,7 +662,7 @@ namespace JunkCar.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Sal_Offer_Status_Result>("usp_Sal_Offer_Status", action_TypeParameter, offer_Status_Id, offer_StatusParameter, sort_OrderParameter, is_ActiveParameter, created_DateParameter, created_ByParameter, modified_DateParameter, modified_ByParameter, audit_IdParameter, user_IPParameter, site_IdParameter);
         }
     
-        public virtual ObjectResult<usp_Sal_Suggested_Offer_Result> usp_Sal_Suggested_Offer(Nullable<int> registration_Year, Nullable<int> make_Id, Nullable<int> model_Id, string questioneer, string zip_Code, string customer_Info)
+        public virtual ObjectResult<usp_Sal_Suggested_Offer_Result> usp_Sal_Suggested_Offer(Nullable<int> registration_Year, Nullable<int> make_Id, Nullable<int> model_Id, string questioneer, string zip_Code, string customer_Info, Nullable<short> no_Of_Cylinder)
         {
             var registration_YearParameter = registration_Year.HasValue ?
                 new ObjectParameter("Registration_Year", registration_Year) :
@@ -688,7 +688,11 @@ namespace JunkCar.Data
                 new ObjectParameter("Customer_Info", customer_Info) :
                 new ObjectParameter("Customer_Info", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Sal_Suggested_Offer_Result>("usp_Sal_Suggested_Offer", registration_YearParameter, make_IdParameter, model_IdParameter, questioneerParameter, zip_CodeParameter, customer_InfoParameter);
+            var no_Of_CylinderParameter = no_Of_Cylinder.HasValue ?
+                new ObjectParameter("No_Of_Cylinder", no_Of_Cylinder) :
+                new ObjectParameter("No_Of_Cylinder", typeof(short));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Sal_Suggested_Offer_Result>("usp_Sal_Suggested_Offer", registration_YearParameter, make_IdParameter, model_IdParameter, questioneerParameter, zip_CodeParameter, customer_InfoParameter, no_Of_CylinderParameter);
         }
     
         public virtual ObjectResult<usp_Sec_Auto_Email_Select_Result> usp_Sec_Auto_Email_Select(Nullable<int> site_id, Nullable<int> user_Code, Nullable<int> customer_Id)
@@ -1956,7 +1960,7 @@ namespace JunkCar.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CheckZipCode_Result>("CheckZipCode", zip_CodeParameter);
         }
     
-        public virtual ObjectResult<GetAnOffer_Result> GetAnOffer(Nullable<int> registration_Year, Nullable<int> make_Id, Nullable<int> model_Id, string questioneer, string zip_Code, string customer_Info)
+        public virtual ObjectResult<GetAnOffer_Result> GetAnOffer(Nullable<int> registration_Year, Nullable<int> make_Id, Nullable<int> model_Id, string questioneer, string zip_Code, string customer_Info, Nullable<short> no_Of_Cylinder)
         {
             var registration_YearParameter = registration_Year.HasValue ?
                 new ObjectParameter("Registration_Year", registration_Year) :
@@ -1982,7 +1986,11 @@ namespace JunkCar.Data
                 new ObjectParameter("Customer_Info", customer_Info) :
                 new ObjectParameter("Customer_Info", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAnOffer_Result>("GetAnOffer", registration_YearParameter, make_IdParameter, model_IdParameter, questioneerParameter, zip_CodeParameter, customer_InfoParameter);
+            var no_Of_CylinderParameter = no_Of_Cylinder.HasValue ?
+                new ObjectParameter("No_Of_Cylinder", no_Of_Cylinder) :
+                new ObjectParameter("No_Of_Cylinder", typeof(short));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAnOffer_Result>("GetAnOffer", registration_YearParameter, make_IdParameter, model_IdParameter, questioneerParameter, zip_CodeParameter, customer_InfoParameter, no_Of_CylinderParameter);
         }
     
         public virtual ObjectResult<Set_Make> GetMakes(string parameter_Type, Nullable<int> registration_Year, Nullable<int> make_Id)
@@ -2242,6 +2250,23 @@ namespace JunkCar.Data
                 new ObjectParameter("Sign_Up", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RegisterUser_Result>("Authenticate", customer_IdParameter, login_PasswordParameter, customer_NameParameter, customer_AddressParameter, customer_PhoneParameter, customer_EmailParameter, zip_CodeParameter, sign_UpParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> GetCylinders(string parameter_Type, Nullable<int> registration_Year, Nullable<int> make_Id)
+        {
+            var parameter_TypeParameter = parameter_Type != null ?
+                new ObjectParameter("Parameter_Type", parameter_Type) :
+                new ObjectParameter("Parameter_Type", typeof(string));
+    
+            var registration_YearParameter = registration_Year.HasValue ?
+                new ObjectParameter("Registration_Year", registration_Year) :
+                new ObjectParameter("Registration_Year", typeof(int));
+    
+            var make_IdParameter = make_Id.HasValue ?
+                new ObjectParameter("Make_Id", make_Id) :
+                new ObjectParameter("Make_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetCylinders", parameter_TypeParameter, registration_YearParameter, make_IdParameter);
         }
     }
 }

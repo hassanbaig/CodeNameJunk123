@@ -46,32 +46,14 @@ namespace JunkCar.Core.Common
             getCities["OperationType"] = operationType;
             return getCities;
         }
-        public static Hashtable GetAnOffer(int? year, int? makeId, int? modelId, int operationType)
-        {
-            Hashtable getAnOffer = new Hashtable();
-            getAnOffer["SelectedYear"] = year;
-            getAnOffer["SelectedMakeId"] = makeId;
-            getAnOffer["SelectedModelId"] = modelId;
-            getAnOffer["OperationType"] = operationType;
-            return getAnOffer;
-        }
-        public static Hashtable GetAnOffer(int? year, int? makeId, int? modelId, int operationType, string zipCode = "")
-        {
-            Hashtable getAnOffer = new Hashtable();
-            getAnOffer["SelectedYear"] = year;
-            getAnOffer["SelectedMakeId"] = makeId;
-            getAnOffer["SelectedModelId"] = modelId;
-            getAnOffer["ZipCode"] = zipCode;
-            getAnOffer["OperationType"] = operationType;
-            return getAnOffer;
-        }
-        public static Hashtable GetAnOffer(string address, int cityId, string emailAddress, string make, string model, string name, string phone, string questionnaire, int selectedMakeId, int selectedModelId, int selectedYear, int stateId, string zipCode, int operationType)
+        public static Hashtable GetAnOffer(string address, int cityId, short cylinders, string emailAddress, string make, string model, string name, string phone, int selectedMakeId, int selectedModelId, int selectedYear, int stateId, string zipCode, int operationType)
         {
             Hashtable getAnOffer = new Hashtable();
             getAnOffer["Name"] = name;
             getAnOffer["Address"] = address;
             getAnOffer["StateId"] = stateId;
-            getAnOffer["cityId"] = cityId;            
+            getAnOffer["cityId"] = cityId;
+            getAnOffer["CylindersQuantity"] = cylinders;            
             getAnOffer["Phone"] = phone;
             getAnOffer["EmailAddress"] = emailAddress;
             getAnOffer["SelectedYear"] = selectedYear;
@@ -79,38 +61,27 @@ namespace JunkCar.Core.Common
             getAnOffer["SelectedModelId"] = selectedModelId;
             getAnOffer["SelectedMake"] = make;
             getAnOffer["SelectedModel"] = model;
-            getAnOffer["ZipCode"] = zipCode;            
+            getAnOffer["ZipCode"] = zipCode;
             getAnOffer["OperationType"] = operationType;            
-            getAnOffer["SelectedQuestionnaire"] = questionnaire;            
             return getAnOffer;
-        }
-        //public static Hashtable GetAnOffer(int? year, int? makeId, int? modelId, string[] questionnaire, string[] customerInfo, int operationType, string zipCode = "")
-        //{
-        //    Hashtable getAnOffer = new Hashtable();
-        //    getAnOffer["SelectedYear"] = year;
-        //    getAnOffer["SelectedMakeId"] = makeId;
-        //    getAnOffer["SelectedModelId"] = modelId;
-        //    getAnOffer["SelectedQuestionnaire"] = questionnaire;
-        //    getAnOffer["ZipCode"] = zipCode;
-        //    getAnOffer["CustomerInfo"] = customerInfo;
-        //    getAnOffer["OperationType"] = operationType;
-        //    return getAnOffer;
-        //}
-        public static Hashtable GetABetterOffer(int? year, int? makeId, int? modelId, string make, string model, string name, string address, int stateId, int cityId, string zipCode, string phone, string emailAddress, int operationType)
+        }         
+        public static Hashtable GetABetterOffer(string address, int cityId, short cylinders, string emailAddress, string make, string model, string name, string phone, string questionnaire, int selectedMakeId, int selectedModelId, int selectedYear, int stateId, string zipCode, int operationType)
         {
             Hashtable getABetterOffer = new Hashtable();
-            getABetterOffer["SelectedYear"] = year;
-            getABetterOffer["SelectedMakeId"] = makeId;
-            getABetterOffer["SelectedModelId"] = modelId;
+            getABetterOffer["SelectedYear"] = selectedYear;
+            getABetterOffer["SelectedMakeId"] = selectedMakeId;
+            getABetterOffer["SelectedModelId"] = selectedModelId;
             getABetterOffer["SelectedMake"] = make;
             getABetterOffer["SelectedModel"] = model;
+            getABetterOffer["CylindersQuantity"] = cylinders;            
             getABetterOffer["Name"] = name;
             getABetterOffer["Address"] = address;
             getABetterOffer["StateId"] = stateId;
             getABetterOffer["cityId"] = cityId;
             getABetterOffer["ZipCode"] = zipCode;
             getABetterOffer["Phone"] = phone;
-            getABetterOffer["EmailAddress"] = emailAddress;
+            getABetterOffer["SelectedQuestionnaire"] = questionnaire;
+            getABetterOffer["EmailAddress"] = emailAddress;            
             getABetterOffer["OperationType"] = operationType;
             return getABetterOffer;
         }

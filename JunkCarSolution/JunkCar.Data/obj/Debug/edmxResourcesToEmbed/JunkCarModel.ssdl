@@ -136,6 +136,7 @@
     <Property Name="Audit_Id" Type="bigint" />
     <Property Name="User_IP" Type="varchar" MaxLength="25" />
     <Property Name="Site_Id" Type="int" Nullable="false" />
+    <Property Name="No_Of_Cylinder" Type="smallint" />
   </EntityType>
   <EntityType Name="Sal_Offer_Status">
     <Key>
@@ -1287,6 +1288,7 @@
     <Parameter Name="Questioneer" Type="xml" Mode="In" />
     <Parameter Name="Zip_Code" Type="varchar" Mode="In" />
     <Parameter Name="Customer_Info" Type="xml" Mode="In" />
+    <Parameter Name="No_Of_Cylinder" Type="smallint" Mode="In" />
   </Function>
   <Function Name="usp_Sec_Auto_Email_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
     <Parameter Name="Site_id" Type="int" Mode="In" />

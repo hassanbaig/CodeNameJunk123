@@ -28,8 +28,13 @@ namespace JunkCar.Repository.RepositoryClasses
         }
         public List<int?> GetAllYears()
         {            
-            var data = _context.GetYears("YEAR", null, null).ToList();
+            var data = _context.GetYears("YEAR", null, null).ToList();           
             return data;         
+        }
+        public List<int?> GetCylinders()
+        {           
+            var data = _context.GetCylinders("CYLINDER", null, null).ToList();
+            return data;
         }
         public List<JunkCar.DataModel.Models.Set_Make> GetMakesByYear(int selectedYear)
         {            
@@ -269,27 +274,16 @@ namespace JunkCar.Repository.RepositoryClasses
                     }
 
              return questionnaireDescription;
-        }
-
-        public string GetAnOffer(int? year, int?makeId, int? modelId, string zipCode)
+        }              
+        public string GetAnOffer(int? year, int? makeId, int? modelId, string zipCode, string customerInfo, short cylinders)
         {
-            var offerPrice = _context.GetAnOffer(year, makeId, modelId, null, zipCode, null).FirstOrDefault();
-            return offerPrice.Offer_Price.ToString();
+            var offerPrice = _context.GetAnOffer(year, makeId, modelId, null, zipCode, customerInfo, cylinders).FirstOrDefault();
+            return offerPrice.Offer_Price.ToString();            
         }
-        public string GetAnOffer(int? year, int? makeId, int? modelId, string questionnaire, string zipCode)
+        public string GetABetterOffer(int? year, int? makeId, int? modelId, string zipCode, string questionnaire, string customerInfo, short cylinders)
         {
-            var offerPrice = _context.GetAnOffer(year, makeId, modelId, questionnaire, zipCode, null).FirstOrDefault();
-            return offerPrice.Offer_Price.ToString();
-        }
-        public string GetAnOffer(int? year, int? makeId, int? modelId, string questionnaire, string zipCode, string customerInfo)
-        {
-            var offerPrice = _context.GetAnOffer(year, makeId, modelId, questionnaire, zipCode, customerInfo).FirstOrDefault();
-            return offerPrice.Offer_Price.ToString();
-        }
-        public string GetABetterOffer(int? year, int? makeId, int? modelId, string zipCode, string customerInfo)
-        {
-            var offerPrice = _context.GetAnOffer(year, makeId, modelId, null, zipCode, customerInfo).FirstOrDefault();
-            return offerPrice.Offer_Price.ToString();
+            var offerPrice = _context.GetAnOffer(year, makeId, modelId, questionnaire, zipCode, customerInfo, cylinders).FirstOrDefault();
+            return offerPrice.Offer_Price.ToString();         
         }
     }
 }

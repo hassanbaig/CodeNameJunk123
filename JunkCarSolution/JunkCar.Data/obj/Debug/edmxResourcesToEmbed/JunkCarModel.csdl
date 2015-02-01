@@ -158,6 +158,7 @@
     <NavigationProperty Name="Sal_Customer_Offer" Relationship="Self.FK_Sal_Customer_Offer_Offer_Id" FromRole="Sal_Offer" ToRole="Sal_Customer_Offer" />
     <NavigationProperty Name="Set_Questionnaire" Relationship="Self.FK_Sal_Offer_Questionnaire_Id" FromRole="Sal_Offer" ToRole="Set_Questionnaire" />
     <NavigationProperty Name="Set_Questionnaire_Result" Relationship="Self.FK_Sal_Offer_Questionnaire_Result_Id" FromRole="Sal_Offer" ToRole="Set_Questionnaire_Result" />
+    <Property Name="No_Of_Cylinder" Type="Int16" />
   </EntityType>
   <EntityType Name="Sal_Offer_Status">
     <Key>
@@ -1526,6 +1527,7 @@
       <Parameter Name="Questioneer" Mode="In" Type="String" />
       <Parameter Name="Zip_Code" Mode="In" Type="String" />
       <Parameter Name="Customer_Info" Mode="In" Type="String" />
+      <Parameter Name="No_Of_Cylinder" Mode="In" Type="Int16" />
     </FunctionImport>
     <FunctionImport Name="usp_Sec_Auto_Email_Select" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sec_Auto_Email_Select_Result)">
       <Parameter Name="Site_id" Mode="In" Type="Int32" />
@@ -1890,6 +1892,7 @@
       <Parameter Name="Questioneer" Mode="In" Type="String" />
       <Parameter Name="Zip_Code" Mode="In" Type="String" />
       <Parameter Name="Customer_Info" Mode="In" Type="String" />
+      <Parameter Name="No_Of_Cylinder" Mode="In" Type="Int16" />
     </FunctionImport>
     <FunctionImport Name="GetMakes" EntitySet="Set_Make" ReturnType="Collection(shiner49_JunkCarNewModel.Set_Make)">
       <Parameter Name="Parameter_Type" Mode="In" Type="String" />
@@ -1950,6 +1953,11 @@
       <Parameter Name="Customer_Email" Mode="In" Type="String" />
       <Parameter Name="Zip_Code" Mode="In" Type="String" />
       <Parameter Name="Sign_Up" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="GetCylinders" ReturnType="Collection(Int32)">
+      <Parameter Name="Parameter_Type" Mode="In" Type="String" />
+      <Parameter Name="Registration_Year" Mode="In" Type="Int32" />
+      <Parameter Name="Make_Id" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">

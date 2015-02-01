@@ -10,30 +10,77 @@
     'use strict';   
     angular.module('app').controller('accountsController', ['accountsService', '$scope', '$location', 'usSpinnerService', '$rootScope', 'alertsManager', accountsController]);
 
-    function accountsController(accountsService, $scope, $location, usSpinnerService, $rootScope, alertsManager) {           
+    function accountsController(accountsService, $scope, $location, usSpinnerService, $rootScope, alertsManager) {
+
+       /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+         ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+         ========================================================== Accounts Controller =========================================================
+         ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+         ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+        //[Start]--------------------------------------------------- Accounts variables ------------------------------------------------------
+        //---------------------------------------------------------- ViewModel variables --------------------------------------------------------        
+        var accountsControllerVM = this;
+                
+        accountsControllerVM.signupEmail = '';
+        accountsControllerVM.signupPassword = '';
+        accountsControllerVM.signupReTypePassword = '';
+        accountsControllerVM.signupZipCode = '';
+        accountsControllerVM.signupName = '';
+        accountsControllerVM.signupAddress = '';
+        accountsControllerVM.signupPhone = '';
+
+        accountsControllerVM.loginEmail = '';
+        accountsControllerVM.loginPassword = '';
+
+        accountsControllerVM.changePasswordNewPassword = '';
+        accountsControllerVM.changePasswordConfirmPassword = '';
+
+        accountsControllerVM.forgotPasswordEmail = '';
+        accountsControllerVM.forgotPasswordNewPassword = '';
+        accountsControllerVM.forgotPasswordConfirmPassword = '';
+
+        accountsControllerVM.isMismatch = false;
+        accountsControllerVM.isVisible = true;
+
+        //[End]------------------------------------------------------ Accounts variables ------------------------------------------------------
+
+        /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+          ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+          ========================================================== Accounts Controller =========================================================
+          ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+          ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+        //[Start]------------------------------------------------------ Setup --------------------------------------------------------------------        
+        //---------------------------------------------------------- Alerts setup ----------------------------------------------------------------        
         $scope.alerts = alertsManager.alerts;
 
         $scope.successAlert = successAlert;
         $scope.failureAlert = failureAlert;
 
+        // Success alert
         function successAlert(message) {
             alertsManager.addAlert(message, 'alert-success');
         }
 
+        // Failure alert
         function failureAlert(message) {
             alertsManager.addAlert(message, 'alert-danger');
         };
 
+        // Reset alerts
         $scope.reset = function () {
             alertsManager.clearAlerts();
         };
-
+        //---------------------------------------------------------- Spinner setup ----------------------------------------------------------                      
+        // Start spin
         $scope.startSpin = function () {
             if (!$scope.spinneractive) {
                 usSpinnerService.spin('spinner-1');
             }
         };
 
+        // Stop spin
         $scope.stopSpin = function () {
             if ($scope.spinneractive) {
                 usSpinnerService.stop('spinner-1');
@@ -49,57 +96,52 @@
         $rootScope.$on('us-spinner:stop', function (event, key) {
             $scope.spinneractive = false;
         });
+        //[End]------------------------------------------------------ Setup ----------------------------------------------------------
 
-        // ViewModel
-        var accountsControllerVM = this;
+        /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+          ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+          ========================================================== Accounts Controller =========================================================
+          ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+          ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
 
-        // ViewModel variables
-        accountsControllerVM.signupEmail = '';
-        accountsControllerVM.signupPassword = '';
-        accountsControllerVM.signupReTypePassword = '';
-        accountsControllerVM.signupZipCode = '';
-        accountsControllerVM.signupName = '';
-        accountsControllerVM.signupAddress = '';
-        accountsControllerVM.signupPhone = '';        
-
-        accountsControllerVM.loginEmail = '';
-        accountsControllerVM.loginPassword = '';        
-
-        accountsControllerVM.changePasswordNewPassword = '';
-        accountsControllerVM.changePasswordConfirmPassword = '';
-
-        accountsControllerVM.forgotPasswordEmail = '';
-        accountsControllerVM.forgotPasswordNewPassword = '';
-        accountsControllerVM.forgotPasswordConfirmPassword = '';
-
-        accountsControllerVM.isMismatch = false;
-        accountsControllerVM.isVisible = true;
-
-        // ViewModel Methods
+        //[Start]--------------------------------------------------- Methods definition ---------------------------------------------------------
+        //---------------------------------------------------------- ViewModel Methods ----------------------------------------------------------
         accountsControllerVM.authenticateUser = authenticateUser;
         accountsControllerVM.signup = signup;
         accountsControllerVM.changePassword = changePassword;
         accountsControllerVM.forgotPassword = forgotPassword;        
         accountsControllerVM.logout = logout;
-                
+        //[End]----------------------------------------------------- Methods definition ---------------------------------------------------------
+
+        /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+          ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+          ========================================================== Accounts Controller =========================================================
+          ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+          ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+        //[Start]------------------------------------------------------ Methods implementation ----------------------------------------------------------
+        //------------------------------------------------------------- $scope Methods --------------------------------------------------------------
+        // Navigate to Change Password
         $scope.redirectChangePassword = function () {
             window.location = "ChangePassword.html";
         }
+        // Navigate to Main
         $scope.redirectMain = function () {
             //$location.path('/Login');
             window.location = "Index.html";
         }
+        // Navigate to Login
         $scope.redirectLogin = function () {
             //$location.path('/Login');
             window.location = "Login.html";
         }
+        // Navigate to Signup
         $scope.redirectSignup = function () {
             //$location.path('/Login');
             window.location = "Signup.html";
         }
-
+        // Check email validation
         $scope.checkEmail = function () {
-
        return accountsService.checkEmail(accountsControllerVM.signupEmailAddress);
             //    var filter = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/;
             //    if (!filter.test(value)) {
@@ -108,7 +150,6 @@
             //    return true;
         }
         $scope.checkUserNameEmail = function () {
-
             return accountsService.checkEmail(accountsControllerVM.signupName);
             //    var filter = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/;
             //    if (!filter.test(value)) {
@@ -116,7 +157,8 @@
             //    }
             //    return true;
         }
-
+        //------------------------------------------------------------- Methods --------------------------------------------------------------
+        // Authenticate user
         function authenticateUser() {
             $scope.reset();
             $scope.startSpin();            
@@ -140,7 +182,7 @@
             accountsControllerVM.loginEmail = '';
             accountsControllerVM.loginPassword = '';
         }
-
+        // Forgot password
         function forgotPassword() {
             $scope.startSpin();
             $scope.reset();
@@ -156,22 +198,15 @@
             }
             else {                
                 var newPass = accountsControllerVM.forgotPasswordNewPassword.trim();
-                accountsService.forgotPassword({ newPassword: newPass, userId: userId }).then(function (data) {
-                    
-                    
+                accountsService.forgotPassword({ newPassword: newPass, userId: userId }).then(function (data) {                   
                     var response = data.results;                
-
                     var mystring = new String(response);
                     mystring = mystring.substring(1, mystring.length - 1);                
-                    if (mystring == "New password has been sent successfully")
-                    {
+                    if (mystring == "New password has been sent successfully") {
                         successAlert(mystring);
                         $scope.redirectLogin();
                     }
-                    else
-                    {
-                        failureAlert(mystring);
-                    }
+                    else { failureAlert(mystring); }
                     $scope.stopSpin();
                 });                
             }
@@ -179,7 +214,7 @@
             accountsControllerVM.forgotPasswordNewPassword = '';
             accountsControllerVM.forgotPasswordConfirmPassword = '';
         }
-
+        // Change password
         function changePassword() {
             $scope.startSpin();
             $scope.reset();
@@ -206,9 +241,7 @@
                         successAlert(mystring);
                         $scope.redirectMain();
                     }
-                    else {
-                        failureAlert(mystring);
-                    }
+                    else { failureAlert(mystring); }
                     $scope.stopSpin();
                 });
             }
@@ -217,7 +250,7 @@
             accountsControllerVM.changePasswordNewPassword = '';
             accountsControllerVM.changePasswordConfirmPassword = '';
         }
-
+        // Check mis-match on Forgot Password
         function forgotPasswordCheckMismatch() {
             var result = false;
             var newPass = accountsControllerVM.forgotPasswordNewPassword;
@@ -227,7 +260,7 @@
             else { result = true; }
             return result;
         }
-
+        // Check mis-match on Change Password
         function changePasswordCheckMismatch()
         {            
             var result = false;
@@ -238,7 +271,7 @@
             else { result = true; }
             return result;
         }
-
+        // Check mis-match on User registration/Signup
         function signupCheckMismatch() {            
             var result = false;
             var pass = accountsControllerVM.signupPassword;
@@ -248,7 +281,7 @@
             else { result = true; }
             return result;
         }     
-
+        // Logout
         function logout()
         {           
             $scope.startSpin();
@@ -264,7 +297,7 @@
                 }               
             });
         }
-
+        // User Signup/Registration
         function signup() {            
             var email = accountsControllerVM.signupEmail;
             var password = accountsControllerVM.signupPassword;
@@ -294,11 +327,7 @@
                 return accountsService.signup({ address:address, email: email, name:name, password: password, phone:phone, zipCode: zipCode })
                     .then(function (serviceResponse) {
                         var response = serviceResponse.data;
-                    successAlert(response);
-                    //var mystring = new String(response);
-                    //mystring = mystring.substring(1, mystring.length - 1);
-                        //alert(mystring);
-                    debugger;
+                    successAlert(response);                                        
                     if (response == 'Registration is successful') {
                         $scope.stopSpin();
                         $scope.redirectMain();
@@ -317,6 +346,7 @@
                 accountsControllerVM.signupAddress = '';
                 accountsControllerVM.signupPhone = '';
             }
-        }      
+        }
+        //[End]------------------------------------------------------ Methods implementation ----------------------------------------------------------
     }
 })();

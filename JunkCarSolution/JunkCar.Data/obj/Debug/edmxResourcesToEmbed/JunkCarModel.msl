@@ -125,6 +125,7 @@
     <EntitySetMapping Name="Sal_Offer">
       <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Sal_Offer">
         <MappingFragment StoreEntitySet="Sal_Offer">
+          <ScalarProperty Name="No_Of_Cylinder" ColumnName="No_Of_Cylinder" />
           <ScalarProperty Name="Offer_Id" ColumnName="Offer_Id" />
           <ScalarProperty Name="Model_Year_Id" ColumnName="Model_Year_Id" />
           <ScalarProperty Name="Zip_Id" ColumnName="Zip_Id" />
@@ -1299,5 +1300,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetCylinders" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Offer_Parameter_Select" />
   </EntityContainerMapping>
 </Mapping>

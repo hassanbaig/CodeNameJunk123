@@ -11,7 +11,6 @@ namespace JunkCar.DomainService
 {
     public class AccountsDomainService : AbstractDomainService
     {
-
         private IUnitOfWork unitOfWork;
         public override AbstractDomainModel Save(AbstractDomainModel domainModel, JunkCar.Factory.Enumerations.DomainModelEnum domainModelType)
         {
@@ -32,7 +31,7 @@ namespace JunkCar.DomainService
                             else
                             {
                                 FactoryFacade factory = new FactoryFacade();
-                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.SignupUOW));
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.AccountsUOW));
                                 unitOfWork.Save(signup);
                                 unitOfWork.Commit();
                                 signup.ResponseMessage = "Registration is successful";
@@ -105,8 +104,8 @@ namespace JunkCar.DomainService
                             else
                             {
                                 FactoryFacade factory = new FactoryFacade();
-                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.AuthenticateUOW));
-                                authenticate = (DomainModel.Models.Authenticate)unitOfWork.Get(authenticate);
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.AccountsUOW));
+                                authenticate = (DomainModel.Models.Authenticate)unitOfWork.Get(authenticate,OperationType.Authenticate);
                                 authenticate.ResponseMessage = "Valid";
                             }
                             break;

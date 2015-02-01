@@ -10,14 +10,17 @@ using JunkCar.Factory.Factories;
 using JunkCar.UnitOfWork.Base;
 using JunkCar.DomainModel.Models;
 using JunkCar.Repository.RepositoryClasses;
+using JunkCar.Core;
 using JunkCar.Core.Common;
+using JunkCar.Core.Enumerations;
 namespace JunkCar.UnitOfWork
 {
-    public class AuthenticateUOW : BaseUnitOfWork, IUnitOfWork
+    public class AccountsUOW : BaseUnitOfWork, IUnitOfWork
     {
         private UserRepository userRepository;        
-        private Authenticate authenticate;
-        public AuthenticateUOW()
+        private Authenticate authenticate;         
+        private Signup signup;
+        public AccountsUOW()
             : base()
         {
             if (base.Context == null)
@@ -29,7 +32,7 @@ namespace JunkCar.UnitOfWork
                 ((IUnitOfWork)this).InitializeRepositories();
             }
         }
-        public AuthenticateUOW(shiner49_JunkCarNewEntities context)
+        public AccountsUOW(shiner49_JunkCarNewEntities context)
             : base(context)
         {
             if (context == null)
@@ -41,50 +44,57 @@ namespace JunkCar.UnitOfWork
                 ((IUnitOfWork)this).InitializeRepositories();
             }
         }
-
         void IUnitOfWork.InitializeRepositories()
-        {
+        {            
             userRepository = (UserRepository)base.Factory.RepositoryFactory.CreateRepository(typeof(UserRepository));            
             userRepository.DataContext = base.Context;            
         }
-
-
         void IUnitOfWork.Save(AbstractDomainModel domainModel)
         {
-            throw new NotImplementedException();            
-        }
+            try
+            {
+                signup = (Signup)domainModel;
 
+                int affectedRows = userRepository.Add(signup.Email, signup.Name, signup.Address, signup.Phone, JunkCar.Core.Common.Encryption.Encrypt("#", signup.Password), signup.ZipCode);
+                if (affectedRows > 0)
+                {
+
+                }
+                else
+                {
+                    //throw new Exception("User name already exist. Please login using the existing user name.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }       
+        }
         void IUnitOfWork.SaveAll()
         {
             throw new NotImplementedException();
         }
-
         void IUnitOfWork.Delete(AbstractDomainModel domainModel)
         {
             throw new NotImplementedException();
         }
-
         void IUnitOfWork.Update(AbstractDomainModel domainModel)
         {
             throw new NotImplementedException();
         }
-
         void IUnitOfWork.Commit()
         {
             base.Commit();
         }
-
         void IUnitOfWork.Add(AbstractDomainModel domainModel)
         {
             base.Add(domainModel);
         }
-
         void IUnitOfWork.Remove(AbstractDomainModel domainModel)
         {
             base.Remove(domainModel);
         }
-
-        public AbstractDomainModel Get(AbstractDomainModel domainModel)
+        public AbstractDomainModel Get(AbstractDomainModel domainModel, OperationType operationType)
         {
             authenticate = (JunkCar.DomainModel.Models.Authenticate)domainModel;
             string encryptedPass = Encryption.Encrypt("#", authenticate.Password);

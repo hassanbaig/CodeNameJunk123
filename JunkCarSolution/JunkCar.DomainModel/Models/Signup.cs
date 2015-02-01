@@ -15,8 +15,7 @@ namespace JunkCar.DomainModel.Models
 
         }
 
-        #region Propertiess    
-        public int OperationType { get; set; }        
+        #region Propertiess            
         public string Email { get; set; }
         public string Password { get; set; }
         public string ZipCode { get; set; }

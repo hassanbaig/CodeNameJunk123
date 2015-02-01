@@ -10,6 +10,7 @@ using JunkCar.UnitOfWork.Base;
 using JunkCar.DomainModel.Models;
 using JunkCar.Repository.RepositoryClasses;
 using JunkCar.Core.Common;
+using JunkCar.Core.Enumerations;
 namespace JunkCar.UnitOfWork
 {
     public class HomeUOW : BaseUnitOfWork, IUnitOfWork
@@ -40,84 +41,73 @@ namespace JunkCar.UnitOfWork
                 ((IUnitOfWork)this).InitializeRepositories();
             }
         }
-
         void IUnitOfWork.InitializeRepositories()
         {
             homeRepository = (HomeRepository)base.Factory.RepositoryFactory.CreateRepository(typeof(HomeRepository));
             homeRepository.DataContext = base.Context;
         }
-
-
         void IUnitOfWork.Save(AbstractDomainModel domainModel)
         {
             throw new NotImplementedException();            
         }
-
         void IUnitOfWork.SaveAll()
         {
             throw new NotImplementedException();
         }
-
         void IUnitOfWork.Delete(AbstractDomainModel domainModel)
         {
             throw new NotImplementedException();
         }
-
         void IUnitOfWork.Update(AbstractDomainModel domainModel)
         {
             throw new NotImplementedException();
         }
-
         void IUnitOfWork.Commit()
         {
             base.Commit();
         }
-
         void IUnitOfWork.Add(AbstractDomainModel domainModel)
         {
             base.Add(domainModel);
         }
-
         void IUnitOfWork.Remove(AbstractDomainModel domainModel)
         {
             base.Remove(domainModel);
         }
-
-
-        public AbstractDomainModel Get(AbstractDomainModel domainModel)
+        public AbstractDomainModel Get(AbstractDomainModel domainModel, OperationType operationType)
         {
             home = (Home)domainModel;
-            switch (home.OperationType)
+            switch (operationType)
             {
-                case 1:
+                case OperationType.Get_Makes:
                     home.Makes = homeRepository.GetMakesByYear(home.SelectedYear);
                     if(home.Makes == null)
                     {
                         throw new Exception("No item(s) in a list");
                     }
                     break;
-                case 2:
+                case OperationType.Get_Models:
                     home.Models = homeRepository.GetModelsByYearMake(home.SelectedYear, home.SelectedMakeId);
                     if (home.Models == null)
                     {
                         throw new Exception("No item(s) in a list");
                     }
                     break;
-                case 3:
+                case OperationType.Check_ZipCode:
                     home.ZipCodeResult = homeRepository.CheckZipCode(home.ZipCode);
                     if (home.ZipCodeResult.Is_Valid_Zip_Code == false)
                     {
                         throw new Exception("Please enter a valid zipcode");
                     }                   
                     break;
-                case 4:
+                case OperationType.Get_Cities:
                     home.Cities = homeRepository.GetCitiesByState(home.StateId);
                     if (home.Cities == null)
                     {
                         throw new Exception("No item(s) in a list");
                     }
                     break;
-                case 5:                   
+                case OperationType.Get_An_Offer:                   
                     home.OfferPrice = homeRepository.GetAnOffer(home.SelectedYear,home.SelectedMakeId,home.SelectedModelId,home.ZipCode,
                         "<Customer_Info><Customer_Name>" + home.Name + "</Customer_Name>" +
                         "<Customer_Address>" + home.Address + "</Customer_Address>" +
@@ -132,11 +122,10 @@ namespace JunkCar.UnitOfWork
                         JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Pending", home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");
                     }
                     break;
-                case 6:
+                case OperationType.Get_A_Better_Offer:
                     string [] selectedQuestionnaire = home.SelectedQuestionnaire.Split(',');
                     int[] questionnaireIds = selectedQuestionnaire.Select(int.Parse).ToArray();
                     string questionnaireResult = string.Empty;
-
 
                     home.QuestionnaireDescription = homeRepository.GetQuestionnaireDescription(questionnaireIds);
                     home.City = homeRepository.GetCity(home.ZipCode);
@@ -146,8 +135,7 @@ namespace JunkCar.UnitOfWork
                         if(i%2==0)
                         {questionnaireResult += "<Questionnaire_Result><Question_Id>"+selectedQuestionnaire[i]+"</Question_Id>";}
                         else
-                        { questionnaireResult += "<Answer_Id>"+selectedQuestionnaire[i]+"</Answer_Id></Questionnaire_Result>"; }
-                         
+                        { questionnaireResult += "<Answer_Id>"+selectedQuestionnaire[i]+"</Answer_Id></Questionnaire_Result>"; }                         
                     }
 
                     home.OfferPrice = homeRepository.GetABetterOffer(home.SelectedYear, home.SelectedMakeId, home.SelectedModelId,home.ZipCode,
@@ -166,11 +154,11 @@ namespace JunkCar.UnitOfWork
                         JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Pending", home.QuestionnaireDescription, home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");                        
                     }                   
                     break;                              
-                case 9:
+                case OperationType.Confirm_Offer:
                     JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Confirmed", home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");
                     JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForCustomer(home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.Phone,home.ContactNo, home.EmailAddress);
                     break;
-                case 10:
+                case OperationType.Confirm_Offer_With_Questionnaire:
                     string [] selectedQuestionnaire2 = home.SelectedQuestionnaire.Split(',');
                     int[] questionnaireIds2 = selectedQuestionnaire2.Select(int.Parse).ToArray();
 

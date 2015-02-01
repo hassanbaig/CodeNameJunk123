@@ -16,8 +16,7 @@ namespace JunkCar.DomainModel.Models
              
         }
         
-        #region Properties  
-        public int OperationType { get; set; }        
+        #region Properties          
         public string UserId { get; set; }
         public int SelectedYear { get; set; }
         public int SelectedMakeId { get; set; }

@@ -6,12 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace JunkCar.Factory.Factories
-{
-    
+{    
      public interface IUnitOfWork
     {
       void InitializeRepositories();
-      AbstractDomainModel Get(AbstractDomainModel domainModel);
+      AbstractDomainModel Get(AbstractDomainModel domainModel, OperationType operationType);
       AbstractDomainModel GetAll(SearchCriteriaEnum searchCriteria);
       void Save(AbstractDomainModel domainModel);
       void SaveAll();

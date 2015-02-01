@@ -15,8 +15,7 @@ namespace JunkCar.DomainModel.Models
 
         }
 
-        #region Propertiess    
-        public int OperationType { get; set; }
+        #region Propertiess            
         public bool IsAuthenticated { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }             

@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-ng-app="app">
+    <head>
+        <script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-59202259-1', 'auto');
+    ga('send', 'pageview');
+        </script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="Content/Images/favicon.png">
+    <title>::: JunkCarTrader :::</title>
+    <link href="Content/Assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="Content/Assets/CSS/bootstrap.css" rel="stylesheet">
+     
+        <script src="Scripts/angular.min.js"></script>
+        <script src="Scripts/angular-route.js"></script>
+        <script src="Scripts/angular-file-upload-shim.min.js"></script>
+        <script src="Scripts/angular-file-upload.min.js"></script>
+
+        <script src="App/RouteConfig.js"></script>
+        <!--<script src="Scripts/angular-sanitize.js"></script>-->
+        <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>-->
+        <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+        <script src="App/Config/App.js"></script>
+        <script src="App/Controllers/ContactUsController.js"></script>
+        <script src="App/Services/ContactUsService.js"></script>
+
+
+        <script type="text/javascript" src="http://fgnass.github.io/spin.js/spin.min.js"></script>
+        <script src="App/Animation/angular-spinner.js"></script>
+        <script type="text/javascript" src="Scripts/angular-animate.js"></script>
+        <link href="Content/Assets/CSS/animations.css" rel="stylesheet">
+        <script type="text/javascript" src="App/Animation/alerts-manager.js"></script>
+
+        <script type="text/javascript" src="App/CustomDirectives/filters.js"></script>
+        <link href="Content/Assets/CSS/angular.rangeSlider.css" rel="stylesheet">
+        <script type="text/javascript" src="App/CustomDirectives/angular.rangeSlider.js"></script>
+        <script type="text/javascript" src="App/CustomDirectives/rangeFilter.js"></script>
+        <script type="text/javascript" src="App/CustomDirectives/timeRangeFilter.js"></script>
+   
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+   </head>
+
+<style>
+
+.gt {width:200px; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;padding: 10px 10px 10px 10px; text-decoration:none; display:inline-block;text-shadow: -1px -1px 0 rgba(0,0,0,0.3); color: #FFFFFF;
+background-color: #31a507;background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none; }
+.navbar-brand {
+  float: left;
+  height: 62px;
+  /*padding: 15px 15px;*/
+  font-size: 18px;
+  line-height: 20px;
+}
+
+ul {
+    line-height: 28px;
+    
+    font-size: 18px;
+}
+
+</style>
+<body id="page" style="background-color:#fff;" >
+
+<!-- <ul class="cb-slideshow hidden-xs">
+ <li><span>Image 01</span></li>
+ <li><span>Image 02</span></li>
+ <li><span>Image 03</span></li>
+ <li><span>Image 04</span></li>
+ <li><span>Image 05</span></li>
+ <li><span>Image 06</span></li>
+ </ul> -->
+
+<div class="container-fluid" >
+
+<!--First Row-->
+<div class="row">
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container">
+<!-- Brand and toggle get grouped for better mobile display -->
+<div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="#">
+<!-- <img src="http://placehold.it/150x50&text=Logo" alt="">-->
+<img src="Content/Images/logo.png" />
+</a>
+</div>
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav">
+<li><a href="http://www.junkcartrader.com">Get an offer</a></li>
+<li><a href="Howitworks.html">How it works</a></li>
+<!--<li><a href="#">Testimonial</a></li>-->
+<li><a href="Aboutus.html">About us</a></li>
+<li class="active"><a href="#">Contact us</a></li>
+<li><a href="Signup.html">Sign up</a></li>
+<li><a href="Login.html">Login</a></li>
+<li style=" color:#F00" ><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</div>
+<!-- /.container -->
+</nav>
+</div>
+<!--End First Row-->
+
+<!--Second Row--> 
+<div class="row">
+<div class="col-lg-12" style="background:url(Content/Images/12345.jpg) no-repeat center center; background-size:cover; height:400px; margin-top:55px">
+
+</div>
+</div>
+<!--End Second Row-->
+
+
+<!--Third Row--> 
+<!--<div class="row" style="background-color:#e9e9e9; padding-bottom:30px">
+
+<div class="col-lg-4 col-sm-4">
+<div style="text-align:center;padding-left:15px; padding-right:15px"> <img src="Content/Images/icon2.png"/> </div>
+<h2 class="section-heading" style="text-align:center; padding-top:5px; ">Get an offer</h2>
+</div>
+
+<div class="col-lg-4 col-sm-4">
+<div style="text-align:center;padding-left:15px; padding-right:15px"> <img src="Content/Images/icon1.png"/> </div>
+<h2 class="section-heading" style="text-align:center; padding-top:5px; ">Get it towed</h2>
+</div>
+
+<div class="col-lg-4 col-sm-4">
+<div style="text-align:center;padding-left:15px; padding-right:15px"> <img src="Content/Images/icon3.png"/> </div>
+<h2 class="section-heading" style="text-align:center; padding-top:5px; ">Get Paid</h2>
+</div>
+
+</div>-->
+<!--End Third Row-->
+
+
+<!--Fourth Row-->
+
+<div class="row" style="margin-top:10px; ">    
+    <div class="container" data-ng-controller="contactUsController as contactUsControllerVM">
+        <span us-spinner="{radius:50, width:16, length: 32}" spinner-key="spinner-1"></span>
+        <div class="col-lg-6">
+            <h2>Contact us</h2>     
+            <form name="contactUsForm" novalidate>
+                <div class="form-group">
+                    <label for="disabledTextInput">Name<span data-ng-show="contactUsControllerVM.isValidName" style="color:#F00">*</span></label>
+                    <input type="text" name="userName" class="form-control" placeholder="" data-ng-model="contactUsControllerVM.contactUsName" required>
+                    <!--<span style="color:red" ng-show="contactUsForm.userName.$dirty && contactUsForm.userName.$invalid">
+                        <span ng-show="contactUsForm.userName.$error.required">Name is required.</span>
+                    </span>-->
+                </div>
+
+                <div class="form-group">
+                    <label for="disabledTextInput">Email<span data-ng-show="contactUsControllerVM.isValidEmail" style="color:#F00">*</span></label>
+                    <input type="text" name="email" class="form-control" placeholder="" data-ng-model="contactUsControllerVM.contactUsEmail" required>
+                    <!--<span style="color:red" ng-show="contactUsForm.email.$dirty && contactUsForm.email.$invalid">
+                        <span ng-show="contactUsForm.email.$error.required">Email is required.</span>
+                        <span ng-show="contactUsForm.email.$error.email">Invalid email address.</span>
+                    </span>-->
+                </div>
+
+                <div class="form-group">
+                    <label for="disabledTextInput">Phone<span data-ng-show="contactUsControllerVM.isValidPhone" style="color:#F00">*</span></label>
+                    <input type="text" name="phone" class="form-control" placeholder="" data-ng-model="contactUsControllerVM.contactUsPhone" required>
+                    <!--<span style="color:red" ng-show="contactUsForm.phone.$dirty && contactUsForm.phone.$invalid">
+                        <span ng-show="contactUsForm.email.$error.required">Phone is required.</span>                        
+                    </span>-->
+                </div>
+
+                <div class="form-group">
+                    <label for="disabledTextInput">Subject<span data-ng-show="contactUsControllerVM.isValidSubject" style="color:#F00">*</span></label>
+                    <input type="text" name="subject" class="form-control" placeholder="" data-ng-model="contactUsControllerVM.contactUsSubject" required>
+                    <!--<span style="color:red" ng-show="contactUsForm.subject.$dirty && contactUsForm.subject.$invalid">
+                        <span ng-show="contactUsForm.subject.$error.required">Subject is required.</span>
+                    </span>-->
+                </div>
+
+                <div class="form-group">
+                    <label for="disabledTextInput">Message<span data-ng-show="contactUsControllerVM.isValidMessage" style="color:#F00">*</span></label>
+                    <textarea class="form-control" name="message" rows="3" data-ng-model="contactUsControllerVM.contactUsMessage" required></textarea>
+                    <!--<span style="color:red" ng-show="contactUsForm.message.$dirty && contactUsForm.message.$invalid">
+                        <span ng-show="contactUsForm.message.$error.required">Message is required.</span>
+                    </span>-->
+                </div>
+
+                <button type="submit" class="btn gt btn-lg" data-ng-click="contactUsControllerVM.contactEmailSend();"> <!--data-ng-disabled="contactUsControllerVM.isValidName && contactUsControllerVM.isValidEmail &&
+  contactUsControllerVM.isValidPhone && contactUsControllerVM.isValidSubject && contactUsControllerVM.isValidMessage">-->
+                    <b>Submit</b>
+                </button>
+            </form>                 
+        </div>
+
+        <div class="col-lg-6">
+            <h2>You can also reach us by clicking on</h2>
+            <h3 style="text-align:center; margin-top:15px; "><span><a href="" data-toggle="modal" data-target="#Modal2"><img src="Content/Images/call.png" /></a> </span><br>Call Us</h3>
+        </div>
+
+    </div>
+</div>
+<!--End Fourth Row--> 
+
+
+
+<!--Sixth Row-->
+<div id="footer" class="container" style="margin-top:20px; margin-bottom:0px; height:50px; ">
+                <nav class="navbar navbar-default  navbar-fixed-bottom" style="background-color:#000">
+                    <div class="navbar-inner navbar-content-center">
+                        <div class="col-lg-4 centered">
+                            <a href="Aboutus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">About Us</a>
+                            <a href="Howitworks.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">How it works</a>
+                            <!--<a href="privacy.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">Privacy</a>-->
+                            <a href="Contactus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">Contact Us</a>
+
+                        </div>
+                        <div class="col-lg-4">
+
+                        </div>
+                        <div class="col-lg-4 centered">
+                            <span style="font-size:11px; color:#FFF">Copyright © 2015 junkcartrader.com. All Rights Reserved</span>
+
+                        </div>
+
+                    </div>
+                </nav>
+            </div>
+<!--End Sixth Row-->
+
+<!--Modal 3-->
+            <div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="background-color:#27bbed;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="padding:20px">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="callUsZipCode" data-ng-model="homeControllerVM.homeZipCode" data-ng-keypress="onKeyPress($event);" placeholder="Enter Zipcode">
+                                    </div>
+                                    <h3><span class="label label-default" style="background-color:#ee2c3d">{{contactNo}}</span></h3>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Modal 3-->
+
+ 
+ 
+</div><!-- /container -->
+  
+       
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="Content/Assets/JS/bootstrap.min.js"></script>
+    
+</body>
+</html>
+
+
+
+<script>
+  $('#myTab a[href="#home"]').tab('show') // Select tab by name
+  $(".dropdown-menu li a").click(function(){
+  var selText = $(this).text();
+  $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+});
+
+$("#btnSearch").click(function(){
+	alert($('.btn-select').text()+", "+$('.btn-select2').text());
+});
+  
+  
+  </script>
+  <script type="text/javascript">
+  (function($) {
+      //fakewaffle.responsiveTabs(['xs', 'sm']);
+  })(jQuery);
+</script>
+<script>
+ $('.btnNext').click(function(){
+  $('.nav-tabs > .active').next('li').find('a').trigger('click');
+});
+
+  $('.btnPrevious').click(function(){
+  $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+});
+</script>
+
+<script>
+$(document).on('change', '.btn-file :file', function() {
+  var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+  input.trigger('fileselect', [numFiles, label]);
+});
+
+$(document).ready( function() {
+    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+        
+        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
+        
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+        
+    });
+});
+</script>

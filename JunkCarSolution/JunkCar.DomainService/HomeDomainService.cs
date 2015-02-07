@@ -47,7 +47,7 @@ namespace JunkCar.DomainService
                             else
                             {
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.Get_Makes);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.GET_MAKES);
                                 home.ResponseMessage = "Valid";
                             }
                             break;
@@ -64,7 +64,7 @@ namespace JunkCar.DomainService
                             else
                             {
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.Get_Models);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.GET_MODLES);
                                 home.ResponseMessage = "Valid";
                             }
                             break;
@@ -77,7 +77,7 @@ namespace JunkCar.DomainService
                             else
                             {
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.Check_ZipCode);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.CHECK_ZIPCODE);
                                 home.ResponseMessage = "Valid";
                             }
                             break;
@@ -90,7 +90,7 @@ namespace JunkCar.DomainService
                             else
                             {
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.Get_Cities);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.GET_CITIES);
                                 home.ResponseMessage = "Valid";
                             }
                             break;
@@ -99,7 +99,7 @@ namespace JunkCar.DomainService
                             //else
                             //{
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.Get_An_Offer);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.GET_AN_OFFER);
                                 home.ResponseMessage = "Valid";
                             //}
                             break;
@@ -120,7 +120,7 @@ namespace JunkCar.DomainService
                             else
                             {                                
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.Get_A_Better_Offer);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.GET_A_BETTER_OFFER);
                                 home.ResponseMessage = "Valid";
                             }
                             break;
@@ -149,7 +149,7 @@ namespace JunkCar.DomainService
                                    home.OfferPrice = home.OfferPrice.Replace("$","");
                                 }
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.Confirm_Offer);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.CONFIRM_OFFER);
                                 home.ResponseMessage = "Confirmed";                                
                             }
                             break;
@@ -178,8 +178,21 @@ namespace JunkCar.DomainService
                                     home.OfferPrice = home.OfferPrice.Replace("$", "");
                                 }
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.Confirm_Offer_With_Questionnaire);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.CONFIRM_OFFER_WITH_QUESTIONNAIRE);
                                 home.ResponseMessage = "Confirmed";
+                            }
+                            break;
+                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_CUSTOMER_ID:
+                            home = (DomainModel.Models.Home)domainModel;
+                           if (home.EmailAddress.Length <= 0)
+                            {
+                                home.ResponseMessage = "Please enter email address";                               
+                            }
+                            else
+                            {                             
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.HomeUOW));
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home, OperationType.GET_CUSTOMER_ID);
+                                home.ResponseMessage = "Found";
                             }
                             break;  
                         default:
@@ -212,6 +225,9 @@ namespace JunkCar.DomainService
                             home.ResponseMessage = "Invalid domain model";
                             break;
                         case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
+                            home.ResponseMessage = "Invalid domain model";
+                            break;
+                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_CUSTOMER_ID:
                             home.ResponseMessage = "Invalid domain model";
                             break;        
                         default:
@@ -247,6 +263,9 @@ namespace JunkCar.DomainService
                     case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
                         home.ResponseMessage = ex.Message;
                         break;
+                    case JunkCar.Factory.Enumerations.DomainModelEnum.GET_CUSTOMER_ID:
+                        home.ResponseMessage = ex.Message;
+                        break;
                     default:
                         break;
                 }
@@ -269,6 +288,8 @@ namespace JunkCar.DomainService
                 case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER:
                     return home;
                 case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
+                    return home;
+                case JunkCar.Factory.Enumerations.DomainModelEnum.GET_CUSTOMER_ID:
                     return home;
                 default:
                     break;

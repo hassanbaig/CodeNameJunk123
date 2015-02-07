@@ -46,6 +46,7 @@ namespace JunkCar.DomainModel.Models
         public string[] CustomerInfo { get; set; }
         public string OfferPrice { get; set; }
         public string ContactNo { get; set; }
+        public int CustomerId { get; set; }
         public List<string> QuestionnaireDescription { get; set; }       
         #endregion        
     

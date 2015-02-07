@@ -248,7 +248,14 @@ namespace JunkCar.Repository.RepositoryClasses
                         select sta.State_Name).FirstOrDefault();
             return state;
         }
-
+        public int GetCustomerId(string emailAddress, string phone)
+        {
+            var customerId = (from salCus in _context.Sal_Customer
+                              join salCusCon in _context.Sal_Customer_Contact on salCus.Customer_Id equals salCusCon.Customer_Id
+                              where salCus.Login_Name.Equals(emailAddress) || salCusCon.Customer_Contact.Equals(emailAddress) || salCusCon.Customer_Contact.Equals(phone)
+                              select salCus.Customer_Id).FirstOrDefault();
+            return customerId;
+        }
         public List<string> GetQuestionnaireDescription(int[] selectedQuestionnaire)
         {
             List<string> questionnaireDescription = new List<string>();

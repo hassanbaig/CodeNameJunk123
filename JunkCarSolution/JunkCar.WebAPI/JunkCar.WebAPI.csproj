@@ -87,6 +87,7 @@
     <Content Include="EmailTemlates\ForgotPasswordEmail.html" />
     <Content Include="EmailTemlates\JunkcarOfferEmailForAdmin.html" />
     <Content Include="EmailTemlates\JunkcarOfferEmailForCustomer.html" />
+    <Content Include="EmailTemlates\ContactUsEmail.html" />
     <Content Include="EmailTemlates\SignupEmail.html" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -94,6 +95,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Configurations\APIConfig.cs" />
+    <Compile Include="Controllers\ContactUsController.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">

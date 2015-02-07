@@ -105,7 +105,7 @@ namespace JunkCar.DomainService
                             {
                                 FactoryFacade factory = new FactoryFacade();
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.AccountsUOW));
-                                authenticate = (DomainModel.Models.Authenticate)unitOfWork.Get(authenticate,OperationType.Authenticate);
+                                authenticate = (DomainModel.Models.Authenticate)unitOfWork.Get(authenticate,OperationType.AUTHENTICATE);
                                 authenticate.ResponseMessage = "Valid";
                             }
                             break;

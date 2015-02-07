@@ -176,7 +176,7 @@ p.codrops-demos a.current-demo:hover{
 /* Media Queries */
 @media screen and (max-width: 767px) {
 	.container > header{
-		text-align: center;
+		text-align: left;
 	}
 	p.codrops-demos {
 		position: relative;

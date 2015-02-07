@@ -59,7 +59,7 @@ namespace JunkCar.Core.Common
             getAnOffer["ZipCode"] = zipCode;          
             return getAnOffer;
         }         
-        public static Hashtable GetABetterOffer(string address, int cityId, short cylinders, string emailAddress, string make, string model, string name, string phone, string questionnaire, int selectedMakeId, int selectedModelId, int selectedYear, int stateId, string zipCode)
+        public static Hashtable GetABetterOffer(string address, int cityId,int customerId, short cylinders, string emailAddress, string make, string model, string name, string phone, string questionnaire, int selectedMakeId, int selectedModelId, int selectedYear, int stateId, string zipCode)
         {
             Hashtable getABetterOffer = new Hashtable();
             getABetterOffer["SelectedYear"] = selectedYear;
@@ -75,10 +75,11 @@ namespace JunkCar.Core.Common
             getABetterOffer["ZipCode"] = zipCode;
             getABetterOffer["Phone"] = phone;
             getABetterOffer["SelectedQuestionnaire"] = questionnaire;
-            getABetterOffer["EmailAddress"] = emailAddress; 
+            getABetterOffer["EmailAddress"] = emailAddress;
+            getABetterOffer["CustomerId"] = customerId;             
             return getABetterOffer;
         }
-        public static Hashtable ConfirmOffer(string address, int cityId, string contactNo, string emailAddress, string make, string model, string name, string phone, string price, int selectedMakeId, int selectedModelId, int selectedYear, int stateId, string zipCode)
+        public static Hashtable ConfirmOffer(string address, int cityId, string contactNo, short cylinders, string emailAddress, string make, string model, string name, string phone, string price, int selectedMakeId, int selectedModelId, int selectedYear, int stateId, string zipCode)
         {
             Hashtable confirmOffer = new Hashtable();
             confirmOffer["Address"] = address;
@@ -87,6 +88,7 @@ namespace JunkCar.Core.Common
             confirmOffer["EmailAddress"] = emailAddress;
             confirmOffer["SelectedMake"] = make;
             confirmOffer["SelectedModel"] = model;
+            confirmOffer["CylindersQuantity"] = cylinders;
             confirmOffer["Name"] = name;
             confirmOffer["Phone"] = phone;
             confirmOffer["OfferPrice"] = price;
@@ -97,7 +99,7 @@ namespace JunkCar.Core.Common
             confirmOffer["ZipCode"] = zipCode;
             return confirmOffer;
         }
-        public static Hashtable ConfirmOfferWithQuestionnaire(string address, int cityId, string contactNo, string emailAddress, string make, string model, string name, string phone, string price, string questionnaire, int selectedMakeId, int selectedModelId, int selectedYear, int stateId, string zipCode)
+        public static Hashtable ConfirmOfferWithQuestionnaire(string address, int cityId, string contactNo, int customerId, short cylinders, string emailAddress, string make, string model, string name, string phone, string price, string questionnaire, int selectedMakeId, int selectedModelId, int selectedYear, int stateId, string zipCode)
         {
             Hashtable confirmOfferWithQuestionnaire = new Hashtable();
             confirmOfferWithQuestionnaire["Address"] = address;
@@ -106,6 +108,7 @@ namespace JunkCar.Core.Common
             confirmOfferWithQuestionnaire["EmailAddress"] = emailAddress;
             confirmOfferWithQuestionnaire["SelectedMake"] = make;
             confirmOfferWithQuestionnaire["SelectedModel"] = model;
+            confirmOfferWithQuestionnaire["CylindersQuantity"] = cylinders;
             confirmOfferWithQuestionnaire["Name"] = name;
             confirmOfferWithQuestionnaire["Phone"] = phone;
             confirmOfferWithQuestionnaire["OfferPrice"] = price;
@@ -115,6 +118,7 @@ namespace JunkCar.Core.Common
             confirmOfferWithQuestionnaire["SelectedYear"] = selectedYear;
             confirmOfferWithQuestionnaire["StateId"] = stateId;
             confirmOfferWithQuestionnaire["ZipCode"] = zipCode;
+            confirmOfferWithQuestionnaire["CustomerId"] = customerId;
             return confirmOfferWithQuestionnaire;
         }        
         public static Hashtable GetContactNo(string zipCode)
@@ -123,6 +127,13 @@ namespace JunkCar.Core.Common
             getContact["ZipCode"] = zipCode;
             return getContact;
         }
+        public static Hashtable GetCustomerId(string emailAddress, string phone)
+        {
+            Hashtable getCustomerId = new Hashtable();
+            getCustomerId["EmailAddress"] = emailAddress;
+            getCustomerId["Phone"] = phone;
+            return getCustomerId;
+        }        
         public static Hashtable Signup(string address, string email, string name, string password, string phone, string zipCode)
         {
             Hashtable signup = new Hashtable();
@@ -133,8 +144,17 @@ namespace JunkCar.Core.Common
             signup["Phone"] = phone;
             signup["ZipCode"] = zipCode;
             return signup;
+        }
+        public static Hashtable ContactEmailMessage(string name, string email, string phone, string subject, string message)
+        {
+            Hashtable contactEmailMessage = new Hashtable();
+            contactEmailMessage["Name"] = name;
+            contactEmailMessage["Email"] = email;
+            contactEmailMessage["Phone"] = phone;
+            contactEmailMessage["Subject"] = subject;
+            contactEmailMessage["Message"] = message;
+            return contactEmailMessage;
         }     
-        
        
     }
 }

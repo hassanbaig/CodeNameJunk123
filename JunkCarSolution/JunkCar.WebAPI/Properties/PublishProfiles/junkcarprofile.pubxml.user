@@ -17,58 +17,58 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/23/2014 15:25:19</publishTime>
     </File>
     <File Include="bin/JunkCar.Core.dll">
-      <publishTime>01/31/2015 20:58:54</publishTime>
+      <publishTime>02/06/2015 19:28:13</publishTime>
     </File>
     <File Include="bin/JunkCar.Core.pdb">
-      <publishTime>01/31/2015 20:58:54</publishTime>
+      <publishTime>02/06/2015 19:28:13</publishTime>
     </File>
     <File Include="bin/JunkCar.Data.dll">
-      <publishTime>01/31/2015 20:58:55</publishTime>
+      <publishTime>02/06/2015 15:26:49</publishTime>
     </File>
     <File Include="bin/JunkCar.Data.pdb">
-      <publishTime>01/31/2015 20:58:55</publishTime>
+      <publishTime>02/06/2015 15:26:49</publishTime>
     </File>
     <File Include="bin/JunkCar.DataModel.dll">
-      <publishTime>01/30/2015 11:42:14</publishTime>
+      <publishTime>02/06/2015 15:26:41</publishTime>
     </File>
     <File Include="bin/JunkCar.DataModel.pdb">
-      <publishTime>01/30/2015 11:42:14</publishTime>
+      <publishTime>02/06/2015 15:26:41</publishTime>
     </File>
     <File Include="bin/JunkCar.DomainModel.dll">
-      <publishTime>01/31/2015 20:58:56</publishTime>
+      <publishTime>02/06/2015 19:28:14</publishTime>
     </File>
     <File Include="bin/JunkCar.DomainModel.pdb">
-      <publishTime>01/31/2015 20:58:56</publishTime>
+      <publishTime>02/06/2015 19:28:14</publishTime>
     </File>
     <File Include="bin/JunkCar.DomainService.dll">
-      <publishTime>01/31/2015 20:58:57</publishTime>
+      <publishTime>02/06/2015 19:28:15</publishTime>
     </File>
     <File Include="bin/JunkCar.DomainService.pdb">
-      <publishTime>01/31/2015 20:58:57</publishTime>
+      <publishTime>02/06/2015 19:28:15</publishTime>
     </File>
     <File Include="bin/JunkCar.Factory.dll">
-      <publishTime>01/31/2015 20:58:55</publishTime>
+      <publishTime>02/06/2015 19:28:13</publishTime>
     </File>
     <File Include="bin/JunkCar.Factory.pdb">
-      <publishTime>01/31/2015 20:58:55</publishTime>
+      <publishTime>02/06/2015 19:28:13</publishTime>
     </File>
     <File Include="bin/JunkCar.Repository.dll">
-      <publishTime>01/31/2015 20:58:56</publishTime>
+      <publishTime>02/06/2015 19:28:14</publishTime>
     </File>
     <File Include="bin/JunkCar.Repository.pdb">
-      <publishTime>01/31/2015 20:58:56</publishTime>
+      <publishTime>02/06/2015 19:28:14</publishTime>
     </File>
     <File Include="bin/JunkCar.UnitOfWork.dll">
-      <publishTime>01/31/2015 20:58:57</publishTime>
+      <publishTime>02/06/2015 19:28:15</publishTime>
     </File>
     <File Include="bin/JunkCar.UnitOfWork.pdb">
-      <publishTime>01/31/2015 20:58:57</publishTime>
+      <publishTime>02/06/2015 19:28:15</publishTime>
     </File>
     <File Include="bin/JunkCar.WebAPI.dll">
-      <publishTime>01/31/2015 20:58:58</publishTime>
+      <publishTime>02/06/2015 19:46:37</publishTime>
     </File>
     <File Include="bin/JunkCar.WebAPI.pdb">
-      <publishTime>01/31/2015 20:58:58</publishTime>
+      <publishTime>02/06/2015 19:46:37</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>12/23/2014 15:26:54</publishTime>
@@ -85,6 +85,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="EmailTemlates/ChangePasswordEmail.html">
       <publishTime>12/18/2014 17:58:31</publishTime>
     </File>
+    <File Include="EmailTemlates/ContactUsEmail.html">
+      <publishTime>02/06/2015 19:26:07</publishTime>
+    </File>
     <File Include="EmailTemlates/ForgotPasswordEmail.html">
       <publishTime>12/18/2014 17:58:31</publishTime>
     </File>
@@ -92,7 +95,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/14/2015 13:25:39</publishTime>
     </File>
     <File Include="EmailTemlates/JunkcarOfferEmailForAdmin.html">
-      <publishTime>01/31/2015 01:21:27</publishTime>
+      <publishTime>02/03/2015 18:29:35</publishTime>
     </File>
     <File Include="EmailTemlates/JunkcarOfferEmailForCustomer.html">
       <publishTime>01/21/2015 19:49:54</publishTime>
@@ -107,7 +110,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/23/2014 15:26:55</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/20/2015 20:49:36</publishTime>
+      <publishTime>02/06/2015 19:28:26</publishTime>
     </File>
   </ItemGroup>
 </Project>

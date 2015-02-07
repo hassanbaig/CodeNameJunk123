@@ -1,4 +1,22 @@
-﻿(function () {
+﻿     /* ________________________________________________________________________________________________________
+       | Company         | ShinerSoft Private Limited                                                          |
+       |_________________|_____________________________________________________________________________________|       
+       | File            |  HomeController.js                                                                  |
+       |_________________|_____________________________________________________________________________________|
+       | Description     |   * Controller/ViewModel: todolists                                                 |
+       |                 |   * Support a view of all TodoLists                                                 |
+       |                 |   * Handles fetch and save of these lists                                           |
+       |_________________|_____________________________________________________________________________________|
+       | Created By      |  HASSAN MUSTAFA BAIG                                                                |
+       |_________________|_____________________________________________________________________________________|
+       | Date Created    |  01 Feb 2015                                                                        |
+       |_________________|_____________________________________________________________________________________|
+       | Modified By     |                                                                                     | 
+       |_________________|_____________________________________________________________________________________|
+       | Date Modified   |  01 Feb 2015                                                                        |
+       |_________________|_____________________________________________________________________________________|*/
+
+(function () {
     'use strict';
 
     angular.module('app').controller('homeController', ['homeService', '$scope', '$location', 'usSpinnerService', '$rootScope', 'alertsManager', '$http', '$timeout', '$upload', homeController]);
@@ -46,13 +64,8 @@
                 if (year.length != 0 && make.length != 0 && model.length != 0 && cylinder.length != 0) {
                     if (myTabsActive < 3) {
                         var index = myTabsActive + 1;
-                        index = index >= myTabs ? 0 : index;
-
-                        //$('#myTab a[href="#tab' + index + '"]').tab('show');
-                        $('#myTab li:eq(' + index + ') a').tab('show');
-                        //$('#myTab li:eq(' + index + ') a').attr('href', '#tab' + index);
-                        //$('#myTab li:eq(' + index + ') a').attr('data-toggle', 'tab');
-
+                        index = index >= myTabs ? 0 : index;                                                
+                        $('#myTab li:eq(' + index + ') a').tab('show');                        
                         myTabsActive = index;
                         if (myTabsActive == 3)
                         { showCustomerInfoPopup(); }
@@ -62,7 +75,6 @@
                     alert("Please enter year, make, model and cylinders");
                 }
             }
-
             tabPrev = function () {
                 var year = $("#carMakeModelYear").val();
                 var make = $("#carMakeModelMake").val();
@@ -71,12 +83,8 @@
                 if (year.length != 0 && make.length != 0 && model.length != 0 && cylinder.length != 0) {
                     if (myTabsActive > 0) {
                         var index = myTabsActive - 1;
-                        index = index < 0 ? myTabs - 1 : index;
-
-                        //$('#myTab a[href="#tab' + index + '"]').tab('show');
-                        $('#myTab li:eq(' + index + ') a').tab('show');
-                        //$('#myTab li:eq(' + index + ') a').attr('href', '#tab' + index);
-                        //$('#myTab li:eq(' + index + ') a').attr('data-toggle', 'tab');                                
+                        index = index < 0 ? myTabs - 1 : index;                       
+                        $('#myTab li:eq(' + index + ') a').tab('show');                                                      
                         myTabsActive = index;
                     }
                 }
@@ -84,27 +92,22 @@
                     alert("Please enter year, make, model and cylinders");
                 }
             }
-
             carMakeModelTab = function () {
                 $('#myTab li:eq(0) a').tab('show');
                 myTabsActive = 0;
             }
-
             locationTab = function () {
                 $('#myTab li:eq(1) a').tab('show');
                 myTabsActive = 1;
             }
-
             questionnaireTab = function () {
                 $('#myTab li:eq(2) a').tab('show');
                 myTabsActive = 2;
             }
-
             photoTab = function () {
                 $('#myTab li:eq(3) a').tab('show');
                 myTabsActive = 3;
             }
-
             offerTab = function () {
                 $('#myTab li:eq(4) a').tab('show');
                 myTabsActive = 4;
@@ -124,9 +127,7 @@
 
         //---------------------------------------------------------- ViewModel variables --------------------------------------------------------        
         var homeControllerVM = this;        
-        
-        homeControllerVM.statesList = [];
-        homeControllerVM.citiesList = [];        
+                  
         homeControllerVM.drivetrainQuestionnaireList = [];
         homeControllerVM.interiorExteriorQuestionnaireList = [];
 
@@ -146,6 +147,8 @@
 
         homeControllerVM.isValidZipCode = false;
         //---------------------------------------------------------- $rootScope variables ----------------------------------------------------------                
+        $rootScope.statesList = [];
+        $rootScope.citiesList = [];
         $rootScope.questionnaireList = [];
         $rootScope.registrationYearsList = [];
         $rootScope.makesList = [];
@@ -155,6 +158,7 @@
         $rootScope.contactNo = '';
         $rootScope.questionnaireResult = '';
         $rootScope.operationType = 0;
+        $rootScope.customerId = 0;
         //---------------------------------------------------------- $scope variables ----------------------------------------------------------        
         $scope.isDisableGetAnOfferButton = false;
         $scope.isDisableGetABetterOfferButton = false;
@@ -252,6 +256,9 @@
         homeControllerVM.navigateNext = navigateNext;
         homeControllerVM.checkOfferType = checkOfferType;
         homeControllerVM.closeSaveEdit = closeSaveEdit;
+        homeControllerVM.setSaveEditData = setSaveEditData;
+        homeControllerVM.setSelected = setSelected;
+        homeControllerVM.getCustomerId = getCustomerId;
         //[End]--------------------------------------------------- Methods definition ---------------------------------------------------------
 
         /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -271,13 +278,21 @@
 
         // Upload photos on upload button click
         $rootScope.onFileSelect = function () {
+            var year = localStorage.getItem('selectedYear');
+            var makeId = localStorage.getItem('selectedMakeId');
+            var modelId = localStorage.getItem('selectedModelId');
+            var cylinders = $("#carMakeModelCylinder").val();;
+            var customerId = $rootScope.customerId;
+
+            var params = { customerId: customerId, cylinders: cylinders, makeId: makeId, modelId: modelId, year: year };
             //$files: an array of files selected, each file has name, size, and type.
             for (var i = 0; i < allFiles.length; i++) {
                 var $file = allFiles[i];
                 (function (index) {
                     $scope.upload[index] = $upload.upload({
-                        url: 'http://localhost/JunkCarWebAPI/API/Home/Upload', // webapi url
+                        url: homeService.getBaseUrl() + 'Home/Upload', // webapi url
                         //url: 'API/API/Home/Upload', // webapi url
+                        params:params,
                         method: 'POST',                        
                         file: $file
                     }).progress(function (evt) {
@@ -306,6 +321,7 @@
 
             if (allFiles.length <= 0) {
                 alert("All files uploaded successfully");
+                getABetterOffer();
             }
         }
         $scope.abortUpload = function (index) {
@@ -352,7 +368,7 @@
             $scope.isDisableGetAnOfferButton = false;
             $scope.isDisableGetABetterOfferButton = false;
         }
-
+        // On key press, check zip-code
         $rootScope.onKeyPress = function (event, zipCode) {
             if (event.which === 13) {
                 $rootScope.operationType = 4;
@@ -362,11 +378,11 @@
                 homeControllerVM.homeZipCode = zc;
             }
             else {
-            }
+            }           
         }
         //------------------------------------------------------------- Methods --------------------------------------------------------------
         // Local storage management        
-
+        
         // Save year to local storage
         function saveYearData() {
             var year = homeControllerVM.homeSelectedRegistrationYear;
@@ -568,7 +584,7 @@
         // Check zip-code on save edit button click
         function checkZipCodeOnSaveEdit(zipCode) {
             $rootScope.disableButtons();
-            $rootScope.operationType = 3;
+            $rootScope.operationType = 3;            
             var zc = $("#editZipCode").val();
             checkZipCode(zc);
             homeControllerVM.homeZipCode = zc;
@@ -616,15 +632,19 @@
                                     var carYear = $("#editYear").val();
                                     var carMake = $("#editMake").val();
                                     var carModel = $("#editModel").val();
+                                    var carCylinder = $("#editCylinder").val();                                   
 
                                     $("#carMakeModelYear").val(carYear);
                                     $("#carMakeModelMake").val(carMake);
                                     $("#carMakeModelModel").val(carModel);
+                                    $("#carMakeModelCylinder").val(carCylinder);
 
                                     $("#basicModalZipCode").val(zipCode);
                                     $("#locationTabZipCode").val(zipCode);
                                     $("#callUsZipCode").val(zipCode);
                                     homeControllerVM.homeZipCode = zipCode;
+
+                                    homeControllerVM.setSelected();
                                     break;
                                 case 4:
                                     // Call us enter keypress
@@ -660,10 +680,10 @@
             return homeService.getStates()
                 .then(function (serviceResponse) {
                     var response = serviceResponse.data;
-                    homeControllerVM.statesList = response;
+                    $rootScope.statesList = response;
                     $scope.reset();
                     $scope.stopSpin();
-                    return homeControllerVM.statesList;
+                    return $rootScope.statesList;
                 }).catch(function (serviceError) {
                     failureAlert(serviceError.data);
                     console.log(serviceError.data);
@@ -674,9 +694,9 @@
         function getCities() {
             var state = homeControllerVM.homeBetterOfferState;
             var stateId = '';
-            for (var i = 0; i < homeControllerVM.statesList.length; i++) {
-                if (homeControllerVM.statesList[i].State_Name == state) {
-                    stateId = parseInt(homeControllerVM.statesList[i].State_Id);
+            for (var i = 0; i < $rootScope.statesList.length; i++) {
+                if ($rootScope.statesList[i].State_Name == state) {
+                    stateId = parseInt($rootScope.statesList[i].State_Id);
                     break;
                 }
             }
@@ -684,10 +704,10 @@
             return homeService.getCities({ stateId: stateId })
                 .then(function (serviceResponse) {
                     var response = serviceResponse.data;
-                    homeControllerVM.citiesList = response;
+                    $rootScope.citiesList = response;
                     $scope.reset();
                     $scope.stopSpin();
-                    return homeControllerVM.citiesList = response;
+                    return $rootScope.citiesList = response;
                 }).catch(function (serviceError) {
                     failureAlert(serviceError.data);
                     console.log(serviceError.data);
@@ -718,12 +738,43 @@
         }
         // Check offer type
         function checkOfferType() {
+            var address = $("#basicModalAddress").val();
+            var city = $("#basicModalCity").val();
+            var email = $("#basicModalEmail").val();
+            var name = $("#basicModalName").val();
+            var phone = $("#basicModalPhone").val();
+            var state = $("#basicModalState").val();
+
+            localStorage.setItem('Name', name);
+            localStorage.setItem('Address', address);
+            localStorage.setItem('CityId', cityId);
+            localStorage.setItem('StateId', stateId);
+            localStorage.setItem('Phone', phone);
+            localStorage.setItem('Email', email);
+
+            var stateId = '';
+            var cityId = '';
+
+            for (var i = 0; i < $rootScope.statesList.length; i++) {
+                if ($rootScope.statesList[i].State_Name == state) {
+                    stateId = parseInt($rootScope.statesList[i].State_Id);
+                    break;
+                }
+            }
+
+            for (var i = 0; i < $rootScope.citiesList.length; i++) {
+                if ($rootScope.citiesList[i].City_Name == city) {
+                    cityId = parseInt($rootScope.citiesList[i].City_Id);
+                    break;
+                }
+            }
+
             switch ($rootScope.operationType) {
                 case 1:
                     getAnOffer();
                     break;
-                case 2:
-                    getABetterOffer();
+                case 2:                    
+                    getCustomerId();
                     break;
                 default:
                     break;
@@ -764,16 +815,16 @@
                 }
             }
 
-            for (var i = 0; i < homeControllerVM.statesList.length; i++) {
-                if (homeControllerVM.statesList[i].State_Name == state) {
-                    stateId = parseInt(homeControllerVM.statesList[i].State_Id);
+            for (var i = 0; i < $rootScope.statesList.length; i++) {
+                if ($rootScope.statesList[i].State_Name == state) {
+                    stateId = parseInt($rootScope.statesList[i].State_Id);
                     break;
                 }
             }
 
-            for (var i = 0; i < homeControllerVM.citiesList.length; i++) {
-                if (homeControllerVM.citiesList[i].City_Name == city) {
-                    cityId = parseInt(homeControllerVM.citiesList[i].City_Id);
+            for (var i = 0; i < $rootScope.citiesList.length; i++) {
+                if ($rootScope.citiesList[i].City_Name == city) {
+                    cityId = parseInt($rootScope.citiesList[i].City_Id);
                     break;
                 }
             }
@@ -799,7 +850,7 @@
         function getABetterOffer() {
             $rootScope.questionnaireResult = '';
             var questionnaireResult = checkQuestionnaire();
-
+            var customerId = $rootScope.customerId;
             var address = $("#basicModalAddress").val();
             var city = $("#basicModalCity").val();
             var email = $("#basicModalEmail").val();
@@ -817,6 +868,12 @@
             var stateId = '';
             var cityId = '';
 
+            for (var i = 0; i < $rootScope.citiesList.length; i++) {
+                if ($rootScope.citiesList[i].City_Name == city) {
+                    cityId = parseInt($rootScope.citiesList[i].City_Id);
+                    break;
+                }
+            }
 
             for (var i = 0; i < $rootScope.makesList.length; i++) {
                 if ($rootScope.makesList[i].Make_Name == make) {
@@ -832,19 +889,14 @@
                 }
             }
 
-            for (var i = 0; i < homeControllerVM.statesList.length; i++) {
-                if (homeControllerVM.statesList[i].State_Name == state) {
-                    stateId = parseInt(homeControllerVM.statesList[i].State_Id);
+            for (var i = 0; i < $rootScope.statesList.length; i++) {
+                if ($rootScope.statesList[i].State_Name == state) {
+                    stateId = parseInt($rootScope.statesList[i].State_Id);
                     break;
                 }
             }
 
-            for (var i = 0; i < homeControllerVM.citiesList.length; i++) {
-                if (homeControllerVM.citiesList[i].City_Name == city) {
-                    cityId = parseInt(homeControllerVM.citiesList[i].City_Id);
-                    break;
-                }
-            }
+            
 
             localStorage.setItem('Name', name);
             localStorage.setItem('Address', address);
@@ -854,7 +906,7 @@
             localStorage.setItem('Email', email);
 
             $scope.startSpin();
-            return homeService.getABetterOffer({ address: address, cityId: cityId, cylinders: cylinders, emailAddress: email, make: make, model: model, name: name, phone: phone, questionnaire: questionnaireResult, selectedMakeId: makeId, selectedModelId: modelId, selectedYear: year, stateId: stateId, zipCode: zipCode })
+            return homeService.getABetterOffer({ address: address, cityId: cityId, customerId:customerId, cylinders: cylinders, emailAddress: email, make: make, model: model, name: name, phone: phone, questionnaire: questionnaireResult, selectedMakeId: makeId, selectedModelId: modelId, selectedYear: year, stateId: stateId, zipCode: zipCode })
             .then(function (serviceResponse) {
                 $rootScope.offerPrice = '$';
                 $rootScope.offerPrice += serviceResponse.data;
@@ -903,27 +955,44 @@
         // Confirm offer without questionnaire
         function confirmOffer() {       
             $rootScope.questionnaireResult = checkQuestionnaire();
+            var customerId = $rootScope.customerId;                        
             var year = parseInt(localStorage.getItem('selectedYear'));
             var makeId = parseInt(localStorage.getItem('selectedMakeId'));
             var modelId = parseInt(localStorage.getItem('selectedModelId'));
             var make = localStorage.getItem('selectedMake');
             var model = localStorage.getItem('selectedModel');
             var name = localStorage.getItem('Name');
-            var address = localStorage.getItem('Address');
-            var cityId = localStorage.getItem('CityId');
+            var address = $("#basicModalAddress").val();
+            var city = $("#basicModalCity").val();
             var zipCode = homeControllerVM.homeZipCode;
-            var stateId = localStorage.getItem('StateId');
-            var phone = localStorage.getItem('Phone');
-            var email = localStorage.getItem('Email');
+            var state = $("#basicModalState").val();
+            var phone = $("#basicModalPhone").val();
+            var email = $("#basicModalEmail").val();
             var price = $rootScope.offerPrice;
             var contactNo = $rootScope.contactNo;
+            var cylinders = $("#carMakeModelCylinder").val();
 
+            var stateId = '';
+            var cityId = '';
+            for (var i = 0; i < $rootScope.statesList.length; i++) {
+                if ($rootScope.statesList[i].State_Name == state) {
+                    stateId = parseInt($rootScope.statesList[i].State_Id);
+                    break;
+                }
+            }
+
+            for (var i = 0; i < $rootScope.citiesList.length; i++) {
+                if ($rootScope.citiesList[i].City_Name == city) {
+                    cityId = parseInt($rootScope.citiesList[i].City_Id);
+                    break;
+                }
+            }
             $scope.startSpin();
             if ($rootScope.questionnaireResult.length > 0) {
                 confirmOfferWithQuestionnaire();
             }
             else {
-                return homeService.confirmOffer({ address: address, cityId: cityId, contactNo: contactNo, emailAddress: email, make: make, model: model, name: name, phone: phone, price: price, selectedMakeId: makeId, selectedModelId: modelId, selectedYear: year, stateId: stateId, zipCode: zipCode })
+                return homeService.confirmOffer({ address: address, cityId: cityId, contactNo: contactNo, cylinders:cylinders, emailAddress: email, make: make, model: model, name: name, phone: phone, price: price, selectedMakeId: makeId, selectedModelId: modelId, selectedYear: year, stateId: stateId, zipCode: zipCode })
                     .then(function (serviceResponse) {
                         var response = serviceResponse.data;
                         if (response == "Confirmed") {
@@ -950,6 +1019,7 @@
         // Confirm offer with questionnaire
         function confirmOfferWithQuestionnaire() {         
             $rootScope.questionnaireResult = checkQuestionnaire();
+            var customerId = $rootScope.customerId;
             var year = parseInt(localStorage.getItem('selectedYear'));
             var makeId = parseInt(localStorage.getItem('selectedMakeId'));
             var modelId = parseInt(localStorage.getItem('selectedModelId'));
@@ -964,9 +1034,10 @@
             var email = localStorage.getItem('Email');
             var price = $rootScope.offerPrice;
             var contactNo = $rootScope.contactNo;
+            var cylinders = $("#carMakeModelCylinder").val();
 
             $scope.startSpin();
-            return homeService.confirmOfferWithQuestionnaire({ address: address, cityId: cityId, contactNo: contactNo, emailAddress: email, make: make, model: model, name: name, phone: phone, price: price, questionnaire: $rootScope.questionnaireResult, selectedMakeId: makeId, selectedModelId: modelId, selectedYear: year, stateId: stateId, zipCode: zipCode })
+            return homeService.confirmOfferWithQuestionnaire({ address: address, cityId: cityId, contactNo: contactNo, customerId: customerId, cylinders: cylinders, emailAddress: email, make: make, model: model, name: name, phone: phone, price: price, questionnaire: $rootScope.questionnaireResult, selectedMakeId: makeId, selectedModelId: modelId, selectedYear: year, stateId: stateId, zipCode: zipCode })
                 .then(function (serviceResponse) {
                     var response = serviceResponse.data;
                     if (response == "Confirmed") {
@@ -988,7 +1059,69 @@
                     console.log(serviceError.data);
                     return null;
                 });
-        }        
+        }
+        // Get customer id        
+        function getCustomerId() {
+            var email = $("#basicModalEmail").val();
+            var phone = $("#basicModalPhone").val();
+            $scope.startSpin();
+            return homeService.getCustomerId({ emailAddress: email, phone:phone })
+                .then(function (serviceResponse) {
+                    var response = serviceResponse.data;
+                    $rootScope.customerId = parseInt(response);
+                    if ($rootScope.customerId > 0) {                        
+                    }
+                    $scope.reset();
+                    $scope.stopSpin();
+                    return response;
+                }).catch(function (serviceError) {
+                    failureAlert(serviceError.data);
+                    console.log(serviceError.data);
+                    return null;
+                });
+        }
+        // Set selected data
+        function setSelected()
+        {           
+            var carYear = $("#editYear").val();
+            var carMake = $("#editMake").val();
+            var carModel = $("#editModel").val();
+            var carCylinders = $("#editCylinder").val();
+
+            document.getElementById('selectedYearData').textContent = carYear + ', ';
+            document.getElementById('selectedMakeData').textContent = carMake + ', ';
+            document.getElementById('selectedModelData').textContent = carModel + ' ';
+            document.getElementById('selectedCylindersData').textContent = 'and ' + carCylinders;
+            //$('#selectedYearData').html(carYear);
+            //$('#selectedMakeData').html(carMake);
+            //$('#selectedModelData').html(carModel);
+            //$('#selectedCylindersData').html(carCylinders);
+
+            homeControllerVM.homeSelectedRegistrationYear = carYear;
+            homeControllerVM.homeSelectedMake = carMake;
+            homeControllerVM.homeSelectedModel = carModel;
+            homeControllerVM.homeSelectedCylinders = carCylinders;
+        }
+        // Set Save Edit data
+        function setSaveEditData()
+        {            
+            var carYear = $("#carMakeModelYear").val();
+            var carMake = $("#carMakeModelMake").val();
+            var carModel = $("#carMakeModelModel").val();
+            var carCylinders = $("#carMakeModelCylinder").val();
+            var zipCode = $("#locationTabZipCode").val();
+
+            homeControllerVM.homeSelectedRegistrationYear = carYear;
+            homeControllerVM.homeSelectedMake = carMake;
+            homeControllerVM.homeSelectedModel = carModel;
+            homeControllerVM.homeSelectedCylinders = carCylinders;
+
+            $("#editYear").val(carYear);
+            $("#editMake").val(carMake);
+            $("#editModel").val(carModel);
+            $("#editCylinder").val(carCylinders);
+            $("#editZipCode").val(zipCode);
+        }
         // Clear all data
         function clearAllData() {
             homeControllerVM.homeSelectedRegistrationYear = '';
@@ -1038,6 +1171,16 @@
         }
         // Navigate to questionnaire
         function navigateToQuestionnaire() {
+            var carYear = $("#carMakeModelYear").val();
+            var carMake = $("#carMakeModelMake").val();
+            var carModel = $("#carMakeModelModel").val();
+            var carCylinders = $("#carMakeModelCylinder").val();
+
+            document.getElementById('selectedYearData').textContent = carYear + ', ';
+            document.getElementById('selectedMakeData').textContent = carMake + ', ';
+            document.getElementById('selectedModelData').textContent = carModel + ' ';
+            document.getElementById('selectedCylindersData').textContent = 'and ' + carCylinders;
+
             questionnaireTab();
         }
         // Previous tab

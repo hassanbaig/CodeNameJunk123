@@ -1,11 +1,21 @@
-﻿/***
- * Controller/ViewModel: todolists 
- *
- * Support a view of all TodoLists
- *
- * Handles fetch and save of these lists
- *
- ***/
+﻿     /* ________________________________________________________________________________________________________
+       | Company         | ShinerSoft Private Limited                                                          |
+       |_________________|_____________________________________________________________________________________|       
+       | File            |  HomeController.js                                                                  |
+       |_________________|_____________________________________________________________________________________|
+       | Description     |   * Controller/ViewModel: todolists                                                 |
+       |                 |   * Support a view of all TodoLists                                                 |
+       |                 |   * Handles fetch and save of these lists                                           |
+       |_________________|_____________________________________________________________________________________|
+       | Created By      |  HASSAN MUSTAFA BAIG                                                                |
+       |_________________|_____________________________________________________________________________________|
+       | Date Created    |  01 Feb 2015                                                                        |
+       |_________________|_____________________________________________________________________________________|
+       | Modified By     |                                                                                     | 
+       |_________________|_____________________________________________________________________________________|
+       | Date Modified   |  01 Feb 2015                                                                        |
+       |_________________|_____________________________________________________________________________________|*/
+
 (function () {
     'use strict';   
     angular.module('app').controller('accountsController', ['accountsService', '$scope', '$location', 'usSpinnerService', '$rootScope', 'alertsManager', accountsController]);

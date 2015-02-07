@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContactUsUOW.cs" />
     <Compile Include="AccountsUOW.cs" />
     <Compile Include="HomeUOW.cs" />
     <Compile Include="Base\BaseUnitOfWork.cs" />

@@ -1,3 +1,19 @@
+     /* ________________________________________________________________________________________________________
+       | Company         | ShinerSoft Private Limited                                                          |
+       |_________________|_____________________________________________________________________________________|       
+       | File            |  HomeService.js                                                                     |
+       |_________________|_____________________________________________________________________________________|
+       | Description     | Service: datacontext   ( Handles all persistence and creation/deletion of app )     |
+       |_________________|_____________________________________________________________________________________|
+       | Created By      |  HASSAN MUSTAFA BAIG                                                                |
+       |_________________|_____________________________________________________________________________________|
+       | Date Created    |  01 Feb 2015                                                                        |
+       |_________________|_____________________________________________________________________________________|
+       | Modified By     |                                                                                     | 
+       |_________________|_____________________________________________________________________________________|
+       | Date Modified   |  01 Feb 2015                                                                        |
+       |_________________|_____________________________________________________________________________________|*/
+
 (function () {
     'use strict';
         
@@ -26,7 +42,9 @@
             confirmOffer: confirmOffer,
             confirmOfferWithQuestionnaire: confirmOfferWithQuestionnaire,
             getCookie:getCookie,
-            setCookie:setCookie
+            setCookie: setCookie,
+            getBaseUrl: getBaseUrl,
+            getCustomerId: getCustomerId
         };
         return service;
         //[End]------------------------------------------------------ Service definition ----------------------------------------------------------
@@ -242,6 +260,23 @@
                 method: 'GET',
                 params: params,
                 url: getBaseUrl() + 'Home/ConfirmOfferWithQuestionnaire'
+            }).success(function (data, status, headers) {
+                response = data;
+                return response;
+            })
+            .error(function (data, status, headers) {
+                response = data;
+                return response;
+            });
+            return promise;
+        }
+        // Get customer id
+        function getCustomerId(params) {
+            var response = '';
+            var promise = $http({
+                method: 'GET',
+                params: params,
+                url: getBaseUrl() + 'Home/GetCustomerId'
             }).success(function (data, status, headers) {
                 response = data;
                 return response;

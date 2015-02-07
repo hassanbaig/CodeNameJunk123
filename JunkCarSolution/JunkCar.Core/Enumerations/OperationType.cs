@@ -8,14 +8,16 @@ namespace JunkCar.Core.Enumerations
 {
     public enum OperationType
     {
-        Authenticate,
-        Get_Makes,
-        Get_Models,
-        Check_ZipCode,
-        Get_Cities,
-        Get_An_Offer,
-        Get_A_Better_Offer,
-        Confirm_Offer,
-        Confirm_Offer_With_Questionnaire
+        AUTHENTICATE,
+        GET_MAKES,
+        GET_MODLES,
+        CHECK_ZIPCODE,
+        GET_CITIES,
+        GET_AN_OFFER,
+        GET_A_BETTER_OFFER,
+        CONFIRM_OFFER,
+        CONFIRM_OFFER_WITH_QUESTIONNAIRE,
+        GET_CUSTOMER_ID,
+        CONTACT_EMAIL_MESSAGE
     }
 }

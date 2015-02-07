@@ -18,6 +18,8 @@ namespace JunkCar.Factory.Enumerations
         CONFIRM_OFFER,
         CONFIRM_OFFER_WITH_QUESTIONNAIRE,
         SIGNUP,
-        GET_CONTACT_NO
+        GET_CONTACT_NO,
+        GET_CUSTOMER_ID,
+        CONTACT_EMAIL_MESSAGE
     }
 }

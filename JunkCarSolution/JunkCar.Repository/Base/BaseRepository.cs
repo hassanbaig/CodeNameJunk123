@@ -12,7 +12,7 @@ namespace JunkCar.Repository.Base
     public class BaseRepository : IDisposable
     {
 
-        private shiner49_JunkCarNewEntities _context;      
+       private shiner49_JunkCarNewEntities _context;      
        private bool _disposed;
        protected shiner49_JunkCarNewEntities GetConnection()
        {

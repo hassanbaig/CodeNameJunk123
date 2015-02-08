@@ -7,7 +7,8 @@ using JunkCar.UnitOfWork.Base;
 using JunkCar.Factory.Factories;
 using JunkCar.UnitOfWork;
 using JunkCar.Core.Enumerations;
-namespace JunkCar.DomainService
+
+namespace JunkCar.DomainService.Services
 {
     public class ContactUsDomainService : AbstractDomainService
     {
@@ -44,7 +45,7 @@ namespace JunkCar.DomainService
                             else
                             {
                                 FactoryFacade factory = new FactoryFacade();
-                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.ContactUsUOW));
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.ContactUsUOW));
                                 contactUs = (DomainModel.Models.ContactUs)unitOfWork.Get(contactUs, OperationType.CONTACT_EMAIL_MESSAGE);
                                 contactUs.ResponseMessage = "Valid";
                             }

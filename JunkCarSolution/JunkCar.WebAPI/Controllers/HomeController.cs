@@ -1,7 +1,7 @@
 ﻿using JunkCar.Core.Common;
 using JunkCar.DataModel.Models;
 using JunkCar.DomainModel.Models;
-using JunkCar.DomainService;
+using JunkCar.DomainService.Services;
 using JunkCar.Factory.Factories;
 using Newtonsoft.Json;
 using System;
@@ -19,7 +19,7 @@ namespace JunkCar.WebAPI.Controllers
     public class HomeController : ApiController
     {
         private AbstractDomainModel domainModel;
-        private AbstractDomainService domainService;
+        private AbstractDomainService domainService;       
         public IQueryable GetRegistrationYears()
         {            
             FactoryFacade factory = new FactoryFacade();

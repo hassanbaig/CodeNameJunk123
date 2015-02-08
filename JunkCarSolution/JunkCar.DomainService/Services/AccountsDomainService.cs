@@ -7,7 +7,7 @@ using JunkCar.UnitOfWork.Base;
 using JunkCar.Factory.Factories;
 using JunkCar.UnitOfWork;
 using JunkCar.Core.Enumerations;
-namespace JunkCar.DomainService
+namespace JunkCar.DomainService.Services
 {
     public class AccountsDomainService : AbstractDomainService
     {
@@ -31,7 +31,7 @@ namespace JunkCar.DomainService
                             else
                             {
                                 FactoryFacade factory = new FactoryFacade();
-                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.AccountsUOW));
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.AccountsUOW));
                                 unitOfWork.Save(signup);
                                 unitOfWork.Commit();
                                 signup.ResponseMessage = "Registration is successful";
@@ -104,7 +104,7 @@ namespace JunkCar.DomainService
                             else
                             {
                                 FactoryFacade factory = new FactoryFacade();
-                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.AccountsUOW));
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.AccountsUOW));
                                 authenticate = (DomainModel.Models.Authenticate)unitOfWork.Get(authenticate,OperationType.AUTHENTICATE);
                                 authenticate.ResponseMessage = "Valid";
                             }

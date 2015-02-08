@@ -8,10 +8,10 @@ using JunkCar.Data;
 using JunkCar.Factory.Factories;
 using JunkCar.UnitOfWork.Base;
 using JunkCar.DomainModel.Models;
-using JunkCar.Repository.RepositoryClasses;
+using JunkCar.Repository.Repositories;
 using JunkCar.Core.Common;
 using JunkCar.Core.Enumerations;
-namespace JunkCar.UnitOfWork
+namespace JunkCar.UnitOfWork.UOWs
 {
     public class HomeUOW : BaseUnitOfWork, IUnitOfWork
     {       

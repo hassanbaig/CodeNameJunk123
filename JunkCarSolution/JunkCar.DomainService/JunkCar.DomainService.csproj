@@ -39,9 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContactUsDomainService.cs" />
-    <Compile Include="AccountsDomainService.cs" />
-    <Compile Include="HomeDomainService.cs" />
+    <Compile Include="Services\ContactUsDomainService.cs" />
+    <Compile Include="Services\AccountsDomainService.cs" />
+    <Compile Include="Services\HomeDomainService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

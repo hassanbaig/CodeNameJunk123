@@ -1,6 +1,6 @@
 ﻿using JunkCar.Core.Common;
 using JunkCar.DomainModel.Models;
-using JunkCar.DomainService;
+using JunkCar.DomainService.Services;
 using JunkCar.Factory.Factories;
 using System;
 using System.Collections.Generic;

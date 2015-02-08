@@ -9,7 +9,7 @@ using JunkCar.Repository.Base;
 using System.Configuration;
 using System.Data.Entity.Core.Objects;
 
-namespace JunkCar.Repository.RepositoryClasses
+namespace JunkCar.Repository.Repositories
 {
     public class HomeRepository : BaseRepository, IRepository
     {

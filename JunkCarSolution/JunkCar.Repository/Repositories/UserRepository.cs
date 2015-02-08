@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using JunkCar.Data;
 using JunkCar.Factory.Factories;
+using JunkCar.Repository.Base;
 
-namespace JunkCar.Repository.RepositoryClasses
+namespace JunkCar.Repository.Repositories
 {
-    public class UserRepository : IRepository
+    public class UserRepository : BaseRepository, IRepository
     {
        
         public UserRepository()

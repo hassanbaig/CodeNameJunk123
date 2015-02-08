@@ -9,18 +9,18 @@ using JunkCar.Data;
 using JunkCar.Factory.Factories;
 using JunkCar.UnitOfWork.Base;
 using JunkCar.DomainModel.Models;
-using JunkCar.Repository.RepositoryClasses;
+using JunkCar.Repository.Repositories;
 using JunkCar.Core;
 using JunkCar.Core.Common;
 using JunkCar.Core.Enumerations;
-namespace JunkCar.UnitOfWork
+namespace JunkCar.UnitOfWork.UOWs
 {
-    public class ContactUsUOW : BaseUnitOfWork, IUnitOfWork
+    public class AccountsUOW : BaseUnitOfWork, IUnitOfWork
     {
-        //private UserRepository userRepository;        
-        //private Authenticate authenticate;         
-        private ContactUs contactUs;
-        public ContactUsUOW()
+        private UserRepository userRepository;        
+        private Authenticate authenticate;         
+        private Signup signup;
+        public AccountsUOW()
             : base()
         {
             if (base.Context == null)
@@ -32,7 +32,7 @@ namespace JunkCar.UnitOfWork
                 ((IUnitOfWork)this).InitializeRepositories();
             }
         }
-        public ContactUsUOW(shiner49_JunkCarNewEntities context)
+        public AccountsUOW(shiner49_JunkCarNewEntities context)
             : base(context)
         {
             if (context == null)
@@ -46,12 +46,29 @@ namespace JunkCar.UnitOfWork
         }
         void IUnitOfWork.InitializeRepositories()
         {            
-            //userRepository = (UserRepository)base.Factory.RepositoryFactory.CreateRepository(typeof(UserRepository));            
-            //userRepository.DataContext = base.Context;            
+            userRepository = (UserRepository)base.Factory.RepositoryFactory.CreateRepository(typeof(UserRepository));            
+            userRepository.DataContext = base.Context;            
         }
         void IUnitOfWork.Save(AbstractDomainModel domainModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                signup = (Signup)domainModel;
+
+                int affectedRows = userRepository.Add(signup.Email, signup.Name, signup.Address, signup.Phone, JunkCar.Core.Common.Encryption.Encrypt("#", signup.Password), signup.ZipCode);
+                if (affectedRows > 0)
+                {
+
+                }
+                else
+                {
+                    //throw new Exception("User name already exist. Please login using the existing user name.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }       
         }
         void IUnitOfWork.SaveAll()
         {
@@ -79,16 +96,20 @@ namespace JunkCar.UnitOfWork
         }
         public AbstractDomainModel Get(AbstractDomainModel domainModel, OperationType operationType)
         {
-            contactUs = (JunkCar.DomainModel.Models.ContactUs)domainModel;
-            switch (operationType)
-            {                
-                case OperationType.CONTACT_EMAIL_MESSAGE:
-                    JunkCar.Core.ConfigurationEmails.ConfigurationEmail.ContactUs(contactUs.Name,contactUs.Email,contactUs.Phone,contactUs.Subject,contactUs.Message,"junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");
-                    break;
-                default:
-                    break;
+            authenticate = (JunkCar.DomainModel.Models.Authenticate)domainModel;
+            string encryptedPass = Encryption.Encrypt("#", authenticate.Password);
+            int customerId = userRepository.GetUser(authenticate.Email, encryptedPass);
+            if (customerId != 0)
+            {
+                authenticate.IsAuthenticated = true;
             }
-            return contactUs;
+            else
+            {
+                authenticate.IsAuthenticated = false;
+                throw new Exception("Please check login credentials and then try again.");
+            }
+
+            return authenticate;
         }
         public AbstractDomainModel GetAll(Core.Enumerations.SearchCriteriaEnum searchCriteria)
         {

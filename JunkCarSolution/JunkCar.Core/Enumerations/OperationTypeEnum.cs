@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JunkCar.Core.Enumerations
 {
-    public enum OperationType
+    public enum OperationTypeEnum
     {
         AUTHENTICATE,
         GET_MAKES,

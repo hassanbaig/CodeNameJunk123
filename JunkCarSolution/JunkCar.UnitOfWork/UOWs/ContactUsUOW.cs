@@ -77,12 +77,12 @@ namespace JunkCar.UnitOfWork.UOWs
         {
             base.Remove(domainModel);
         }
-        public AbstractDomainModel Get(AbstractDomainModel domainModel, OperationType operationType)
+        public AbstractDomainModel Get(AbstractDomainModel domainModel, OperationTypeEnum operationType)
         {
             contactUs = (JunkCar.DomainModel.Models.ContactUs)domainModel;
             switch (operationType)
             {                
-                case OperationType.CONTACT_EMAIL_MESSAGE:
+                case OperationTypeEnum.CONTACT_EMAIL_MESSAGE:
                     JunkCar.Core.ConfigurationEmails.ConfigurationEmail.ContactUs(contactUs.Name,contactUs.Email,contactUs.Phone,contactUs.Subject,contactUs.Message,"junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");
                     break;
                 default:

@@ -94,7 +94,7 @@ namespace JunkCar.UnitOfWork.UOWs
         {
             base.Remove(domainModel);
         }
-        public AbstractDomainModel Get(AbstractDomainModel domainModel, OperationType operationType)
+        public AbstractDomainModel Get(AbstractDomainModel domainModel, OperationTypeEnum operationType)
         {
             authenticate = (JunkCar.DomainModel.Models.Authenticate)domainModel;
             string encryptedPass = Encryption.Encrypt("#", authenticate.Password);

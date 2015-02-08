@@ -47,7 +47,7 @@ namespace JunkCar.DomainService.Services
                             {
                                 
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.ContactUsUOW));
-                                contactUs = (DomainModel.Models.ContactUs)unitOfWork.Get(contactUs, OperationType.CONTACT_EMAIL_MESSAGE);
+                                contactUs = (DomainModel.Models.ContactUs)unitOfWork.Get(contactUs, OperationTypeEnum.CONTACT_EMAIL_MESSAGE);
                                 contactUs.ResponseMessage = "Valid";
                             }
                             break;
@@ -60,7 +60,7 @@ namespace JunkCar.DomainService.Services
                             else
                             {
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.ContactUsUOW));
-                                contactUs = (DomainModel.Models.ContactUs)unitOfWork.Get(contactUs, OperationType.CHECK_ZIPCODE);
+                                contactUs = (DomainModel.Models.ContactUs)unitOfWork.Get(contactUs, OperationTypeEnum.CHECK_ZIPCODE);
                                 contactUs.ResponseMessage = "Valid";
                             }
                             break;

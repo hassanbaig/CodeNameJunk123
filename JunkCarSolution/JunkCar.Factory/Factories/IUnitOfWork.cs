@@ -10,7 +10,7 @@ namespace JunkCar.Factory.Factories
      public interface IUnitOfWork
     {
       void InitializeRepositories();
-      AbstractDomainModel Get(AbstractDomainModel domainModel, OperationType operationType);
+      AbstractDomainModel Get(AbstractDomainModel domainModel, OperationTypeEnum operationType);
       AbstractDomainModel GetAll(SearchCriteriaEnum searchCriteria);
       void Save(AbstractDomainModel domainModel);
       void SaveAll();

@@ -74,40 +74,40 @@ namespace JunkCar.UnitOfWork.UOWs
         {
             base.Remove(domainModel);
         }
-        public AbstractDomainModel Get(AbstractDomainModel domainModel, OperationType operationType)
+        public AbstractDomainModel Get(AbstractDomainModel domainModel, OperationTypeEnum operationType)
         {
             home = (Home)domainModel;
             switch (operationType)
             {
-                case OperationType.GET_MAKES:
+                case OperationTypeEnum.GET_MAKES:
                     home.Makes = homeRepository.GetMakesByYear(home.SelectedYear);
                     if(home.Makes == null)
                     {
                         throw new Exception("No item(s) in a list");
                     }
                     break;
-                case OperationType.GET_MODLES:
+                case OperationTypeEnum.GET_MODLES:
                     home.Models = homeRepository.GetModelsByYearMake(home.SelectedYear, home.SelectedMakeId);
                     if (home.Models == null)
                     {
                         throw new Exception("No item(s) in a list");
                     }
                     break;
-                case OperationType.CHECK_ZIPCODE:
+                case OperationTypeEnum.CHECK_ZIPCODE:
                     home.ZipCodeResult = homeRepository.CheckZipCode(home.ZipCode);
                     if (home.ZipCodeResult.Is_Valid_Zip_Code == false)
                     {
                         throw new Exception("Please enter a valid zipcode");
                     }                   
                     break;
-                case OperationType.GET_CITIES:
+                case OperationTypeEnum.GET_CITIES:
                     home.Cities = homeRepository.GetCitiesByState(home.StateId);
                     if (home.Cities == null)
                     {
                         throw new Exception("No item(s) in a list");
                     }
                     break;
-                case OperationType.GET_AN_OFFER:                   
+                case OperationTypeEnum.GET_AN_OFFER:                   
                      home.City = homeRepository.GetCity(home.ZipCode);
                     home.State = homeRepository.GetState(home.ZipCode);
                     home.OfferPrice = homeRepository.GetAnOffer(home.SelectedYear,home.SelectedMakeId,home.SelectedModelId,home.ZipCode,
@@ -124,7 +124,7 @@ namespace JunkCar.UnitOfWork.UOWs
                         JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Pending", home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");
                     }
                     break;
-                case OperationType.GET_A_BETTER_OFFER:
+                case OperationTypeEnum.GET_A_BETTER_OFFER:
                     string [] selectedQuestionnaire = home.SelectedQuestionnaire.Split(',');
                     int[] questionnaireIds = selectedQuestionnaire.Select(int.Parse).ToArray();
                     string questionnaireResult = string.Empty;
@@ -155,13 +155,13 @@ namespace JunkCar.UnitOfWork.UOWs
                         JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Pending", home.CustomerId, home.QuestionnaireDescription, home.SelectedYear, home.SelectedMake, home.SelectedMakeId, home.SelectedModel, home.SelectedModelId, home.CylindersQuantity, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");
                     }                   
                     break;                              
-                case OperationType.CONFIRM_OFFER:
+                case OperationTypeEnum.CONFIRM_OFFER:
                     home.City = homeRepository.GetCity(home.ZipCode);
                     home.State = homeRepository.GetState(home.ZipCode);
                     JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Confirmed", home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");
                     JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForCustomer(home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.Phone,home.ContactNo, home.EmailAddress);
                     break;
-                case OperationType.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
+                case OperationTypeEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
                     string [] selectedQuestionnaire2 = home.SelectedQuestionnaire.Split(',');
                     int[] questionnaireIds2 = selectedQuestionnaire2.Select(int.Parse).ToArray();
 
@@ -171,7 +171,7 @@ namespace JunkCar.UnitOfWork.UOWs
                     JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Confirmed", home.CustomerId, home.QuestionnaireDescription, home.SelectedYear, home.SelectedMake, home.SelectedMakeId, home.SelectedModel, home.SelectedModelId, home.CylindersQuantity, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");                    
                     JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForCustomer(home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.Phone, home.ContactNo, home.EmailAddress);
                     break;
-                case OperationType.GET_CUSTOMER_ID:
+                case OperationTypeEnum.GET_CUSTOMER_ID:
                     home.CustomerId = homeRepository.GetCustomerId(home.EmailAddress,home.Phone);
                     if(home.CustomerId <= 0)
                     {

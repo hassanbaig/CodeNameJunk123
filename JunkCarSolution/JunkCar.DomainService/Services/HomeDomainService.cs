@@ -47,7 +47,7 @@ namespace JunkCar.DomainService.Services
                             else
                             {
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.GET_MAKES);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationTypeEnum.GET_MAKES);
                                 home.ResponseMessage = "Valid";
                             }
                             break;
@@ -64,7 +64,7 @@ namespace JunkCar.DomainService.Services
                             else
                             {
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.GET_MODLES);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationTypeEnum.GET_MODLES);
                                 home.ResponseMessage = "Valid";
                             }
                             break;
@@ -77,7 +77,7 @@ namespace JunkCar.DomainService.Services
                             else
                             {
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.CHECK_ZIPCODE);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationTypeEnum.CHECK_ZIPCODE);
                                 home.ResponseMessage = "Valid";
                             }
                             break;
@@ -90,7 +90,7 @@ namespace JunkCar.DomainService.Services
                             else
                             {
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.GET_CITIES);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationTypeEnum.GET_CITIES);
                                 home.ResponseMessage = "Valid";
                             }
                             break;
@@ -99,7 +99,7 @@ namespace JunkCar.DomainService.Services
                             //else
                             //{
                             unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.GET_AN_OFFER);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationTypeEnum.GET_AN_OFFER);
                                 home.ResponseMessage = "Valid";
                             //}
                             break;
@@ -120,7 +120,7 @@ namespace JunkCar.DomainService.Services
                             else
                             {
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.GET_A_BETTER_OFFER);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationTypeEnum.GET_A_BETTER_OFFER);
                                 home.ResponseMessage = "Valid";
                             }
                             break;
@@ -149,7 +149,7 @@ namespace JunkCar.DomainService.Services
                                    home.OfferPrice = home.OfferPrice.Replace("$","");
                                 }
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.CONFIRM_OFFER);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationTypeEnum.CONFIRM_OFFER);
                                 home.ResponseMessage = "Confirmed";                                
                             }
                             break;
@@ -178,7 +178,7 @@ namespace JunkCar.DomainService.Services
                                     home.OfferPrice = home.OfferPrice.Replace("$", "");
                                 }
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationType.CONFIRM_OFFER_WITH_QUESTIONNAIRE);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home,OperationTypeEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE);
                                 home.ResponseMessage = "Confirmed";
                             }
                             break;
@@ -191,7 +191,7 @@ namespace JunkCar.DomainService.Services
                             else
                             {
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.HomeUOW));
-                                home = (DomainModel.Models.Home)unitOfWork.Get(home, OperationType.GET_CUSTOMER_ID);
+                                home = (DomainModel.Models.Home)unitOfWork.Get(home, OperationTypeEnum.GET_CUSTOMER_ID);
                                 home.ResponseMessage = "Found";
                             }
                             break;  
@@ -238,7 +238,7 @@ namespace JunkCar.DomainService.Services
             catch (Exception ex)
             {
                 switch (domainModelType)
-                {                    
+                {
                     case DomainModelEnum.GET_MAKES:
                         home.ResponseMessage = ex.Message;
                         break;

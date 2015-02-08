@@ -49,7 +49,7 @@
     <Compile Include="Common\UserData.cs" />
     <Compile Include="ConfigurationEmails\ConfigurationEmail.cs" />
     <Compile Include="Enumerations\DomainModelEnum.cs" />
-    <Compile Include="Enumerations\OperationType.cs" />
+    <Compile Include="Enumerations\OperationTypeEnum.cs" />
     <Compile Include="Enumerations\SearchCriteriaEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Utility.cs" />

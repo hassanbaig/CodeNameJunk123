@@ -20,7 +20,9 @@ namespace JunkCar.DomainModel.Models
         public string Email { get; set; }                
         public string Phone { get; set; }      
         public string Subject { get; set; }                
-        public string Message { get; set; }        
+        public string Message { get; set; }
+        public string ZipCode { get; set; }
+        public JunkCar.DataModel.Models.CheckZipCode_Result ZipCodeResult { get; set; }
         public string ResponseMessage { get; set; }        
         #endregion        
     

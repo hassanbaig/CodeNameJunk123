@@ -48,6 +48,7 @@
     <Compile Include="Common\TicketHelper.cs" />
     <Compile Include="Common\UserData.cs" />
     <Compile Include="ConfigurationEmails\ConfigurationEmail.cs" />
+    <Compile Include="Enumerations\DomainModelEnum.cs" />
     <Compile Include="Enumerations\OperationType.cs" />
     <Compile Include="Enumerations\SearchCriteriaEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

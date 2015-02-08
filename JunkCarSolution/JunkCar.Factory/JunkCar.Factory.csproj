@@ -39,7 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enumerations\DomainModelEnum.cs" />
     <Compile Include="Factories\AbstractDomainModel.cs" />
     <Compile Include="Factories\AbstractDomainService.cs" />
     <Compile Include="Factories\AbstractFactory.cs" />

@@ -1,4 +1,5 @@
 ﻿using JunkCar.Core.Common;
+using JunkCar.Core.Enumerations;
 using JunkCar.DomainModel.Models;
 using JunkCar.DomainService.Services;
 using JunkCar.Factory.Factories;
@@ -24,7 +25,7 @@ namespace JunkCar.WebAPI.Controllers
             domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Signup));
             domainModel.Fill(HashHelper.Signup(address,email,name, password,phone, zipCode));
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
-            signup = (Signup)domainService.Save(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.SIGNUP);
+            signup = (Signup)domainService.Save(domainModel, DomainModelEnum.SIGNUP);
             return signup.ResponseMessage;
         }
 
@@ -39,7 +40,7 @@ namespace JunkCar.WebAPI.Controllers
             domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Authenticate));
             domainModel.Fill(HashHelper.Authenticate(userId, password));
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
-            domainModel = domainService.Query(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.AUTHENTICATE);
+            domainModel = domainService.Query(domainModel, DomainModelEnum.AUTHENTICATE);
             DomainModel.Models.Authenticate authenticate = (DomainModel.Models.Authenticate)domainModel;
             //if (authenticate.ResponseMessage != "User id is required" && authenticate.ResponseMessage != "Password is required" && authenticate.ResponseMessage != "Invalid domain model" && authenticate.ResponseMessage != "Please check login credentials and then try again.")
             //{

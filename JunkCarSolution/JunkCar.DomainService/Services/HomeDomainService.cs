@@ -14,22 +14,22 @@ namespace JunkCar.DomainService.Services
 
         private IUnitOfWork unitOfWork;
         private DomainModel.Models.Home home;
-        public override AbstractDomainModel Save(AbstractDomainModel domainModel, JunkCar.Factory.Enumerations.DomainModelEnum domainModelType)
+        public override AbstractDomainModel Save(AbstractDomainModel domainModel, DomainModelEnum domainModelType)
         {
             throw new NotImplementedException();
         }
 
-        public override AbstractDomainModel Update(AbstractDomainModel domainModel, JunkCar.Factory.Enumerations.DomainModelEnum domainModelType)
+        public override AbstractDomainModel Update(AbstractDomainModel domainModel, DomainModelEnum domainModelType)
         {
             throw new NotImplementedException();
         }
 
-        public override AbstractDomainModel Delete(AbstractDomainModel domainModel, JunkCar.Factory.Enumerations.DomainModelEnum domainModelType)
+        public override AbstractDomainModel Delete(AbstractDomainModel domainModel, DomainModelEnum domainModelType)
         {
             throw new NotImplementedException();
         }
 
-        public override AbstractDomainModel Query(AbstractDomainModel domainModel, JunkCar.Factory.Enumerations.DomainModelEnum domainModelType)
+        public override AbstractDomainModel Query(AbstractDomainModel domainModel, DomainModelEnum domainModelType)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace JunkCar.DomainService.Services
                     FactoryFacade factory = new FactoryFacade();
                     switch (domainModelType)
                     {
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_MAKES:
+                        case DomainModelEnum.GET_MAKES:
                             home = (DomainModel.Models.Home)domainModel;
                             if (home.SelectedYear <= 0)
                             {
@@ -51,7 +51,7 @@ namespace JunkCar.DomainService.Services
                                 home.ResponseMessage = "Valid";
                             }
                             break;
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_MODELS:
+                        case DomainModelEnum.GET_MODELS:
                             home = (DomainModel.Models.Home)domainModel;
                             if (home.SelectedYear <= 0)
                             {
@@ -68,7 +68,7 @@ namespace JunkCar.DomainService.Services
                                 home.ResponseMessage = "Valid";
                             }
                             break;
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.CHECK_ZIPCODE:
+                        case DomainModelEnum.CHECK_ZIPCODE:
                             home = (DomainModel.Models.Home)domainModel;
                             if (home.ZipCode == null || home.ZipCode == "" || home.ZipCode == string.Empty )
                             {
@@ -81,7 +81,7 @@ namespace JunkCar.DomainService.Services
                                 home.ResponseMessage = "Valid";
                             }
                             break;
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_CITIES:
+                        case DomainModelEnum.GET_CITIES:
                             home = (DomainModel.Models.Home)domainModel;
                             if (home.StateId <= 0)
                             {
@@ -94,7 +94,7 @@ namespace JunkCar.DomainService.Services
                                 home.ResponseMessage = "Valid";
                             }
                             break;
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER:
+                        case DomainModelEnum.GET_AN_OFFER:
                             home = (DomainModel.Models.Home)domainModel;                           
                             //else
                             //{
@@ -103,7 +103,7 @@ namespace JunkCar.DomainService.Services
                                 home.ResponseMessage = "Valid";
                             //}
                             break;
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_A_BETTER_OFFER:
+                        case DomainModelEnum.GET_A_BETTER_OFFER:
                             home = (DomainModel.Models.Home)domainModel;
                             if (home.SelectedYear <= 0)
                             {
@@ -124,7 +124,7 @@ namespace JunkCar.DomainService.Services
                                 home.ResponseMessage = "Valid";
                             }
                             break;
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER:
+                        case DomainModelEnum.CONFIRM_OFFER:
                             home = (DomainModel.Models.Home)domainModel;
                             if (home.Name.Length <= 0)
                             {
@@ -153,7 +153,7 @@ namespace JunkCar.DomainService.Services
                                 home.ResponseMessage = "Confirmed";                                
                             }
                             break;
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
+                        case DomainModelEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
                             home = (DomainModel.Models.Home)domainModel;
                             if (home.Name.Length <= 0)
                             {
@@ -182,7 +182,7 @@ namespace JunkCar.DomainService.Services
                                 home.ResponseMessage = "Confirmed";
                             }
                             break;
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_CUSTOMER_ID:
+                        case DomainModelEnum.GET_CUSTOMER_ID:
                             home = (DomainModel.Models.Home)domainModel;
                            if (home.EmailAddress.Length <= 0)
                             {
@@ -203,31 +203,31 @@ namespace JunkCar.DomainService.Services
                 {
                     switch (domainModelType)
                     {
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_MAKES:
+                        case DomainModelEnum.GET_MAKES:
                             home.ResponseMessage = "Invalid domain model";
                             break;
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_MODELS:
+                        case DomainModelEnum.GET_MODELS:
                             home.ResponseMessage = "Invalid domain model";
                             break;
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.CHECK_ZIPCODE:
+                        case DomainModelEnum.CHECK_ZIPCODE:
                             home.ResponseMessage = "Invalid domain model";
                             break;
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_CITIES:
+                        case DomainModelEnum.GET_CITIES:
                             home.ResponseMessage = "Invalid domain model";
                             break;
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER:
+                        case DomainModelEnum.GET_AN_OFFER:
                             home.ResponseMessage = "Invalid domain model";
                             break;
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_A_BETTER_OFFER:
+                        case DomainModelEnum.GET_A_BETTER_OFFER:
                             home.ResponseMessage = "Invalid domain model";
                             break;
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER:
+                        case DomainModelEnum.CONFIRM_OFFER:
                             home.ResponseMessage = "Invalid domain model";
                             break;
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
+                        case DomainModelEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
                             home.ResponseMessage = "Invalid domain model";
                             break;
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.GET_CUSTOMER_ID:
+                        case DomainModelEnum.GET_CUSTOMER_ID:
                             home.ResponseMessage = "Invalid domain model";
                             break;        
                         default:
@@ -239,31 +239,31 @@ namespace JunkCar.DomainService.Services
             {
                 switch (domainModelType)
                 {                    
-                    case JunkCar.Factory.Enumerations.DomainModelEnum.GET_MAKES:
+                    case DomainModelEnum.GET_MAKES:
                         home.ResponseMessage = ex.Message;
                         break;
-                    case JunkCar.Factory.Enumerations.DomainModelEnum.GET_MODELS:
+                    case DomainModelEnum.GET_MODELS:
                         home.ResponseMessage = ex.Message;
                         break;
-                    case JunkCar.Factory.Enumerations.DomainModelEnum.CHECK_ZIPCODE:
+                    case DomainModelEnum.CHECK_ZIPCODE:
                         home.ResponseMessage = ex.Message;
                         break;
-                    case JunkCar.Factory.Enumerations.DomainModelEnum.GET_CITIES:
+                    case DomainModelEnum.GET_CITIES:
                         home.ResponseMessage = ex.Message;
                         break;
-                    case JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER:
+                    case DomainModelEnum.GET_AN_OFFER:
                         home.ResponseMessage = ex.Message;
                         break;
-                    case JunkCar.Factory.Enumerations.DomainModelEnum.GET_A_BETTER_OFFER:
+                    case DomainModelEnum.GET_A_BETTER_OFFER:
                         home.ResponseMessage = ex.Message;
                         break;
-                    case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER:
+                    case DomainModelEnum.CONFIRM_OFFER:
                         home.ResponseMessage = ex.Message;
                         break;
-                    case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
+                    case DomainModelEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
                         home.ResponseMessage = ex.Message;
                         break;
-                    case JunkCar.Factory.Enumerations.DomainModelEnum.GET_CUSTOMER_ID:
+                    case DomainModelEnum.GET_CUSTOMER_ID:
                         home.ResponseMessage = ex.Message;
                         break;
                     default:
@@ -273,31 +273,31 @@ namespace JunkCar.DomainService.Services
 
             switch (domainModelType)
             {
-                case JunkCar.Factory.Enumerations.DomainModelEnum.GET_MAKES:
+                case DomainModelEnum.GET_MAKES:
                     return home;
-                case JunkCar.Factory.Enumerations.DomainModelEnum.GET_MODELS:
+                case DomainModelEnum.GET_MODELS:
                     return home;
-                case JunkCar.Factory.Enumerations.DomainModelEnum.CHECK_ZIPCODE:
+                case DomainModelEnum.CHECK_ZIPCODE:
                     return home;
-                case JunkCar.Factory.Enumerations.DomainModelEnum.GET_CITIES:
+                case DomainModelEnum.GET_CITIES:
                     return home;
-                case JunkCar.Factory.Enumerations.DomainModelEnum.GET_AN_OFFER:
+                case DomainModelEnum.GET_AN_OFFER:
                     return home;
-                case JunkCar.Factory.Enumerations.DomainModelEnum.GET_A_BETTER_OFFER:
+                case DomainModelEnum.GET_A_BETTER_OFFER:
                     return home;
-                case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER:
+                case DomainModelEnum.CONFIRM_OFFER:
                     return home;
-                case JunkCar.Factory.Enumerations.DomainModelEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
+                case DomainModelEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
                     return home;
-                case JunkCar.Factory.Enumerations.DomainModelEnum.GET_CUSTOMER_ID:
+                case DomainModelEnum.GET_CUSTOMER_ID:
                     return home;
                 default:
                     break;
             }
-            return null;  // Just to fullfill the syntactical requirements, this return will never hit in any case.
+            return null;  // Just to fullfill the syntactical requirements, this return will never be hit in any case.
         }
 
-        public override AbstractDomainModel Query(AbstractDomainModel domainModel, Factory.Enumerations.DomainModelEnum domainModelType, SearchCriteriaEnum searchCriteria)
+        public override AbstractDomainModel Query(AbstractDomainModel domainModel, DomainModelEnum domainModelType, SearchCriteriaEnum searchCriteria)
         {
             throw new NotImplementedException();
         }

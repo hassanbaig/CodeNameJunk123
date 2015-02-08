@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JunkCar.Factory.Enumerations
+namespace JunkCar.Core.Enumerations
 {
     public enum DomainModelEnum
     {

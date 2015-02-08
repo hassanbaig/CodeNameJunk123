@@ -12,7 +12,7 @@ namespace JunkCar.DomainService.Services
     public class AccountsDomainService : AbstractDomainService
     {
         private IUnitOfWork unitOfWork;
-        public override AbstractDomainModel Save(AbstractDomainModel domainModel, JunkCar.Factory.Enumerations.DomainModelEnum domainModelType)
+        public override AbstractDomainModel Save(AbstractDomainModel domainModel, DomainModelEnum domainModelType)
         {
             JunkCar.DomainModel.Models.Signup signup = (JunkCar.DomainModel.Models.Signup)domainModel;
             try
@@ -21,7 +21,7 @@ namespace JunkCar.DomainService.Services
                 {
                     switch (domainModelType)
                     {
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.SIGNUP:
+                        case DomainModelEnum.SIGNUP:
                             if (signup.Name == null || signup.Name.Length <= 0)
                             { signup.ResponseMessage = "Name is required."; }
                             else if (signup.Password == null || signup.Password.Length <= 0)
@@ -47,7 +47,7 @@ namespace JunkCar.DomainService.Services
                 {
                     switch (domainModelType)
                     {
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.SIGNUP:
+                        case DomainModelEnum.SIGNUP:
                             signup.ResponseMessage = "Invalid domain model.";
                             break;
                         default:
@@ -59,7 +59,7 @@ namespace JunkCar.DomainService.Services
             {
                 switch (domainModelType)
                 {
-                    case JunkCar.Factory.Enumerations.DomainModelEnum.SIGNUP:
+                    case DomainModelEnum.SIGNUP:
                         signup.ResponseMessage = ex.Message;
                         break;
                     default:
@@ -69,7 +69,7 @@ namespace JunkCar.DomainService.Services
             }
             switch (domainModelType)
             {
-                case JunkCar.Factory.Enumerations.DomainModelEnum.SIGNUP:
+                case DomainModelEnum.SIGNUP:
                     return signup;
                 default:
                     break;
@@ -77,17 +77,17 @@ namespace JunkCar.DomainService.Services
             return null;
         }
 
-        public override AbstractDomainModel Update(AbstractDomainModel domainModel, JunkCar.Factory.Enumerations.DomainModelEnum domainModelType)
+        public override AbstractDomainModel Update(AbstractDomainModel domainModel, DomainModelEnum domainModelType)
         {
             throw new NotImplementedException();
         }
 
-        public override AbstractDomainModel Delete(AbstractDomainModel domainModel, JunkCar.Factory.Enumerations.DomainModelEnum domainModelType)
+        public override AbstractDomainModel Delete(AbstractDomainModel domainModel, DomainModelEnum domainModelType)
         {
             throw new NotImplementedException();
         }
 
-        public override AbstractDomainModel Query(AbstractDomainModel domainModel, JunkCar.Factory.Enumerations.DomainModelEnum domainModelType)
+        public override AbstractDomainModel Query(AbstractDomainModel domainModel, DomainModelEnum domainModelType)
         {
             DomainModel.Models.Authenticate authenticate = (DomainModel.Models.Authenticate)domainModel;
             try
@@ -96,7 +96,7 @@ namespace JunkCar.DomainService.Services
                 {
                     switch (domainModelType)
                     {
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.AUTHENTICATE:
+                        case DomainModelEnum.AUTHENTICATE:
                             if (authenticate.Email == null || authenticate.Email.Length <= 0)
                             { authenticate.ResponseMessage = "Email is required"; }
                             else if (authenticate.Password == null || authenticate.Password.Length <= 0)
@@ -117,7 +117,7 @@ namespace JunkCar.DomainService.Services
                 {
                     switch (domainModelType)
                     {
-                        case JunkCar.Factory.Enumerations.DomainModelEnum.AUTHENTICATE:
+                        case DomainModelEnum.AUTHENTICATE:
                             authenticate.ResponseMessage = "Invalid domain model";
                             break;
                         default:
@@ -129,7 +129,7 @@ namespace JunkCar.DomainService.Services
             {
                 switch (domainModelType)
                 {
-                    case JunkCar.Factory.Enumerations.DomainModelEnum.AUTHENTICATE:
+                    case DomainModelEnum.AUTHENTICATE:
                         authenticate.ResponseMessage = ex.Message;
                         break;
                     default:
@@ -138,7 +138,7 @@ namespace JunkCar.DomainService.Services
             }
             switch (domainModelType)
             {
-                case JunkCar.Factory.Enumerations.DomainModelEnum.AUTHENTICATE:
+                case DomainModelEnum.AUTHENTICATE:
                     return authenticate;
                 default:
                     break;
@@ -146,7 +146,7 @@ namespace JunkCar.DomainService.Services
             return null;
         }
 
-        public override AbstractDomainModel Query(AbstractDomainModel domainModel, Factory.Enumerations.DomainModelEnum domainModelType, SearchCriteriaEnum searchCriteria)
+        public override AbstractDomainModel Query(AbstractDomainModel domainModel, DomainModelEnum domainModelType, SearchCriteriaEnum searchCriteria)
         {
             throw new NotImplementedException();
         }

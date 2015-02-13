@@ -177,7 +177,7 @@
     <Content Include="App\Authentication.js" />
     <Content Include="App\breezeConfig.js" />
     <Content Include="App\Config\App.js" />
-    <Content Include="App\Controllers\ContactUsController.js" />
+    <Content Include="App\Controllers\UtilityController.js" />
     <Content Include="App\Controllers\AccountsController.js" />
     <Content Include="App\Controllers\HomeController.js" />
     <Content Include="App\CustomDirectives\angular-file-upload-shim.min.js" />
@@ -194,7 +194,7 @@
     <Content Include="App\jquery.ui.autocomplete.js" />
     <Content Include="App\Logger.js" />
     <Content Include="App\RouteConfig.js" />
-    <Content Include="App\Services\ContactUsService.js" />
+    <Content Include="App\Services\UtilityService.js" />
     <Content Include="App\Services\AccountsService.js" />
     <Content Include="App\Services\HomeService.js" />
     <Content Include="Contactus.html" />

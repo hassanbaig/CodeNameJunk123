@@ -32,8 +32,8 @@
         <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>-->
         <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
         <script src="App/Config/App.js"></script>
-        <script src="App/Controllers/ContactUsController.js"></script>
-        <script src="App/Services/ContactUsService.js"></script>
+        <script src="App/Controllers/UtilityController.js"></script>
+        <script src="App/Services/UtilityService.js"></script>
 
 
         <script type="text/javascript" src="http://fgnass.github.io/spin.js/spin.min.js"></script>
@@ -95,39 +95,39 @@ ul {
 
 <!--First Row-->
 <div class="row">
-<!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-<div class="container">
-<!-- Brand and toggle get grouped for better mobile display -->
-<div class="navbar-header">
-<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-<span class="sr-only">Toggle navigation</span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-</button>
-<a class="navbar-brand" href="#">
-<!-- <img src="http://placehold.it/150x50&text=Logo" alt="">-->
-<img src="Content/Images/logo.png" />
-</a>
-</div>
-<!-- Collect the nav links, forms, and other content for toggling -->
-<div class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-<ul class="nav navbar-nav">
-<li><a href="http://www.junkcartrader.com">Get an offer</a></li>
-<li><a href="Howitworks.html">How it works</a></li>
-<!--<li><a href="#">Testimonial</a></li>-->
-<li><a href="Aboutus.html">About us</a></li>
-<li class="active"><a href="#">Contact us</a></li>
-<li><a href="Signup.html">Sign up</a></li>
-<li><a href="Login.html">Login</a></li>
-<li style=" color:#F00" ><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
-</ul>
-</div>
-<!-- /.navbar-collapse -->
-</div>
-<!-- /.container -->
-</nav>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a data-ng-controller="utilityController as utilityControllerVM" data-ng-click="utilityControllerVM.redirectIndex();" class="navbar-brand" href="http://www.junkcartrader.com">
+                    <!-- <img src="http://placehold.it/150x50&text=Logo" alt="">-->
+                    <img src="Content/Images/logo.png" />
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="http://www.junkcartrader.com">Get an offer</a></li>
+                    <li><a href="Howitworks.html">How it works</a></li>
+                    <!--<li><a href="#">Testimonial</a></li>-->
+                    <li><a href="Aboutus.html">About us</a></li>
+                    <li class="active"><a href="#">Contact us</a></li>
+                    <li><a href="Signup.html">Sign up</a></li>
+                    <li><a href="Login.html">Login</a></li>
+                    <li style="color:#F00"><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
 </div>
 <!--End First Row-->
 
@@ -165,22 +165,22 @@ ul {
 <!--Fourth Row-->
 
 <div class="row" style="margin-top:10px; ">    
-    <div class="container" data-ng-controller="contactUsController as contactUsControllerVM">
+    <div class="container" data-ng-controller="utilityController as utilityControllerVM">
         <span us-spinner="{radius:50, width:16, length: 32}" spinner-key="spinner-1"></span>
         <div class="col-lg-6">
-            <h2>Contact us</h2>     
+            <h2>Contact us</h2>
             <form name="contactUsForm" novalidate>
                 <div class="form-group">
-                    <label for="disabledTextInput">Name<span data-ng-show="contactUsControllerVM.isValidName" style="color:#F00">*</span></label>
-                    <input type="text" name="userName" class="form-control" placeholder="" data-ng-model="contactUsControllerVM.contactUsName" required>
+                    <label for="disabledTextInput">Name<span data-ng-show="utilityControllerVM.isValidName" style="color:#F00">*</span></label>
+                    <input type="text" name="userName" class="form-control" placeholder="" data-ng-model="utilityControllerVM.contactUsName" required>
                     <!--<span style="color:red" ng-show="contactUsForm.userName.$dirty && contactUsForm.userName.$invalid">
                         <span ng-show="contactUsForm.userName.$error.required">Name is required.</span>
                     </span>-->
                 </div>
 
                 <div class="form-group">
-                    <label for="disabledTextInput">Email<span data-ng-show="contactUsControllerVM.isValidEmail" style="color:#F00">*</span></label>
-                    <input type="text" name="email" class="form-control" placeholder="" data-ng-model="contactUsControllerVM.contactUsEmail" required>
+                    <label for="disabledTextInput">Email<span data-ng-show="utilityControllerVM.isValidEmail" style="color:#F00">*</span></label>
+                    <input type="text" name="email" class="form-control" placeholder="" data-ng-model="utilityControllerVM.contactUsEmail" required>
                     <!--<span style="color:red" ng-show="contactUsForm.email.$dirty && contactUsForm.email.$invalid">
                         <span ng-show="contactUsForm.email.$error.required">Email is required.</span>
                         <span ng-show="contactUsForm.email.$error.email">Invalid email address.</span>
@@ -188,39 +188,40 @@ ul {
                 </div>
 
                 <div class="form-group">
-                    <label for="disabledTextInput">Phone<span data-ng-show="contactUsControllerVM.isValidPhone" style="color:#F00">*</span></label>
-                    <input type="text" name="phone" class="form-control" placeholder="" data-ng-model="contactUsControllerVM.contactUsPhone" required>
+                    <label for="disabledTextInput">Phone<span data-ng-show="utilityControllerVM.isValidPhone" style="color:#F00">*</span></label>
+                    <input type="text" name="phone" class="form-control" placeholder="" data-ng-model="utilityControllerVM.contactUsPhone" required>
                     <!--<span style="color:red" ng-show="contactUsForm.phone.$dirty && contactUsForm.phone.$invalid">
-                        <span ng-show="contactUsForm.email.$error.required">Phone is required.</span>                        
+                        <span ng-show="contactUsForm.email.$error.required">Phone is required.</span>
                     </span>-->
                 </div>
 
                 <div class="form-group">
-                    <label for="disabledTextInput">Subject<span data-ng-show="contactUsControllerVM.isValidSubject" style="color:#F00">*</span></label>
-                    <input type="text" name="subject" class="form-control" placeholder="" data-ng-model="contactUsControllerVM.contactUsSubject" required>
+                    <label for="disabledTextInput">Subject<span data-ng-show="utilityControllerVM.isValidSubject" style="color:#F00">*</span></label>
+                    <input type="text" name="subject" class="form-control" placeholder="" data-ng-model="utilityControllerVM.contactUsSubject" required>
                     <!--<span style="color:red" ng-show="contactUsForm.subject.$dirty && contactUsForm.subject.$invalid">
                         <span ng-show="contactUsForm.subject.$error.required">Subject is required.</span>
                     </span>-->
                 </div>
 
                 <div class="form-group">
-                    <label for="disabledTextInput">Message<span data-ng-show="contactUsControllerVM.isValidMessage" style="color:#F00">*</span></label>
-                    <textarea class="form-control" name="message" rows="3" data-ng-model="contactUsControllerVM.contactUsMessage" required></textarea>
+                    <label for="disabledTextInput">Message<span data-ng-show="utilityControllerVM.isValidMessage" style="color:#F00">*</span></label>
+                    <textarea class="form-control" name="message" rows="3" data-ng-model="utilityControllerVM.contactUsMessage" required></textarea>
                     <!--<span style="color:red" ng-show="contactUsForm.message.$dirty && contactUsForm.message.$invalid">
                         <span ng-show="contactUsForm.message.$error.required">Message is required.</span>
                     </span>-->
                 </div>
 
-                <button type="submit" class="btn gt btn-lg" data-ng-click="contactUsControllerVM.contactEmailSend();"> <!--data-ng-disabled="contactUsControllerVM.isValidName && contactUsControllerVM.isValidEmail &&
-  contactUsControllerVM.isValidPhone && contactUsControllerVM.isValidSubject && contactUsControllerVM.isValidMessage">-->
+                <button type="submit" class="btn gt btn-lg" data-ng-click="utilityControllerVM.contactEmailSend();">
+                    <!--data-ng-disabled="utilityControllerVM.isValidName && utilityControllerVM.isValidEmail &&
+                    utilityControllerVM.isValidPhone && utilityControllerVM.isValidSubject && utilityControllerVM.isValidMessage">-->
                     <b>Submit</b>
                 </button>
-            </form>                 
+            </form>
         </div>
 
         <div class="col-lg-6">
             <h2>You can also reach us by clicking on</h2>
-            <h3 style="text-align:center; margin-top:15px; "><span><a href="" data-toggle="modal" data-target="#Modal2"><img src="Content/Images/call.png" /></a> </span><br>Call Us</h3>
+            <h3 style="text-align:center; margin-top:15px; " data-ng-click="utilityControllerVM.checkZipCodeOnCallUs();"><span><a href="" data-toggle="modal" data-target="#Modal2"><img src="Content/Images/call.png" /></a> </span><br>Call Us</h3>
         </div>
 
     </div>
@@ -264,9 +265,11 @@ ul {
                             <div style="padding:20px">
                                 <form role="form">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="callUsZipCode" data-ng-model="homeControllerVM.homeZipCode" data-ng-keypress="onKeyPress($event);" placeholder="Enter Zipcode">
-                                    </div>
-                                    <h3><span class="label label-default" style="background-color:#ee2c3d">{{contactNo}}</span></h3>
+                                        <input type="text" class="form-control" id="callUsZipCode" data-ng-model="utilityControllerVM.zipCode" data-ng-keypress="onKeyPress($event);" placeholder="Enter Zipcode">
+                                    </div>                                    
+                                        <h3 style="text-align:center;"><span class="label label-default" style="background-color:#ee2c3d;">{{contactNo}}</span></h3>
+                                        <!--<div class="col-sm-12" style=" margin-bottom:10px"><h2><span class="label label-default">{{contactNo}}</span></h2> </div>-->
+                                    
                                 </form>
                             </div>
                         </div>

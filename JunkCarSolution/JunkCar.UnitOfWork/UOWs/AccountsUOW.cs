@@ -55,15 +55,9 @@ namespace JunkCar.UnitOfWork.UOWs
             {
                 signup = (Signup)domainModel;
 
-                int affectedRows = userRepository.Add(signup.Email, signup.Name, signup.Address, signup.Phone, JunkCar.Core.Common.Encryption.Encrypt("#", signup.Password), signup.ZipCode);
-                if (affectedRows > 0)
-                {
-
-                }
-                else
-                {
-                    //throw new Exception("User name already exist. Please login using the existing user name.");
-                }
+                int customerId = userRepository.Add(signup.Email, signup.Name, signup.Address, signup.Phone, JunkCar.Core.Common.Encryption.Encrypt("#", signup.Password), signup.ZipCode);
+                if (customerId <= 0)
+                { throw new Exception("User name already exist. Please login using the existing user name."); }               
             }
             catch (Exception ex)
             {
@@ -99,7 +93,7 @@ namespace JunkCar.UnitOfWork.UOWs
             authenticate = (JunkCar.DomainModel.Models.Authenticate)domainModel;
             string encryptedPass = Encryption.Encrypt("#", authenticate.Password);
             int customerId = userRepository.GetUser(authenticate.Email, encryptedPass);
-            if (customerId != 0)
+            if (customerId > 0)
             {
                 authenticate.IsAuthenticated = true;
             }

@@ -22,6 +22,33 @@
     <link href="Content/Assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="Content/Assets/CSS/bootstrap.css" rel="stylesheet">
       
+        <script src="Scripts/angular.min.js"></script>
+        <script src="Scripts/angular-route.js"></script>
+        <script src="Scripts/angular-file-upload-shim.min.js"></script>
+        <script src="Scripts/angular-file-upload.min.js"></script>
+
+        <script src="App/RouteConfig.js"></script>
+        <!--<script src="Scripts/angular-sanitize.js"></script>-->
+        <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>-->
+        <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+        <script src="App/Config/App.js"></script>
+        <script src="App/Controllers/UtilityController.js"></script>
+        <script src="App/Services/UtilityService.js"></script>
+
+
+        <script type="text/javascript" src="http://fgnass.github.io/spin.js/spin.min.js"></script>
+        <script src="App/Animation/angular-spinner.js"></script>
+        <script type="text/javascript" src="Scripts/angular-animate.js"></script>
+        <link href="Content/Assets/CSS/animations.css" rel="stylesheet">
+        <script type="text/javascript" src="App/Animation/alerts-manager.js"></script>
+
+        <script type="text/javascript" src="App/CustomDirectives/filters.js"></script>
+        <link href="Content/Assets/CSS/angular.rangeSlider.css" rel="stylesheet">
+        <script type="text/javascript" src="App/CustomDirectives/angular.rangeSlider.js"></script>
+        <script type="text/javascript" src="App/CustomDirectives/rangeFilter.js"></script>
+        <script type="text/javascript" src="App/CustomDirectives/timeRangeFilter.js"></script>
+
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -79,10 +106,10 @@ ul {
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a class="navbar-brand" href="#">
-<!-- <img src="http://placehold.it/150x50&text=Logo" alt="">-->
-<img src="Content/Images/logo.png" />
-</a>
+    <a data-ng-controller="utilityController as utilityControllerVM" data-ng-click="utilityControllerVM.redirectIndex();" class="navbar-brand" href="http://www.junkcartrader.com">
+        <!-- <img src="http://placehold.it/150x50&text=Logo" alt="">-->
+        <img src="Content/Images/logo.png" />
+    </a>
 </div>
 <!-- Collect the nav links, forms, and other content for toggling -->
 <div class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
@@ -219,9 +246,9 @@ You can give us more details about the condition of your car which will help in 
                             <div style="padding:20px">
                                 <form role="form">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="callUsZipCode" data-ng-model="homeControllerVM.homeZipCode" data-ng-keypress="onKeyPress($event);" placeholder="Enter Zipcode">
+                                        <input type="text" class="form-control" id="callUsZipCode" data-ng-model="homeControllerVM.zipCode" data-ng-keypress="onKeyPress($event);" placeholder="Enter Zipcode">
                                     </div>
-                                    <h3><span class="label label-default" style="background-color:#ee2c3d">{{contactNo}}</span></h3>
+                                    <h3 style="text-align:center;"><span class="label label-default" style="background-color:#ee2c3d">{{contactNo}}</span></h3>
                                 </form>
                             </div>
                         </div>

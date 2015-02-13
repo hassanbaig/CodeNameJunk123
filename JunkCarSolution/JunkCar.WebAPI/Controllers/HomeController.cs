@@ -21,34 +21,34 @@ namespace JunkCar.WebAPI.Controllers
     public class HomeController : ApiController
     {
         private AbstractDomainModel domainModel;
-        private AbstractDomainService domainService;       
-        public IQueryable GetRegistrationYears()
-        {            
+        private AbstractDomainService domainService;
+        public List<int?> GetRegistrationYears()
+        {           
             FactoryFacade factory = new FactoryFacade();
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
-            return ((DomainModel.Models.Home)domainService.Query(SearchCriteriaEnum.GET_REGISTRATION_YEARS)).Years.AsQueryable();            
+            return ((DomainModel.Models.Home)domainService.Query(SearchCriteriaEnum.GET_REGISTRATION_YEARS)).Years;            
         }
-        public IQueryable GetCylinders()
+        public List<int?> GetCylinders()
         {
             FactoryFacade factory = new FactoryFacade();
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
-            return ((DomainModel.Models.Home)domainService.Query(SearchCriteriaEnum.GET_CYLINDERS)).Cylinders.AsQueryable();
+            return ((DomainModel.Models.Home)domainService.Query(SearchCriteriaEnum.GET_CYLINDERS)).Cylinders;
         }
-        public IQueryable GetMakes(int year)
+        public List<JunkCar.DataModel.Models.Set_Make> GetMakes(int year)
         {
             FactoryFacade factory = new FactoryFacade();
             domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Home));
             domainModel.Fill(HashHelper.GetMakes(year));
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
-            return ((DomainModel.Models.Home)domainService.Query(domainModel, DomainModelEnum.GET_MAKES)).Makes.AsQueryable();
+            return ((DomainModel.Models.Home)domainService.Query(domainModel, DomainModelEnum.GET_MAKES)).Makes;
         }
-        public IQueryable GetModels(int year, int makeId)
+        public List<JunkCar.DataModel.Models.Set_Model> GetModels(int year, int makeId)
         {
             FactoryFacade factory = new FactoryFacade();
             domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Home));
             domainModel.Fill(HashHelper.GetModels(year,makeId));
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
-            return ((DomainModel.Models.Home)domainService.Query(domainModel, DomainModelEnum.GET_MODELS)).Models.AsQueryable();
+            return ((DomainModel.Models.Home)domainService.Query(domainModel, DomainModelEnum.GET_MODELS)).Models;
         }
         [HttpGet]
         public CheckZipCode_Result CheckZipCode(string zipCode)
@@ -59,27 +59,27 @@ namespace JunkCar.WebAPI.Controllers
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
             return ((DomainModel.Models.Home)domainService.Query(domainModel, DomainModelEnum.CHECK_ZIPCODE)).ZipCodeResult;
         }
-        public IQueryable GetStates()
+        public List<Set_State> GetStates()
         {
             FactoryFacade factory = new FactoryFacade();
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
-            return ((DomainModel.Models.Home)domainService.Query(SearchCriteriaEnum.GET_STATES)).States.AsQueryable();
+            return ((DomainModel.Models.Home)domainService.Query(SearchCriteriaEnum.GET_STATES)).States;
         }
         [HttpGet]
-        public IQueryable GetCities(int stateId)
+        public List<Set_City> GetCities(int stateId)
         {
             FactoryFacade factory = new FactoryFacade();
             domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Home));
             domainModel.Fill(HashHelper.GetCities(stateId));
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
-            return ((DomainModel.Models.Home)domainService.Query(domainModel, DomainModelEnum.GET_CITIES)).Cities.AsQueryable();
+            return ((DomainModel.Models.Home)domainService.Query(domainModel, DomainModelEnum.GET_CITIES)).Cities;
         }
         [HttpGet]
-        public IQueryable GetQuestionnaire()
+        public List<Set_Questionnaire_Detail> GetQuestionnaire()
         {
             FactoryFacade factory = new FactoryFacade();
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
-            return ((DomainModel.Models.Home)domainService.Query(SearchCriteriaEnum.GET_QUESTIONNAIRE)).Questionnaire.AsQueryable();
+            return ((DomainModel.Models.Home)domainService.Query(SearchCriteriaEnum.GET_QUESTIONNAIRE)).Questionnaire;
         }       
         [HttpGet]
         public string GetAnOffer(string address, int cityId, short cylinders, string emailAddress, string make, string model, string name, string phone, int selectedMakeId, int selectedModelId, int selectedYear, int stateId, string zipCode)
@@ -118,11 +118,11 @@ namespace JunkCar.WebAPI.Controllers
             return ((DomainModel.Models.Home)domainService.Query(domainModel, DomainModelEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE)).ResponseMessage;
         }
         [HttpGet]
-        public int GetCustomerId(string emailAddress, string phone)
+        public int GetCustomerId(string address, int cityId, string emailAddress, string name, string phone, int stateId, string zipCode)
         {
             FactoryFacade factory = new FactoryFacade();
             domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Home));
-            domainModel.Fill(HashHelper.GetCustomerId(emailAddress,phone));
+            domainModel.Fill(HashHelper.GetCustomerId(address, cityId, emailAddress, name, phone, stateId, zipCode));
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
             return ((DomainModel.Models.Home)domainService.Query(domainModel, DomainModelEnum.GET_CUSTOMER_ID)).CustomerId;
         }

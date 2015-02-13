@@ -46,7 +46,9 @@
     <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
     <script src="App/Config/App.js"></script>
     <script src="App/Controllers/AccountsController.js"></script>
+    <script src="App/Controllers/UtilityController.js"></script>
     <script src="App/Services/AccountsService.js"></script>
+    <script src="App/Services/UtilityService.js"></script>
 
     <script type="text/javascript" src="http://fgnass.github.io/spin.js/spin.min.js"></script>
     <script src="App/Animation/angular-spinner.js"></script>
@@ -151,7 +153,7 @@
     }
 </style>
 <body style="overflow-x: hidden; ">
-    <div class="container">
+    <div class="container-fluid">
         <!--First Row-->
         <div class="row">
             <!-- Navigation -->
@@ -165,7 +167,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">
+                        <a data-ng-controller="utilityController as utilityControllerVM" data-ng-click="utilityControllerVM.redirectIndex();" class="navbar-brand" href="http://www.junkcartrader.com">
                             <!-- <img src="http://placehold.it/150x50&text=Logo" alt="">-->
                             <img src="Content/Images/logo.png" />
                         </a>
@@ -180,10 +182,7 @@
                             <li><a href="Contactus.html">Contact us</a></li>
                             <li class="active"><a href="#">Sign up</a></li>
                             <li><a href="Login.html">Login</a></li>
-                            <li style="color:#F00">
-
-                                <a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a>
-                            </li>
+                            <li style="color:#F00"><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->
@@ -259,47 +258,67 @@
                 </nav>
             </div>
 
-            <script>
-                var myTab, myTabsActive, tabNext, tabPrev;
-                $(function () {
-                    myTabs = $('#myTab li').length;
-                    myTabsActive = 0; //or yours active tab
+            <!--Modal 3-->
+            <div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="background-color:#27bbed;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="padding:20px">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="callUsZipCode" data-ng-model="homeControllerVM.zipCode" data-ng-keypress="onKeyPress($event);" placeholder="Enter Zipcode">
+                                    </div>
+                                    <h3 style="text-align:center;"><span class="label label-default" style="background-color:#ee2c3d">{{contactNo}}</span></h3>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Modal 3-->
 
-                    tabNext = function () {
-                        var index = myTabsActive + 1;
-                        index = index >= myTabs ? 0 : index;
-
-                        $('#myTab li:eq(' + index + ') a').tab('show');
-                        myTabsActive = index;
-                    }
-
-                    tabPrev = function () {
-                        var index = myTabsActive - 1;
-                        index = index < 0 ? myTabs - 1 : index;
-
-                        $('#myTab li:eq(' + index + ') a').tab('show');
-                        myTabsActive = index;
-                    }
-
-                    offerTab = function () {
-                        $('#myTab li:eq(4) a').tab('show');
-                        myTabsActive = 4;
-                    }
-                });
-            </script>
-
-
-
-
-
-
-        </div><!-- /container -->
+        </div>
     </div>
+    <!-- /container -->
+
+    <script>
+        var myTab, myTabsActive, tabNext, tabPrev;
+        $(function () {
+            myTabs = $('#myTab li').length;
+            myTabsActive = 0; //or yours active tab
+
+            tabNext = function () {
+                var index = myTabsActive + 1;
+                index = index >= myTabs ? 0 : index;
+
+                $('#myTab li:eq(' + index + ') a').tab('show');
+                myTabsActive = index;
+            }
+
+            tabPrev = function () {
+                var index = myTabsActive - 1;
+                index = index < 0 ? myTabs - 1 : index;
+
+                $('#myTab li:eq(' + index + ') a').tab('show');
+                myTabsActive = index;
+            }
+
+            offerTab = function () {
+                $('#myTab li:eq(4) a').tab('show');
+                myTabsActive = 4;
+            }
+        });
+    </script>
+
 
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="Content/Assets/JS/bootstrap.min.js"></script>
 
 </body>
+
 </html>
 
 <script>

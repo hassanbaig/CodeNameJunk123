@@ -15,5 +15,6 @@ namespace JunkCar.Data
     {
         public Nullable<int> Customer_Id { get; set; }
         public string Login_Password { get; set; }
+        public Nullable<int> Is_New { get; set; }
     }
 }

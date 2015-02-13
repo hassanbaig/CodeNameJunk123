@@ -48,7 +48,9 @@
     <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
     <script src="App/Config/App.js"></script>
     <script src="App/Controllers/HomeController.js"></script>
+    <script src="App/Controllers/UtilityController.js"></script>
     <script src="App/Services/HomeService.js"></script>
+    <script src="App/Services/UtilityService.js"></script>
 
 
     <script type="text/javascript" src="http://fgnass.github.io/spin.js/spin.min.js"></script>
@@ -195,7 +197,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">
+                        <a data-ng-controller="utilityController as utilityControllerVM" data-ng-click="utilityControllerVM.redirectIndex();" class="navbar-brand" href="http://www.junkcartrader.com">
                             <!-- <img src="http://placehold.it/150x50&text=Logo" alt="">-->
                             <img src="Content/Images/logo.png" />
                         </a>
@@ -210,9 +212,7 @@
                             <li><a href="Contactus.html">Contact us</a></li>
                             <li><a href="Signup.html">Sign up</a></li>
                             <li><a href="Login.html">Login</a></li>
-                            <li style="color:#F00">
-                                <a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a>
-                            </li>
+                            <li style="color:#F00"><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->
@@ -249,25 +249,25 @@
                                     <div class="form-group">
                                         <input type="number" min="1900" step="1" id="carMakeModelYear" class="form-control" data-ng-model="homeControllerVM.homeSelectedRegistrationYear" data-ng-change="homeControllerVM.saveYearData();homeControllerVM.getMakesByYear();" list="homeRegistrationYearsDatalist" placeholder="Year">
                                         <datalist id="homeRegistrationYearsDatalist" spellcheck="true">
-                                            <option data-ng-repeat="year in registrationYearsList" value="{{year}}">
+                                            <option data-ng-repeat="year in registrationYearsList.$values" value="{{year}}">
                                         </datalist>
                                     </div>
                                     <div class="form-group">
                                         <input type="text" id="carMakeModelMake" class="form-control" data-ng-model="homeControllerVM.homeSelectedMake" data-ng-change="homeControllerVM.saveMakeData();homeControllerVM.getModelsByYearMake();" list="homeMakesDatalist" placeholder="Make">
                                         <datalist id="homeMakesDatalist" spellcheck="true">
-                                            <option data-ng-repeat="make in makesList" value="{{make.Make_Name}}">
+                                            <option data-ng-repeat="make in makesList.$values" value="{{make.Make_Name}}">
                                         </datalist>
                                     </div>
                                     <div class="form-group">
                                         <input type="text" id="carMakeModelModel" class="form-control" data-ng-model="homeControllerVM.homeSelectedModel" data-ng-change="homeControllerVM.saveModelData();" list="homeModelsDatalist" placeholder="Model">
                                         <datalist id="homeModelsDatalist" spellcheck="true">
-                                            <option data-ng-repeat="model in modelsList" value="{{model.Model_Name}}">
+                                            <option data-ng-repeat="model in modelsList.$values" value="{{model.Model_Name}}">
                                         </datalist>
                                     </div>
                                     <div class="form-group">
                                         <input type="number" min="2" max="8" step="2" id="carMakeModelCylinder" class="form-control" data-ng-model="homeControllerVM.homeSelectedCylinders" data-ng-change="homeControllerVM.saveCylinderData();" list="homeCylindersDatalist" placeholder="Cylinders">
                                         <datalist id="homeCylindersDatalist" spellcheck="true">
-                                            <option data-ng-repeat="cylinder in cylindersList" value="{{cylinder}}">
+                                            <option data-ng-repeat="cylinder in cylindersList.$values" value="{{cylinder}}">
                                         </datalist>
                                     </div>
                                 </form>
@@ -324,7 +324,7 @@
                                         <div class="form-group">
                                             <select class="form-control" id="ddQ{{drivetrainQuestion.Question_Id}}">
                                                 <option value="" selected disabled>None</option>
-                                                <option data-ng-repeat="answer in drivetrainQuestion.Answers" value="{{answer.Answer_Id}}">{{answer.Answer}}</option>
+                                                <option data-ng-repeat="answer in drivetrainQuestion.Answers.$values" value="{{answer.Answer_Id}}">{{answer.Answer}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -341,7 +341,7 @@
                                         <div class="form-group">
                                             <select class="form-control" id="ddQ{{interiorExteriorQuestion.Question_Id}}">
                                                 <option value="" selected disabled>None</option>
-                                                <option data-ng-repeat="answer in interiorExteriorQuestion.Answers" value="{{answer.Answer_Id}}">{{answer.Answer}}</option>
+                                                <option data-ng-repeat="answer in interiorExteriorQuestion.Answers.$values" value="{{answer.Answer_Id}}">{{answer.Answer}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -351,7 +351,7 @@
                             <div class="tab-pane" id="tab4">
 
                                 <button type="button" class="btn gt btn-lg" data-toggle="modal"
-                                        data-target="#Modal3">
+                                        data-target="#Modal3" data-ng-click="homeControllerVM.getCustomerId();">
                                     <b>Upload Up to 5 Images</b>
                                 </button>
 
@@ -445,7 +445,11 @@
                             <div style="padding:20px">
                                 <form role="form" name="basicInfoForm" data-ng-controller="homeController as homeControllerVM" data-ng-init="homeControllerVM.getStates();">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="basicModalName" data-ng-model="homeControllerVM.homeBetterOfferName" data-ng-required="true" placeholder="Name">
+                                        <input type="text" class="form-control" id="basicModalName" name="basicModalName" data-ng-model="homeControllerVM.homeBetterOfferName" data-ng-required="true" placeholder="Name" required>
+                                        <span style="color:red" ng-show="basicInfoForm.basicModalName.$dirty && basicInfoForm.basicModalName.$invalid">
+                                            <span ng-show="basicInfoForm.basicModalName.$error.required">Name is required.</span>
+                                        </span>
+
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="basicModalAddress" data-ng-model="homeControllerVM.homeBetterOfferAddress" placeholder="Address">
@@ -453,33 +457,41 @@
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="basicModalState" data-ng-model="homeControllerVM.homeBetterOfferState" data-ng-change="homeControllerVM.getCities();" list="homeStatesDatalist" placeholder="State">
                                         <datalist id="homeStatesDatalist" spellcheck="true">
-                                            <option data-ng-repeat="state in statesList" value="{{state.State_Name}}">
+                                            <option data-ng-repeat="state in statesList.$values" value="{{state.State_Name}}">
                                         </datalist>
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="basicModalCity" data-ng-model="homeControllerVM.homeBetterOfferCity" list="homeCitiesDatalist" placeholder="City">
                                         <datalist id="homeCitiesDatalist" spellcheck="true">
-                                            <option data-ng-repeat="city in citiesList" value="{{city.City_Name}}">
+                                            <option data-ng-repeat="city in citiesList.$values" value="{{city.City_Name}}">
                                         </datalist>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="basicModalZipCode" data-ng-model="homeControllerVM.homeZipCode" placeholder="Zip">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="basicModalPhone" data-ng-model="homeControllerVM.homeBetterOfferPhone" data-ng-required="true" placeholder="Phone">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="basicModalEmail" data-ng-model="homeControllerVM.homeBetterOfferEmail" data-ng-required="true" placeholder="Email">
-                                        <!--<span class="error" data-ng-show="basicInfoForm.input.$error.required">
-                                            Required!
+                                        <input type="text" class="form-control" name="basicModalZipCode" id="basicModalZipCode" data-ng-model="homeControllerVM.homeZipCode" placeholder="Zip" required>
+                                        <span style="color:red" ng-show="basicInfoForm.basicModalZipCode.$dirty && basicInfoForm.basicModalZipCode.$invalid">
+                                            <span ng-show="basicInfoForm.basicModalZipCode.$error.required">Zip-code is required.</span>
                                         </span>
-                                        <span class="error" data-ng-show="basicInfoForm.input.$error.email">
-                                            Not valid email!
-                                        </span>-->
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="basicModalPhone" id="basicModalPhone" data-ng-model="homeControllerVM.homeBetterOfferPhone" data-ng-required="true" placeholder="Phone" required>
+                                        <span style="color:red" ng-show="basicInfoForm.basicModalPhone.$dirty && basicInfoForm.basicModalPhone.$invalid">
+                                            <span ng-show="basicInfoForm.basicModalPhone.$error.required">Phone is required.</span>
+                                        </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" name="basicModalEmail" id="basicModalEmail" data-ng-model="homeControllerVM.homeBetterOfferEmail" data-ng-required="true" placeholder="Email" required>
+                                        <span style="color:red" ng-show="basicInfoForm.basicModalEmail.$dirty && basicInfoForm.basicModalEmail.$invalid">
+                                            <span ng-show="basicInfoForm.basicModalEmail.$error.required">email address is required.</span>
+                                            <span class="error" data-ng-show="basicInfoForm.basicModalEmail.$error.email">Invalid email address.</span>
+                                        </span>                                      
+                                        
                                     </div>
 
                                     <div class="form-group">
-                                        <button type="button" class="btn bt btn-lg" data-dismiss="modal" data-ng-click="homeControllerVM.checkOfferType();"><b>Save</b></button>
+                                        <button type="button" class="btn bt btn-lg" data-ng-click="homeControllerVM.checkOfferType();" data-ng-disabled="(basicInfoForm.basicModalName.$dirty && basicInfoForm.basicModalName.$invalid)
+                                                || (basicInfoForm.basicModalZipCode.$dirty && basicInfoForm.basicModalZipCode.$invalid) || (basicInfoForm.basicModalPhone.$dirty && basicInfoForm.basicModalPhone.$invalid) || (basicInfoForm.basicModalEmail.$dirty && basicInfoForm.basicModalEmail.$invalid)">
+                                            <b>Save</b>
+                                        </button>
                                     </div>
 
                                 </form>

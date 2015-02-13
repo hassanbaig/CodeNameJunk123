@@ -127,11 +127,16 @@ namespace JunkCar.Core.Common
             getContact["ZipCode"] = zipCode;
             return getContact;
         }
-        public static Hashtable GetCustomerId(string emailAddress, string phone)
+        public static Hashtable GetCustomerId(string address, int cityId, string emailAddress, string name, string phone, int stateId, string zipCode)
         {
             Hashtable getCustomerId = new Hashtable();
-            getCustomerId["EmailAddress"] = emailAddress;
+            getCustomerId["Name"] = name;
+            getCustomerId["Address"] = address;
+            getCustomerId["StateId"] = stateId;
+            getCustomerId["cityId"] = cityId;
+            getCustomerId["ZipCode"] = zipCode;
             getCustomerId["Phone"] = phone;
+            getCustomerId["EmailAddress"] = emailAddress;            
             return getCustomerId;
         }        
         public static Hashtable Signup(string address, string email, string name, string password, string phone, string zipCode)

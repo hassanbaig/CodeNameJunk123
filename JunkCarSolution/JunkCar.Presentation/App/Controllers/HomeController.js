@@ -394,9 +394,9 @@
         function saveMakeData() {
             var make = homeControllerVM.homeSelectedMake;
             var makeId = '';
-            for (var i = 0; i < $rootScope.makesList.length; i++) {
-                if ($rootScope.makesList[i].Make_Name == make) {
-                    makeId = parseInt($rootScope.makesList[i].Make_Id);
+            for (var i = 0; i < $rootScope.makesList.$values.length; i++) {
+                if ($rootScope.makesList.$values[i].Make_Name == make) {
+                    makeId = parseInt($rootScope.makesList.$values[i].Make_Id);
                     break;
                 }
             }
@@ -407,9 +407,9 @@
         function saveModelData() {
             var model = homeControllerVM.homeSelectedModel;
             var modelId = '';
-            for (var i = 0; i < $rootScope.modelsList.length; i++) {
-                if ($rootScope.modelsList[i].Model_Name == model) {
-                    modelId = parseInt($rootScope.modelsList[i].Model_Id);
+            for (var i = 0; i < $rootScope.modelsList.$values.length; i++) {
+                if ($rootScope.modelsList.$values[i].Model_Name == model) {
+                    modelId = parseInt($rootScope.modelsList.$values[i].Model_Id);
                     break;
                 }
             }
@@ -435,9 +435,9 @@
         function updateMake(make) {
             homeControllerVM.homeSelectedMake = make;
             var makeId = '';
-            for (var i = 0; i < $rootScope.makesList.length; i++) {
-                if ($rootScope.makesList[i].Make_Name == make) {
-                    makeId = parseInt($rootScope.makesList[i].Make_Id);
+            for (var i = 0; i < $rootScope.makesList.$values.length; i++) {
+                if ($rootScope.makesList.$values[i].Make_Name == make) {
+                    makeId = parseInt($rootScope.makesList.$values[i].Make_Id);
                     break;
                 }
             }
@@ -448,9 +448,9 @@
         function updateModel(model) {
             homeControllerVM.homeSelectedModel = model;
             var modelId = '';
-            for (var i = 0; i < $rootScope.modelsList.length; i++) {
-                if ($rootScope.modelsList[i].Model_Name == model) {
-                    modelId = parseInt($rootScope.modelsList[i].Model_Id);
+            for (var i = 0; i < $rootScope.modelsList.$values.length; i++) {
+                if ($rootScope.modelsList.$values[i].Model_Name == model) {
+                    modelId = parseInt($rootScope.modelsList.$values[i].Model_Id);
                     break;
                 }
             }
@@ -489,7 +489,7 @@
             return homeService.getRegistrationYears()
                 .then(function (serviceResponse) {
                     var response = serviceResponse.data;
-                    $rootScope.registrationYearsList = response;
+                    $rootScope.registrationYearsList = response;                    
                     $scope.reset();
                     $scope.stopSpin();
                     return $rootScope.registrationYearsList;
@@ -529,9 +529,9 @@
 
             $scope.startSpin();
             var makeId = '';
-            for (var i = 0; i < $rootScope.makesList.length; i++) {
-                if ($rootScope.makesList[i].Make_Name == make) {
-                    makeId = parseInt($rootScope.makesList[i].Make_Id);
+            for (var i = 0; i < $rootScope.makesList.$values.length; i++) {
+                if ($rootScope.makesList.$values[i].Make_Name == make) {
+                    makeId = parseInt($rootScope.makesList.$values[i].Make_Id);
                     break;
                 }
             }
@@ -694,9 +694,9 @@
         function getCities() {
             var state = homeControllerVM.homeBetterOfferState;
             var stateId = '';
-            for (var i = 0; i < $rootScope.statesList.length; i++) {
-                if ($rootScope.statesList[i].State_Name == state) {
-                    stateId = parseInt($rootScope.statesList[i].State_Id);
+            for (var i = 0; i < $rootScope.statesList.$values.length; i++) {
+                if ($rootScope.statesList.$values[i].State_Name == state) {
+                    stateId = parseInt($rootScope.statesList.$values[i].State_Id);
                     break;
                 }
             }
@@ -717,15 +717,15 @@
         // Check and create questionnaire string
         function checkQuestionnaire() {
             $rootScope.questionnaireResult = '';
-            for (var i = 0; i < $rootScope.questionnaireList.length; i++) {
+            for (var i = 0; i < $rootScope.questionnaireList.$values.length; i++) {
                 if (i == 0) {
-                    $rootScope.questionnaireResult += $rootScope.questionnaireList[i].Question_Id + ',';
-                    var ddl = document.getElementById("ddQ" + $rootScope.questionnaireList[i].Question_Id);
+                    $rootScope.questionnaireResult += $rootScope.questionnaireList.$values[i].Question_Id + ',';
+                    var ddl = document.getElementById("ddQ" + $rootScope.questionnaireList.$values[i].Question_Id);
                     var val = parseInt(ddl.options[ddl.selectedIndex].value);
                     $rootScope.questionnaireResult += val;
                 } else {
-                    $rootScope.questionnaireResult += ',' + $rootScope.questionnaireList[i].Question_Id + ',';
-                    var ddl = document.getElementById("ddQ" + $rootScope.questionnaireList[i].Question_Id);
+                    $rootScope.questionnaireResult += ',' + $rootScope.questionnaireList.$values[i].Question_Id + ',';
+                    var ddl = document.getElementById("ddQ" + $rootScope.questionnaireList.$values[i].Question_Id);
                     var val = parseInt(ddl.options[ddl.selectedIndex].value);
                     $rootScope.questionnaireResult += val;
                 }
@@ -744,6 +744,7 @@
             var name = $("#basicModalName").val();
             var phone = $("#basicModalPhone").val();
             var state = $("#basicModalState").val();
+            var zipCode = $("#basicModalZipCode").val();
 
             localStorage.setItem('Name', name);
             localStorage.setItem('Address', address);
@@ -755,26 +756,47 @@
             var stateId = '';
             var cityId = '';
 
-            for (var i = 0; i < $rootScope.statesList.length; i++) {
-                if ($rootScope.statesList[i].State_Name == state) {
-                    stateId = parseInt($rootScope.statesList[i].State_Id);
+            for (var i = 0; i < $rootScope.statesList.$values.length; i++) {
+                if ($rootScope.statesList.$values[i].State_Name == state) {
+                    stateId = parseInt($rootScope.statesList.$values[i].State_Id);
                     break;
                 }
             }
 
-            for (var i = 0; i < $rootScope.citiesList.length; i++) {
-                if ($rootScope.citiesList[i].City_Name == city) {
-                    cityId = parseInt($rootScope.citiesList[i].City_Id);
+            for (var i = 0; i < $rootScope.citiesList.$values.length; i++) {
+                if ($rootScope.citiesList.$values[i].City_Name == city) {
+                    cityId = parseInt($rootScope.citiesList.$values[i].City_Id);
                     break;
                 }
             }
 
             switch ($rootScope.operationType) {
                 case 1:
-                    getAnOffer();
+                    if (email.length <= 0)
+                    { alert("Email address required"); }
+                    if (name.length <= 0)
+                    { alert("Name is required"); }
+                    if (phone.length <= 0)
+                    { alert("Phone is required"); }
+                    if (zipCode.length <= 0)
+                    { alert("Zip-code is required"); }
+                    if (email.length > 0 && name.length > 0 && phone.length > 0 && zipCode.length > 0) {
+                        $('#basicModal').modal('toggle');
+                        getAnOffer();
+                    }
                     break;
                 case 2:                    
-                    getCustomerId();
+                    if (email.length <= 0)
+                    { alert("Email address required"); }
+                    if (name.length <= 0)
+                    { alert("Name is required"); }
+                    if (phone.length <= 0)
+                    { alert("Phone is required"); }
+                    if (zipCode.length <= 0)
+                    { alert("Zip-code is required"); }
+                    if (email.length > 0 && name.length > 0 && phone.length > 0 && zipCode.length > 0) {
+                        $('#basicModal').modal('toggle');
+                    }
                     break;
                 default:
                     break;
@@ -801,30 +823,30 @@
             var cityId = '';
 
 
-            for (var i = 0; i < $rootScope.makesList.length; i++) {
-                if ($rootScope.makesList[i].Make_Name == make) {
-                    makeId = parseInt($rootScope.makesList[i].Make_Id);
+            for (var i = 0; i < $rootScope.makesList.$values.length; i++) {
+                if ($rootScope.makesList.$values[i].Make_Name == make) {
+                    makeId = parseInt($rootScope.makesList.$values[i].Make_Id);
                     break;
                 }
             }
 
-            for (var i = 0; i < $rootScope.modelsList.length; i++) {
-                if ($rootScope.modelsList[i].Model_Name == model) {
-                    modelId = parseInt($rootScope.modelsList[i].Model_Id);
+            for (var i = 0; i < $rootScope.modelsList.$values.length; i++) {
+                if ($rootScope.modelsList.$values[i].Model_Name == model) {
+                    modelId = parseInt($rootScope.modelsList.$values[i].Model_Id);
                     break;
                 }
             }
 
-            for (var i = 0; i < $rootScope.statesList.length; i++) {
-                if ($rootScope.statesList[i].State_Name == state) {
-                    stateId = parseInt($rootScope.statesList[i].State_Id);
+            for (var i = 0; i < $rootScope.statesList.$values.length; i++) {
+                if ($rootScope.statesList.$values[i].State_Name == state) {
+                    stateId = parseInt($rootScope.statesList.$values[i].State_Id);
                     break;
                 }
             }
 
-            for (var i = 0; i < $rootScope.citiesList.length; i++) {
-                if ($rootScope.citiesList[i].City_Name == city) {
-                    cityId = parseInt($rootScope.citiesList[i].City_Id);
+            for (var i = 0; i < $rootScope.citiesList.$values.length; i++) {
+                if ($rootScope.citiesList.$values[i].City_Name == city) {
+                    cityId = parseInt($rootScope.citiesList.$values[i].City_Id);
                     break;
                 }
             }
@@ -868,30 +890,30 @@
             var stateId = '';
             var cityId = '';
 
-            for (var i = 0; i < $rootScope.citiesList.length; i++) {
-                if ($rootScope.citiesList[i].City_Name == city) {
-                    cityId = parseInt($rootScope.citiesList[i].City_Id);
+            for (var i = 0; i < $rootScope.citiesList.$values.length; i++) {
+                if ($rootScope.citiesList.$values[i].City_Name == city) {
+                    cityId = parseInt($rootScope.citiesList.$values[i].City_Id);
                     break;
                 }
             }
 
-            for (var i = 0; i < $rootScope.makesList.length; i++) {
-                if ($rootScope.makesList[i].Make_Name == make) {
-                    makeId = parseInt($rootScope.makesList[i].Make_Id);
+            for (var i = 0; i < $rootScope.makesList.$values.length; i++) {
+                if ($rootScope.makesList.$values[i].Make_Name == make) {
+                    makeId = parseInt($rootScope.makesList.$values[i].Make_Id);
                     break;
                 }
             }
 
-            for (var i = 0; i < $rootScope.modelsList.length; i++) {
-                if ($rootScope.modelsList[i].Model_Name == model) {
-                    modelId = parseInt($rootScope.modelsList[i].Model_Id);
+            for (var i = 0; i < $rootScope.modelsList.$values.length; i++) {
+                if ($rootScope.modelsList.$values[i].Model_Name == model) {
+                    modelId = parseInt($rootScope.modelsList.$values[i].Model_Id);
                     break;
                 }
             }
 
-            for (var i = 0; i < $rootScope.statesList.length; i++) {
-                if ($rootScope.statesList[i].State_Name == state) {
-                    stateId = parseInt($rootScope.statesList[i].State_Id);
+            for (var i = 0; i < $rootScope.statesList.$values.length; i++) {
+                if ($rootScope.statesList.$values[i].State_Name == state) {
+                    stateId = parseInt($rootScope.statesList.$values[i].State_Id);
                     break;
                 }
             }
@@ -931,7 +953,7 @@
             return homeService.getQuestionnaire()
                 .then(function (serviceResponse) {
                     var response = serviceResponse.data;
-                    $rootScope.questionnaireList = response;
+                    $rootScope.questionnaireList = response;                    
                     fillQuestionnairesLists();
                     $scope.reset();
                     $scope.stopSpin();
@@ -943,14 +965,14 @@
                 });
         }
         // Populate different questionnaire lists
-        function fillQuestionnairesLists() {
-            for (var i = 0; i < $rootScope.questionnaireList.length; i++) {
-                if ($rootScope.questionnaireList[i].Sub_Questionnaire_Id == 2) {
-                    homeControllerVM.drivetrainQuestionnaireList.push($rootScope.questionnaireList[i]);
+        function fillQuestionnairesLists() {            
+            for (var i = 0; i < $rootScope.questionnaireList.$values.length; i++) {
+                if ($rootScope.questionnaireList.$values[i].Sub_Questionnaire_Id == 2) {
+                    homeControllerVM.drivetrainQuestionnaireList.push($rootScope.questionnaireList.$values[i]);
                 }
-                else if ($rootScope.questionnaireList[i].Sub_Questionnaire_Id == 3)
-                { homeControllerVM.interiorExteriorQuestionnaireList.push($rootScope.questionnaireList[i]); }
-            }
+                else if ($rootScope.questionnaireList.$values[i].Sub_Questionnaire_Id == 3)
+                { homeControllerVM.interiorExteriorQuestionnaireList.push($rootScope.questionnaireList.$values[i]); }
+            }         
         }
         // Confirm offer without questionnaire
         function confirmOffer() {       
@@ -974,16 +996,16 @@
 
             var stateId = '';
             var cityId = '';
-            for (var i = 0; i < $rootScope.statesList.length; i++) {
-                if ($rootScope.statesList[i].State_Name == state) {
-                    stateId = parseInt($rootScope.statesList[i].State_Id);
+            for (var i = 0; i < $rootScope.statesList.$values.length; i++) {
+                if ($rootScope.statesList.$values[i].State_Name == state) {
+                    stateId = parseInt($rootScope.statesList.$values[i].State_Id);
                     break;
                 }
             }
 
-            for (var i = 0; i < $rootScope.citiesList.length; i++) {
-                if ($rootScope.citiesList[i].City_Name == city) {
-                    cityId = parseInt($rootScope.citiesList[i].City_Id);
+            for (var i = 0; i < $rootScope.citiesList.$values.length; i++) {
+                if ($rootScope.citiesList.$values[i].City_Name == city) {
+                    cityId = parseInt($rootScope.citiesList.$values[i].City_Id);
                     break;
                 }
             }
@@ -1062,10 +1084,30 @@
         }
         // Get customer id        
         function getCustomerId() {
+            var address = $("#basicModalAddress").val();
+            var city = $("#basicModalCity").val();
             var email = $("#basicModalEmail").val();
+            var name = $("#basicModalName").val();
             var phone = $("#basicModalPhone").val();
+            var state = $("#basicModalState").val();
+            var zipCode = $("#basicModalZipCode").val();
+            var stateId = '';
+            var cityId = '';
+            for (var i = 0; i < $rootScope.statesList.$values.length; i++) {
+                if ($rootScope.statesList.$values[i].State_Name == state) {
+                    stateId = parseInt($rootScope.statesList.$values[i].State_Id);
+                    break;
+                }
+            }
+
+            for (var i = 0; i < $rootScope.citiesList.$values.length; i++) {
+                if ($rootScope.citiesList.$values[i].City_Name == city) {
+                    cityId = parseInt($rootScope.citiesList.$values[i].City_Id);
+                    break;
+                }
+            }
             $scope.startSpin();
-            return homeService.getCustomerId({ emailAddress: email, phone:phone })
+            return homeService.getCustomerId({ address: address, cityId: cityId, emailAddress: email, name: name, phone: phone, stateId: stateId, zipCode: zipCode })
                 .then(function (serviceResponse) {
                     var response = serviceResponse.data;
                     $rootScope.customerId = parseInt(response);
@@ -1137,8 +1179,8 @@
 
             homeControllerVM.offerTabNegotiationMessage = '';
 
-            for (var i = 0; i < $rootScope.questionnaireList.length; i++) {
-                var ddl = document.getElementById("ddQ" + $rootScope.questionnaireList[i].Question_Id);
+            for (var i = 0; i < $rootScope.questionnaireList.$values.length; i++) {
+                var ddl = document.getElementById("ddQ" + $rootScope.questionnaireList.$values[i].Question_Id);
                 ddl.selectedIndex = 0;
             }
         }
@@ -1195,21 +1237,8 @@
 
 
 
-
-
-
+        
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-        //$scope.redirectLogin = function () {
-        //    $location.path('/Login');
-        //    window.location = "Login.html";
-        //}
-
-        //function isValidEmail(emailAddress) {
-        //    return homeService.isValidEmail(emailAddress);
-        //}
-        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
         //var modalInstance = '';
         //$scope.open = function () {

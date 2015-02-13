@@ -53,6 +53,10 @@
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JunkCar.Core\JunkCar.Core.csproj">
+      <Project>{40c26f44-85eb-4111-937b-15a5a52785c6}</Project>
+      <Name>JunkCar.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JunkCar.DataModel\JunkCar.DataModel.csproj">
       <Project>{7a51f964-3bbf-4116-820d-fdd550e29d8d}</Project>
       <Name>JunkCar.DataModel</Name>

@@ -8,6 +8,7 @@ using JunkCar.Factory.Factories;
 using JunkCar.Repository.Base;
 using System.Configuration;
 using System.Data.Entity.Core.Objects;
+using JunkCar.Core.Common;
 
 namespace JunkCar.Repository.Repositories
 {
@@ -248,13 +249,29 @@ namespace JunkCar.Repository.Repositories
                         select sta.State_Name).FirstOrDefault();
             return state;
         }
-        public int GetCustomerId(string emailAddress, string phone)
+        public int GetCustomerId(string address, int cityId, string emailAddress, string name, string phone, int stateId, string zipCode, string password)
         {
-            var customerId = (from salCus in _context.Sal_Customer
-                              join salCusCon in _context.Sal_Customer_Contact on salCus.Customer_Id equals salCusCon.Customer_Id
-                              where salCus.Login_Name.Equals(emailAddress) || salCusCon.Customer_Contact.Equals(emailAddress) || salCusCon.Customer_Contact.Equals(phone)
-                              select salCus.Customer_Id).FirstOrDefault();
-            return customerId;
+            int returnCustomerId = 0;
+            bool isExist = CheckUserExistence(emailAddress);
+            if (!isExist)
+            {
+                int customerId = RegisterUser(emailAddress, name, address, phone, Encryption.Encrypt("#", password), zipCode);
+                if (customerId > 0)
+                {
+                    returnCustomerId = customerId;
+                    JunkCar.Core.ConfigurationEmails.ConfigurationEmail.SignupEmail(emailAddress, name, password, emailAddress);
+                }
+            }
+            else
+            {
+                var customerId = (from salCus in _context.Sal_Customer
+                                  join salCusCon in _context.Sal_Customer_Contact on salCus.Customer_Id equals salCusCon.Customer_Id
+                                  where salCus.Login_Name.Equals(emailAddress) || salCusCon.Customer_Contact.Equals(emailAddress) || salCusCon.Customer_Contact.Equals(phone)
+                                  select salCus.Customer_Id).FirstOrDefault();
+
+                returnCustomerId = customerId;
+            }
+            return returnCustomerId;
         }
         public List<string> GetQuestionnaireDescription(int[] selectedQuestionnaire)
         {
@@ -281,16 +298,52 @@ namespace JunkCar.Repository.Repositories
                     }
 
              return questionnaireDescription;
-        }              
-        public string GetAnOffer(int? year, int? makeId, int? modelId, string zipCode, string customerInfo, short cylinders)
-        {
-            var offerPrice = _context.GetAnOffer(year, makeId, modelId, null, zipCode, customerInfo, cylinders).FirstOrDefault();
-            return offerPrice.Offer_Price.ToString();            
         }
-        public string GetABetterOffer(int? year, int? makeId, int? modelId, string zipCode, string questionnaire, string customerInfo, short cylinders)
+        public string GetAnOffer(int? year, int? makeId, int? modelId, string zipCode, string customerInfo, short cylinders, string email, string name, string address, string phone, string password)
         {
+            bool isExist = CheckUserExistence(email);
+            if (!isExist)
+            {
+                int customerId = RegisterUser(email, name, address, phone, Encryption.Encrypt("#", password), zipCode);
+                if (customerId > 0)
+                { JunkCar.Core.ConfigurationEmails.ConfigurationEmail.SignupEmail(email, name, password, email); }
+            }
+            var offerPrice = _context.GetAnOffer(year, makeId, modelId, null, zipCode, customerInfo, cylinders).FirstOrDefault();
+            return offerPrice.Offer_Price.ToString();
+        }
+        public string GetABetterOffer(int? year, int? makeId, int? modelId, string zipCode, string questionnaire, string customerInfo, short cylinders, string email, string name, string address, string phone, string password)
+        {
+            bool isExist = CheckUserExistence(email);
+            if (!isExist)
+            {
+                int customerId = RegisterUser(email, name, address, phone, Encryption.Encrypt("#", password), zipCode);
+                if (customerId > 0)
+                { JunkCar.Core.ConfigurationEmails.ConfigurationEmail.SignupEmail(email, name, password, email); }
+            }
             var offerPrice = _context.GetAnOffer(year, makeId, modelId, questionnaire, zipCode, customerInfo, cylinders).FirstOrDefault();
             return offerPrice.Offer_Price.ToString();         
+        }
+        public bool CheckUserExistence(string email)
+        {
+            bool isExist = false;
+            var customer = (from salCus in _context.Sal_Customer                               
+                              where salCus.Login_Name.Equals(email)
+                              select salCus).FirstOrDefault();
+
+            if(customer == null)
+            {isExist = false;}
+            else
+            {isExist = true;}
+            return isExist;
+        }
+        public int RegisterUser(string email, string name, string address, string phone, string password, string zipCode)
+        {
+            var registerUser = _context.RegisterUser(null, password, name, address, phone, email, zipCode, new System.Data.Entity.Core.Objects.ObjectParameter("Sign_Up", 1));
+
+            var finalData = (from d in registerUser
+                             select d.Customer_Id).FirstOrDefault();
+
+            return (int)finalData;           
         }
     }
 }

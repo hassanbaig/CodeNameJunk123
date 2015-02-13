@@ -10,6 +10,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <_PublishTargetUrl>ftp://ftp.junkcartrader.com/wwwroot</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
+    <File Include="Aboutus.html">
+      <publishTime>02/06/2015 17:01:42</publishTime>
+    </File>
     <File Include="App/Animation/alerts-manager.js">
       <publishTime>11/13/2014 21:00:34</publishTime>
     </File>
@@ -17,7 +20,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/13/2014 21:00:34</publishTime>
     </File>
     <File Include="App/Authentication.js">
-      <publishTime>11/13/2014 21:00:34</publishTime>
+      <publishTime>01/28/2015 12:41:48</publishTime>
     </File>
     <File Include="App/breezeConfig.js">
       <publishTime>11/13/2014 21:00:35</publishTime>
@@ -166,6 +169,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/WebGrease.dll">
       <publishTime>12/17/2014 18:59:16</publishTime>
     </File>
+    <File Include="Contactus.html">
+      <publishTime>02/09/2015 15:44:13</publishTime>
+    </File>
     <File Include="Content/animations.css">
       <publishTime>12/24/2014 11:59:56</publishTime>
     </File>
@@ -277,11 +283,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Global.asax">
       <publishTime>12/17/2014 18:59:00</publishTime>
     </File>
+    <File Include="Howitworks.html">
+      <publishTime>02/06/2015 16:17:00</publishTime>
+    </File>
     <File Include="Index.html">
-      <publishTime>01/12/2015 17:58:56</publishTime>
+      <publishTime>02/07/2015 02:09:54</publishTime>
+    </File>
+    <File Include="Login.html">
+      <publishTime>02/06/2015 16:17:14</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>12/18/2014 16:28:08</publishTime>
+      <publishTime>01/27/2015 15:41:47</publishTime>
     </File>
     <File Include="Scripts/angular-animate.js">
       <publishTime>12/18/2014 16:28:08</publishTime>
@@ -2657,7 +2669,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/15/2015 18:02:18</publishTime>
     </File>
     <File Include="Signup.html">
-      <publishTime>01/14/2015 19:03:52</publishTime>
+      <publishTime>02/06/2015 16:17:22</publishTime>
+    </File>
+    <File Include="SMS.html">
+      <publishTime>02/06/2015 16:17:32</publishTime>
     </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
       <publishTime>12/17/2014 18:59:18</publishTime>
@@ -2726,7 +2741,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/17/2014 18:59:00</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/15/2015 18:16:59</publishTime>
+      <publishTime>02/09/2015 15:56:31</publishTime>
     </File>
   </ItemGroup>
 </Project>

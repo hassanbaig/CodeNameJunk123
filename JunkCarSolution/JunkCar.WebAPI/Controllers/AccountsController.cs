@@ -30,12 +30,8 @@ namespace JunkCar.WebAPI.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult Authenticate(string password, string userId)
-        {
-            if (userId == null || password == null)
-            {
-                return Ok("Please check login credentials and then try again.");
-            }
+        public bool Authenticate(string password, string userId)
+        {            
             FactoryFacade factory = new FactoryFacade();
             domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Authenticate));
             domainModel.Fill(HashHelper.Authenticate(userId, password));
@@ -47,7 +43,7 @@ namespace JunkCar.WebAPI.Controllers
             //    UserData userData = new UserData(userId, authenticate.ProviderId.ToString(), "");
             //    TicketHelper.CreateAuthCookie(userData.UserId, userData.GetProviderUserData(), false);
             //}
-            return Ok(authenticate.IsAuthenticated);
+            return authenticate.IsAuthenticated;
         }
 
         //[HttpGet]

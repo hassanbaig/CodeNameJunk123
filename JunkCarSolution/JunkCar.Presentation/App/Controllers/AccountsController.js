@@ -174,16 +174,15 @@
             $scope.startSpin();            
             var email = accountsControllerVM.loginEmail;
             var pass = accountsControllerVM.loginPassword;
-            accountsService.authenticateUser({ userId: email, password: pass }).then(function (data) {
-                var response = data.results;
-                var mystring = new String(response);
-                mystring = mystring.substring(1, mystring.length - 1);                
-
-                if (mystring == "Valid") {
+            accountsService.authenticateUser({ userId: email, password: pass })
+                .then(function (serviceResponse) {
+                var response = serviceResponse.data;                                
+                if (response === true) {
                     $scope.stopSpin();
                     $scope.redirectMain();
                 }
                 else {
+                    alert("Invalid password or username does not exist");
                     $scope.stopSpin();
                     failureAlert(response);
                 }
@@ -319,26 +318,26 @@
 
             $scope.reset();
 
-            if (email == '')
-            { failureAlert("Email address required."); }
+            if (email.length <= 0)
+            { alert("Email address required."); }
 
-            if (password == '')
-            { failureAlert("Password required."); }
+            if (password.length <= 0)
+            { alert("Password required."); }
 
-            if (retypePassword == '')
-            { failureAlert("Re-type password required."); }
+            if (retypePassword.length <= 0)
+            { alert("Re-type password required."); }
 
-            if (zipCode == '') {
-                failureAlert("Zip-code required.");
+            if (zipCode.length <= 0) {
+                alert("Zip-code required.");
             }            
             
-            if (email != '' && password != '' && retypePassword != '' && zipCode != '') {
+            if (email.length > 0 && password.length > 0 && retypePassword.length > 0 && zipCode.length > 0) {
                 $scope.startSpin();
                 return accountsService.signup({ address:address, email: email, name:name, password: password, phone:phone, zipCode: zipCode })
                     .then(function (serviceResponse) {
                         var response = serviceResponse.data;
-                    successAlert(response);                                        
-                    if (response == 'Registration is successful') {
+                    alert(response);                                        
+                    if (response == 'Your account has been created successfully and you will receive an email shortly with the details') {
                         $scope.stopSpin();
                         $scope.redirectMain();
                     }

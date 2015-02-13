@@ -1,8 +1,8 @@
-C:\Users\hassanbaig>ICACLS C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI /grant "IIS AppPool\.NET v4.5":WRX
-processed file: C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI
+C:\Users\hassanbaig>ICACLS D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI /grant "IIS AppPool\.NET v4.5":WRX
+processed file: D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI
 
-C:\Users\hassanbaig>ICACLS C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Presentation /grant "IIS AppPool\.NET v4.5":WRX
-processed file: C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Presentation
+C:\Users\hassanbaig>ICACLS D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Presentation /grant "IIS AppPool\.NET v4.5":WRX
+processed file: D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Presentation
 
 is k bad 2 steps hotay hain
 [12:31:24 PM] Talha Shaikh: ??

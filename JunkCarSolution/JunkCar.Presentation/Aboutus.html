@@ -22,7 +22,31 @@
     <link href="Content/Assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="Content/Assets/CSS/bootstrap.css" rel="stylesheet">
      
-   
+        <script src="Scripts/angular.min.js"></script>
+        <script src="Scripts/angular-route.js"></script>
+        <script src="Scripts/angular-file-upload-shim.min.js"></script>
+        <script src="Scripts/angular-file-upload.min.js"></script>
+
+        <script src="App/RouteConfig.js"></script>
+        <!--<script src="Scripts/angular-sanitize.js"></script>-->
+        <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>-->
+        <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+        <script src="App/Config/App.js"></script>
+        <script src="App/Controllers/UtilityController.js"></script>
+        <script src="App/Services/UtilityService.js"></script>
+
+
+        <script type="text/javascript" src="http://fgnass.github.io/spin.js/spin.min.js"></script>
+        <script src="App/Animation/angular-spinner.js"></script>
+        <script type="text/javascript" src="Scripts/angular-animate.js"></script>
+        <link href="Content/Assets/CSS/animations.css" rel="stylesheet">
+        <script type="text/javascript" src="App/Animation/alerts-manager.js"></script>
+
+        <script type="text/javascript" src="App/CustomDirectives/filters.js"></script>
+        <link href="Content/Assets/CSS/angular.rangeSlider.css" rel="stylesheet">
+        <script type="text/javascript" src="App/CustomDirectives/angular.rangeSlider.js"></script>
+        <script type="text/javascript" src="App/CustomDirectives/rangeFilter.js"></script>
+        <script type="text/javascript" src="App/CustomDirectives/timeRangeFilter.js"></script>
   
  
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -65,39 +89,39 @@ ul {
 
 <!--First Row-->
 <div class="row">
-<!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-<div class="container">
-<!-- Brand and toggle get grouped for better mobile display -->
-<div class="navbar-header">
-<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-<span class="sr-only">Toggle navigation</span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-</button>
-<a class="navbar-brand" href="#">
-<!-- <img src="http://placehold.it/150x50&text=Logo" alt="">-->
-<img src="Content/Images/logo.png" />
-</a>
-</div>
-<!-- Collect the nav links, forms, and other content for toggling -->
-<div class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-<ul class="nav navbar-nav">
-<li><a href="http://www.junkcartrader.com">Get an offer</a></li>
-<li><a href="Howitworks.html">How it works</a></li>
-<!--<li><a href="#">Testimonial</a></li>-->
-<li class="active"><a href="#">About us</a></li>
-<li><a href="Contactus.html">Contact us</a></li>
-<li><a href="Signup.html">Sign up</a></li>
-<li><a href="Login.html">Login</a></li>
-<li style=" color:#F00" ><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
-</ul>
-</div>
-<!-- /.navbar-collapse -->
-</div>
-<!-- /.container -->
-</nav>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a data-ng-controller="utilityController as utilityControllerVM" data-ng-click="utilityControllerVM.redirectIndex();" class="navbar-brand" href="http://www.junkcartrader.com">
+                    <!-- <img src="http://placehold.it/150x50&text=Logo" alt="">-->
+                    <img src="Content/Images/logo.png" />
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="http://www.junkcartrader.com">Get an offer</a></li>
+                    <li><a href="Howitworks.html">How it works</a></li>
+                    <!--<li><a href="#">Testimonial</a></li>-->
+                    <li class="active"><a href="#">About us</a></li>
+                    <li><a href="Contactus.html">Contact us</a></li>
+                    <li><a href="Signup.html">Sign up</a></li>
+                    <li><a href="Login.html">Login</a></li>
+                    <li style="color:#F00"><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
 </div>
 <!--End First Row-->
 
@@ -177,27 +201,27 @@ Coming Soon!!! our mobile app which will make this process a fun process. </p>
 <!--End Fifth Row-->
 
 <!--Sixth Row-->
-<div id="footer" class="container" style="margin-top:20px; margin-bottom:0px; height:50px; ">
-                <nav class="navbar navbar-default  navbar-fixed-bottom" style="background-color:#000">
-                    <div class="navbar-inner navbar-content-center">
-                        <div class="col-lg-4 centered">
-                            <a href="Aboutus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">About Us</a>
-                            <a href="Howitworks.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">How it works</a>
-                            <!--<a href="#" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">Privacy</a>-->
-                            <a href="Contactus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">Contact Us</a>
+    <div id="footer" class="row">
+        <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color:#000">
+            <div class="navbar-inner navbar-content-center">
+                <div class="col-lg-4 centered">
+                    <a href="aboutus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">About Us</a>
+                    <a href="howitworks.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">How it works</a>
+                    <!--<a href="#" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">Privacy</a>-->
+                    <a href="contactus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">Contact Us</a>
 
-                        </div>
-                        <div class="col-lg-4">
+                </div>
+                <div class="col-lg-4">
 
-                        </div>
-                        <div class="col-lg-4 centered">
-                            <span style="font-size:11px; color:#FFF">Copyright © 2015 junkcartrader.com. All Rights Reserved</span>
+                </div>
+                <div class="col-lg-4 centered">
+                    <span style="font-size:11px; color:#FFF">Copyright © 2015 junkcartrader.com. All Rights Reserved</span>
 
-                        </div>
+                </div>
 
-                    </div>
-                </nav>
             </div>
+        </nav>
+    </div>
 <!--End Sixth Row-->
 
 <!--Modal 3-->
@@ -211,20 +235,18 @@ Coming Soon!!! our mobile app which will make this process a fun process. </p>
                             <div style="padding:20px">
                                 <form role="form">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="callUsZipCode" data-ng-model="homeControllerVM.homeZipCode" data-ng-keypress="onKeyPress($event);" placeholder="Enter Zipcode">
+                                        <input type="text" class="form-control" id="callUsZipCode" data-ng-model="utilityControllerVM.zipCode" data-ng-keypress="onKeyPress($event);" placeholder="Enter Zipcode">
                                     </div>
-                                    <h3><span class="label label-default" style="background-color:#ee2c3d">{{contactNo}}</span></h3>
+                                    <h3 style="text-align:center;"><span class="label label-default" style="background-color:#ee2c3d">{{contactNo}}</span></h3>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--End Modal 3-->
-
- 
- 
-</div><!-- /container -->
+            <!--End Modal 3--> 
+</div>
+    <!-- /container -->
   
        
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>

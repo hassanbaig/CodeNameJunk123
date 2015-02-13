@@ -34,7 +34,7 @@ namespace JunkCar.DomainService.Services
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.AccountsUOW));
                                 unitOfWork.Save(signup);
                                 unitOfWork.Commit();
-                                signup.ResponseMessage = "Registration is successful";
+                                signup.ResponseMessage = "Your account has been created successfully and you will receive an email shortly with the details";
 
                                 JunkCar.Core.ConfigurationEmails.ConfigurationEmail.SignupEmail(signup.Email,signup.Name, signup.Password, signup.Email);
                             }

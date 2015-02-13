@@ -17,8 +17,7 @@ namespace JunkCar.UnitOfWork.UOWs
 {
     public class ContactUsUOW : BaseUnitOfWork, IUnitOfWork
     {
-        //private UserRepository userRepository;        
-        //private Authenticate authenticate;         
+        private HomeRepository homeRepository;
         private ContactUs contactUs;
         public ContactUsUOW()
             : base()
@@ -45,9 +44,9 @@ namespace JunkCar.UnitOfWork.UOWs
             }
         }
         void IUnitOfWork.InitializeRepositories()
-        {            
-            //userRepository = (UserRepository)base.Factory.RepositoryFactory.CreateRepository(typeof(UserRepository));            
-            //userRepository.DataContext = base.Context;            
+        {
+            homeRepository = (HomeRepository)base.Factory.RepositoryFactory.CreateRepository(typeof(HomeRepository));
+            homeRepository.DataContext = base.Context;            
         }
         void IUnitOfWork.Save(AbstractDomainModel domainModel)
         {
@@ -84,6 +83,13 @@ namespace JunkCar.UnitOfWork.UOWs
             {                
                 case OperationTypeEnum.CONTACT_EMAIL_MESSAGE:
                     JunkCar.Core.ConfigurationEmails.ConfigurationEmail.ContactUs(contactUs.Name,contactUs.Email,contactUs.Phone,contactUs.Subject,contactUs.Message,"junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");
+                    break;
+                case OperationTypeEnum.CHECK_ZIPCODE:
+                    contactUs.ZipCodeResult = homeRepository.CheckZipCode(contactUs.ZipCode);
+                    if (contactUs.ZipCodeResult.Is_Valid_Zip_Code == false)
+                    {
+                        throw new Exception("Please enter a valid zipcode");
+                    }
                     break;
                 default:
                     break;

@@ -76,39 +76,39 @@ ul {
 
 <!--First Row-->
 <div class="row">
-<!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-<div class="container">
-<!-- Brand and toggle get grouped for better mobile display -->
-<div class="navbar-header">
-<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-<span class="sr-only">Toggle navigation</span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-</button>
-<a class="navbar-brand" href="#">
-<!-- <img src="http://placehold.it/150x50&text=Logo" alt="">-->
-<img src="Content/Images/logo.png" />
-</a>
-</div>
-<!-- Collect the nav links, forms, and other content for toggling -->
-<div class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-<ul class="nav navbar-nav">
-<li><a href="http://www.junkcartrader.com">Get an offer</a></li>
-<li><a href="Howitworks.html">How it works</a></li>
-<!--<li><a href="#">Testimonial</a></li>-->
-<li><a href="Aboutus.html">About us</a></li>
-<li><a href="Contactus.html">Contact us</a></li>
-<li><a href="Signup.html">Sign up</a></li>
-<li><a href="Login.html">Login</a></li>
-<li style="font-weight:bold; color:#F00" ><a href="#"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
-</ul>
-</div>
-<!-- /.navbar-collapse -->
-</div>
-<!-- /.container -->
-</nav>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a data-ng-controller="utilityController as utilityControllerVM" data-ng-click="utilityControllerVM.redirectIndex();" class="navbar-brand" href="http://www.junkcartrader.com">
+                    <!-- <img src="http://placehold.it/150x50&text=Logo" alt="">-->
+                    <img src="Content/Images/logo.png" />
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="http://www.junkcartrader.com">Get an offer</a></li>
+                    <li><a href="Howitworks.html">How it works</a></li>
+                    <!--<li><a href="#">Testimonial</a></li>-->
+                    <li><a href="Aboutus.html">About us</a></li>
+                    <li><a href="Contactus.html">Contact us</a></li>
+                    <li><a href="Signup.html">Sign up</a></li>
+                    <li><a href="Login.html">Login</a></li>
+                    <li style="color:#F00"><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
 </div>
 <!--End First Row-->
 

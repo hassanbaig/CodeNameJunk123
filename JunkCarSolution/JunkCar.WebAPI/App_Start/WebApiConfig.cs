@@ -24,7 +24,7 @@ namespace JunkCar.WebAPI
 
             // Removed XML formatter and added JSON formatter for response data from controllers` action methods
             var json = config.Formatters.JsonFormatter;
-            json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+            json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.All;
             config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
     }

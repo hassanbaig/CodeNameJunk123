@@ -1284,11 +1284,13 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetCylinders" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Offer_Parameter_Select" />
     <FunctionImportMapping FunctionImportName="RegisterUser" FunctionName="shiner49_JunkCarNewModel.Store.usp_Sal_Customer_Signup">
       <ResultMapping>
         <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.RegisterUser_Result">
           <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
           <ScalarProperty Name="Login_Password" ColumnName="Login_Password" />
+          <ScalarProperty Name="Is_New" ColumnName="Is_New" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1297,9 +1299,9 @@
         <ComplexTypeMapping TypeName="shiner49_JunkCarNewModel.RegisterUser_Result">
           <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
           <ScalarProperty Name="Login_Password" ColumnName="Login_Password" />
+          <ScalarProperty Name="Is_New" ColumnName="Is_New" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="GetCylinders" FunctionName="shiner49_JunkCarNewModel.Store.usp_Set_Offer_Parameter_Select" />
   </EntityContainerMapping>
 </Mapping>

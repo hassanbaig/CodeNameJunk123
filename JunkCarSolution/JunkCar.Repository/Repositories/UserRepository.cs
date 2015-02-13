@@ -25,13 +25,13 @@ namespace JunkCar.Repository.Repositories
             _context = context;
         }
         public int Add(string email,string name,string address,string phone, string password, string zipCode)
-        {          
-           var registerUser = _context.RegisterUser(null, password, name, address, phone, email, zipCode,true);
+        {
+            var registerUser = _context.RegisterUser(null, password, name, address, phone, email, zipCode, new System.Data.Entity.Core.Objects.ObjectParameter("Sign_Up", 1));
 
-           var finalData = (from d in registerUser
-                            select d.Customer_Id).FirstOrDefault();
-           
-           return (int)finalData;
+            var finalData = (from d in registerUser
+                             select d.Customer_Id).FirstOrDefault();
+
+            return (int)finalData;            
         }
         //public User GetByName(string Name)
         //{
@@ -71,13 +71,13 @@ namespace JunkCar.Repository.Repositories
 
         public int GetUser(string userId, string password)
         {
-            var data = _context.Authenticate(null, password, null, null, null, userId, null,false);
+            var data = _context.Authenticate(null, password, null, null, null, userId, null, new System.Data.Entity.Core.Objects.ObjectParameter("Sign_Up", 0));
             var finalData = (from d in data
                              select d.Customer_Id).FirstOrDefault();
             if (finalData == null)
             { return 0; }
             else
-            { return (int)finalData; }            
+            { return (int)finalData; }                      
         }
     }
 }

@@ -114,7 +114,8 @@ namespace JunkCar.UnitOfWork.UOWs
                         "<Customer_Info><Customer_Name>" + home.Name + "</Customer_Name>" +
                         "<Customer_Address>" + home.Address + "</Customer_Address>" +
                         "<Customer_Phone>" + home.Phone + "</Customer_Phone>" +
-                        "<Customer_Email>" + home.EmailAddress + "</Customer_Email></Customer_Info>",home.CylindersQuantity);
+                        "<Customer_Email>" + home.EmailAddress + "</Customer_Email></Customer_Info>",home.CylindersQuantity,
+                        home.EmailAddress,home.Name,home.Address,home.Phone,"password123");
                     if (home.OfferPrice.Length <= 0)
                     {
                         throw new Exception("No offer");
@@ -144,7 +145,8 @@ namespace JunkCar.UnitOfWork.UOWs
                         "<Customer_Info><Customer_Name>"+home.Name+"</Customer_Name>"+
                         "<Customer_Address>"+home.Address+"</Customer_Address>"+
                         "<Customer_Phone>"+home.Phone+"</Customer_Phone>"+
-                        "<Customer_Email>"+home.EmailAddress+"</Customer_Email></Customer_Info>",home.CylindersQuantity);        
+                        "<Customer_Email>"+home.EmailAddress+"</Customer_Email></Customer_Info>",home.CylindersQuantity,
+                        home.EmailAddress, home.Name, home.Address, home.Phone, "password123");        
            
                     if (home.OfferPrice.Length <= 0)
                     {
@@ -172,7 +174,7 @@ namespace JunkCar.UnitOfWork.UOWs
                     JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForCustomer(home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.Phone, home.ContactNo, home.EmailAddress);
                     break;
                 case OperationTypeEnum.GET_CUSTOMER_ID:
-                    home.CustomerId = homeRepository.GetCustomerId(home.EmailAddress,home.Phone);
+                    home.CustomerId = homeRepository.GetCustomerId(home.Address, home.CityId, home.EmailAddress, home.Name, home.Phone, home.StateId,home.ZipCode,"password123");
                     if(home.CustomerId <= 0)
                     {
                         throw new Exception("Customer do not exist");

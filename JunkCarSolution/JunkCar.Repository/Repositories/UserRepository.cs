@@ -68,7 +68,6 @@ namespace JunkCar.Repository.Repositories
             //else
             //{ throw new Exception("User not found"); }
         }
-
         public int GetUser(string userId, string password)
         {
             var data = _context.Authenticate(null, password, null, null, null, userId, null, new System.Data.Entity.Core.Objects.ObjectParameter("Sign_Up", 0));

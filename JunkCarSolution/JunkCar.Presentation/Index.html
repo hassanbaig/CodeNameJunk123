@@ -73,6 +73,12 @@
 </head>
 
 <style>
+
+    .container{
+ position: relative;
+ text-align: center;
+}
+
     .navbar-brand {
         float: left;
         /* padding: 15px;*/
@@ -228,7 +234,7 @@
             <span us-spinner="{radius:50, width:16, length: 32}" spinner-key="spinner-1"></span>
 
             <div class="col-lg-8">
-                <div id="mo" style=" border-radius:20px; height:auto; padding:20px; background-image:url(Content/Images/bg1.png); margin-top:70px; margin-bottom:70px;">
+                <div id="mo" style=" border-radius:20px; height:auto; padding:20px; background-image:url(Content/Images/bg1.png); margin-top:70px; margin-bottom:200px;">
                     <h1 style="margin-bottom:5px; margin-top:5px; font-weight:bold"> Sell your car online </h1>
                     <h3 style="text-align:center; color:#aa1a1f"> <b>in few steps instantly</b> </h3><br>
                     <div class="tabbable " style="  margin:0 auto; ">
@@ -240,7 +246,7 @@
                             <li id="tabOffer"><a href="#tab5" role="tab"><b>Offer</b></a></li>
                             <!--<li><a href="#tab6 " role="tab" data-toggle="tab"><b>Personal Information</b></a></li>-->
                             <!--<li><a href="#tab5" role="tab" data-toggle="tab">Step 5</a></li>
-                            <li><a href="#tab6" role="tab" data-toggle="tab">Step 6</a></li>-->
+                <li><a href="#tab6" role="tab" data-toggle="tab">Step 6</a></li>-->
                         </ul>
 
                         <div class="tab-content" style="margin-bottom:20px" data-ng-controller="homeController as homeControllerVM">
@@ -449,7 +455,6 @@
                                         <span style="color:red" ng-show="basicInfoForm.basicModalName.$dirty && basicInfoForm.basicModalName.$invalid">
                                             <span ng-show="basicInfoForm.basicModalName.$error.required">Name is required.</span>
                                         </span>
-
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="basicModalAddress" data-ng-model="homeControllerVM.homeBetterOfferAddress" placeholder="Address">
@@ -618,23 +623,28 @@
             <!--End Modal 4-->
 
             <div id="footer" class="row">
-                <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color:#000">
+                <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color:#000; height:30px">
                     <div class="navbar-inner navbar-content-center">
-                        <div class="col-lg-4 centered">
+
+                        <div class="col-lg-4 text-center">
                             <a href="Aboutus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">About Us</a>
-                            <a href="Howitworks.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">How it works</a>
-                            <!--<a href="#" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">Privacy</a>-->
+                            <a href="Howitworks.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">How it works</a>                            
                             <a href="Contactus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">Contact Us</a>
-
-                        </div>
-                        <div class="col-lg-4">
-
-                        </div>
-                        <div class="col-lg-4 centered">
-                            <span style="font-size:11px; color:#FFF">Copyright © 2015 junkcartrader.com. All Rights Reserved</span>
-
                         </div>
 
+                        <div class="col-lg-4 text-center">
+                            <span style="display:block; text-align:center; list-style:none; font-size:11px; color:#FFF; height:30px; padding-top:7px ">
+                                Copyright © 2015 junkcartrader.com. All Rights Reserved
+                            </span>
+                        </div>
+
+                        <div class="col-lg-4 text-center">
+                            <ul style="display:block; list-style:none; ">
+                                <li style="display:inline"> <a href="#"> <img src="Content/Images/facebook.png" /> </a> </li>
+                                <li style="display:inline"> <a href="#"> <img src="Content/Images/twitter.png" /> </a> </li>
+                                <li style="display:inline"> <a href="#"> <img src="Content/Images/linkedin.png" /> </a> </li>
+                            </ul>
+                        </div>
                     </div>
                 </nav>
             </div>

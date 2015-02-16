@@ -229,6 +229,7 @@
     <Content Include="Content\Images\bg1.png" />
     <Content Include="Content\Images\call.png" />
     <Content Include="Content\Images\dT6e845Gc.png" />
+    <Content Include="Content\Images\facebook.png" />
     <Content Include="Content\Images\footer.png" />
     <Content Include="Content\Images\g1.jpg" />
     <Content Include="Content\Images\g2.jpg" />
@@ -243,6 +244,7 @@
     <Content Include="Content\Images\icon2.png" />
     <Content Include="Content\Images\icon3.png" />
     <Content Include="Content\Images\icona.png" />
+    <Content Include="Content\Images\linkedin.png" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\logo1 %282%29.png" />
     <Content Include="Content\Images\logo1.png" />
@@ -258,6 +260,7 @@
     <Content Include="Content\Images\S5.jpg" />
     <Content Include="Content\Images\telephone_blue_icon.gif" />
     <Content Include="Content\Images\TowTruck.png" />
+    <Content Include="Content\Images\twitter.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -17,4 +17,8 @@ D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\bin\Debug\JunkCar.Core.dl
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\bin\Debug\JunkCar.Core.pdb
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\obj\Debug\JunkCar.Core.dll
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\obj\Debug\JunkCar.Core.pdb
-D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\obj\Debug\JunkCar.Core.csprojResolveAssemblyReference.cache
+C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\bin\Debug\JunkCar.Core.dll
+C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\bin\Debug\JunkCar.Core.pdb
+C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\obj\Debug\JunkCar.Core.csprojResolveAssemblyReference.cache
+C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\obj\Debug\JunkCar.Core.dll
+C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\obj\Debug\JunkCar.Core.pdb

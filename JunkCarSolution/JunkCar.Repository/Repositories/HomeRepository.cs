@@ -338,7 +338,7 @@ namespace JunkCar.Repository.Repositories
         }
         public int RegisterUser(string email, string name, string address, string phone, string password, string zipCode)
         {
-            var registerUser = _context.RegisterUser(null, password, name, address, phone, email, zipCode, new System.Data.Entity.Core.Objects.ObjectParameter("Sign_Up", 1));
+            var registerUser = _context.RegisterUser(null, password, name, address, phone, email, zipCode,true);
 
             var finalData = (from d in registerUser
                              select d.Customer_Id).FirstOrDefault();

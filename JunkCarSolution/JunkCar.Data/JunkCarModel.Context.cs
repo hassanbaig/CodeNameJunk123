@@ -2137,7 +2137,7 @@ namespace JunkCar.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Sal_Customer_Validate", customer_Id, login_Password, customer_NameParameter, customer_AddressParameter, customer_PhoneParameter, customer_EmailParameter, zip_CodeParameter, sign_Up);
         }
     
-        public virtual ObjectResult<usp_Sal_Customer_Signup_Result> usp_Sal_Customer_Signup(Nullable<int> customer_Id, string login_Password, string customer_Name, string customer_Address, string customer_Phone, string customer_Email, string zip_Code, ObjectParameter sign_Up)
+        public virtual ObjectResult<usp_Sal_Customer_Signup_Result> usp_Sal_Customer_Signup(Nullable<int> customer_Id, string login_Password, string customer_Name, string customer_Address, string customer_Phone, string customer_Email, string zip_Code, Nullable<bool> sign_Up)
         {
             var customer_IdParameter = customer_Id.HasValue ?
                 new ObjectParameter("Customer_Id", customer_Id) :
@@ -2167,7 +2167,11 @@ namespace JunkCar.Data
                 new ObjectParameter("Zip_Code", zip_Code) :
                 new ObjectParameter("Zip_Code", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Sal_Customer_Signup_Result>("usp_Sal_Customer_Signup", customer_IdParameter, login_PasswordParameter, customer_NameParameter, customer_AddressParameter, customer_PhoneParameter, customer_EmailParameter, zip_CodeParameter, sign_Up);
+            var sign_UpParameter = sign_Up.HasValue ?
+                new ObjectParameter("Sign_Up", sign_Up) :
+                new ObjectParameter("Sign_Up", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Sal_Customer_Signup_Result>("usp_Sal_Customer_Signup", customer_IdParameter, login_PasswordParameter, customer_NameParameter, customer_AddressParameter, customer_PhoneParameter, customer_EmailParameter, zip_CodeParameter, sign_UpParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> GetCylinders(string parameter_Type, Nullable<int> registration_Year, Nullable<int> make_Id)
@@ -2187,7 +2191,7 @@ namespace JunkCar.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetCylinders", parameter_TypeParameter, registration_YearParameter, make_IdParameter);
         }
     
-        public virtual ObjectResult<RegisterUser_Result> RegisterUser(Nullable<int> customer_Id, string login_Password, string customer_Name, string customer_Address, string customer_Phone, string customer_Email, string zip_Code, ObjectParameter sign_Up)
+        public virtual ObjectResult<RegisterUser_Result> RegisterUser(Nullable<int> customer_Id, string login_Password, string customer_Name, string customer_Address, string customer_Phone, string customer_Email, string zip_Code, Nullable<bool> sign_Up)
         {
             var customer_IdParameter = customer_Id.HasValue ?
                 new ObjectParameter("Customer_Id", customer_Id) :
@@ -2217,10 +2221,14 @@ namespace JunkCar.Data
                 new ObjectParameter("Zip_Code", zip_Code) :
                 new ObjectParameter("Zip_Code", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RegisterUser_Result>("RegisterUser", customer_IdParameter, login_PasswordParameter, customer_NameParameter, customer_AddressParameter, customer_PhoneParameter, customer_EmailParameter, zip_CodeParameter, sign_Up);
+            var sign_UpParameter = sign_Up.HasValue ?
+                new ObjectParameter("Sign_Up", sign_Up) :
+                new ObjectParameter("Sign_Up", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RegisterUser_Result>("RegisterUser", customer_IdParameter, login_PasswordParameter, customer_NameParameter, customer_AddressParameter, customer_PhoneParameter, customer_EmailParameter, zip_CodeParameter, sign_UpParameter);
         }
     
-        public virtual ObjectResult<RegisterUser_Result> Authenticate(Nullable<int> customer_Id, string login_Password, string customer_Name, string customer_Address, string customer_Phone, string customer_Email, string zip_Code, ObjectParameter sign_Up)
+        public virtual ObjectResult<RegisterUser_Result> Authenticate(Nullable<int> customer_Id, string login_Password, string customer_Name, string customer_Address, string customer_Phone, string customer_Email, string zip_Code, Nullable<bool> sign_Up)
         {
             var customer_IdParameter = customer_Id.HasValue ?
                 new ObjectParameter("Customer_Id", customer_Id) :
@@ -2250,7 +2258,11 @@ namespace JunkCar.Data
                 new ObjectParameter("Zip_Code", zip_Code) :
                 new ObjectParameter("Zip_Code", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RegisterUser_Result>("Authenticate", customer_IdParameter, login_PasswordParameter, customer_NameParameter, customer_AddressParameter, customer_PhoneParameter, customer_EmailParameter, zip_CodeParameter, sign_Up);
+            var sign_UpParameter = sign_Up.HasValue ?
+                new ObjectParameter("Sign_Up", sign_Up) :
+                new ObjectParameter("Sign_Up", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RegisterUser_Result>("Authenticate", customer_IdParameter, login_PasswordParameter, customer_NameParameter, customer_AddressParameter, customer_PhoneParameter, customer_EmailParameter, zip_CodeParameter, sign_UpParameter);
         }
     }
 }

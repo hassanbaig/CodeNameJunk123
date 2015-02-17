@@ -1197,7 +1197,7 @@
     <Parameter Name="Customer_Phone" Type="varchar(max)" Mode="In" />
     <Parameter Name="Customer_Email" Type="varchar(max)" Mode="In" />
     <Parameter Name="Zip_Code" Type="varchar" Mode="In" />
-    <Parameter Name="Sign_Up" Type="int" Mode="InOut" />
+    <Parameter Name="Sign_Up" Type="bit" Mode="In" />
   </Function>
   <Function Name="usp_Sal_Customer_Validate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
     <Parameter Name="Customer_Id" Type="int" Mode="InOut" />

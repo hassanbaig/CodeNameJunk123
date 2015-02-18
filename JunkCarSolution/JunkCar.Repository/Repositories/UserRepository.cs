@@ -26,7 +26,7 @@ namespace JunkCar.Repository.Repositories
         }
         public int Add(string email,string name,string address,string phone, string password, string zipCode)
         {
-            var registerUser = _context.RegisterUser(null, password, name, address, phone, email, zipCode,true);
+            var registerUser = _context.RegisterUser(null, password, name, address, phone, email, zipCode,1);
 
             var finalData = (from d in registerUser
                              select d.Customer_Id).FirstOrDefault();
@@ -68,15 +68,23 @@ namespace JunkCar.Repository.Repositories
             //else
             //{ throw new Exception("User not found"); }
         }
-        public int GetUser(string userId, string password)
+        public string GetUserName(string userId, string password)
         {
-            var data = _context.Authenticate(null, password, null, null, null, userId, null,false);
+            string customerName = string.Empty;
+            var data = _context.Authenticate(null, password, null, null, null, userId, null,0);
             var finalData = (from d in data
                              select d.Customer_Id).FirstOrDefault();
             if (finalData == null)
-            { return 0; }
+            { return string.Empty; }
             else
-            { return (int)finalData; }                      
+            { 
+                int customerId = (int)finalData;
+                customerName = (from d in _context.Sal_Customer
+                                where d.Customer_Id == customerId
+                                select d.Customer_Name).FirstOrDefault();
+                return customerName;
+                            
+            }                      
         }
     }
 }

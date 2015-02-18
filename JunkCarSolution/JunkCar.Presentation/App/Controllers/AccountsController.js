@@ -176,8 +176,10 @@
             var pass = accountsControllerVM.loginPassword;
             accountsService.authenticateUser({ userId: email, password: pass })
                 .then(function (serviceResponse) {
-                var response = serviceResponse.data;                                
-                if (response === true) {
+                    var response = serviceResponse.data;
+                    console.log(response);
+                    if (response.IsAuthenticated === true) {
+                        localStorage.setItem("UserName",response.Name);
                     $scope.stopSpin();
                     $scope.redirectMain();
                 }

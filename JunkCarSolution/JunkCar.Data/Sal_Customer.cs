@@ -36,6 +36,12 @@ namespace JunkCar.Data
         public string Login_Name { get; set; }
         public string Login_Password { get; set; }
         public Nullable<System.DateTime> Signup_Date { get; set; }
+        public Nullable<int> Password_Question_Id { get; set; }
+        public string Password_Answer { get; set; }
+        public Nullable<int> Varification_Code { get; set; }
+        public Nullable<System.DateTime> Change_Password_Date { get; set; }
+        public string Login_Password_Old { get; set; }
+        public Nullable<System.DateTime> Activation_Date { get; set; }
     
         public virtual ICollection<Sal_Customer_Contact> Sal_Customer_Contact { get; set; }
         public virtual ICollection<Sal_Customer_Offer> Sal_Customer_Offer { get; set; }

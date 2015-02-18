@@ -52,6 +52,7 @@
     <script src="App/Services/HomeService.js"></script>
     <script src="App/Services/UtilityService.js"></script>
 
+    <script src="App//Authentication.js"></script>
 
     <script type="text/javascript" src="http://fgnass.github.io/spin.js/spin.min.js"></script>
     <script src="App/Animation/angular-spinner.js"></script>
@@ -212,6 +213,15 @@
                             <li><a href="Signup.html">Sign up</a></li>
                             <li><a href="Login.html">Login</a></li>
                             <li style="color:#F00"><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-ng-controller="homeController as homeControllerVM"><span class="glyphicon glyphicon-user" data-ng-init="homeControllerVM.getUserName();"></span> Welcome, {{homeControllerVM.loggerInUserName}} <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="Settings.html"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                                    <li class="divider"></li>
+                                    <li data-ng-controller="accountsController as accountsControllerVM"><a href="#" data-ng-click=""><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                                </ul>
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->

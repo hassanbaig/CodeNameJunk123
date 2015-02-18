@@ -18,7 +18,8 @@ namespace JunkCar.DomainModel.Models
         #region Propertiess            
         public bool IsAuthenticated { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }             
+        public string Password { get; set; }
+        public string Name { get; set; }             
         public string ResponseMessage { get; set; }        
         #endregion        
     

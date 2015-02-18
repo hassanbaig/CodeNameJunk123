@@ -4,6 +4,12 @@
     <EntitySetMapping Name="Sal_Customer">
       <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Sal_Customer">
         <MappingFragment StoreEntitySet="Sal_Customer">
+          <ScalarProperty Name="Activation_Date" ColumnName="Activation_Date" />
+          <ScalarProperty Name="Login_Password_Old" ColumnName="Login_Password_Old" />
+          <ScalarProperty Name="Change_Password_Date" ColumnName="Change_Password_Date" />
+          <ScalarProperty Name="Varification_Code" ColumnName="Varification_Code" />
+          <ScalarProperty Name="Password_Answer" ColumnName="Password_Answer" />
+          <ScalarProperty Name="Password_Question_Id" ColumnName="Password_Question_Id" />
           <ScalarProperty Name="Signup_Date" ColumnName="Signup_Date" />
           <ScalarProperty Name="Login_Password" ColumnName="Login_Password" />
           <ScalarProperty Name="Login_Name" ColumnName="Login_Name" />

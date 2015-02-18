@@ -20,6 +20,12 @@
     <Property Name="Login_Name" Type="varchar" MaxLength="250" />
     <Property Name="Login_Password" Type="varchar" MaxLength="250" />
     <Property Name="Signup_Date" Type="datetime" />
+    <Property Name="Password_Question_Id" Type="int" />
+    <Property Name="Password_Answer" Type="nvarchar(max)" />
+    <Property Name="Varification_Code" Type="int" />
+    <Property Name="Change_Password_Date" Type="datetime" />
+    <Property Name="Login_Password_Old" Type="varchar" MaxLength="250" />
+    <Property Name="Activation_Date" Type="datetime" />
   </EntityType>
   <EntityType Name="Sal_Customer_Contact">
     <Key>
@@ -1197,7 +1203,7 @@
     <Parameter Name="Customer_Phone" Type="varchar(max)" Mode="In" />
     <Parameter Name="Customer_Email" Type="varchar(max)" Mode="In" />
     <Parameter Name="Zip_Code" Type="varchar" Mode="In" />
-    <Parameter Name="Sign_Up" Type="bit" Mode="In" />
+    <Parameter Name="Sign_Up" Type="int" Mode="In" />
   </Function>
   <Function Name="usp_Sal_Customer_Validate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
     <Parameter Name="Customer_Id" Type="int" Mode="InOut" />

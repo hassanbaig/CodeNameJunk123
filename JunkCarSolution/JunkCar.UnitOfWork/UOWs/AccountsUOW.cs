@@ -92,10 +92,11 @@ namespace JunkCar.UnitOfWork.UOWs
         {
             authenticate = (JunkCar.DomainModel.Models.Authenticate)domainModel;
             string encryptedPass = Encryption.Encrypt("#", authenticate.Password);
-            int customerId = userRepository.GetUser(authenticate.Email, encryptedPass);
-            if (customerId > 0)
+            string customerName = userRepository.GetUserName(authenticate.Email, encryptedPass);
+            if (customerName.Length > 0)
             {
                 authenticate.IsAuthenticated = true;
+                authenticate.Name = customerName;
             }
             else
             {

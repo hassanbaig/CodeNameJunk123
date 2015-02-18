@@ -128,6 +128,7 @@
         //---------------------------------------------------------- ViewModel variables --------------------------------------------------------        
         var homeControllerVM = this;        
                   
+        homeControllerVM.loggerInUserName = '';
         homeControllerVM.drivetrainQuestionnaireList = [];
         homeControllerVM.interiorExteriorQuestionnaireList = [];
 
@@ -225,6 +226,8 @@
         
         //[Start]--------------------------------------------------- Methods definition ---------------------------------------------------------
         //---------------------------------------------------------- ViewModel Methods ----------------------------------------------------------        
+        
+        homeControllerVM.getUserName = getUserName;
         homeControllerVM.getRegistrationYears = getRegistrationYears;
         homeControllerVM.getMakesByYear = getMakesByYear;
         homeControllerVM.getModelsByYearMake = getModelsByYearMake;
@@ -381,6 +384,11 @@
             }           
         }
         //------------------------------------------------------------- Methods --------------------------------------------------------------
+        // Get logged in user name
+        function getUserName()
+        {
+            homeControllerVM.loggerInUserName = localStorage.getItem("UserName");
+        }
         // Local storage management        
         
         // Save year to local storage

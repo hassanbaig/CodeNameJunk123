@@ -10,25 +10,23 @@ namespace JunkCar.Core.Common
 {
     public class UserData
     {
-        public string UserId { get; set; }
-            public string ProviderId { get; set; }
-            public string PatientId { get; set; }
+               public string UserId { get; set; }
+               public string UserName { get; set; }
             public bool IsConsignmentCloud { get; set; }
 
             public UserData()
             {
             }
 
-            public UserData(string userId, string providerId, string patientId)
+            public UserData(string userId, string userName)
             {
                 UserId = userId;
-                ProviderId = providerId;
-                PatientId = patientId;
+                UserName = userName;                
             }
 
-            public string GetProviderUserData()
+            public string GetUserData()
             {
-                string data = UserId + "," + ProviderId + "," + PatientId;
+                string data = UserId + "," + UserName;
             return data;
             }
 

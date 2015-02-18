@@ -25,6 +25,12 @@
           <Property Name="Login_Name" Type="varchar" MaxLength="250" />
           <Property Name="Login_Password" Type="varchar" MaxLength="250" />
           <Property Name="Signup_Date" Type="datetime" />
+          <Property Name="Password_Question_Id" Type="int" />
+          <Property Name="Password_Answer" Type="nvarchar(max)" />
+          <Property Name="Varification_Code" Type="int" />
+          <Property Name="Change_Password_Date" Type="datetime" />
+          <Property Name="Login_Password_Old" Type="varchar" MaxLength="250" />
+          <Property Name="Activation_Date" Type="datetime" />
         </EntityType>
         <EntityType Name="Sal_Customer_Contact">
           <Key>
@@ -1202,7 +1208,7 @@
           <Parameter Name="Customer_Phone" Type="varchar(max)" Mode="In" />
           <Parameter Name="Customer_Email" Type="varchar(max)" Mode="In" />
           <Parameter Name="Zip_Code" Type="varchar" Mode="In" />
-          <Parameter Name="Sign_Up" Type="bit" Mode="In" />
+          <Parameter Name="Sign_Up" Type="int" Mode="In" />
         </Function>
         <Function Name="usp_Sal_Customer_Validate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
           <Parameter Name="Customer_Id" Type="int" Mode="InOut" />
@@ -1872,6 +1878,12 @@
           <Property Name="Login_Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Login_Password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Signup_Date" Type="DateTime" Precision="3" />
+          <Property Name="Password_Question_Id" Type="Int32" />
+          <Property Name="Password_Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Varification_Code" Type="Int32" />
+          <Property Name="Change_Password_Date" Type="DateTime" Precision="3" />
+          <Property Name="Login_Password_Old" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Activation_Date" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Sal_Customer_Contact">
           <Key>
@@ -3781,7 +3793,7 @@
             <Parameter Name="Customer_Phone" Mode="In" Type="String" />
             <Parameter Name="Customer_Email" Mode="In" Type="String" />
             <Parameter Name="Zip_Code" Mode="In" Type="String" />
-            <Parameter Name="Sign_Up" Mode="In" Type="Boolean" />
+            <Parameter Name="Sign_Up" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetCylinders" ReturnType="Collection(Int32)">
             <Parameter Name="Parameter_Type" Mode="In" Type="String" />
@@ -3796,7 +3808,7 @@
             <Parameter Name="Customer_Phone" Mode="In" Type="String" />
             <Parameter Name="Customer_Email" Mode="In" Type="String" />
             <Parameter Name="Zip_Code" Mode="In" Type="String" />
-            <Parameter Name="Sign_Up" Mode="In" Type="Boolean" />
+            <Parameter Name="Sign_Up" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Authenticate" ReturnType="Collection(shiner49_JunkCarNewModel.RegisterUser_Result)">
             <Parameter Name="Customer_Id" Mode="In" Type="Int32" />
@@ -3806,7 +3818,7 @@
             <Parameter Name="Customer_Phone" Mode="In" Type="String" />
             <Parameter Name="Customer_Email" Mode="In" Type="String" />
             <Parameter Name="Zip_Code" Mode="In" Type="String" />
-            <Parameter Name="Sign_Up" Mode="In" Type="Boolean" />
+            <Parameter Name="Sign_Up" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -4337,6 +4349,12 @@
           <EntitySetMapping Name="Sal_Customer">
             <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Sal_Customer">
               <MappingFragment StoreEntitySet="Sal_Customer">
+                <ScalarProperty Name="Activation_Date" ColumnName="Activation_Date" />
+                <ScalarProperty Name="Login_Password_Old" ColumnName="Login_Password_Old" />
+                <ScalarProperty Name="Change_Password_Date" ColumnName="Change_Password_Date" />
+                <ScalarProperty Name="Varification_Code" ColumnName="Varification_Code" />
+                <ScalarProperty Name="Password_Answer" ColumnName="Password_Answer" />
+                <ScalarProperty Name="Password_Question_Id" ColumnName="Password_Question_Id" />
                 <ScalarProperty Name="Signup_Date" ColumnName="Signup_Date" />
                 <ScalarProperty Name="Login_Password" ColumnName="Login_Password" />
                 <ScalarProperty Name="Login_Name" ColumnName="Login_Name" />

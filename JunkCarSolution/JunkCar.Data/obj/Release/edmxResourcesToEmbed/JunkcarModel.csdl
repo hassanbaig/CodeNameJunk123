@@ -23,6 +23,12 @@
     <Property Name="Login_Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="Login_Password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="Signup_Date" Type="DateTime" Precision="3" />
+    <Property Name="Password_Question_Id" Type="Int32" />
+    <Property Name="Password_Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Varification_Code" Type="Int32" />
+    <Property Name="Change_Password_Date" Type="DateTime" Precision="3" />
+    <Property Name="Login_Password_Old" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Activation_Date" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="Sal_Customer_Contact">
     <Key>
@@ -1932,7 +1938,7 @@
       <Parameter Name="Customer_Phone" Mode="In" Type="String" />
       <Parameter Name="Customer_Email" Mode="In" Type="String" />
       <Parameter Name="Zip_Code" Mode="In" Type="String" />
-      <Parameter Name="Sign_Up" Mode="In" Type="Boolean" />
+      <Parameter Name="Sign_Up" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="GetCylinders" ReturnType="Collection(Int32)">
       <Parameter Name="Parameter_Type" Mode="In" Type="String" />
@@ -1947,7 +1953,7 @@
       <Parameter Name="Customer_Phone" Mode="In" Type="String" />
       <Parameter Name="Customer_Email" Mode="In" Type="String" />
       <Parameter Name="Zip_Code" Mode="In" Type="String" />
-      <Parameter Name="Sign_Up" Mode="In" Type="Boolean" />
+      <Parameter Name="Sign_Up" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="Authenticate" ReturnType="Collection(shiner49_JunkCarNewModel.RegisterUser_Result)">
       <Parameter Name="Customer_Id" Mode="In" Type="Int32" />
@@ -1957,7 +1963,7 @@
       <Parameter Name="Customer_Phone" Mode="In" Type="String" />
       <Parameter Name="Customer_Email" Mode="In" Type="String" />
       <Parameter Name="Zip_Code" Mode="In" Type="String" />
-      <Parameter Name="Sign_Up" Mode="In" Type="Boolean" />
+      <Parameter Name="Sign_Up" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">

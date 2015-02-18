@@ -1041,6 +1041,7 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <Content Include="Settings.html" />
     <Content Include="Signup.html" />
     <Content Include="Index.html" />
     <Content Include="Scripts\bootstrap.js" />

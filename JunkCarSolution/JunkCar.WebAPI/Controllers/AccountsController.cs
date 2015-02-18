@@ -30,20 +30,20 @@ namespace JunkCar.WebAPI.Controllers
         }
 
         [HttpGet]
-        public bool Authenticate(string password, string userId)
-        {            
+        public Authenticate Authenticate(string password, string userId)
+        {
             FactoryFacade factory = new FactoryFacade();
             domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Authenticate));
             domainModel.Fill(HashHelper.Authenticate(userId, password));
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
             domainModel = domainService.Query(domainModel, DomainModelEnum.AUTHENTICATE);
             DomainModel.Models.Authenticate authenticate = (DomainModel.Models.Authenticate)domainModel;
-            //if (authenticate.ResponseMessage != "User id is required" && authenticate.ResponseMessage != "Password is required" && authenticate.ResponseMessage != "Invalid domain model" && authenticate.ResponseMessage != "Please check login credentials and then try again.")
-            //{
-            //    UserData userData = new UserData(userId, authenticate.ProviderId.ToString(), "");
-            //    TicketHelper.CreateAuthCookie(userData.UserId, userData.GetProviderUserData(), false);
-            //}
-            return authenticate.IsAuthenticated;
+            if (authenticate.ResponseMessage != "User id is required" && authenticate.ResponseMessage != "Password is required" && authenticate.ResponseMessage != "Invalid domain model" && authenticate.ResponseMessage != "Please check login credentials and then try again.")
+            {
+                UserData userData = new UserData(userId, authenticate.Name);
+                TicketHelper.CreateAuthCookie(authenticate.Name, userData.GetUserData(), false);
+            }
+            return authenticate;
         }
 
         //[HttpGet]

@@ -1,22 +1,3 @@
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Data\bin\Debug\JunkCar.Data.dll
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Data\bin\Debug\JunkCar.Data.pdb
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Data\obj\Debug\JunkCar.Data.dll
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Data\obj\Debug\JunkCar.Data.pdb
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Data\bin\Debug\JunkCar.Data.dll
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Data\bin\Debug\JunkCar.Data.pdb
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Data\obj\Debug\JunkCar.Data.csprojResolveAssemblyReference.cache
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Data\obj\Debug\JunkCar.Data.dll
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Data\obj\Debug\JunkCar.Data.pdb
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\bin\Debug\JunkCar.Data.dll.config
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\bin\Debug\JunkCar.Data.dll
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\bin\Debug\JunkCar.Data.pdb
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\bin\Debug\EntityFramework.dll
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\bin\Debug\EntityFramework.SqlServer.dll
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\bin\Debug\EntityFramework.xml
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\obj\Debug\JunkCar.Data.csprojResolveAssemblyReference.cache
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\obj\Debug\JunkCar.Data.dll
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\obj\Debug\JunkCar.Data.pdb
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\bin\Debug\JunkCar.Data.dll.config
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\bin\Debug\JunkCar.Data.dll
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\bin\Debug\JunkCar.Data.pdb

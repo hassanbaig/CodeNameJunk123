@@ -1,17 +1,3 @@
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.DataModel\bin\Debug\JunkCar.DataModel.dll
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.DataModel\bin\Debug\JunkCar.DataModel.pdb
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.DataModel\obj\Debug\JunkCar.DataModel.csprojResolveAssemblyReference.cache
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.DataModel\obj\Debug\JunkCar.DataModel.dll
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.DataModel\obj\Debug\JunkCar.DataModel.pdb
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DataModel\bin\Debug\JunkCar.DataModel.dll
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DataModel\bin\Debug\JunkCar.DataModel.pdb
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DataModel\obj\Debug\JunkCar.DataModel.csprojResolveAssemblyReference.cache
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DataModel\obj\Debug\JunkCar.DataModel.dll
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.DataModel\obj\Debug\JunkCar.DataModel.pdb
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\bin\Debug\JunkCar.DataModel.dll
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\bin\Debug\JunkCar.DataModel.pdb
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\obj\Debug\JunkCar.DataModel.dll
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\obj\Debug\JunkCar.DataModel.pdb
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\bin\Debug\JunkCar.DataModel.dll
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\bin\Debug\JunkCar.DataModel.pdb
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\obj\Debug\JunkCar.DataModel.csprojResolveAssemblyReference.cache

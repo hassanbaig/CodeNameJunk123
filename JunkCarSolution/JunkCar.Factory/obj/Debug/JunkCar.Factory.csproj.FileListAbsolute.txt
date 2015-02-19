@@ -1,28 +1,3 @@
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Factory\bin\Debug\JunkCar.Factory.dll
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Factory\bin\Debug\JunkCar.Factory.pdb
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Factory\obj\Debug\JunkCar.Factory.dll
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Factory\obj\Debug\JunkCar.Factory.pdb
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Factory.dll
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Factory.pdb
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Core.dll
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Core.pdb
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.csprojResolveAssemblyReference.cache
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.dll
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.pdb
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Factory.dll
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Factory.pdb
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Core.dll
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Core.pdb
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.csprojResolveAssemblyReference.cache
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.dll
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.pdb
-C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Factory.dll
-C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Factory.pdb
-C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Core.dll
-C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Core.pdb
-C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.csprojResolveAssemblyReference.cache
-C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.dll
-C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.pdb
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Factory.dll
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Factory.pdb
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Core.dll

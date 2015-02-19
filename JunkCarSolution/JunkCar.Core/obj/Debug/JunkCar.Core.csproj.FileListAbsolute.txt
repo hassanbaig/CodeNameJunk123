@@ -1,18 +1,3 @@
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Core\bin\Debug\JunkCar.Core.dll
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Core\bin\Debug\JunkCar.Core.pdb
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Core\obj\Debug\JunkCar.Core.csprojResolveAssemblyReference.cache
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Core\obj\Debug\JunkCar.Core.dll
-c:\users\hassanbaig\documents\visual studio 2013\Projects\JunkCar.WebAPI\JunkCar.Core\obj\Debug\JunkCar.Core.pdb
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Core\bin\Debug\JunkCar.Core.dll
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Core\bin\Debug\JunkCar.Core.pdb
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Core\obj\Debug\JunkCar.Core.csprojResolveAssemblyReference.cache
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Core\obj\Debug\JunkCar.Core.dll
-C:\Users\hassanbaig\Documents\Visual Studio 2013\Projects\JunkCarSolution\JunkCar.Core\obj\Debug\JunkCar.Core.pdb
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\bin\Debug\JunkCar.Core.dll
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\bin\Debug\JunkCar.Core.pdb
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\obj\Debug\JunkCar.Core.dll
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\obj\Debug\JunkCar.Core.pdb
-C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\obj\Debug\JunkCar.Core.csprojResolveAssemblyReference.cache
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\bin\Debug\JunkCar.Core.dll
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\bin\Debug\JunkCar.Core.pdb
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\obj\Debug\JunkCar.Core.csprojResolveAssemblyReference.cache

@@ -71,19 +71,19 @@ namespace JunkCar.WebAPI.Controllers
         //    domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
         //    return Ok(((ForgotPassword)domainService.Update(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.FORGOT_PASSWORD)).ResponseMessage);
         //}
-        //[HttpGet]
-        //public IHttpActionResult Logout()
-        //{
-        //    try
-        //    {
-        //        TicketHelper.Logout();
-        //        return Ok("Logout successfully");
-        //    }
-        //    catch (Exception ex)
-        //    {
+        [HttpGet]
+        public IHttpActionResult Logout()
+        {
+            try
+            {
+                TicketHelper.Logout();
+                return Ok("Logout successfully");
+            }
+            catch (Exception ex)
+            {
 
-        //        return Ok(ex.Message);
-        //    }
-        //}
+                return Ok(ex.Message);
+            }
+        }
     }
 }

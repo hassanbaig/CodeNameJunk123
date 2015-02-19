@@ -16,13 +16,6 @@ C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Fac
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.csprojResolveAssemblyReference.cache
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.dll
 C:\Users\hassanbaig\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.pdb
-D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Factory.dll
-D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Factory.pdb
-D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Core.dll
-D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Core.pdb
-D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.csprojResolveAssemblyReference.cache
-D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.dll
-D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.pdb
 C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Factory.dll
 C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Factory.pdb
 C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Core.dll
@@ -30,3 +23,10 @@ C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Facto
 C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.csprojResolveAssemblyReference.cache
 C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.dll
 C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.pdb
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Factory.dll
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Factory.pdb
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Core.dll
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\bin\Debug\JunkCar.Core.pdb
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.csprojResolveAssemblyReference.cache
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.dll
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Factory\obj\Debug\JunkCar.Factory.pdb

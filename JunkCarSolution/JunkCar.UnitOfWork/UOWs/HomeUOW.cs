@@ -139,7 +139,7 @@ namespace JunkCar.UnitOfWork.UOWs
                         else
                         { questionnaireResult += "<Answer_Id>"+selectedQuestionnaire[i]+"</Answer_Id></Questionnaire_Result>"; }                         
                     }
-
+                    
                     home.OfferPrice = homeRepository.GetABetterOffer(home.SelectedYear, home.SelectedMakeId, home.SelectedModelId,home.ZipCode,
                         questionnaireResult,
                         "<Customer_Info><Customer_Name>"+home.Name+"</Customer_Name>"+

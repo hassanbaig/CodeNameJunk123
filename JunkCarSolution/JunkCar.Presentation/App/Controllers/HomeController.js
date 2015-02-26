@@ -74,6 +74,10 @@
                 else {
                     alert("Please enter year, make, model and cylinders");
                 }
+
+                if (myTabsActive == 3) {
+                    getABetterOffer();
+                }
             }
             tabPrev = function () {
                 var year = $("#carMakeModelYear").val();
@@ -128,7 +132,7 @@
         //---------------------------------------------------------- ViewModel variables --------------------------------------------------------        
         var homeControllerVM = this;        
                   
-        homeControllerVM.loggerInUserName = '';
+        homeControllerVM.loggedInUserName = '';
         homeControllerVM.drivetrainQuestionnaireList = [];
         homeControllerVM.interiorExteriorQuestionnaireList = [];
 
@@ -227,7 +231,7 @@
         //[Start]--------------------------------------------------- Methods definition ---------------------------------------------------------
         //---------------------------------------------------------- ViewModel Methods ----------------------------------------------------------        
         
-        homeControllerVM.getUserName = getUserName;
+        homeControllerVM.getUserName = getUserName;        
         homeControllerVM.getRegistrationYears = getRegistrationYears;
         homeControllerVM.getMakesByYear = getMakesByYear;
         homeControllerVM.getModelsByYearMake = getModelsByYearMake;
@@ -387,8 +391,8 @@
         // Get logged in user name
         function getUserName()
         {
-            homeControllerVM.loggerInUserName = localStorage.getItem("UserName");
-        }
+            homeControllerVM.loggedInUserName = localStorage.getItem("UserName");
+        }      
         // Local storage management        
         
         // Save year to local storage
@@ -496,7 +500,7 @@
             $scope.startSpin();
             return homeService.getRegistrationYears()
                 .then(function (serviceResponse) {
-                    var response = serviceResponse.data;
+                    var response = serviceResponse.data;                    
                     $rootScope.registrationYearsList = response;                    
                     $scope.reset();
                     $scope.stopSpin();
@@ -1238,7 +1242,7 @@
             tabPrev();
         }
         // Next tab
-        function navigateNext() {
+        function navigateNext() {            
             tabNext();
         }
         //[End]------------------------------------------------------ Methods implementation ----------------------------------------------------------

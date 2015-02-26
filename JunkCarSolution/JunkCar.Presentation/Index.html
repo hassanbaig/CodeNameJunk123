@@ -67,12 +67,11 @@
     <script type="text/javascript" src="App/CustomDirectives/angular.rangeSlider.js"></script>
     <script type="text/javascript" src="App/CustomDirectives/rangeFilter.js"></script>
     <script type="text/javascript" src="App/CustomDirectives/timeRangeFilter.js"></script>
-
-
+        
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">-->
-    <script type="text/javascript" src="Content/Assets/JS/jquery-1.3.2.min.js"></script>
+    <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">-->    
+    <!--<script type="text/javascript" src="Content/Assets/JS/jquery-1.3.2.min.js"></script>-->
 </head>
 
 <style>
@@ -216,13 +215,13 @@
                             <li><a href="Login.html">Login</a></li>
                             <li style="color:#F00"><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
                         </ul>
-                        <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right" data-ng-controller="homeController as homeControllerVM">
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-ng-controller="homeController as homeControllerVM"><span class="glyphicon glyphicon-user" ></span> Welcome, {{homeControllerVM.loggerInUserName}} <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-ng-init="homeControllerVM.getUserName();"><span class="glyphicon glyphicon-user"></span> Welcome, {{homeControllerVM.loggedInUserName}} <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="Settings.html"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                                     <li class="divider"></li>
-                                    <li data-ng-controller="accountsController as accountsControllerVM"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                                    <li data-ng-controller="accountsController as accountsControllerVM" data-ng-click="accountsControllerVM.logout();"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                                 </ul>
                         </ul>
                     </div>
@@ -655,8 +654,8 @@
             </div>
         </div><!-- /container -->
     </div>
-
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/jquery-2.1.3.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>-->
     <script src="Content/Assets/JS/bootstrap.min.js"></script>
 
 </body>

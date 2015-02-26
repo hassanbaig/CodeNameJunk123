@@ -1965,6 +1965,7 @@
       <Parameter Name="Zip_Code" Mode="In" Type="String" />
       <Parameter Name="Sign_Up" Mode="In" Type="Int32" />
     </FunctionImport>
+    <EntitySet Name="Sec_Password_Question" EntityType="shiner49_JunkCarNewModel.Sec_Password_Question" />
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -2485,4 +2486,20 @@
     <Property Type="String" Name="Login_Password" Nullable="true" />
     <Property Type="Int32" Name="Is_New" Nullable="true" />
   </ComplexType>
+  <EntityType Name="Sec_Password_Question">
+    <Key>
+      <PropertyRef Name="Password_Question_Id" />
+    </Key>
+    <Property Name="Password_Question_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Question" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="Sort_Order" Type="Int16" Nullable="false" />
+    <Property Name="Is_Active" Type="Byte" Nullable="false" />
+    <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Created_By" Type="Int32" Nullable="false" />
+    <Property Name="Modified_Date" Type="DateTime" Precision="3" />
+    <Property Name="Modified_By" Type="Int32" />
+    <Property Name="Audit_Id" Type="Int64" />
+    <Property Name="User_IP" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Site_Id" Type="Int32" Nullable="false" />
+  </EntityType>
 </Schema>

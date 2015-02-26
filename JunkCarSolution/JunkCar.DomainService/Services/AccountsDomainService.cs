@@ -12,6 +12,8 @@ namespace JunkCar.DomainService.Services
     public class AccountsDomainService : AbstractDomainService
     {
         private IUnitOfWork unitOfWork;
+        private DomainModel.Models.Authenticate authenticate;
+        private DomainModel.Models.ForgotPassword forgotPassword;
         public override AbstractDomainModel Save(AbstractDomainModel domainModel, DomainModelEnum domainModelType)
         {
             JunkCar.DomainModel.Models.Signup signup = (JunkCar.DomainModel.Models.Signup)domainModel;
@@ -88,8 +90,7 @@ namespace JunkCar.DomainService.Services
         }
 
         public override AbstractDomainModel Query(AbstractDomainModel domainModel, DomainModelEnum domainModelType)
-        {
-            DomainModel.Models.Authenticate authenticate = (DomainModel.Models.Authenticate)domainModel;
+        {           
             try
             {
                 if (domainModel != null)
@@ -97,6 +98,7 @@ namespace JunkCar.DomainService.Services
                     switch (domainModelType)
                     {
                         case DomainModelEnum.AUTHENTICATE:
+                            authenticate = (DomainModel.Models.Authenticate)domainModel;
                             if (authenticate.Email == null || authenticate.Email.Length <= 0)
                             { authenticate.ResponseMessage = "Email is required"; }
                             else if (authenticate.Password == null || authenticate.Password.Length <= 0)
@@ -107,6 +109,51 @@ namespace JunkCar.DomainService.Services
                                 unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.AccountsUOW));
                                 authenticate = (DomainModel.Models.Authenticate)unitOfWork.Get(authenticate,OperationTypeEnum.AUTHENTICATE);
                                 authenticate.ResponseMessage = "Valid";
+                            }
+                            break;
+                        case DomainModelEnum.GET_SECURITY_QUESTION:
+                            forgotPassword = (DomainModel.Models.ForgotPassword)domainModel;
+                            if (forgotPassword.UserId == null || forgotPassword.UserId.Length <= 0)
+                            { forgotPassword.ResponseMessage = "User id is required"; }                         
+                            else
+                            {
+                                FactoryFacade factory = new FactoryFacade();
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.AccountsUOW));
+                                forgotPassword = (DomainModel.Models.ForgotPassword)unitOfWork.Get(forgotPassword, OperationTypeEnum.GET_SECURITY_QUESTION);
+                                forgotPassword.ResponseMessage = "Valid";
+                            }
+                            break;
+                        case DomainModelEnum.CHECK_SECURITY_QUESTION_ANSWER:
+                            forgotPassword = (DomainModel.Models.ForgotPassword)domainModel;
+                            if (forgotPassword.SecurityQuestionAnswer == null || forgotPassword.SecurityQuestionAnswer.Length <= 0)
+                            { forgotPassword.ResponseMessage = "Please answer the given question"; }
+                            else
+                            {
+                                FactoryFacade factory = new FactoryFacade();
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.AccountsUOW));
+                                forgotPassword = (DomainModel.Models.ForgotPassword)unitOfWork.Get(forgotPassword, OperationTypeEnum.CHECK_SECURITY_QUESTION_ANSWER);
+                            }
+                            break;
+                        case DomainModelEnum.CHECK_VERIFICATION_CODE:
+                            forgotPassword = (DomainModel.Models.ForgotPassword)domainModel;
+                            if (forgotPassword.VerificationCode == 0)
+                            { forgotPassword.ResponseMessage = "Please enter the given verification code"; }
+                            else
+                            {
+                                FactoryFacade factory = new FactoryFacade();
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.AccountsUOW));
+                                forgotPassword = (DomainModel.Models.ForgotPassword)unitOfWork.Get(forgotPassword, OperationTypeEnum.CHECK_VERIFICATION_CODE);
+                            }
+                            break;
+                        case DomainModelEnum.RESET_PASSWORD:
+                            forgotPassword = (DomainModel.Models.ForgotPassword)domainModel;
+                            if (forgotPassword.NewPassword == null || forgotPassword.NewPassword.Length <= 0)
+                            { forgotPassword.ResponseMessage = "Please enter new password"; }
+                            else
+                            {
+                                FactoryFacade factory = new FactoryFacade();
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.AccountsUOW));
+                                forgotPassword = (DomainModel.Models.ForgotPassword)unitOfWork.Get(forgotPassword, OperationTypeEnum.RESET_PASSWORD);
                             }
                             break;
                         default:
@@ -120,6 +167,18 @@ namespace JunkCar.DomainService.Services
                         case DomainModelEnum.AUTHENTICATE:
                             authenticate.ResponseMessage = "Invalid domain model";
                             break;
+                        case DomainModelEnum.GET_SECURITY_QUESTION:
+                            forgotPassword.ResponseMessage = "Invalid domain model";
+                            break;
+                        case DomainModelEnum.CHECK_SECURITY_QUESTION_ANSWER:
+                            forgotPassword.ResponseMessage = "Invalid domain model";
+                            break;
+                        case DomainModelEnum.CHECK_VERIFICATION_CODE:
+                            forgotPassword.ResponseMessage = "Invalid domain model";
+                            break;
+                        case DomainModelEnum.RESET_PASSWORD:
+                            forgotPassword.ResponseMessage = "Invalid domain model";
+                            break;
                         default:
                             break;
                     }
@@ -132,6 +191,18 @@ namespace JunkCar.DomainService.Services
                     case DomainModelEnum.AUTHENTICATE:
                         authenticate.ResponseMessage = ex.Message;
                         break;
+                    case DomainModelEnum.GET_SECURITY_QUESTION:
+                        forgotPassword.ResponseMessage = ex.Message;
+                        break;
+                    case DomainModelEnum.CHECK_SECURITY_QUESTION_ANSWER:
+                        forgotPassword.ResponseMessage = ex.Message;
+                        break;
+                    case DomainModelEnum.CHECK_VERIFICATION_CODE:
+                        forgotPassword.ResponseMessage = ex.Message;
+                        break;
+                    case DomainModelEnum.RESET_PASSWORD:
+                        forgotPassword.ResponseMessage = ex.Message;
+                        break;
                     default:
                         break;
                 }
@@ -140,6 +211,14 @@ namespace JunkCar.DomainService.Services
             {
                 case DomainModelEnum.AUTHENTICATE:
                     return authenticate;
+                case DomainModelEnum.GET_SECURITY_QUESTION:
+                    return forgotPassword;
+                case DomainModelEnum.CHECK_SECURITY_QUESTION_ANSWER:
+                    return forgotPassword;
+                case DomainModelEnum.CHECK_VERIFICATION_CODE:
+                    return forgotPassword;
+                case DomainModelEnum.RESET_PASSWORD:
+                    return forgotPassword;
                 default:
                     break;
             }

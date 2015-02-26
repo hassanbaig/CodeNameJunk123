@@ -32,6 +32,9 @@
         //---------------------------------------------------------- ViewModel variables --------------------------------------------------------        
         var accountsControllerVM = this;
                 
+        accountsControllerVM.pageTitle = "Log-in";
+        accountsControllerVM.isVisibleLoginTextBoxes = true;
+         
         accountsControllerVM.signupEmail = '';
         accountsControllerVM.signupPassword = '';
         accountsControllerVM.signupReTypePassword = '';
@@ -46,9 +49,19 @@
         accountsControllerVM.changePasswordNewPassword = '';
         accountsControllerVM.changePasswordConfirmPassword = '';
 
-        accountsControllerVM.forgotPasswordEmail = '';
+        accountsControllerVM.isVisibleVerificationCode = false;
+
+        accountsControllerVM.forgotPasswordVerificationCode = '';
+
+        accountsControllerVM.isVisibleSecurityQuestion = false;
+        accountsControllerVM.forgotPasswordSecurityQuestion = '';
+        accountsControllerVM.forgotPasswordSecurityQuestionId = '';
+        accountsControllerVM.forgotPasswordSecurityQuestionAnswer = '';
+
+        accountsControllerVM.isVisibleResetPasswordTextBoxes = false;
         accountsControllerVM.forgotPasswordNewPassword = '';
         accountsControllerVM.forgotPasswordConfirmPassword = '';
+               
 
         accountsControllerVM.isMismatch = false;
         accountsControllerVM.isVisible = true;
@@ -121,6 +134,11 @@
         accountsControllerVM.changePassword = changePassword;
         accountsControllerVM.forgotPassword = forgotPassword;        
         accountsControllerVM.logout = logout;
+        accountsControllerVM.showSecurityQuestionAnswer = showSecurityQuestionAnswer;
+        accountsControllerVM.getSecurityQuestion = getSecurityQuestion;
+        accountsControllerVM.checkSecurityQuestionAnswer = checkSecurityQuestionAnswer;
+        accountsControllerVM.checkVerificationCode = checkVerificationCode;
+        accountsControllerVM.resetPassword = resetPassword;
         //[End]----------------------------------------------------- Methods definition ---------------------------------------------------------
 
         /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -297,15 +315,14 @@
         {           
             $scope.startSpin();
 
-            return accountsService.logout().then(function (data) {
-                var response = data.results;
-                var mystring = new String(response);
-                mystring = mystring.substring(1, mystring.length - 1);
-
-                $scope.stopSpin();
-                if (mystring == 'Logout successfully') {
-                    $scope.redirectLogin();
-                }               
+            return accountsService.logout().then(function (serviceResponse) {
+                var response = serviceResponse.data;             
+                if (response == "Logout successfully")
+                {
+                    localStorage.setItem("UserName", '');
+                    $scope.redirectMain();
+                }
+                $scope.stopSpin();                          
             });
         }
         // User Signup/Registration
@@ -358,6 +375,123 @@
                 accountsControllerVM.signupPhone = '';
             }
         }
+        function getSecurityQuestion() {
+            var email = accountsControllerVM.loginEmail;
+            $scope.reset();
+            if (email.length > 0) {
+                $scope.startSpin();
+                return accountsService.getSecurityQuestion({ userId: email })
+                    .then(function (serviceResponse) {
+                        var response = serviceResponse.data;                     
+                        accountsControllerVM.forgotPasswordSecurityQuestion = response.Question;
+                        accountsControllerVM.forgotPasswordSecurityQuestionId = response.Password_Question_Id;
+                        $scope.stopSpin();
+
+                    }).catch(function (serviceError) {
+                        failureAlert(serviceError.data);
+                        console.log(serviceError.data);
+                        return null;
+                    });
+            }
+            else { alert("Please enter user id"); }
+        }
+
+        function checkSecurityQuestionAnswer()
+        {            
+            var questionId = accountsControllerVM.forgotPasswordSecurityQuestionId;
+            var answer = accountsControllerVM.forgotPasswordSecurityQuestionAnswer;
+            var email = accountsControllerVM.loginEmail;
+            $scope.reset();
+            if (answer.length > 0) {
+                $scope.startSpin();
+                return accountsService.checkSecurityQuestionAnswer({ answer: answer, questionId: questionId, userId: email })
+                    .then(function (serviceResponse) {
+                        var response = serviceResponse.data;
+                        if (response == "Valid")
+                        {
+                            alert("Verification code has been sent to your email address");
+                            accountsControllerVM.pageTitle = "Verification-Code";
+                            accountsControllerVM.isVisibleSecurityQuestion = false;
+                            accountsControllerVM.isVisibleVerificationCode = true;
+                        }
+                        $scope.stopSpin();
+
+                    }).catch(function (serviceError) {
+                        failureAlert(serviceError.data);
+                        console.log(serviceError.data);
+                        return null;
+                    });
+            }
+            else { alert("Please enter answer"); }
+        }
+
+        function showSecurityQuestionAnswer()
+        {
+            accountsControllerVM.pageTitle = "Account-Verification";
+            accountsControllerVM.isVisibleLoginTextBoxes = false;
+            accountsControllerVM.isVisibleSecurityQuestion = true;
+        }
+
+        function checkVerificationCode()
+        {
+            var code = accountsControllerVM.forgotPasswordVerificationCode;
+          
+            $scope.reset();
+            if (code.length > 0) {
+                $scope.startSpin();
+                return accountsService.checkVerificationCode({ verificationCode: code })
+                    .then(function (serviceResponse) {
+                        var response = serviceResponse.data;
+                        if (response == "Valid") {
+                            accountsControllerVM.pageTitle = "Reset-Password";
+                            accountsControllerVM.isVisibleVerificationCode = false;
+                            accountsControllerVM.isVisibleResetPasswordTextBoxes = true;
+                        }
+                        else { alert("Invalid verification code");}
+                        $scope.stopSpin();
+                    }).catch(function (serviceError) {
+                        failureAlert(serviceError.data);
+                        console.log(serviceError.data);
+                        return null;
+                    });
+            }
+            else { alert("Please enter verification code"); }
+            
+        }
+        function resetPassword()
+        {
+            var email = accountsControllerVM.loginEmail;
+            var newPassword = accountsControllerVM.forgotPasswordNewPassword;
+            var confirmPassword = accountsControllerVM.forgotPasswordConfirmPassword;
+            if (newPassword.length <= 0 || confirmPassword.length <= 0) {
+           
+                alert("Please enter password");
+            }
+            else {
+                $scope.reset();
+                if (newPassword == confirmPassword) {
+                    $scope.startSpin();
+                    return accountsService.resetPassword({ newPassword: newPassword, userId: email })
+                        .then(function (serviceResponse) {
+                            var response = serviceResponse.data;
+                            if (response == "Successful") {
+                                accountsControllerVM.pageTitle = "Log-in";                                
+                                accountsControllerVM.isVisibleResetPasswordTextBoxes = false;
+                                accountsControllerVM.isVisibleLoginTextBoxes = true;
+                            }
+                            else {  }
+                            $scope.stopSpin();
+                        }).catch(function (serviceError) {
+                            failureAlert(serviceError.data);
+                            console.log(serviceError.data);
+                            return null;
+                        });
+
+                }
+                else { alert("Password mis-match"); }
+            }
+        }
+
         //[End]------------------------------------------------------ Methods implementation ----------------------------------------------------------
     }
 })();

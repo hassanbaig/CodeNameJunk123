@@ -42,6 +42,8 @@
     <Compile Include="Models\Home.cs" />
     <Compile Include="Models\Authenticate.cs" />
     <Compile Include="Models\ContactUs.cs" />
+    <Compile Include="Models\ForgotPassword.cs" />
+    <Compile Include="Models\ChangePassword.cs" />
     <Compile Include="Models\Signup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -34,7 +34,11 @@
             signup: signup,
             changePassword: changePassword,
             forgotPassword: forgotPassword,                  
-            logout: logout
+            logout: logout,
+            getSecurityQuestion: getSecurityQuestion,
+            checkSecurityQuestionAnswer: checkSecurityQuestionAnswer,
+            checkVerificationCode: checkVerificationCode,
+            resetPassword: resetPassword
         };
 
         return service;               
@@ -132,9 +136,80 @@
         {
             var response = '';
             var promise = $http({
+                method: 'GET',               
+                url: getBaseUrl() + 'Accounts/Logout'                
+            }).success(function (data, status, headers) {
+                response = data;
+                return response;
+            })
+            .error(function (data, status, headers) {
+                response = data;
+                return response;
+            });
+            return promise;
+        }
+        // Get security question on forgot password
+        function getSecurityQuestion(params)
+        {
+            var response = '';
+            var promise = $http({
                 method: 'GET',
                 params: params,
-                url: getBaseUrl() + 'Accounts/Logout'                
+                url: getBaseUrl() + 'Accounts/GetSecurityQuestion'
+            }).success(function (data, status, headers) {
+                response = data;
+                return response;
+            })
+            .error(function (data, status, headers) {
+                response = data;
+                return response;
+            });
+            return promise;
+        }
+        //Check the security question answer 
+        function checkSecurityQuestionAnswer(params)
+        {
+            var response = '';
+            var promise = $http({
+                method: 'GET',
+                params: params,
+                url: getBaseUrl() + 'Accounts/CheckSecurityQuestionAnswer'
+            }).success(function (data, status, headers) {
+                response = data;
+                return response;
+            })
+            .error(function (data, status, headers) {
+                response = data;
+                return response;
+            });
+            return promise;
+        }
+        //Check verification code
+        function checkVerificationCode(params)
+        {
+            var response = '';
+            var promise = $http({
+                method: 'GET',
+                params: params,
+                url: getBaseUrl() + 'Accounts/CheckVerificationCode'
+            }).success(function (data, status, headers) {
+                response = data;
+                return response;
+            })
+            .error(function (data, status, headers) {
+                response = data;
+                return response;
+            });
+            return promise;
+        }
+        // Reset password 
+        function resetPassword(params)
+        {
+            var response = '';
+            var promise = $http({
+                method: 'GET',
+                params: params,
+                url: getBaseUrl() + 'Accounts/ResetPassword'
             }).success(function (data, status, headers) {
                 response = data;
                 return response;
@@ -149,7 +224,7 @@
         function getBaseUrl() {
             var liveBaseUrl = 'API/API/';
             var localBaseUrl = 'http://localhost/JunkCarWebAPI/API/';
-            return localBaseUrl;
+            return liveBaseUrl;
         }
         //[End]------------------------------------------------------ Methods implementation ----------------------------------------------------------
     }    

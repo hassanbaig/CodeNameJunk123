@@ -273,6 +273,7 @@ namespace JunkCar.Repository.Repositories
             }
             return returnCustomerId;
         }
+       
         public List<string> GetQuestionnaireDescription(int[] selectedQuestionnaire)
         {
             List<string> questionnaireDescription = new List<string>();
@@ -308,6 +309,7 @@ namespace JunkCar.Repository.Repositories
                 if (customerId > 0)
                 { JunkCar.Core.ConfigurationEmails.ConfigurationEmail.SignupEmail(email, name, password, email); }
             }
+            
             var offerPrice = _context.GetAnOffer(year, makeId, modelId, null, zipCode, customerInfo, cylinders).FirstOrDefault();
             return offerPrice.Offer_Price.ToString();
         }

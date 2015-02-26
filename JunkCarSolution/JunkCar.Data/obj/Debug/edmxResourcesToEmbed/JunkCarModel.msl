@@ -1309,5 +1309,22 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="Sec_Password_Question">
+      <EntityTypeMapping TypeName="shiner49_JunkCarNewModel.Sec_Password_Question">
+        <MappingFragment StoreEntitySet="Sec_Password_Question">
+          <ScalarProperty Name="Site_Id" ColumnName="Site_Id" />
+          <ScalarProperty Name="User_IP" ColumnName="User_IP" />
+          <ScalarProperty Name="Audit_Id" ColumnName="Audit_Id" />
+          <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
+          <ScalarProperty Name="Modified_Date" ColumnName="Modified_Date" />
+          <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+          <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+          <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
+          <ScalarProperty Name="Sort_Order" ColumnName="Sort_Order" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="Password_Question_Id" ColumnName="Password_Question_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

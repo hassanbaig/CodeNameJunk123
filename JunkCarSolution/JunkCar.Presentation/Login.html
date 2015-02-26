@@ -66,7 +66,7 @@
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">-->
-    <script type="text/javascript" src="Content/Assets/JS/jquery-1.3.2.min.js"></script>
+    <!--<script type="text/javascript" src="Content/Assets/JS/jquery-1.3.2.min.js"></script>-->
 </head>
 <script type="text/javascript">
 
@@ -194,17 +194,48 @@
                 <div class="row">
                     <div class="col-lg-6 col-lg-offset-3" style="background-color:#fff; border-radius:20px; border:1px solid #FFF;margin-top:90px; padding:20px; margin-bottom:360px">
                         <div class="col-lg-6 col-lg-offset-3">
-                            <h2 style="color:#000;">Log-in</h2>
+                            <h2 style="color:#000;">{{accountsControllerVM.pageTitle}}</h2>
                             <hr />
-                            <div class="form-group">
+                            <div class="form-group" data-ng-show="accountsControllerVM.isVisibleLoginTextBoxes">
                                 <input id="textinput" name="email" placeholder="Email" class="form-control input-md" type="text" data-ng-model="accountsControllerVM.loginEmail">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" data-ng-show="accountsControllerVM.isVisibleLoginTextBoxes">
                                 <input id="textinput" name="password" placeholder="Password" class="form-control input-md" type="password" data-ng-model="accountsControllerVM.loginPassword">
-                            </div>
-                            <div class="form-group">
+                            </div>                            
+                            <div class="form-group" style="margin:10px;" data-ng-show="accountsControllerVM.isVisibleLoginTextBoxes">
                                 <a href="#" data-ng-click="accountsControllerVM.authenticateUser();" class="btn gt btn-lg" role="button">Login</a>
                             </div>
+                            <div class="form-group" style="margin-left:66px;" data-ng-show="accountsControllerVM.isVisibleLoginTextBoxes">
+                                <a href="#" data-ng-click="accountsControllerVM.showSecurityQuestionAnswer();accountsControllerVM.getSecurityQuestion(); " role="link">Forgot Password</a>
+                            </div>
+                            <div data-ng-show="accountsControllerVM.isVisibleSecurityQuestion">
+                                {{accountsControllerVM.forgotPasswordSecurityQuestion}}
+                            </div>
+                            <div class="form-group" data-ng-show="accountsControllerVM.isVisibleSecurityQuestion">
+                                <input id="textinput" name="securityAnswer" placeholder="Security Answer" class="form-control input-md" type="text" data-ng-model="accountsControllerVM.forgotPasswordSecurityQuestionAnswer">
+                            </div>
+                            <div class="form-group" style="margin:10px;" data-ng-show="accountsControllerVM.isVisibleSecurityQuestion">
+                                <a href="#" data-ng-click="accountsControllerVM.checkSecurityQuestionAnswer();" class="btn gt btn-lg" role="button">Check Answer</a>
+                            </div>
+
+                            <div class="form-group" data-ng-show="accountsControllerVM.isVisibleVerificationCode">
+                                <input id="textinput" name="verificationCode" placeholder="Verification Code" class="form-control input-md" type="text" data-ng-model="accountsControllerVM.forgotPasswordVerificationCode">
+                            </div>
+
+                            <div class="form-group" style="margin:10px;" data-ng-show="accountsControllerVM.isVisibleVerificationCode">
+                                <a href="#" data-ng-click="accountsControllerVM.checkVerificationCode();" class="btn gt btn-lg" role="button">Check Code</a>
+                            </div>
+
+                            <div class="form-group" data-ng-show="accountsControllerVM.isVisibleResetPasswordTextBoxes">
+                                <input id="textinput" name="newPassword" placeholder="New Password" class="form-control input-md" type="password" data-ng-model="accountsControllerVM.forgotPasswordNewPassword">
+                            </div>      
+                            <div class="form-group" data-ng-show="accountsControllerVM.isVisibleResetPasswordTextBoxes">
+                                <input id="textinput" name="confirmPassword" placeholder="Confirm Password" class="form-control input-md" type="password" data-ng-model="accountsControllerVM.forgotPasswordConfirmPassword">
+                            </div> 
+                            <div class="form-group" style="margin:10px;" data-ng-show="accountsControllerVM.isVisibleResetPasswordTextBoxes">
+                                <a href="#" data-ng-click="accountsControllerVM.resetPassword();" class="btn gt btn-lg" role="button">Reset</a>
+                            </div>
+     
                         </div>
                     </div>
                 </div>
@@ -298,7 +329,7 @@
 
         </div><!-- /container -->
     </div>
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/jquery-2.1.3.min.js"></script>
     <script src="Content/Assets/JS/bootstrap.min.js"></script>
 
 </body>

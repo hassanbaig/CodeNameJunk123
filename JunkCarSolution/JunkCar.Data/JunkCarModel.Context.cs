@@ -58,6 +58,7 @@ namespace JunkCar.Data
         public virtual DbSet<Set_Zip_Code> Set_Zip_Code { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Set_Email_Template> Set_Email_Template { get; set; }
+        public virtual DbSet<Sec_Password_Question> Sec_Password_Question { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

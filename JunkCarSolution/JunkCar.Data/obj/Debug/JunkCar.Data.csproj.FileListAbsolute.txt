@@ -5,6 +5,5 @@ D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\bin\Debug\EntityFramework
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\bin\Debug\EntityFramework.SqlServer.dll
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\bin\Debug\EntityFramework.xml
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\bin\Debug\EntityFramework.SqlServer.xml
-D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\obj\Debug\JunkCar.Data.csprojResolveAssemblyReference.cache
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\obj\Debug\JunkCar.Data.dll
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Data\obj\Debug\JunkCar.Data.pdb

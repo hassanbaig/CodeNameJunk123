@@ -17,7 +17,7 @@ using System.Web;
 using System.Web.Http;
 
 namespace JunkCar.WebAPI.Controllers
-{
+{    
     public class HomeController : ApiController
     {
         private AbstractDomainModel domainModel;

@@ -150,6 +150,33 @@ namespace JunkCar.Core.Common
             signup["ZipCode"] = zipCode;
             return signup;
         }
+        public static Hashtable GetSecurityQuestion(string userId)
+        {
+            Hashtable getSecurityQuestion = new Hashtable();
+            getSecurityQuestion["UserId"] = userId;
+            return getSecurityQuestion;
+        }
+        public static Hashtable CheckSecurityQuestion(int question, string answer, string userId)
+        {
+            Hashtable checkSecurityQuestion = new Hashtable();
+            checkSecurityQuestion["SecurityQuestionId"] = question;
+            checkSecurityQuestion["SecurityQuestionAnswer"] = answer;
+            checkSecurityQuestion["UserId"] = userId;
+            return checkSecurityQuestion;
+        }
+        public static Hashtable CheckVerificationCode(int verificationCode)
+        {
+            Hashtable checkverificationCode = new Hashtable();
+            checkverificationCode["VerificationCode"] = verificationCode;
+            return checkverificationCode;
+        }
+        public static Hashtable ResetPassword(string userId, string password)
+        {
+            Hashtable resetPassword = new Hashtable();
+            resetPassword["UserId"] = userId;
+            resetPassword["NewPassword"] = password;
+            return resetPassword;
+        }
         public static Hashtable ContactEmailMessage(string name, string email, string phone, string subject, string message)
         {
             Hashtable contactEmailMessage = new Hashtable();

@@ -160,6 +160,22 @@
     <Property Name="User_IP" Type="varchar" MaxLength="25" />
     <Property Name="Site_Id" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="Sec_Password_Question">
+    <Key>
+      <PropertyRef Name="Password_Question_Id" />
+    </Key>
+    <Property Name="Password_Question_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Question" Type="varchar" MaxLength="2000" Nullable="false" />
+    <Property Name="Sort_Order" Type="smallint" Nullable="false" />
+    <Property Name="Is_Active" Type="tinyint" Nullable="false" />
+    <Property Name="Created_Date" Type="datetime" Nullable="false" />
+    <Property Name="Created_By" Type="int" Nullable="false" />
+    <Property Name="Modified_Date" Type="datetime" />
+    <Property Name="Modified_By" Type="int" />
+    <Property Name="Audit_Id" Type="bigint" />
+    <Property Name="User_IP" Type="varchar" MaxLength="25" />
+    <Property Name="Site_Id" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Sec_Role">
     <Key>
       <PropertyRef Name="Role_Id" />
@@ -1657,6 +1673,7 @@
     <EntitySet Name="Sal_Customer_Vehicle_Doc" EntityType="Self.Sal_Customer_Vehicle_Doc" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sal_Offer" EntityType="Self.Sal_Offer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sal_Offer_Status" EntityType="Self.Sal_Offer_Status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sec_Password_Question" EntityType="Self.Sec_Password_Question" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sec_Role" EntityType="Self.Sec_Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sec_User" EntityType="Self.Sec_User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sec_User_Contact" EntityType="Self.Sec_User_Contact" Schema="dbo" store:Type="Tables" />

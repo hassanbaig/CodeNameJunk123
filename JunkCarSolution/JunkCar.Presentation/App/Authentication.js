@@ -81,16 +81,12 @@ function checkCookie() {
     if (authentication != "") {
         if (url.toLowerCase() == "login")
         { window.location = "Index.html"; }
-        
-    } else {
-        if (url.toLowerCase() != "login") {
-            window.location = "Login.html";
-        }
-        
-        //user = prompt("Please enter your name:", "");
-        //if (user != "" && user != null) {
-        //    setCookie("username", user, 365);
-        //}
     }
+        
+    // else {
+    //    if (url.toLowerCase() != "login") {
+    //        window.location = "Login.html";
+    //    }     
+    //}
 
 }

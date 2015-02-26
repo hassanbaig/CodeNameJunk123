@@ -20,6 +20,7 @@ namespace JunkCar.UnitOfWork.UOWs
         private UserRepository userRepository;        
         private Authenticate authenticate;         
         private Signup signup;
+        private ForgotPassword forgotPassword;
         public AccountsUOW()
             : base()
         {
@@ -90,21 +91,82 @@ namespace JunkCar.UnitOfWork.UOWs
         }
         public AbstractDomainModel Get(AbstractDomainModel domainModel, OperationTypeEnum operationType)
         {
-            authenticate = (JunkCar.DomainModel.Models.Authenticate)domainModel;
-            string encryptedPass = Encryption.Encrypt("#", authenticate.Password);
-            string customerName = userRepository.GetUserName(authenticate.Email, encryptedPass);
-            if (customerName.Length > 0)
+            switch (operationType)
             {
-                authenticate.IsAuthenticated = true;
-                authenticate.Name = customerName;
-            }
-            else
-            {
-                authenticate.IsAuthenticated = false;
-                throw new Exception("Please check login credentials and then try again.");
+                case OperationTypeEnum.AUTHENTICATE:
+                    authenticate = (JunkCar.DomainModel.Models.Authenticate)domainModel;
+                    string encryptedPass = Encryption.Encrypt("#", authenticate.Password);
+                    string customerName = userRepository.GetUserName(authenticate.Email, encryptedPass);
+                    if (customerName.Length > 0)
+                    {
+                        authenticate.IsAuthenticated = true;
+                        authenticate.Name = customerName;
+                    }
+                    else
+                    {
+                        authenticate.IsAuthenticated = false;
+                        throw new Exception("Please check login credentials and then try again.");
+                    }
+                    break;
+                case OperationTypeEnum.GET_SECURITY_QUESTION:
+                    forgotPassword = (JunkCar.DomainModel.Models.ForgotPassword)domainModel;
+                    forgotPassword.SecurityQuestion = userRepository.GetSecurityQuestion(forgotPassword.UserId);                     
+                    break;
+                case OperationTypeEnum.CHECK_SECURITY_QUESTION_ANSWER:
+                    forgotPassword = (JunkCar.DomainModel.Models.ForgotPassword)domainModel;
+                    forgotPassword.ResponseMessage = userRepository.CheckSecurityQuestionAnswer(forgotPassword.SecurityQuestionId,forgotPassword.SecurityQuestionAnswer);
+                    if (forgotPassword.ResponseMessage == "Valid")
+                    {
+                        string userName = userRepository.GetCustomerName(forgotPassword.UserId);
+                        int customerId = userRepository.SaveVerificationCode(forgotPassword.UserId, 123);
+                        if (customerId > 0)
+                        {
+                            JunkCar.Core.ConfigurationEmails.ConfigurationEmail.ForgotPasswordAccountVerificationCode(userName, 123, forgotPassword.UserId, "Account Verification");
+                        }
+                    }
+                    break;
+                case OperationTypeEnum.CHECK_VERIFICATION_CODE:
+                    forgotPassword = (JunkCar.DomainModel.Models.ForgotPassword)domainModel;
+                    int cId = userRepository.CheckVerificationCode(forgotPassword.VerificationCode);
+                    if (cId > 0)
+                    {
+                        forgotPassword.ResponseMessage = "Valid";
+                    }
+                    else
+                    { forgotPassword.ResponseMessage = "Invalid"; }
+                    break;
+                case OperationTypeEnum.RESET_PASSWORD:
+                    forgotPassword = (JunkCar.DomainModel.Models.ForgotPassword)domainModel;
+                    int cusId = userRepository.ResetPassword(forgotPassword.UserId, Encryption.Encrypt("#", forgotPassword.NewPassword));
+                    if (cusId > 0)
+                    {                        
+                        string userName = userRepository.GetCustomerName(forgotPassword.UserId);
+                        JunkCar.Core.ConfigurationEmails.ConfigurationEmail.ResetPassword(userName,forgotPassword.UserId,forgotPassword.NewPassword, forgotPassword.UserId, "Password Reset");
+                        forgotPassword.ResponseMessage = "Successful";
+                    }
+                    else
+                    { forgotPassword.ResponseMessage = "Failure"; }
+                    break;
+                default:
+                    break;
             }
 
-            return authenticate;
+            switch (operationType)
+            {
+                case OperationTypeEnum.AUTHENTICATE:
+                    return authenticate;
+                case OperationTypeEnum.GET_SECURITY_QUESTION:
+                    return forgotPassword;
+                case OperationTypeEnum.CHECK_SECURITY_QUESTION_ANSWER:
+                    return forgotPassword;
+                case OperationTypeEnum.CHECK_VERIFICATION_CODE:
+                    return forgotPassword;
+                case OperationTypeEnum.RESET_PASSWORD:
+                    return forgotPassword;
+                default:
+                    break;
+            }
+            return null;
         }
         public AbstractDomainModel GetAll(Core.Enumerations.SearchCriteriaEnum searchCriteria)
         {

@@ -112,6 +112,46 @@ namespace JunkCar.Core.ConfigurationEmails
             }
         }
 
+        public static void ForgotPasswordAccountVerificationCode(string name, int verificationCode,string sendToEmail, string subject)
+        {
+            try
+            {
+                System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
+                System.IO.StringWriter swEmail = new System.IO.StringWriter();
+                System.Web.HttpContext.Current.Server.Execute("~/EmailTemlates/ForgotPasswordVerificationCode.html", swEmail);
+                msg.From = new System.Net.Mail.MailAddress(System.Configuration.ConfigurationManager.AppSettings["FromEmail"].ToString(), "JunkCar Team");
+                msg.To.Add(sendToEmail);
+                msg.Subject = subject;
+                msg.Body = swEmail.GetStringBuilder().ToString().Replace("[UserName]", name).Replace("[VerificationCode]", verificationCode.ToString()).Replace("ï»¿", "");
+                msg.IsBodyHtml = true;
+                JunkCar.Core.Common.EmailHelper.SendMail(msg, Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["EmailPort"].ToString()));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static void ResetPassword(string name, string userId, string newPassword, string sendToEmail, string subject)
+        {
+            try
+            {
+                System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
+                System.IO.StringWriter swEmail = new System.IO.StringWriter();
+                System.Web.HttpContext.Current.Server.Execute("~/EmailTemlates/ResetPassword.html", swEmail);
+                msg.From = new System.Net.Mail.MailAddress(System.Configuration.ConfigurationManager.AppSettings["FromEmail"].ToString(), "JunkCar Team");
+                msg.To.Add(sendToEmail);
+                msg.Subject = subject;
+                msg.Body = swEmail.GetStringBuilder().ToString().Replace("[UserName]", name).Replace("[UserId]", userId.ToString()).Replace("[Password]",newPassword).Replace("ï»¿", "");
+                msg.IsBodyHtml = true;
+                JunkCar.Core.Common.EmailHelper.SendMail(msg, Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["EmailPort"].ToString()));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public static void OfferEmailForCustomer(int year, string make, string model, string price, string name, string address, string phone, string contactUsNo, string toEmailAddress)
         {
             try

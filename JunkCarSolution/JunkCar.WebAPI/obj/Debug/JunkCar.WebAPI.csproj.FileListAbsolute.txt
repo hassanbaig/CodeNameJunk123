@@ -32,3 +32,6 @@ D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\JunkCar.Repository.
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\obj\Debug\JunkCar.WebAPI.csprojResolveAssemblyReference.cache
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\obj\Debug\JunkCar.WebAPI.dll
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\obj\Debug\JunkCar.WebAPI.pdb
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\System.Web.Cors.dll
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\System.Web.Http.Cors.dll
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.WebAPI\bin\System.Web.Http.Cors.xml

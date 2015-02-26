@@ -94,6 +94,9 @@
     <Compile Include="Sal_Offer_Status.cs">
       <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sec_Password_Question.cs">
+      <DependentUpon>JunkcarModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sec_Role.cs">
       <DependentUpon>JunkcarModel.tt</DependentUpon>
     </Compile>

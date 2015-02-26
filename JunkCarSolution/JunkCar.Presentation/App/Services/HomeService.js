@@ -291,7 +291,7 @@
         function getBaseUrl() {            
             var liveBaseUrl = 'API/API/';
             var localBaseUrl = 'http://localhost/JunkCarWebAPI/API/';
-            return localBaseUrl;
+            return liveBaseUrl;
         }
         // Set cookie
         function setCookie(cname, cvalue, exdays) {

@@ -77,6 +77,7 @@
         <AssociationConnector Association="shiner49_JunkCarNewModel.FK_Set_Questionnaire_Result_Detail_Questionnaire_Result_Id" ManuallyRouted="false" />
         <AssociationConnector Association="shiner49_JunkCarNewModel.FK_Set_Site_Contact_Site_Id" ManuallyRouted="false" />
         <AssociationConnector Association="shiner49_JunkCarNewModel.FK_Set_Zip_Code_State_Id" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="shiner49_JunkCarNewModel.Sec_Password_Question" Width="1.5" PointX="14.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

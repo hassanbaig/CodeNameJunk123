@@ -44,9 +44,41 @@ namespace JunkCar.WebAPI.Controllers
                 TicketHelper.CreateAuthCookie(authenticate.Name, userData.GetUserData(), false);
             }
             return authenticate;
+        }       
+        [HttpGet]
+        public JunkCar.DataModel.Models.Sec_Password_Question GetSecurityQuestion(string userId)
+        {           
+            FactoryFacade factory = new FactoryFacade();
+            ForgotPassword forgotPassword = null;
+            domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(ForgotPassword));
+            domainModel.Fill(HashHelper.GetSecurityQuestion(userId));
+            domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
+            forgotPassword = (ForgotPassword)domainService.Query(domainModel, DomainModelEnum.GET_SECURITY_QUESTION);
+            return forgotPassword.SecurityQuestion;
         }
-
-        //[HttpGet]
+        [HttpGet]
+        public string CheckSecurityQuestionAnswer(string answer, int questionId, string userId)
+        {
+            FactoryFacade factory = new FactoryFacade();
+            ForgotPassword forgotPassword = null;
+            domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(ForgotPassword));
+            domainModel.Fill(HashHelper.CheckSecurityQuestion(questionId, answer.ToLower(), userId));
+            domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
+            forgotPassword = (ForgotPassword)domainService.Query(domainModel, DomainModelEnum.CHECK_SECURITY_QUESTION_ANSWER);
+            return forgotPassword.ResponseMessage;
+        }
+        [HttpGet]
+        public string CheckVerificationCode(int verificationCode)
+        {
+            FactoryFacade factory = new FactoryFacade();
+            ForgotPassword forgotPassword = null;
+            domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(ForgotPassword));
+            domainModel.Fill(HashHelper.CheckVerificationCode(verificationCode));
+            domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
+            forgotPassword = (ForgotPassword)domainService.Query(domainModel, DomainModelEnum.CHECK_VERIFICATION_CODE);
+            return forgotPassword.ResponseMessage;
+        }      
+         //[HttpGet]
         //public IHttpActionResult ChangePassword(string currentPassword, string newPassword)
         //{
         //    ChangePassword changePassword = null;
@@ -60,17 +92,17 @@ namespace JunkCar.WebAPI.Controllers
         //    changePassword = (ChangePassword)domainService.Update(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.CHANGE_PASSWORD);
         //    return Ok(changePassword.ResponseMessage);
         //}
-        //[HttpGet]
-        //public IHttpActionResult ForgotPassword(string newPassword, string userId)
-        //{
-        //    ForgotPassword forgotPassword = null;
-        //    FactoryFacade factory = new FactoryFacade();
-
-        //    domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(ForgotPassword));
-        //    domainModel.Fill(HashHelper.ForgotPassword(newPassword, userId));
-        //    domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
-        //    return Ok(((ForgotPassword)domainService.Update(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.FORGOT_PASSWORD)).ResponseMessage);
-        //}
+        [HttpGet]
+        public string ResetPassword(string newPassword, string userId)
+        {
+            FactoryFacade factory = new FactoryFacade();
+            ForgotPassword forgotPassword = null;
+            domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(ForgotPassword));
+            domainModel.Fill(HashHelper.ResetPassword(userId,newPassword));
+            domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
+            forgotPassword = (ForgotPassword)domainService.Query(domainModel, DomainModelEnum.RESET_PASSWORD);
+            return forgotPassword.ResponseMessage;
+        }      
         [HttpGet]
         public IHttpActionResult Logout()
         {

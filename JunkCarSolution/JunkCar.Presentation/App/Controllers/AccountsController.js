@@ -66,6 +66,9 @@
         accountsControllerVM.isMismatch = false;
         accountsControllerVM.isVisible = true;
 
+        //---------------------------------------------------------- $scope variables ----------------------------------------------------------        
+        $scope.liun = '';
+
         //[End]------------------------------------------------------ Accounts variables ------------------------------------------------------
 
         /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -130,6 +133,7 @@
         //[Start]--------------------------------------------------- Methods definition ---------------------------------------------------------
         //---------------------------------------------------------- ViewModel Methods ----------------------------------------------------------
         accountsControllerVM.authenticateUser = authenticateUser;
+        accountsControllerVM.getUserName = getUserName;
         accountsControllerVM.signup = signup;
         accountsControllerVM.changePassword = changePassword;
         accountsControllerVM.forgotPassword = forgotPassword;        
@@ -210,6 +214,10 @@
             });           
             accountsControllerVM.loginEmail = '';
             accountsControllerVM.loginPassword = '';
+        }
+        // Get logged in user name
+        function getUserName() {
+            $scope.liun = localStorage.getItem("UserName");
         }
         // Forgot password
         function forgotPassword() {
@@ -320,6 +328,7 @@
                 if (response == "Logout successfully")
                 {
                     localStorage.setItem("UserName", '');
+                    $scope.liun
                     $scope.redirectMain();
                 }
                 $scope.stopSpin();                          
@@ -375,6 +384,7 @@
                 accountsControllerVM.signupPhone = '';
             }
         }
+        // Get security question
         function getSecurityQuestion() {
             var email = accountsControllerVM.loginEmail;
             $scope.reset();
@@ -395,7 +405,7 @@
             }
             else { alert("Please enter user id"); }
         }
-
+        // Check security question answer
         function checkSecurityQuestionAnswer()
         {            
             var questionId = accountsControllerVM.forgotPasswordSecurityQuestionId;

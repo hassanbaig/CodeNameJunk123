@@ -1,0 +1,5 @@
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\bin\Release\JunkCar.Core.dll
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\bin\Release\JunkCar.Core.pdb
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\obj\Release\JunkCar.Core.csprojResolveAssemblyReference.cache
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\obj\Release\JunkCar.Core.dll
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Core\obj\Release\JunkCar.Core.pdb

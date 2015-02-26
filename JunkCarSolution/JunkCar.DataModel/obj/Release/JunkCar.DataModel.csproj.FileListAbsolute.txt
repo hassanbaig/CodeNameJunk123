@@ -1,0 +1,5 @@
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\bin\Release\JunkCar.DataModel.dll
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\bin\Release\JunkCar.DataModel.pdb
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\obj\Release\JunkCar.DataModel.csprojResolveAssemblyReference.cache
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\obj\Release\JunkCar.DataModel.dll
+D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\obj\Release\JunkCar.DataModel.pdb

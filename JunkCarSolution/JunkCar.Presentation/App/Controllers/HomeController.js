@@ -131,8 +131,7 @@
 
         //---------------------------------------------------------- ViewModel variables --------------------------------------------------------        
         var homeControllerVM = this;        
-                  
-        homeControllerVM.loggedInUserName = '';
+               
         homeControllerVM.drivetrainQuestionnaireList = [];
         homeControllerVM.interiorExteriorQuestionnaireList = [];
 
@@ -167,6 +166,7 @@
         //---------------------------------------------------------- $scope variables ----------------------------------------------------------        
         $scope.isDisableGetAnOfferButton = false;
         $scope.isDisableGetABetterOfferButton = false;
+       
         //[End]------------------------------------------------------ Home variables ----------------------------------------------------------
 
         /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -229,9 +229,8 @@
           ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
         
         //[Start]--------------------------------------------------- Methods definition ---------------------------------------------------------
-        //---------------------------------------------------------- ViewModel Methods ----------------------------------------------------------        
-        
-        homeControllerVM.getUserName = getUserName;        
+        //---------------------------------------------------------- ViewModel Methods ----------------------------------------------------------                
+               
         homeControllerVM.getRegistrationYears = getRegistrationYears;
         homeControllerVM.getMakesByYear = getMakesByYear;
         homeControllerVM.getModelsByYearMake = getModelsByYearMake;
@@ -387,12 +386,7 @@
             else {
             }           
         }
-        //------------------------------------------------------------- Methods --------------------------------------------------------------
-        // Get logged in user name
-        function getUserName()
-        {
-            homeControllerVM.loggedInUserName = localStorage.getItem("UserName");
-        }      
+        //------------------------------------------------------------- Methods --------------------------------------------------------------     
         // Local storage management        
         
         // Save year to local storage

@@ -46,8 +46,10 @@
         accountsControllerVM.loginEmail = '';
         accountsControllerVM.loginPassword = '';
 
+        accountsControllerVM.changePasswordOldPassword = '';
         accountsControllerVM.changePasswordNewPassword = '';
         accountsControllerVM.changePasswordConfirmPassword = '';
+        accountsControllerVM.changePasswordEmail = '';
 
         accountsControllerVM.isVisibleVerificationCode = false;
 
@@ -245,39 +247,61 @@
         }
         // Change password
         function changePassword() {
-            $scope.startSpin();
-            $scope.reset();
-            var userId = accountsControllerVM.changePasswordUserId;
-            if (userId == null || userId == '')
+            var oldPassword = accountsControllerVM.changePasswordOldPassword;
+            var newPassword = accountsControllerVM.changePasswordNewPassword;
+            var confirmPassword = accountsControllerVM.changePasswordConfirmPassword;
+            var email = accountsControllerVM.changePasswordEmail;
+
+            if (oldPassword.length <= 0||newPassword.length<=0||confirmPassword.length<=0)
             {
-                failureAlert("Please input user id and then proceed.");
-                $scope.stopSpin();
-            }
-            var currentPass = accountsControllerVM.changePasswordCurrentPassword.trim();
-            accountsControllerVM.isMismatch = changePasswordCheckMismatch();
-            if (accountsControllerVM.isMismatch == true) {
-                successAlert("New password and confirm password mis match.");
-                $scope.stopSpin();
+                alert("Please input the password.");
+                
             }
             else {
-                var newPass = accountsControllerVM.changePasswordNewPassword.trim();
-                accountsService.changePassword({ currentPassword: currentPass, newPassword: newPass, userId: userId }).then(function (data) {
-                    var response = data.results;
+                $scope.reset();
+                if (newPassword == confirmPassword) {
+                    $scope.startSpin();
+                    return accountsService.changePassword({ currentPassword: oldPassword, newPassword: newPassword })
+                        .then(function (serviceResponse) {
+                            var response = serviceResponse.data;
+                            if (response == "Successful") {
+                                //accountsControllerVM.pageTitle = "Log-in";
+                                //accountsControllerVM.isVisibleResetPasswordTextBoxes = false;
+                                //accountsControllerVM.isVisibleLoginTextBoxes = true;
+                                $scope.redirectLogin();
+                            }
+                            else { }
+                            $scope.stopSpin();
+                        }).catch(function (serviceError) {
+                            failureAlert(serviceError.data);
+                            console.log(serviceError.data);
+                            return null;
+                        });
 
-                    var mystring = new String(response);
-                    mystring = mystring.substring(1, mystring.length - 1);
-                    if (mystring == "Password changed successfully") {
-                        successAlert(mystring);
-                        $scope.redirectMain();
-                    }
-                    else { failureAlert(mystring); }
-                    $scope.stopSpin();
-                });
+                }
+                else { alert("Password mis-match"); }
             }
-            accountsControllerVM.changePasswordUserId = '';
-            accountsControllerVM.changePasswordCurrentPassword = '';
-            accountsControllerVM.changePasswordNewPassword = '';
-            accountsControllerVM.changePasswordConfirmPassword = '';
+            //if (newPassword != confirmPassword) {
+            //    alert("New password and confirm password mis match");
+                
+            //}
+            //if ((oldPassword.length > 0 && newPass.length > 0 && confirmPass.length > 0) && (newPass != confirmPass))
+            //    {
+            //    var newPass = accountsControllerVM.changePasswordNewPassword;
+            //        $scope.startSpin();
+            //        accountsService.changePassword({ currentPassword: currentPass, newPassword: newPass })
+            //            .then(function (data) {
+            //                var response = data.results;
+            //                var mystring = new String(response);
+            //                mystring = mystring.substring(1, mystring.length - 1);
+            //                if (mystring == "Password changed successfully") {
+            //                    successAlert(mystring);
+            //                    $scope.redirectMain();
+            //                }
+            //                else { failureAlert(mystring); }
+            //                $scope.stopSpin();
+            //            });
+            //    }
         }
         // Check mis-match on Forgot Password
         function forgotPasswordCheckMismatch() {

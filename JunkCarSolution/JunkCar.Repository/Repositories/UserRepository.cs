@@ -157,5 +157,21 @@ namespace JunkCar.Repository.Repositories
             }
             return data.Customer_Id;
         }
+        public int ChangePassword(string userId, string newPassword)
+        {
+            var data = (from salCus in _context.Sal_Customer
+                        where salCus.Login_Name.Equals(userId)
+                        select salCus).FirstOrDefault();
+            if (data.Login_Password == newPassword)
+            {
+                data.Login_Password = newPassword;
+                _context.SaveChanges();
+            }
+            else 
+            { 
+                throw new Exception("Please provide correct old password");
+            }
+            return data.Customer_Id;
+        }
     }
 }

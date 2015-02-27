@@ -177,6 +177,14 @@ namespace JunkCar.Core.Common
             resetPassword["NewPassword"] = password;
             return resetPassword;
         }
+        public static Hashtable ChangePassword(string oldPassword, string password,string userId)
+        {
+            Hashtable changePassword = new Hashtable();
+            changePassword["OldPassword"] = oldPassword;
+            changePassword["NewPassword"] = password;
+            changePassword["UserId"] = userId;
+            return changePassword;
+        }
         public static Hashtable ContactEmailMessage(string name, string email, string phone, string subject, string message)
         {
             Hashtable contactEmailMessage = new Hashtable();

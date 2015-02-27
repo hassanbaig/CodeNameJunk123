@@ -77,21 +77,21 @@ namespace JunkCar.WebAPI.Controllers
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
             forgotPassword = (ForgotPassword)domainService.Query(domainModel, DomainModelEnum.CHECK_VERIFICATION_CODE);
             return forgotPassword.ResponseMessage;
-        }      
-         //[HttpGet]
-        //public IHttpActionResult ChangePassword(string currentPassword, string newPassword)
-        //{
-        //    ChangePassword changePassword = null;
-        //    string data = TicketHelper.GetDecryptedUserId();
-        //    string[] dataList = data.Split(',');
-        //    FactoryFacade factory = new FactoryFacade();
+        }
+        [HttpGet]
+        public IHttpActionResult ChangePassword(string currentPassword, string newPassword)
+        {
+            ChangePassword changePassword = null;
+            string data = TicketHelper.GetDecryptedUserId();
+            string[] dataList = data.Split(',');
+            FactoryFacade factory = new FactoryFacade();
 
-        //    domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(ChangePassword));
-        //    domainModel.Fill(HashHelper.ChangePassword(currentPassword, newPassword, dataList[0]));
-        //    domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
-        //    changePassword = (ChangePassword)domainService.Update(domainModel, JunkCar.Factory.Enumerations.DomainModelEnum.CHANGE_PASSWORD);
-        //    return Ok(changePassword.ResponseMessage);
-        //}
+            domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(ChangePassword));
+            domainModel.Fill(HashHelper.ChangePassword(currentPassword, newPassword, dataList[0]));
+            domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
+            changePassword = (ChangePassword)domainService.Update(domainModel, JunkCar.Core.Enumerations.DomainModelEnum.CHANGE_PASSWORD);
+            return Ok(changePassword.ResponseMessage);
+        }
         [HttpGet]
         public string ResetPassword(string newPassword, string userId)
         {

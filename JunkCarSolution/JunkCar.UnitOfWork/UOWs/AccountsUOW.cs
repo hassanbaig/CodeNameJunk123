@@ -21,6 +21,7 @@ namespace JunkCar.UnitOfWork.UOWs
         private Authenticate authenticate;         
         private Signup signup;
         private ForgotPassword forgotPassword;
+        private ChangePassword changePassword;
         public AccountsUOW()
             : base()
         {
@@ -147,6 +148,18 @@ namespace JunkCar.UnitOfWork.UOWs
                     else
                     { forgotPassword.ResponseMessage = "Failure"; }
                     break;
+                case OperationTypeEnum.CHANGE_PASSWORD:
+                    changePassword = (JunkCar.DomainModel.Models.ChangePassword)domainModel;
+                    cusId = userRepository.ResetPassword(changePassword.UserId, Encryption.Encrypt("#", changePassword.NewPassword));
+                    if (cusId > 0)
+                    {
+                        string userName = userRepository.GetCustomerName(changePassword.UserId);
+                        JunkCar.Core.ConfigurationEmails.ConfigurationEmail.ChangePasswordEmail(changePassword.UserId, changePassword.NewPassword, changePassword.UserId);
+                        changePassword.ResponseMessage = "Successful";
+                    }
+                    else
+                    { changePassword.ResponseMessage = "Failure"; }
+                    break;
                 default:
                     break;
             }
@@ -163,6 +176,9 @@ namespace JunkCar.UnitOfWork.UOWs
                     return forgotPassword;
                 case OperationTypeEnum.RESET_PASSWORD:
                     return forgotPassword;
+                case OperationTypeEnum.CHANGE_PASSWORD:
+                    return changePassword;
+
                 default:
                     break;
             }

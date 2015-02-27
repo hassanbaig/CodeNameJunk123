@@ -14,6 +14,7 @@ namespace JunkCar.DomainService.Services
         private IUnitOfWork unitOfWork;
         private DomainModel.Models.Authenticate authenticate;
         private DomainModel.Models.ForgotPassword forgotPassword;
+        private DomainModel.Models.ChangePassword changePassword;
         public override AbstractDomainModel Save(AbstractDomainModel domainModel, DomainModelEnum domainModelType)
         {
             JunkCar.DomainModel.Models.Signup signup = (JunkCar.DomainModel.Models.Signup)domainModel;
@@ -81,7 +82,65 @@ namespace JunkCar.DomainService.Services
 
         public override AbstractDomainModel Update(AbstractDomainModel domainModel, DomainModelEnum domainModelType)
         {
-            throw new NotImplementedException();
+            
+            try
+            {
+                if (domainModel != null)
+                {
+                    switch (domainModelType)
+                    {
+                        case DomainModelEnum.CHANGE_PASSWORD:
+                            changePassword = (DomainModel.Models.ChangePassword)domainModel;
+                            if (changePassword.UserId == null || changePassword.UserId.Length <= 0)
+                            { changePassword.ResponseMessage = "Email is required"; }
+                            else if (changePassword.OldPassword == null || changePassword.OldPassword.Length <= 0)
+                            { changePassword.ResponseMessage = "Old Password is required"; }
+                            else if (changePassword.NewPassword == null || changePassword.NewPassword.Length <= 0)
+                            { changePassword.ResponseMessage = "New Password is required"; }
+                            else
+                            {
+                                FactoryFacade factory = new FactoryFacade();
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.AccountsUOW));
+                                changePassword = (DomainModel.Models.ChangePassword)unitOfWork.Get(changePassword, OperationTypeEnum.CHANGE_PASSWORD);
+                                changePassword.ResponseMessage = "Valid";
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (domainModelType)
+                    {
+                        case DomainModelEnum.CHANGE_PASSWORD:
+                            changePassword.ResponseMessage = "Invalid domain model";
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                switch (domainModelType)
+                {
+                    case DomainModelEnum.CHANGE_PASSWORD:
+                        changePassword.ResponseMessage = ex.Message;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            switch (domainModelType)
+            {
+                case DomainModelEnum.CHANGE_PASSWORD:
+                    return changePassword;
+                default:
+                    break;
+            }
+            return null;
+            
         }
 
         public override AbstractDomainModel Delete(AbstractDomainModel domainModel, DomainModelEnum domainModelType)

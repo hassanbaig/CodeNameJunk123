@@ -28,7 +28,7 @@ namespace JunkCar.WebAPI.Controllers
             signup = (Signup)domainService.Save(domainModel, DomainModelEnum.SIGNUP);
             return signup.ResponseMessage;
         }
-
+         
         [HttpGet]
         public Authenticate Authenticate(string password, string userId)
         {

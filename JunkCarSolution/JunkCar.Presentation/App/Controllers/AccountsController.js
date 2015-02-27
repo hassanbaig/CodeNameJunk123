@@ -67,6 +67,8 @@
 
         accountsControllerVM.isMismatch = false;
         accountsControllerVM.isVisible = true;
+        //---------------------------------------------------------- $scope variables ----------------------------------------------------------       
+        $scope.liun = '';
 
         //[End]------------------------------------------------------ Accounts variables ------------------------------------------------------
 
@@ -132,6 +134,7 @@
         //[Start]--------------------------------------------------- Methods definition ---------------------------------------------------------
         //---------------------------------------------------------- ViewModel Methods ----------------------------------------------------------
         accountsControllerVM.authenticateUser = authenticateUser;
+        accountsControllerVM.getUserName = getUserName;
         accountsControllerVM.signup = signup;
         accountsControllerVM.changePassword = changePassword;
         accountsControllerVM.forgotPassword = forgotPassword;        
@@ -188,6 +191,12 @@
             //    return true;
         }
         //------------------------------------------------------------- Methods --------------------------------------------------------------
+        // Get logged in user name
+        function getUserName() {
+            var userName = localStorage.getItem("UserName");
+
+            $scope.liun = userName;
+        }
         // Authenticate user
         function authenticateUser() {
             $scope.reset();

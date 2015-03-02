@@ -105,6 +105,6 @@ C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Prese
 C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Presentation\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Presentation\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Presentation\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Presentation\obj\Debug\JunkCar.Presentation.csprojResolveAssemblyReference.cache
 C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Presentation\obj\Debug\JunkCar.Presentation.dll
 C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Presentation\obj\Debug\JunkCar.Presentation.pdb
-C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.Presentation\obj\Debug\JunkCar.Presentation.csprojResolveAssemblyReference.cache

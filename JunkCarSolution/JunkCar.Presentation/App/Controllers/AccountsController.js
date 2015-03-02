@@ -194,8 +194,11 @@
         // Get logged in user name
         function getUserName() {
             var userName = localStorage.getItem("UserName");
-
+            
             $scope.liun = userName;
+            
+            
+            
         }
         // Authenticate user
         function authenticateUser() {

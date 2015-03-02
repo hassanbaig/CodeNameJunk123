@@ -494,7 +494,8 @@
             $scope.startSpin();
             return homeService.getRegistrationYears()
                 .then(function (serviceResponse) {
-                    var response = serviceResponse.data;                    
+                    var response = serviceResponse.data;
+                    console.log(response);
                     $rootScope.registrationYearsList = response;                    
                     $scope.reset();
                     $scope.stopSpin();

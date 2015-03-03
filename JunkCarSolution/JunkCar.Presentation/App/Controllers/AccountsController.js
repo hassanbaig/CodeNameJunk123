@@ -411,6 +411,15 @@
                 accountsControllerVM.signupPhone = '';
             }
         }
+
+        function showSecurityQuestionAnswer() {
+            // Check email address existance, required validation
+
+            accountsControllerVM.pageTitle = "Account-Verification";
+            accountsControllerVM.isVisibleLoginTextBoxes = false;
+            accountsControllerVM.isVisibleSecurityQuestion = true;
+        }
+
         function getSecurityQuestion() {
             var email = accountsControllerVM.loginEmail;
             $scope.reset();
@@ -460,14 +469,7 @@
             }
             else { alert("Please enter answer"); }
         }
-
-        function showSecurityQuestionAnswer()
-        {
-            accountsControllerVM.pageTitle = "Account-Verification";
-            accountsControllerVM.isVisibleLoginTextBoxes = false;
-            accountsControllerVM.isVisibleSecurityQuestion = true;
-        }
-
+       
         function checkVerificationCode()
         {
             var code = accountsControllerVM.forgotPasswordVerificationCode;

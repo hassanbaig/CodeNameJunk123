@@ -68,7 +68,7 @@ namespace JunkCar.Repository.Repositories
             //else
             //{ throw new Exception("User not found"); }
         }
-        public string GetUserName(string userId, string password)
+        public string GetCustomerName(string userId, string password)
         {
             string customerName = string.Empty;
             var data = _context.Authenticate(null, password, null, null, null, userId, null,0);

@@ -97,7 +97,7 @@ namespace JunkCar.UnitOfWork.UOWs
                 case OperationTypeEnum.AUTHENTICATE:
                     authenticate = (JunkCar.DomainModel.Models.Authenticate)domainModel;
                     string encryptedPass = Encryption.Encrypt("#", authenticate.Password);
-                    string customerName = userRepository.GetUserName(authenticate.Email, encryptedPass);
+                    string customerName = userRepository.GetCustomerName(authenticate.Email, encryptedPass);
                     if (customerName.Length > 0)
                     {
                         authenticate.IsAuthenticated = true;

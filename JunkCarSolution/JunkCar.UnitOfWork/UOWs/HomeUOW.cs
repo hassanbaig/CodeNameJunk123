@@ -122,7 +122,7 @@ namespace JunkCar.UnitOfWork.UOWs
                     }
                     else 
                     {
-                        JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Pending", home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");
+                        JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Pending", home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "talha149@gmail.com,aim_saidi@hotmail.com");
                     }
                     break;
                 case OperationTypeEnum.GET_A_BETTER_OFFER:
@@ -154,13 +154,13 @@ namespace JunkCar.UnitOfWork.UOWs
                     }
                     else
                     {
-                        JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Pending", home.CustomerId, home.QuestionnaireDescription, home.SelectedYear, home.SelectedMake, home.SelectedMakeId, home.SelectedModel, home.SelectedModelId, home.CylindersQuantity, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");
+                        JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Pending", home.CustomerId, home.QuestionnaireDescription, home.SelectedYear, home.SelectedMake, home.SelectedMakeId, home.SelectedModel, home.SelectedModelId, home.CylindersQuantity, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "talha149@gmail.com,aim_saidi@hotmail.com");
                     }                   
                     break;                              
                 case OperationTypeEnum.CONFIRM_OFFER:
                     home.City = homeRepository.GetCity(home.ZipCode);
                     home.State = homeRepository.GetState(home.ZipCode);
-                    JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Confirmed", home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");
+                    JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Confirmed", home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "talha149@gmail.com,aim_saidi@hotmail.com");
                     JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForCustomer(home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.Phone,home.ContactNo, home.EmailAddress);
                     break;
                 case OperationTypeEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
@@ -170,7 +170,7 @@ namespace JunkCar.UnitOfWork.UOWs
                     home.QuestionnaireDescription = homeRepository.GetQuestionnaireDescription(questionnaireIds2);
                     home.City = homeRepository.GetCity(home.ZipCode);
                     home.State = homeRepository.GetState(home.ZipCode);
-                    JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Confirmed", home.CustomerId, home.QuestionnaireDescription, home.SelectedYear, home.SelectedMake, home.SelectedMakeId, home.SelectedModel, home.SelectedModelId, home.CylindersQuantity, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");                    
+                    JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Confirmed", home.CustomerId, home.QuestionnaireDescription, home.SelectedYear, home.SelectedMake, home.SelectedMakeId, home.SelectedModel, home.SelectedModelId, home.CylindersQuantity, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "talha149@gmail.com,aim_saidi@hotmail.com");                    
                     JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForCustomer(home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.Phone, home.ContactNo, home.EmailAddress);
                     break;
                 case OperationTypeEnum.GET_CUSTOMER_ID:

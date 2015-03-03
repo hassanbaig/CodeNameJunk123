@@ -23,7 +23,8 @@ namespace JunkCar.Core.Enumerations
         CHECK_SECURITY_QUESTION_ANSWER,
         CHECK_VERIFICATION_CODE,
         RESET_PASSWORD,
-        CHANGE_PASSWORD
+        CHANGE_PASSWORD,
+        CHECK_USER_ID
         
     }
 }

@@ -16,7 +16,9 @@ namespace JunkCar.UnitOfWork.UOWs
     public class HomeUOW : BaseUnitOfWork, IUnitOfWork
     {       
         private HomeRepository homeRepository;
+        private UserRepository userRepository;
         private DomainModel.Models.Home home;
+        string adminEmailAddresses;
         public HomeUOW()
             : base()
         {
@@ -44,7 +46,9 @@ namespace JunkCar.UnitOfWork.UOWs
         void IUnitOfWork.InitializeRepositories()
         {
             homeRepository = (HomeRepository)base.Factory.RepositoryFactory.CreateRepository(typeof(HomeRepository));
+            userRepository = (UserRepository)base.Factory.RepositoryFactory.CreateRepository(typeof(UserRepository));
             homeRepository.DataContext = base.Context;
+            userRepository.DataContext = base.Context;
         }
         void IUnitOfWork.Save(AbstractDomainModel domainModel)
         {
@@ -108,7 +112,7 @@ namespace JunkCar.UnitOfWork.UOWs
                     }
                     break;
                 case OperationTypeEnum.GET_AN_OFFER:                   
-                     home.City = homeRepository.GetCity(home.ZipCode);
+                    home.City = homeRepository.GetCity(home.ZipCode);
                     home.State = homeRepository.GetState(home.ZipCode);
                     home.OfferPrice = homeRepository.GetAnOffer(home.SelectedYear,home.SelectedMakeId,home.SelectedModelId,home.ZipCode,
                         "<Customer_Info><Customer_Name>" + home.Name + "</Customer_Name>" +
@@ -122,7 +126,8 @@ namespace JunkCar.UnitOfWork.UOWs
                     }
                     else 
                     {
-                        JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Pending", home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "talha149@gmail.com,aim_saidi@hotmail.com");
+                        adminEmailAddresses = userRepository.GetAdminEmailAddresses();
+                        JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Pending", home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "talha149@gmail.com,aim_saidi@hotmail.com," + adminEmailAddresses);
                     }
                     break;
                 case OperationTypeEnum.GET_A_BETTER_OFFER:
@@ -154,13 +159,15 @@ namespace JunkCar.UnitOfWork.UOWs
                     }
                     else
                     {
-                        JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Pending", home.CustomerId, home.QuestionnaireDescription, home.SelectedYear, home.SelectedMake, home.SelectedMakeId, home.SelectedModel, home.SelectedModelId, home.CylindersQuantity, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "talha149@gmail.com,aim_saidi@hotmail.com");
+                        adminEmailAddresses = userRepository.GetAdminEmailAddresses();
+                        JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Pending", home.CustomerId, home.QuestionnaireDescription, home.SelectedYear, home.SelectedMake, home.SelectedMakeId, home.SelectedModel, home.SelectedModelId, home.CylindersQuantity, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "talha149@gmail.com,aim_saidi@hotmail.com," + adminEmailAddresses);
                     }                   
                     break;                              
                 case OperationTypeEnum.CONFIRM_OFFER:
                     home.City = homeRepository.GetCity(home.ZipCode);
                     home.State = homeRepository.GetState(home.ZipCode);
-                    JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Confirmed", home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "talha149@gmail.com,aim_saidi@hotmail.com");
+                    adminEmailAddresses = userRepository.GetAdminEmailAddresses();
+                    JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Confirmed", home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "talha149@gmail.com,aim_saidi@hotmail.com," + adminEmailAddresses);
                     JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForCustomer(home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.Phone,home.ContactNo, home.EmailAddress);
                     break;
                 case OperationTypeEnum.CONFIRM_OFFER_WITH_QUESTIONNAIRE:
@@ -170,7 +177,8 @@ namespace JunkCar.UnitOfWork.UOWs
                     home.QuestionnaireDescription = homeRepository.GetQuestionnaireDescription(questionnaireIds2);
                     home.City = homeRepository.GetCity(home.ZipCode);
                     home.State = homeRepository.GetState(home.ZipCode);
-                    JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Confirmed", home.CustomerId, home.QuestionnaireDescription, home.SelectedYear, home.SelectedMake, home.SelectedMakeId, home.SelectedModel, home.SelectedModelId, home.CylindersQuantity, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "talha149@gmail.com,aim_saidi@hotmail.com");                    
+                    adminEmailAddresses = userRepository.GetAdminEmailAddresses();
+                    JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForAdmin("Confirmed", home.CustomerId, home.QuestionnaireDescription, home.SelectedYear, home.SelectedMake, home.SelectedMakeId, home.SelectedModel, home.SelectedModelId, home.CylindersQuantity, home.OfferPrice, home.Name, home.Address, home.State, home.City, home.ZipCode, home.Phone, home.EmailAddress, "talha149@gmail.com,aim_saidi@hotmail.com," + adminEmailAddresses);                    
                     JunkCar.Core.ConfigurationEmails.ConfigurationEmail.OfferEmailForCustomer(home.SelectedYear, home.SelectedMake, home.SelectedModel, home.OfferPrice, home.Name, home.Address, home.Phone, home.ContactNo, home.EmailAddress);
                     break;
                 case OperationTypeEnum.GET_CUSTOMER_ID:

@@ -215,6 +215,17 @@ namespace JunkCar.DomainService.Services
                                 forgotPassword = (DomainModel.Models.ForgotPassword)unitOfWork.Get(forgotPassword, OperationTypeEnum.RESET_PASSWORD);
                             }
                             break;
+                        case DomainModelEnum.CHECK_USER_ID:
+                            authenticate = (DomainModel.Models.Authenticate)domainModel;
+                            if (authenticate.Email == null || authenticate.Email.Length <= 0)
+                            { authenticate.ResponseMessage = "Please enter valid email"; }
+                            else
+                            {
+                                FactoryFacade factory = new FactoryFacade();
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.AccountsUOW));
+                                authenticate = (DomainModel.Models.Authenticate)unitOfWork.Get(authenticate, OperationTypeEnum.CHECK_USER_ID);
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -237,6 +248,9 @@ namespace JunkCar.DomainService.Services
                             break;
                         case DomainModelEnum.RESET_PASSWORD:
                             forgotPassword.ResponseMessage = "Invalid domain model";
+                            break;
+                        case DomainModelEnum.CHECK_USER_ID:
+                            authenticate.ResponseMessage = "Invalid domain model";
                             break;
                         default:
                             break;
@@ -262,6 +276,9 @@ namespace JunkCar.DomainService.Services
                     case DomainModelEnum.RESET_PASSWORD:
                         forgotPassword.ResponseMessage = ex.Message;
                         break;
+                    case DomainModelEnum.CHECK_USER_ID:
+                        authenticate.ResponseMessage = ex.Message;
+                        break;
                     default:
                         break;
                 }
@@ -278,6 +295,8 @@ namespace JunkCar.DomainService.Services
                     return forgotPassword;
                 case DomainModelEnum.RESET_PASSWORD:
                     return forgotPassword;
+                case DomainModelEnum.CHECK_USER_ID:
+                    return authenticate;
                 default:
                     break;
             }

@@ -160,6 +160,17 @@ namespace JunkCar.UnitOfWork.UOWs
                     else
                     { changePassword.ResponseMessage = "Failure"; }
                     break;
+                case OperationTypeEnum.CHECK_USER_ID:
+                    authenticate = (JunkCar.DomainModel.Models.Authenticate)domainModel;
+                    customerName = userRepository.GetCustomerName(authenticate.Email);
+                    if (customerName.Length > 0)
+                    {
+
+                        authenticate.ResponseMessage = "Valid";
+                    }
+                    else
+                    { authenticate.ResponseMessage = "Invalid"; }
+                    break;
                 default:
                     break;
             }
@@ -178,6 +189,8 @@ namespace JunkCar.UnitOfWork.UOWs
                     return forgotPassword;
                 case OperationTypeEnum.CHANGE_PASSWORD:
                     return changePassword;
+                case OperationTypeEnum.CHECK_USER_ID:
+                    return authenticate;
 
                 default:
                     break;

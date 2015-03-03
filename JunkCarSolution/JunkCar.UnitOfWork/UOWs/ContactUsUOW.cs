@@ -18,7 +18,9 @@ namespace JunkCar.UnitOfWork.UOWs
     public class ContactUsUOW : BaseUnitOfWork, IUnitOfWork
     {
         private HomeRepository homeRepository;
+        private UserRepository userRepository;
         private ContactUs contactUs;
+        string adminEmailAddresses;
         public ContactUsUOW()
             : base()
         {
@@ -82,7 +84,8 @@ namespace JunkCar.UnitOfWork.UOWs
             switch (operationType)
             {                
                 case OperationTypeEnum.CONTACT_EMAIL_MESSAGE:
-                    JunkCar.Core.ConfigurationEmails.ConfigurationEmail.ContactUs(contactUs.Name,contactUs.Email,contactUs.Phone,contactUs.Subject,contactUs.Message,"junkcaruser@gmail.com,talha149@gmail.com,aim_saidi@hotmail.com,junkcartrader@gmail.com");
+                    adminEmailAddresses = userRepository.GetAdminEmailAddresses();
+                    JunkCar.Core.ConfigurationEmails.ConfigurationEmail.ContactUs(contactUs.Name, contactUs.Email, contactUs.Phone, contactUs.Subject, contactUs.Message, "talha149@gmail.com,aim_saidi@hotmail.com," + adminEmailAddresses);
                     break;
                 case OperationTypeEnum.CHECK_ZIPCODE:
                     contactUs.ZipCodeResult = homeRepository.CheckZipCode(contactUs.ZipCode);

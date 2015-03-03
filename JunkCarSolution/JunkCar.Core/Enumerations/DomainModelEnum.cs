@@ -26,6 +26,7 @@ namespace JunkCar.Core.Enumerations
         GET_CONTACT_NO,
         GET_CUSTOMER_ID,
         CONTACT_EMAIL_MESSAGE,
-        CHANGE_PASSWORD
+        CHANGE_PASSWORD,
+        CHECK_USER_ID
     }
 }

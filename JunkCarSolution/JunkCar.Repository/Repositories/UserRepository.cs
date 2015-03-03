@@ -86,6 +86,32 @@ namespace JunkCar.Repository.Repositories
                             
             }                      
         }
+        public string GetAdminEmailAddresses()
+        {
+            string response = string.Empty;
+            var finalData = (from secUser in _context.Sec_User
+                             select secUser).AsEnumerable().Select(x => new JunkCar.DataModel.Models.Sec_User
+                        {
+                            User_Code=x.User_Code,
+                            User_Login_Id=x.User_Login_Id,
+                            Login_Password=x.Login_Password,
+                            Role_Id=x.Role_Id,
+                            Created_By=x.Created_By,
+                            Created_Date=x.Created_Date,
+                            Modified_By=x.Modified_By,
+                            Modified_Date=x.Modified_Date,
+                            Is_Active=x.Is_Active,
+                            User_IP=x.User_IP,
+                            Audit_Id=x.Audit_Id,
+                            Site_Id=x.Site_Id
+                        }).ToList();
+            var data = (from d in finalData
+                        select d.User_Login_Id).ToList();
+            response = string.Join(",", data);
+
+            return response;
+           
+        }
         public JunkCar.DataModel.Models.Sec_Password_Question GetSecurityQuestion(string userId)
         {
             var data = (from salCus in _context.Sal_Customer

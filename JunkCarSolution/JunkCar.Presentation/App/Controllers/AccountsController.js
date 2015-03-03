@@ -138,12 +138,12 @@
         accountsControllerVM.signup = signup;
         accountsControllerVM.changePassword = changePassword;
         accountsControllerVM.forgotPassword = forgotPassword;        
-        accountsControllerVM.logout = logout;
-        accountsControllerVM.showSecurityQuestionAnswer = showSecurityQuestionAnswer;
+        accountsControllerVM.logout = logout;        
         accountsControllerVM.getSecurityQuestion = getSecurityQuestion;
         accountsControllerVM.checkSecurityQuestionAnswer = checkSecurityQuestionAnswer;
         accountsControllerVM.checkVerificationCode = checkVerificationCode;
         accountsControllerVM.resetPassword = resetPassword;
+        accountsControllerVM.checkUserId = checkUserId;
         //[End]----------------------------------------------------- Methods definition ---------------------------------------------------------
 
         /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -411,15 +411,6 @@
                 accountsControllerVM.signupPhone = '';
             }
         }
-
-        function showSecurityQuestionAnswer() {
-            // Check email address existance, required validation
-
-            accountsControllerVM.pageTitle = "Account-Verification";
-            accountsControllerVM.isVisibleLoginTextBoxes = false;
-            accountsControllerVM.isVisibleSecurityQuestion = true;
-        }
-
         function getSecurityQuestion() {
             var email = accountsControllerVM.loginEmail;
             $scope.reset();
@@ -439,6 +430,37 @@
                     });
             }
             else { alert("Please enter user id"); }
+        }
+
+        function checkUserId() {
+            // Check email address existance, required validation
+            var email = accountsControllerVM.loginEmail
+            $scope.reset();
+            if (email.length > 0) {
+                $scope.startSpin();
+                return accountsService.checkUserId({ userId: email })
+                    .then(function (serviceResponse) {
+                        var response = serviceResponse.data;
+                        alert(response);
+                        if (response == "Valid") {
+                         
+                            accountsControllerVM.pageTitle = "Account-Verification";
+                            accountsControllerVM.isVisibleLoginTextBoxes = false;
+                            accountsControllerVM.isVisibleSecurityQuestion = true;
+                            getSecurityQuestion();
+                        }
+                    }).catch(function (serviceError) {
+                        failureAlert(serviceError.data);
+                        console.log(serviceError.data);
+                        return null;
+                    });
+            }
+            else { alert("Please enter valid user id");}
+            //accountsControllerVM.pageTitle = "Account-Verification";
+            //accountsControllerVM.isVisibleLoginTextBoxes = false;
+            //accountsControllerVM.isVisibleSecurityQuestion = true;
+
+
         }
 
         function checkSecurityQuestionAnswer()

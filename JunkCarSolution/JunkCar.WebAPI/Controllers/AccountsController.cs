@@ -102,6 +102,18 @@ namespace JunkCar.WebAPI.Controllers
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
             forgotPassword = (ForgotPassword)domainService.Query(domainModel, DomainModelEnum.RESET_PASSWORD);
             return forgotPassword.ResponseMessage;
+        }
+
+        [HttpGet]
+        public string CheckUserId(string userId)
+        {
+            FactoryFacade factory = new FactoryFacade();
+            Authenticate authenticate = null;
+            domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Authenticate));
+            domainModel.Fill(HashHelper.CheckUserId(userId));
+            domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
+            authenticate = (Authenticate)domainService.Query(domainModel, DomainModelEnum.CHECK_USER_ID);
+            return authenticate.ResponseMessage;
         }      
         [HttpGet]
         public IHttpActionResult Logout()

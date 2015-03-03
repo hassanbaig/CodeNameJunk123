@@ -38,7 +38,8 @@
             getSecurityQuestion: getSecurityQuestion,
             checkSecurityQuestionAnswer: checkSecurityQuestionAnswer,
             checkVerificationCode: checkVerificationCode,
-            resetPassword: resetPassword
+            resetPassword: resetPassword,
+            checkUserId: checkUserId
         };
 
         return service;               
@@ -210,6 +211,24 @@
                 method: 'GET',
                 params: params,
                 url: getBaseUrl() + 'Accounts/ResetPassword'
+            }).success(function (data, status, headers) {
+                response = data;
+                return response;
+            })
+            .error(function (data, status, headers) {
+                response = data;
+                return response;
+            });
+            return promise;
+        }
+
+        //Check Valid Email
+        function checkUserId(params) {
+            var response = '';
+            var promise = $http({
+                method: 'GET',
+                params: params,
+                url: getBaseUrl() + 'Accounts/CheckUserId'
             }).success(function (data, status, headers) {
                 response = data;
                 return response;

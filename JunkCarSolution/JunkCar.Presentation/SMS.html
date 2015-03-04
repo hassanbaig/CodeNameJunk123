@@ -30,6 +30,41 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-route.js"></script>
+    <script src="Scripts/angular-file-upload-shim.min.js"></script>
+    <script src="Scripts/angular-file-upload.min.js"></script>
+
+    <script src="App/RouteConfig.js"></script>
+    <!--<script src="Scripts/angular-sanitize.js"></script>-->
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>-->
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+    <script src="App/Config/App.js"></script>
+    <script src="App/Controllers/HomeController.js"></script>
+    <script src="App/Controllers/UtilityController.js"></script>
+    <script src="App/Services/HomeService.js"></script>
+    <script src="App/Services/UtilityService.js"></script>
+    <script src="App/Services/AccountsService.js"></script>
+    <script src="App/Controllers/AccountsController.js"></script>
+
+    <script src="App//Authentication.js"></script>
+
+    <script type="text/javascript" src="http://fgnass.github.io/spin.js/spin.min.js"></script>
+    <script src="App/Animation/angular-spinner.js"></script>
+    <script type="text/javascript" src="Scripts/angular-animate.js"></script>
+    <link href="Content/Assets/CSS/animations.css" rel="stylesheet">
+    <script type="text/javascript" src="App/Animation/alerts-manager.js"></script>
+
+    <script type="text/javascript" src="App/CustomDirectives/filters.js"></script>
+    <link href="Content/Assets/CSS/angular.rangeSlider.css" rel="stylesheet">
+    <script type="text/javascript" src="App/CustomDirectives/angular.rangeSlider.js"></script>
+    <script type="text/javascript" src="App/CustomDirectives/rangeFilter.js"></script>
+    <script type="text/javascript" src="App/CustomDirectives/timeRangeFilter.js"></script>
+        
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">-->    
+    <!--<script type="text/javascript" src="Content/A
    </head>
 
 <style>
@@ -93,7 +128,7 @@ ul {
                 </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+            <div data-ng-controller="accountsController as accountsControllerVM" class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="http://www.junkcartrader.com">Get an offer</a></li>
                     <li><a href="Howitworks.html">How it works</a></li>
@@ -101,8 +136,17 @@ ul {
                     <li><a href="Aboutus.html">About us</a></li>
                     <li><a href="Contactus.html">Contact us</a></li>
                     <li><a href="Signup.html">Sign up</a></li>
-                    <li><a href="Login.html">Login</a></li>
+                    <li data-ng-hide="accountsControllerVM.isLoggedIn"><a href="Login.html">Login</a></li>
                     <li style="color:#F00"><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" data-ng-init="accountsControllerVM.getUserName();" data-ng-show="accountsControllerVM.isLoggedIn">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Welcome, {{liun |limitTo:4 }} {{liun.length >= 4 ?'....' : ''}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="Settings.html"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                            <li class="divider"></li>
+                            <li data-ng-click="accountsControllerVM.logout();"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                        </ul>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

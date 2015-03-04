@@ -67,6 +67,7 @@
 
         accountsControllerVM.isMismatch = false;
         accountsControllerVM.isVisible = true;
+        accountsControllerVM.isLoggedIn = false;
         //---------------------------------------------------------- $scope variables ----------------------------------------------------------       
         $scope.liun = '';
 
@@ -193,9 +194,14 @@
         //------------------------------------------------------------- Methods --------------------------------------------------------------
         // Get logged in user name
         function getUserName() {
-            var userName = localStorage.getItem("UserName");
-            
+            var userName = localStorage.getItem("UserName");  
             $scope.liun = userName;
+            if (userName.length > 0) {
+                accountsControllerVM.isLoggedIn = true;
+            }
+            else {
+                accountsControllerVM.isLoggedIn = false;
+            }
             
             
             
@@ -456,11 +462,6 @@
                     });
             }
             else { alert("Please enter valid user id");}
-            //accountsControllerVM.pageTitle = "Account-Verification";
-            //accountsControllerVM.isVisibleLoginTextBoxes = false;
-            //accountsControllerVM.isVisibleSecurityQuestion = true;
-
-
         }
 
         function checkSecurityQuestionAnswer()

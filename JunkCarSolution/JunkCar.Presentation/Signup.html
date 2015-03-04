@@ -173,7 +173,7 @@
                         </a>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+                    <div data-ng-controller="accountsController as accountsControllerVM" class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li><a href="http://www.junkcartrader.com">Get an offer</a></li>
                             <li><a href="Howitworks.html">How it works</a></li>
@@ -181,8 +181,17 @@
                             <li><a href="Aboutus.html">About us</a></li>
                             <li><a href="Contactus.html">Contact us</a></li>
                             <li class="active"><a href="#">Sign up</a></li>
-                            <li><a href="Login.html">Login</a></li>
+                            <li data-ng-hide="accountsControllerVM.isLoggedIn"><a href="Login.html">Login</a></li>
                             <li style="color:#F00"><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right" data-ng-init="accountsControllerVM.getUserName();" data-ng-show="accountsControllerVM.isLoggedIn">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Welcome, {{liun |limitTo:4 }} {{liun.length >= 4 ?'....' : ''}} <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="Settings.html"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                                    <li class="divider"></li>
+                                    <li data-ng-click="accountsControllerVM.logout();"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                                </ul>
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->

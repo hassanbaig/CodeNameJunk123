@@ -214,8 +214,7 @@
             var pass = accountsControllerVM.loginPassword;
             accountsService.authenticateUser({ userId: email, password: pass })
                 .then(function (serviceResponse) {
-                    var response = serviceResponse.data;
-                    console.log(response);
+                    var response = serviceResponse.data;                    
                     if (response.IsAuthenticated === true) {
                         localStorage.setItem("UserName",response.Name);
                     $scope.stopSpin();
@@ -223,8 +222,7 @@
                 }
                 else {
                     alert("Invalid password or username does not exist");
-                    $scope.stopSpin();
-                    failureAlert(response);
+                    $scope.stopSpin();                    
                 }
                 
             });           
@@ -237,12 +235,12 @@
             $scope.reset();
             var userId = accountsControllerVM.forgotPasswordUserId;
             if (userId == null || userId == '') {
-                failureAlert("Please input user id and then proceed.");
+                alert("Please input user id and then proceed.");
                 $scope.stopSpin();
             }
             accountsControllerVM.isMismatch = forgotPasswordCheckMismatch();
             if (accountsControllerVM.isMismatch == true) {
-                successAlert("New password and confirm password mis match.");
+                alert("New password and confirm password mis match.");
                 $scope.stopSpin();
             }
             else {                
@@ -252,10 +250,10 @@
                     var mystring = new String(response);
                     mystring = mystring.substring(1, mystring.length - 1);                
                     if (mystring == "New password has been sent successfully") {
-                        successAlert(mystring);
+                        alert(mystring);
                         $scope.redirectLogin();
                     }
-                    else { failureAlert(mystring); }
+                    else { alert(mystring); }
                     $scope.stopSpin();
                 });                
             }
@@ -283,15 +281,16 @@
                         .then(function (serviceResponse) {
                             var response = serviceResponse.data;
                             if (response == "Successful") {
+                                alert("Password has been changed successfully");
                                 //accountsControllerVM.pageTitle = "Log-in";
                                 //accountsControllerVM.isVisibleResetPasswordTextBoxes = false;
                                 //accountsControllerVM.isVisibleLoginTextBoxes = true;
                                 $scope.redirectLogin();
                             }
-                            else { }
+                            else { alert("There is someting wrong"); }
                             $scope.stopSpin();
                         }).catch(function (serviceError) {
-                            failureAlert(serviceError.data);
+                            alert("There is someting wrong");
                             console.log(serviceError.data);
                             return null;
                         });
@@ -396,15 +395,13 @@
                 $scope.startSpin();
                 return accountsService.signup({ address:address, email: email, name:name, password: password, phone:phone, zipCode: zipCode })
                     .then(function (serviceResponse) {
-                        var response = serviceResponse.data;
-                    alert(response);                                        
+                        var response = serviceResponse.data;                                                         
                     if (response == 'Your account has been created successfully and you will receive an email shortly with the details') {
                         $scope.stopSpin();
                         $scope.redirectMain();
                     }
                     }).catch(function (serviceError) {
-                        failureAlert(serviceError.data);
-                        console.log(serviceError.data);
+                        alert("There is something wrong");
                         return null;
                     });
 
@@ -430,8 +427,7 @@
                         $scope.stopSpin();
 
                     }).catch(function (serviceError) {
-                        failureAlert(serviceError.data);
-                        console.log(serviceError.data);
+                        alert("There is something wrong");
                         return null;
                     });
             }
@@ -457,8 +453,7 @@
                         else { alert("Please enter a valid user id");}
                         $scope.stopSpin();
                     }).catch(function (serviceError) {
-                        failureAlert(serviceError.data);
-                        console.log(serviceError.data);
+                        alert("There is something wrong");                        
                         return null;
                     });
             }
@@ -486,8 +481,7 @@
                         $scope.stopSpin();
 
                     }).catch(function (serviceError) {
-                        failureAlert(serviceError.data);
-                        console.log(serviceError.data);
+                        alert("There is something wrong");
                         return null;
                     });
             }
@@ -512,8 +506,7 @@
                         else { alert("Invalid verification code");}
                         $scope.stopSpin();
                     }).catch(function (serviceError) {
-                        failureAlert(serviceError.data);
-                        console.log(serviceError.data);
+                        alert("There is something wrong");                        
                         return null;
                     });
             }
@@ -544,8 +537,7 @@
                             else {  }
                             $scope.stopSpin();
                         }).catch(function (serviceError) {
-                            failureAlert(serviceError.data);
-                            console.log(serviceError.data);
+                            alert("There is something wrong");
                             return null;
                         });
 

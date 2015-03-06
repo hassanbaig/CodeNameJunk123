@@ -257,7 +257,7 @@
                             <div class="tab-pane active" id="tab1" data-ng-init="homeControllerVM.getRegistrationYears(); homeControllerVM.getCylinders();">
                                 <form class="form" role="form">
                                     <div class="form-group">
-                                        <input type="number" min="1900" step="1" id="carMakeModelYear" class="form-control" data-ng-model="homeControllerVM.homeSelectedRegistrationYear" data-ng-change="homeControllerVM.saveYearData();homeControllerVM.getMakesByYear();" list="homeRegistrationYearsDatalist" placeholder="Year">
+                                        <input min="1900" id="carMakeModelYear" class="form-control" data-ng-model="homeControllerVM.homeSelectedRegistrationYear" data-ng-change="homeControllerVM.saveYearData();homeControllerVM.getMakesByYear();" list="homeRegistrationYearsDatalist" placeholder="Year">
                                         <datalist id="homeRegistrationYearsDatalist" spellcheck="true">
                                             <option data-ng-repeat="year in registrationYearsList.$values" value="{{year}}">
                                         </datalist>
@@ -275,7 +275,7 @@
                                         </datalist>
                                     </div>
                                     <div class="form-group">
-                                        <input type="number" min="2" max="8" step="2" id="carMakeModelCylinder" class="form-control" data-ng-model="homeControllerVM.homeSelectedCylinders" data-ng-change="homeControllerVM.saveCylinderData();" list="homeCylindersDatalist" placeholder="Cylinders">
+                                        <input  min="2" max="8" step="2" id="carMakeModelCylinder" class="form-control" data-ng-model="homeControllerVM.homeSelectedCylinders" data-ng-change="homeControllerVM.saveCylinderData();" list="homeCylindersDatalist" placeholder="Cylinders">
                                         <datalist id="homeCylindersDatalist" spellcheck="true">
                                             <option data-ng-repeat="cylinder in cylindersList.$values" value="{{cylinder}}">
                                         </datalist>

@@ -446,15 +446,16 @@
                 $scope.startSpin();
                 return accountsService.checkUserId({ userId: email })
                     .then(function (serviceResponse) {
-                        var response = serviceResponse.data;
-                        alert(response);
+                        var response = serviceResponse.data;                        
                         if (response == "Valid") {
-                         
+
                             accountsControllerVM.pageTitle = "Account-Verification";
                             accountsControllerVM.isVisibleLoginTextBoxes = false;
                             accountsControllerVM.isVisibleSecurityQuestion = true;
                             getSecurityQuestion();
                         }
+                        else { alert("Please enter a valid user id");}
+                        $scope.stopSpin();
                     }).catch(function (serviceError) {
                         failureAlert(serviceError.data);
                         console.log(serviceError.data);

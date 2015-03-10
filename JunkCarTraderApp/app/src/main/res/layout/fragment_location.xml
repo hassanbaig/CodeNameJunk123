@@ -1,0 +1,38 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.junkcartrader.junkcartraderapp.LocationFragment"
+    android:id="@+id/locationFragment"
+    android:background="@drawable/bg">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@id/imgvLogo"
+        android:src="@drawable/logo" />
+
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        style="@style/EditViews"
+        android:inputType="number"
+        android:hint="Enter Zip Code"
+        android:id="@+id/etZipCodeLocation"
+        android:layout_gravity="center" />
+
+    <Button
+        style="@style/Buttons"
+        android:background="@drawable/button_blue_gradient"
+        android:text="Get an offer"
+        android:id="@+id/btnGetAnOfferLocation"
+        android:layout_marginTop="140dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+    <Button
+        style="@style/Buttons"
+        android:background="@drawable/button_red_gradient"
+        android:text="Get a better offer"
+        android:id="@+id/btnGetABetterOfferLocation"
+        android:layout_marginTop="220dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+</FrameLayout>

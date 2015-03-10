@@ -1,0 +1,81 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.junkcartrader.junkcartraderapp.CustomerInfoFragment"
+    android:id="@+id/customerInfoFragment"
+    android:background="@drawable/bg">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@id/imgvLogo"
+        android:src="@drawable/logo" />
+
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        style="@style/EditViews"
+        android:inputType="text"
+        android:hint="Name"
+        android:id="@+id/etNameCustomerInfo"
+        android:layout_gravity="center"
+        android:layout_marginBottom="260dp"/>
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        style="@style/EditViews"
+        android:inputType="text"
+        android:hint="Address"
+        android:id="@+id/etAddressCustomerInfo"
+        android:layout_gravity="center"
+        android:layout_marginBottom="200dp"/>
+    <Spinner
+        android:background="@drawable/rounded_edittext"
+        style="@style/Spinners"
+        android:id="@+id/spStatesCustomerInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="140dp"
+        />
+    <Spinner
+        android:background="@drawable/rounded_edittext"
+        style="@style/Spinners"
+        android:id="@+id/spCitiesCustomerInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="80dp"
+        />
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        style="@style/EditViews"
+        android:inputType="text"
+        android:hint="Zip Code"
+        android:id="@+id/etZipCodeCustomerInfo"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"/>
+
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        style="@style/EditViews"
+        android:inputType="text"
+        android:hint="Phone Number"
+        android:id="@+id/etPhoneNumberCustomerInfo"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="380dp"/>
+
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        style="@style/EditViews"
+        android:inputType="textEmailAddress"
+        android:hint="Email"
+        android:id="@+id/etEmailCustomerInfo"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="320dp"/>
+
+    <Button
+        style="@style/Buttons"
+        android:background="@drawable/button_blue_gradient"
+        android:text="Next"
+        android:id="@+id/btnNextCustomerInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="240dp"/>
+</FrameLayout>

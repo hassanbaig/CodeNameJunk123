@@ -1,0 +1,42 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.junkcartrader.junkcartraderapp.QuestionnaireFragment"
+    android:id="@+id/questionnaireFragment"
+    android:background="@drawable/bg">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@id/imgvLogo"
+        android:src="@drawable/logo" />
+
+    <TextView
+        style="@style/TextViews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Condition"
+        android:id="@+id/tvConditionQuestionnaire"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="140dp"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/questionnaireLayout">
+
+        </RelativeLayout>
+
+    <Button
+        style="@style/Buttons"
+        android:background="@drawable/button_blue_gradient"
+        android:text="Next"
+        android:id="@+id/btnNextCustomerInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="80dp"/>
+
+
+</FrameLayout>

@@ -1,0 +1,177 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.junkcartrader.junkcartraderapp.PhotoFragment"
+    android:id="@+id/photoFragment"
+    android:background="@drawable/bg">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@id/imgvLogo"
+        android:src="@drawable/logo" />
+
+    <TextView
+       style="@style/TextViews"
+        android:text="Upload up to 5 photos"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="200dp"/>
+
+
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        style="@style/EditViews"
+        android:layout_width="wrap_content"
+        android:inputType="text"
+        android:hint="Photo 1"
+        android:id="@+id/etPhoto1Photo"
+        android:layout_marginLeft="148dp"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="260dp"/>
+
+    <ImageButton
+        android:layout_marginLeft="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgBtnOpenFolder1Photo"
+        android:src="@drawable/folder_open"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="260dp"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgBtnCamera1Photo"
+        android:src="@drawable/camera"
+        android:layout_gravity="right|top"
+        android:layout_marginRight="144dp"
+        android:layout_marginTop="260dp"/>
+
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        style="@style/EditViews"
+        android:layout_marginLeft="148dp"
+        android:layout_width="wrap_content"
+        android:inputType="text"
+        android:hint="Photo 2"
+        android:id="@+id/etPhoto2Photo"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="320dp"/>
+
+    <ImageButton
+        android:layout_marginLeft="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgBtnOpenFolder2Photo"
+        android:src="@drawable/folder_open"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="320dp"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgBtnCamera2Photo"
+        android:src="@drawable/camera"
+        android:layout_gravity="right|top"
+        android:layout_marginRight="144dp"
+        android:layout_marginTop="320dp"/>
+
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        style="@style/EditViews"
+        android:layout_marginLeft="148dp"
+        android:layout_width="wrap_content"
+        android:inputType="text"
+        android:hint="Photo 3"
+        android:id="@+id/etPhoto3Photo"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="380dp"/>
+
+    <ImageButton
+        android:layout_marginLeft="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgBtnOpenFolder3Photo"
+        android:src="@drawable/folder_open"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="380dp"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgBtnCamera3Photo"
+        android:src="@drawable/camera"
+        android:layout_gravity="right|top"
+        android:layout_marginRight="144dp"
+        android:layout_marginTop="380dp"/>
+
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        style="@style/EditViews"
+        android:layout_marginLeft="148dp"
+        android:layout_width="wrap_content"
+        android:inputType="text"
+        android:hint="Photo 4"
+        android:id="@+id/etPhoto4Photo"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="440dp"/>
+
+    <ImageButton
+        android:layout_marginLeft="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgBtnOpenFolder4Photo"
+        android:src="@drawable/folder_open"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="440dp"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgBtnCamera4Photo"
+        android:src="@drawable/camera"
+        android:layout_gravity="right|top"
+        android:layout_marginRight="144dp"
+        android:layout_marginTop="440dp"/>
+
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        style="@style/EditViews"
+        android:layout_marginLeft="148dp"
+        android:layout_width="wrap_content"
+        android:inputType="text"
+        android:hint="Photo 5"
+        android:id="@+id/etPhoto5Photo"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="500dp"/>
+
+    <ImageButton
+        android:layout_marginLeft="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgBtnOpenFolder5Photo"
+        android:src="@drawable/folder_open"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="500dp"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgBtnCamera5Photo"
+        android:src="@drawable/camera"
+        android:layout_gravity="right|top"
+        android:layout_marginRight="144dp"
+        android:layout_marginTop="500dp"/>
+
+    <Button
+        style="@style/Buttons"
+        android:layout_marginLeft="150dp"
+        android:layout_marginRight="150dp"
+        android:background="@drawable/button_blue_gradient"
+        android:text="Next"
+        android:id="@+id/btnNextCustomerInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="240dp"/>
+</FrameLayout>

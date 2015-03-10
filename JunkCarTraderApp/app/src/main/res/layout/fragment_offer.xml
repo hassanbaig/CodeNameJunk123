@@ -1,0 +1,56 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.junkcartrader.junkcartraderapp.OfferFragment"
+    android:id="@+id/offerFragment"
+    android:background="@drawable/bg">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@id/imgvLogo"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="$300"
+        android:id="@+id/tvPriceOffer"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="240dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgvCallOffer"
+        android:src="@drawable/contact"
+        android:layout_gravity="center"
+        android:layout_marginBottom="120dp"/>
+
+    <TextView
+        style="@style/TextViews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Call Us For Negotiation"
+        android:id="@+id/tvCallMessageOffer"
+        android:layout_gravity="center"
+        android:layout_marginBottom="60dp"/>
+    <Button
+        style="@style/Buttons"
+        android:background="@drawable/button_blue_gradient"
+        android:text="407-923-2033"
+        android:id="@+id/btnContactNumberOffer"
+        android:layout_marginTop="140dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+    <Button
+        style="@style/Buttons"
+        android:background="@drawable/button_red_gradient"
+        android:text="Confirm"
+        android:id="@+id/btnConfirmOffer"
+        android:layout_marginTop="220dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+</FrameLayout>

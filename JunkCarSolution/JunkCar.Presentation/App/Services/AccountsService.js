@@ -39,7 +39,8 @@
             checkSecurityQuestionAnswer: checkSecurityQuestionAnswer,
             checkVerificationCode: checkVerificationCode,
             resetPassword: resetPassword,
-            checkUserId: checkUserId
+            checkUserId: checkUserId,
+            getAllSecurityQuestions: getAllSecurityQuestions
         };
 
         return service;               
@@ -167,6 +168,21 @@
             });
             return promise;
         }
+        function getAllSecurityQuestions() {
+            var response = '';
+            var promise = $http({
+                method: 'GET',
+                url: getBaseUrl() + 'Accounts/GetAllSecurtiyQuestions'
+            }).success(function (data, status, headers) {
+                response = data;
+                return response;
+            })
+            .error(function (data, status, headers) {
+                response = data;
+                return response;
+            });
+            return promise;
+        }
         //Check the security question answer 
         function checkSecurityQuestionAnswer(params)
         {
@@ -243,7 +259,7 @@
         function getBaseUrl() {
             var liveBaseUrl = 'API/API/';
             var localBaseUrl = 'http://localhost/JunkCarWebAPI/API/';
-            return liveBaseUrl;
+            return localBaseUrl;
         }
         //[End]------------------------------------------------------ Methods implementation ----------------------------------------------------------
     }    

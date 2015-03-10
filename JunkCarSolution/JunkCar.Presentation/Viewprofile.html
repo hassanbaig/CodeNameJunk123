@@ -180,7 +180,7 @@
                             <!--<li><a href="#">Testimonial</a></li>-->
                             <li><a href="Aboutus.html">About us</a></li>
                             <li><a href="Contactus.html">Contact us</a></li>
-                            <li class="active"><a href="#">Sign up</a></li>
+                            <li><a href="Signup.html">Sign up</a></li>
                             <li data-ng-hide="accountsControllerVM.isLoggedIn"><a href="Login.html">Login</a></li>
                             <li style="color:#F00"><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
                         </ul>
@@ -210,42 +210,9 @@
                 <div class="row">
                     <div class="col-lg-6 col-lg-offset-3" style="background-color:#fff; border-radius:10px; border:1px solid #FFF;margin-top:50px; padding:20px; margin-bottom:50px;">
                         <div class="col-lg-6 col-lg-offset-3">
-                            <h2 style="color:#000;">JunkCar Sign-up! </h2>
+                            <h2 style="color:#000;">Your Profile </h2>
                             <hr />
-                            <div class="form-group">
-                                <input id="textinput" name="email" placeholder="Email" class="form-control input-md" type="text" data-ng-model="accountsControllerVM.signupEmail">
-                            </div>
-                            <div class="form-group">
-                                <input id="textinput" name="password" placeholder="Password" class="form-control input-md" type="password" data-ng-model="accountsControllerVM.signupPassword">
-                            </div>
-                            <div class="form-group">
-                                <input id="textinput" name="retypePassword" placeholder="Re-type Password" class="form-control input-md" type="password" data-ng-model="accountsControllerVM.signupReTypePassword">
-                            </div>
-                            <div class="form-group">
-                                <input id="textinput" name="allSecurityQuestions" class="form-control input-md" data-ng-model="accountsControllerVM.signupSelectedSecurityQuestion" data-ng-init=" accountsControllerVM.getAllSecurityQuestions();" list="getAllSecurityQuestionsDatalist" placeholder="Security Question">
-                                <datalist id="getAllSecurityQuestionsDatalist" spellcheck="true">
-                                    <option data-ng-repeat="question in allSecurityQuestionList.$values" value="{{question.Question}}">
-                                </datalist>
-                            </div>
-                            <div class="form-group">
-                                <input id="textinput" name="securityAnswer" placeholder="Security Answer" class="form-control input-md" type="text" data-ng-model="accountsControllerVM.signupSecurityAnswer">
-                            </div>
-                            <div class="form-group">
-                                <input id="textinput" name="name" placeholder="Name" class="form-control input-md" type="text" data-ng-model="accountsControllerVM.signupName">
-                            </div>
-                            <div class="form-group">
-                                <input id="textinput" name="address" placeholder="Address" class="form-control input-md" type="text" data-ng-model="accountsControllerVM.signupAddress">
-                            </div>
-                            <div class="form-group">
-                                <input id="textinput" name="phone" placeholder="Phone" class="form-control input-md" type="text" data-ng-model="accountsControllerVM.signupPhone">
-                            </div>
-                            <div class="form-group">
-                                <input id="textinput" name="zipcode" placeholder="Zip-Code" class="form-control input-md" type="text" data-ng-model="accountsControllerVM.signupZipCode">
-                            </div>
-                            <br />
-                            <div class="form-group">
-                                <a href="#" data-ng-click="accountsControllerVM.signup();" class="btn gt btn-lg" role="button">Register</a>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

@@ -266,6 +266,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Howitworks.html" />
+    <Content Include="Main.html" />
     <Content Include="Login.html" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
@@ -1055,6 +1056,8 @@
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
+    <Content Include="Editprofile.html" />
+    <Content Include="Viewprofile.html" />
     <Content Include="Settings.html" />
     <Content Include="Changepassword.html" />
     <Content Include="Signup.html" />

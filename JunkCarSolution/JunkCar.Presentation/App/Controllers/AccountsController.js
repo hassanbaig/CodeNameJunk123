@@ -42,6 +42,8 @@
         accountsControllerVM.signupName = '';
         accountsControllerVM.signupAddress = '';
         accountsControllerVM.signupPhone = '';
+        accountsControllerVM.signupSelectedSecurityQuestion = '';
+        accountsControllerVM.signupSecurityAnswer = '';
 
         accountsControllerVM.loginEmail = '';
         accountsControllerVM.loginPassword = '';
@@ -71,6 +73,8 @@
         //---------------------------------------------------------- $scope variables ----------------------------------------------------------       
         $scope.liun = '';
 
+
+        $rootScope.allSecurityQuestionList = [];
         //[End]------------------------------------------------------ Accounts variables ------------------------------------------------------
 
         /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -141,6 +145,7 @@
         accountsControllerVM.forgotPassword = forgotPassword;        
         accountsControllerVM.logout = logout;        
         accountsControllerVM.getSecurityQuestion = getSecurityQuestion;
+        accountsControllerVM.getAllSecurityQuestions = getAllSecurityQuestions;
         accountsControllerVM.checkSecurityQuestionAnswer = checkSecurityQuestionAnswer;
         accountsControllerVM.checkVerificationCode = checkVerificationCode;
         accountsControllerVM.resetPassword = resetPassword;
@@ -298,27 +303,7 @@
                 }
                 else { alert("Password mis-match"); }
             }
-            //if (newPassword != confirmPassword) {
-            //    alert("New password and confirm password mis match");
-                
-            //}
-            //if ((oldPassword.length > 0 && newPass.length > 0 && confirmPass.length > 0) && (newPass != confirmPass))
-            //    {
-            //    var newPass = accountsControllerVM.changePasswordNewPassword;
-            //        $scope.startSpin();
-            //        accountsService.changePassword({ currentPassword: currentPass, newPassword: newPass })
-            //            .then(function (data) {
-            //                var response = data.results;
-            //                var mystring = new String(response);
-            //                mystring = mystring.substring(1, mystring.length - 1);
-            //                if (mystring == "Password changed successfully") {
-            //                    successAlert(mystring);
-            //                    $scope.redirectMain();
-            //                }
-            //                else { failureAlert(mystring); }
-            //                $scope.stopSpin();
-            //            });
-            //    }
+            
         }
         // Check mis-match on Forgot Password
         function forgotPasswordCheckMismatch() {
@@ -432,6 +417,23 @@
                     });
             }
             else { alert("Please enter user id"); }
+        }
+        function getAllSecurityQuestions() {
+            debugger;
+            $scope.startSpin();
+            return accountsService.getAllSecurityQuestions()
+                .then(function (serviceResponse) {
+                    var response = serviceResponse.data;
+                    console.log(response);
+                    $rootScope.allSecurityQuestionList = response;
+                    $scope.reset();
+                    $scope.stopSpin();
+                    return $rootScope.allSecurityQuestionList;
+                }).catch(function (serviceError) {
+                    failureAlert(serviceError.data);
+                    console.log(serviceError.data);
+                    return null;
+                });
         }
 
         function checkUserId() {

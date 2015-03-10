@@ -24,7 +24,10 @@ namespace JunkCar.DomainModel.Models
         public string Address { get; set; }        
         public int CountryId { get; set; }
         public int CityId { get; set; }
-        public int StateId { get; set; }        
+        public int StateId { get; set; }
+        public List<Sec_Password_Question> SecurityQuestions { get; set; }
+        public int SecurityQuestionId { get; set; }
+        public string Answer { get; set; }
         public string ResponseMessage { get; set; }        
         #endregion        
     

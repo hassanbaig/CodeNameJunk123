@@ -26,7 +26,7 @@ namespace JunkCar.Repository.Repositories
         }
         public int Add(string email,string name,string address,string phone, string password, string zipCode)
         {
-            var registerUser = _context.RegisterUser(null, password, name, address, phone, email, zipCode,1);
+            var registerUser = _context.RegisterUser(null, password, name, address, phone, email, zipCode,1,null,null);
 
             var finalData = (from d in registerUser
                              select d.Customer_Id).FirstOrDefault();
@@ -71,7 +71,7 @@ namespace JunkCar.Repository.Repositories
         public string GetCustomerName(string userId, string password)
         {
             string customerName = string.Empty;
-            var data = _context.Authenticate(null, password, null, null, null, userId, null,0);
+            var data = _context.Authenticate(null, password, null, null, null, userId, null,0,null,null);
             var finalData = (from d in data
                              select d.Customer_Id).FirstOrDefault();
             if (finalData == null)
@@ -198,6 +198,27 @@ namespace JunkCar.Repository.Repositories
                 throw new Exception("Please provide correct old password");
             }
             return data.Customer_Id;
+        }
+        public List<JunkCar.DataModel.Models.Sec_Password_Question> GetAllSecurityQuestions()
+        {
+            
+            var data = (from secPasQue in _context.Sec_Password_Question
+                        select secPasQue).AsEnumerable().Select(x => new JunkCar.DataModel.Models.Sec_Password_Question
+                        {
+                            Audit_Id = x.Audit_Id,
+                            Created_By = x.Created_By,
+                            Created_Date = x.Created_Date,
+                            Is_Active = x.Is_Active,
+                            Modified_By = x.Modified_By,
+                            Modified_Date = x.Modified_Date,
+                            Password_Question_Id = x.Password_Question_Id,
+                            Question = x.Question,
+                            Site_Id = x.Site_Id,
+                            Sort_Order = x.Sort_Order,
+                            User_IP = x.User_IP
+                        }).ToList();
+
+            return data;        
         }
     }
 }

@@ -13,10 +13,14 @@
             'ngRoute',            
             'angularFileUpload']);
 
-    //app.config(['$routeProvider', function ($routeProvider) {
-    //    $routeProvider.when('/', { templateUrl: 'Index.html', controller: 'homeController' })
-    //        .when('Signup', { templateUrl: 'Signup.html', controller: 'accountsController' })
-    //    .otherwise({ redirectTo: '/' });
-    //}]);
+    app.config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/', { templateUrl: 'Index.html', controller: 'homeController' })
+            //.when('Howitworks', { templateUrl: 'Howitworks.html' })
+            //.when('Aboutus', { templateUrl: 'Aboutus.html' })
+            //.when('Contactus', { templateUrl: 'Contactus.html' })
+            //.when('Signup', { templateUrl: 'Signup.html', controller: 'accountsController' })
+            //.when('Login',{templareUrl:'Login.html'})
+        .otherwise({ redirectTo: '/' });
+    }]);
 
 })();

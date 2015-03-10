@@ -112,7 +112,7 @@
         function getBaseUrl() {
             var liveBaseUrl = 'API/API/';
             var localBaseUrl = 'http://localhost/JunkCarWebAPI/API/';
-            return liveBaseUrl;
+            return localBaseUrl;
         }
         //[End]------------------------------------------------------ Methods implementation ----------------------------------------------------------
     }    

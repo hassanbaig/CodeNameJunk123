@@ -44,7 +44,7 @@ namespace JunkCar.WebAPI.Controllers
                 TicketHelper.CreateAuthCookie(authenticate.Name, userData.GetUserData(), false);
             }
             return authenticate;
-        }       
+        }    
         [HttpGet]
         public JunkCar.DataModel.Models.Sec_Password_Question GetSecurityQuestion(string userId)
         {           
@@ -55,6 +55,13 @@ namespace JunkCar.WebAPI.Controllers
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
             forgotPassword = (ForgotPassword)domainService.Query(domainModel, DomainModelEnum.GET_SECURITY_QUESTION);
             return forgotPassword.SecurityQuestion;
+        }
+        [HttpGet]
+        public List<JunkCar.DataModel.Models.Sec_Password_Question> GetAllSecurityQuestion()
+        {
+            FactoryFacade factory = new FactoryFacade();
+            domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
+            return ((DomainModel.Models.Signup)domainService.Query(SearchCriteriaEnum.GET_ALL_SECURITY_QUESTIONS)).SecurityQuestions;
         }
         [HttpGet]
         public string CheckSecurityQuestionAnswer(string answer, int questionId, string userId)

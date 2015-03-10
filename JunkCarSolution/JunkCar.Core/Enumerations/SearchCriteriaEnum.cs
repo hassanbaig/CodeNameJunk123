@@ -11,6 +11,7 @@ namespace JunkCar.Core.Enumerations
         GET_REGISTRATION_YEARS,
         GET_CYLINDERS,
         GET_STATES,
-        GET_QUESTIONNAIRE
+        GET_QUESTIONNAIRE,
+        GET_ALL_SECURITY_QUESTIONS
     }
 }

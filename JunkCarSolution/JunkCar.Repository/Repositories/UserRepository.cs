@@ -134,6 +134,26 @@ namespace JunkCar.Repository.Repositories
 
             return data;                       
         }
+        public List<JunkCar.DataModel.Models.Sec_Password_Question> GetAllSecurityQuestions()
+        {
+            var data = (from secPasQue in _context.Sec_Password_Question
+                        select secPasQue).AsEnumerable().Select(x => new JunkCar.DataModel.Models.Sec_Password_Question
+                        {
+                            Audit_Id = x.Audit_Id,
+                            Created_By = x.Created_By,
+                            Created_Date = x.Created_Date,
+                            Is_Active = x.Is_Active,
+                            Modified_By = x.Modified_By,
+                            Modified_Date = x.Modified_Date,
+                            Password_Question_Id = x.Password_Question_Id,
+                            Question = x.Question,
+                            Site_Id = x.Site_Id,
+                            Sort_Order = x.Sort_Order,
+                            User_IP = x.User_IP
+                        }).ToList();
+
+            return data;
+        }
         public string CheckSecurityQuestionAnswer(int questionId, string answer)
         {
             var data = (from salCus in _context.Sal_Customer                        

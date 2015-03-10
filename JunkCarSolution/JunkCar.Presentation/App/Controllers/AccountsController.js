@@ -42,6 +42,8 @@
         accountsControllerVM.signupName = '';
         accountsControllerVM.signupAddress = '';
         accountsControllerVM.signupPhone = '';
+        accountsControllerVM.signupgetAllSecurityQuestions = '';
+       
 
         accountsControllerVM.loginEmail = '';
         accountsControllerVM.loginPassword = '';
@@ -70,6 +72,7 @@
         accountsControllerVM.isLoggedIn = false;
         //---------------------------------------------------------- $scope variables ----------------------------------------------------------       
         $scope.liun = '';
+        $rootScope.allSecurityQuestionsList = [];
 
         //[End]------------------------------------------------------ Accounts variables ------------------------------------------------------
 
@@ -141,6 +144,7 @@
         accountsControllerVM.forgotPassword = forgotPassword;        
         accountsControllerVM.logout = logout;        
         accountsControllerVM.getSecurityQuestion = getSecurityQuestion;
+        accountsControllerVM.getAllSecurityQuestions = getAllSecurityQuestions;
         accountsControllerVM.checkSecurityQuestionAnswer = checkSecurityQuestionAnswer;
         accountsControllerVM.checkVerificationCode = checkVerificationCode;
         accountsControllerVM.resetPassword = resetPassword;
@@ -434,6 +438,23 @@
             else { alert("Please enter user id"); }
         }
 
+        function getAllSecurityQuestions() {
+            debugger;
+            $scope.startSpin();
+            return accountsService.getAllSecurityQuestions()
+                .then(function (serviceResponse) {
+                    var response = serviceResponse.data;
+                    console.log(response);
+                    $rootScope.allSecurityQuestionsList = response;
+                    $scope.reset();
+                    $scope.stopSpin();
+                    return $rootScope.allSecurityQuestionsList;
+                }).catch(function (serviceError) {
+                    failureAlert(serviceError.data);
+                    console.log(serviceError.data);
+                    return null;
+                });
+        }
         function checkUserId() {
             // Check email address existance, required validation
             var email = accountsControllerVM.loginEmail

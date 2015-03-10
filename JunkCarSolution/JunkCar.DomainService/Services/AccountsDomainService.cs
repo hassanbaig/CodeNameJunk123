@@ -15,9 +15,10 @@ namespace JunkCar.DomainService.Services
         private DomainModel.Models.Authenticate authenticate;
         private DomainModel.Models.ForgotPassword forgotPassword;
         private DomainModel.Models.ChangePassword changePassword;
+        private JunkCar.DomainModel.Models.Signup signup;
         public override AbstractDomainModel Save(AbstractDomainModel domainModel, DomainModelEnum domainModelType)
         {
-            JunkCar.DomainModel.Models.Signup signup = (JunkCar.DomainModel.Models.Signup)domainModel;
+            signup = (JunkCar.DomainModel.Models.Signup)domainModel;
             try
             {
                 if (domainModel != null)
@@ -310,7 +311,43 @@ namespace JunkCar.DomainService.Services
 
         public override AbstractDomainModel Query(SearchCriteriaEnum searchCriteria)
         {
-            throw new NotImplementedException();
+            signup = new DomainModel.Models.Signup();
+            FactoryFacade factory = new FactoryFacade();
+            try
+            {
+                switch (searchCriteria)
+                {
+                    case SearchCriteriaEnum.GET_ALL_SECURITY_QUESTIONS:
+                        unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.AccountsUOW));
+                        signup = (DomainModel.Models.Signup)unitOfWork.GetAll(searchCriteria);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                switch (searchCriteria)
+                {
+                    case SearchCriteriaEnum.GET_ALL_SECURITY_QUESTIONS:
+                        signup.ResponseMessage = ex.Message;
+                        break;               
+                    default:
+                        break;
+                }
+            }
+            finally
+            {
+                factory = null;
+            }
+            switch (searchCriteria)
+            {
+                case SearchCriteriaEnum.GET_ALL_SECURITY_QUESTIONS:
+                    return signup;               
+                default:
+                    break;
+            }
+            return null;
         }
     }
 }

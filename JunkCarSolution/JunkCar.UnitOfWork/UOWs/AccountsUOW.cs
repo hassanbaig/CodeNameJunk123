@@ -199,7 +199,17 @@ namespace JunkCar.UnitOfWork.UOWs
         }
         public AbstractDomainModel GetAll(Core.Enumerations.SearchCriteriaEnum searchCriteria)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            signup = new DomainModel.Models.Signup();
+            switch (searchCriteria)
+            {
+                case Core.Enumerations.SearchCriteriaEnum.GET_ALL_SECURITY_QUESTIONS:
+                    signup.SecurityQuestions = userRepository.GetAllSecurityQuestions();
+                    break;
+                default:
+                    break;
+            }
+            return signup;
         }
     }
 }

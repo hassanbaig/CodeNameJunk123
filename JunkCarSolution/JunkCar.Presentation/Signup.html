@@ -221,6 +221,12 @@
                             <div class="form-group">
                                 <input id="textinput" name="retypePassword" placeholder="Re-type Password" class="form-control input-md" type="password" data-ng-model="accountsControllerVM.signupReTypePassword">
                             </div>
+                            <div class="form-group" data-ng-init="accountsControllerVM.getAllSecurityQuestions();">
+                                <input id="allSecurityQuestion" class="form-control" data-ng-model="accountsControllerVM.signupgetAllSecurityQuestions" list="accountsAllSecurityQuestionsDatalist" placeholder="Security Question">
+                                <datalist id="accountsAllSecurityQuestionsDatalist" spellcheck="true">
+                                    <option data-ng-repeat="question in allSecurityQuestionsList.$values" value="{{question.Question}}">
+                                </datalist>
+                            </div>
                             <div class="form-group">
                                 <input id="textinput" name="name" placeholder="Name" class="form-control input-md" type="text" data-ng-model="accountsControllerVM.signupName">
                             </div>

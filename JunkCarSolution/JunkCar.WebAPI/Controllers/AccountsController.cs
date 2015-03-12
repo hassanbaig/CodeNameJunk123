@@ -17,18 +17,17 @@ namespace JunkCar.WebAPI.Controllers
         private AbstractDomainModel domainModel;
         private AbstractDomainService domainService;
         [HttpGet]
-        public string Signup(string address, string email, string name, string password, string phone, string zipCode)
+        public string Signup(string address, string email, string name, string password, string phone, string zipCode,int questionId,string answer)
         {
             string response = string.Empty;
             FactoryFacade factory = new FactoryFacade();
             Signup signup = null;
             domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Signup));
-            domainModel.Fill(HashHelper.Signup(address,email,name, password,phone, zipCode));
+            domainModel.Fill(HashHelper.Signup(address,email,name, password,phone, zipCode,questionId,answer));
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
             signup = (Signup)domainService.Save(domainModel, DomainModelEnum.SIGNUP);
             return signup.ResponseMessage;
         }
-         
         [HttpGet]
         public Authenticate Authenticate(string password, string userId)
         {

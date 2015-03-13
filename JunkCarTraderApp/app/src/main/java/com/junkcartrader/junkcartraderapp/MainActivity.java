@@ -1,31 +1,55 @@
 package com.junkcartrader.junkcartraderapp;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,LocationFragment.OnFragmentInteractionListener {
 
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
     private CharSequence mTitle;
 
     @Override
@@ -37,7 +61,6 @@ public class MainActivity extends ActionBarActivity
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
-        // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
@@ -45,7 +68,6 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
@@ -107,22 +129,21 @@ public class MainActivity extends ActionBarActivity
 
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
     public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-
+        private  final String BASE_URL = URLHelper.GetBaseUrl();
+        private  String SERVICE_URL = BASE_URL;
+        private ProgressDialog dialog;
+        private Button btnNextMain;
+        private Spinner spRegistrationYears,spMakes,spModels,spCylinders;
+        private Integer operationType;
+        String [] years,makes,models,cylinders;
+        ArrayAdapter<String> yearsAdapter,makesAdapter,modelsAdapter,cylindersAdapter;
+        String yearsResponse,makesResponse,modelsResponse,cylindersResponse;
+        FragmentTransaction fragmentTransaction;
         View rootView;
+
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -141,13 +162,37 @@ public class MainActivity extends ActionBarActivity
             Initialize();
             return rootView;
         }
-        private void Initialize()
-{
-    LocationFragment locationFragment= new LocationFragment();
-    this.getFragmentManager().beginTransaction()
-            .replace(R.id.container, locationFragment)
-            .addToBackStack(null)
-            .commit();}
+        private void Initialize() {
+            spRegistrationYears = (Spinner)rootView.findViewById(R.id.spRegistrationYearsMain);
+            spMakes = (Spinner)rootView.findViewById(R.id.spMakesMain);
+            spModels = (Spinner)rootView.findViewById(R.id.spModelsMain);
+            spCylinders = (Spinner)rootView.findViewById(R.id.spCylindersMain);
+spRegistrationYears.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+@Override
+public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    GetMakes(spRegistrationYears.getSelectedItem().toString());
+}
+
+@Override
+public void onNothingSelected(AdapterView<?> parent) {
+
+}
+});
+
+            btnNextMain = (Button)rootView.findViewById(R.id.btnNextMain);
+            btnNextMain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    fragmentTransaction = getFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container, new LocationFragment());
+                    fragmentTransaction.commit();
+                }
+            });
+            operationType = 0;
+            yearsResponse = "";
+            GetCylinders();
+        }
+
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
@@ -155,6 +200,191 @@ public class MainActivity extends ActionBarActivity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
 
-    }
+        public void GetRegistrationYears() {
+            dialog = ProgressDialog.show(getActivity(),
+                    "Loading...", "Please wait...", false);
+            dialog.show();
+            operationType = 1;
+            SERVICE_URL = BASE_URL + "Home/GetRegistrationYears";
+            WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
+            wst.execute(new String[]{SERVICE_URL});
+        }
+        public void GetMakes(String year) {
+            dialog = ProgressDialog.show(getActivity(),
+                    "Loading...", "Please wait...", false);
+            dialog.show();
+            operationType = 2;
+            SERVICE_URL = BASE_URL + "Home/GetMakes?year="+year;
+            WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
+            wst.execute(new String[]{SERVICE_URL});
+        }
+        public void GetModels(String year,String make) {
+            dialog = ProgressDialog.show(getActivity(),
+                    "Loading...", "Please wait...", false);
+            dialog.show();
+            operationType = 2;
+            SERVICE_URL = BASE_URL + "Home/GetMakes?year="+year;
+            WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
+            wst.execute(new String[]{SERVICE_URL});
+        }
+        public void GetCylinders() {
+            dialog = ProgressDialog.show(getActivity(),
+                    "Loading...", "Please wait...", false);
+            dialog.show();
+            operationType = 4;
+            SERVICE_URL = BASE_URL + "Home/GetCylinders";
+            WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
+            wst.execute(new String[]{SERVICE_URL});
+        }
 
+        public void clearControls() {
+            SERVICE_URL = BASE_URL;
+        }
+
+        public void handleResponse(String response) {
+            try {
+                JSONObject jso = new JSONObject(response);
+                dialog.dismiss();
+                switch(operationType)
+                {
+                    case 1:
+                        yearsResponse = jso.get("$values").toString().replace("[","").replace("]","");
+                        years = yearsResponse.split(",");
+                        yearsAdapter = new ArrayAdapter<String>
+                                (getActivity(), android.R.layout.simple_spinner_item,years);
+                        yearsAdapter.setDropDownViewResource
+                                (android.R.layout.simple_spinner_dropdown_item);
+                        spRegistrationYears.setAdapter(yearsAdapter);
+
+                        break;
+                    case 2:
+                        makesResponse = jso.get("$values").toString().replace("[","").replace("]","");
+                        makes = makesResponse.split(",");
+                        makesAdapter = new ArrayAdapter<String>
+                                (getActivity(), android.R.layout.simple_spinner_item,makes);
+                        makesAdapter.setDropDownViewResource
+                                (android.R.layout.simple_spinner_dropdown_item);
+                        spMakes.setAdapter(makesAdapter);
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        cylindersResponse = jso.get("$values").toString().replace("[","").replace("]","");
+                        cylinders = cylindersResponse.split(",");
+                        cylindersAdapter = new ArrayAdapter<String>
+                                (getActivity(), android.R.layout.simple_spinner_item,cylinders);
+                        cylindersAdapter.setDropDownViewResource
+                                (android.R.layout.simple_spinner_dropdown_item);
+                        spCylinders.setAdapter(cylindersAdapter);
+                        if(spCylinders.getCount() > 0)
+                        { GetRegistrationYears();}
+                        break;
+                    default:
+                        break;
+                }
+                clearControls();
+
+            } catch (Exception e) {
+            }
+        }
+
+        private class WebServiceTask extends AsyncTask<String, Integer, String> {
+
+            public static final int POST_TASK = 1;
+            public static final int GET_TASK = 2;
+            private static final String TAG = "WebServiceTask";
+            // connection timeout, in milliseconds (waiting to connect)
+            private static final int CONN_TIMEOUT = 3000 * 60 * 60 * 10;
+            // socket timeout, in milliseconds (waiting for data)
+            private static final int SOCKET_TIMEOUT = 5000 * 60 * 60 * 10;
+            private int taskType = GET_TASK;
+            private Context mContext = null;
+            private String processMessage = "Processing...";
+
+            private ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+            private ProgressDialog pDlg = null;
+
+            public WebServiceTask(int taskType, Context mContext, String processMessage) {
+                this.taskType = taskType;
+                this.mContext = mContext;
+                this.processMessage = processMessage;
+            }
+
+            public void addNameValuePair(String name, String value) {
+                params.add(new BasicNameValuePair(name, value));
+            }
+
+            protected String doInBackground(String... urls) {
+                String url = urls[0];
+                String result = "";
+                HttpResponse response = doResponse(url);
+                if (response == null) {
+                    return result;
+                } else {
+                    try {
+                        result = inputStreamToString(response.getEntity().getContent());
+                    } catch (IllegalStateException e) {
+                        Log.e(TAG, e.getLocalizedMessage(), e);
+                    } catch (IOException e) {
+                        Log.e(TAG, e.getLocalizedMessage(), e);
+                    }
+                }
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(String response) {
+                handleResponse(response);
+            }
+
+            // Establish connection and socket (data retrieval) timeouts
+            private HttpParams getHttpParams() {
+                HttpParams htpp = new BasicHttpParams();
+                HttpConnectionParams.setConnectionTimeout(htpp, CONN_TIMEOUT);
+                HttpConnectionParams.setSoTimeout(htpp, SOCKET_TIMEOUT);
+                return htpp;
+            }
+
+            private HttpResponse doResponse(String url) {
+                // Use our connection and data timeouts as parameters for our
+                // DefaultHttpClient
+                HttpClient httpclient = new DefaultHttpClient(getHttpParams());
+                HttpResponse response = null;
+                try {
+                    switch (taskType) {
+                        case POST_TASK:
+                            HttpPost httppost = new HttpPost(url);
+                            // Add parameters
+                            httppost.setEntity(new UrlEncodedFormEntity(params));
+                            response = httpclient.execute(httppost);
+                            break;
+                        case GET_TASK:
+                            HttpGet httpget = new HttpGet(url);
+                            response = httpclient.execute(httpget);
+                            break;
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, e.getLocalizedMessage(), e);
+                }
+                return response;
+            }
+
+            private String inputStreamToString(InputStream is) {
+                String line = "";
+                StringBuilder total = new StringBuilder();
+                // Wrap a BufferedReader around the InputStream
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+                try {
+                    // Read response until the end
+                    while ((line = rd.readLine()) != null) {
+                        total.append(line);
+                    }
+                } catch (IOException e) {
+                    Log.e(TAG, e.getLocalizedMessage(), e);
+                }
+                // Return full string
+                return total.toString();
+            }
+        }
+    }
 }

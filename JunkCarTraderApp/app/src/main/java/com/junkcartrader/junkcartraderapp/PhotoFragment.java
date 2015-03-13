@@ -17,7 +17,7 @@ import android.view.ViewGroup;
  * Use the {@link PhotoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PhotoFragment extends Fragment {
+public class PhotoFragment extends Fragment implements OfferFragment.OnFragmentInteractionListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -91,6 +91,11 @@ public class PhotoFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -102,6 +107,8 @@ public class PhotoFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
+        void onAttach(MainActivity activity);
+
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }

@@ -3,7 +3,7 @@ package com.junkcartrader.junkcartraderapp;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +17,7 @@ import android.view.ViewGroup;
  * Use the {@link QuestionnaireFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class QuestionnaireFragment extends Fragment {
+public class QuestionnaireFragment extends Fragment implements PhotoFragment.OnFragmentInteractionListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -75,7 +75,7 @@ public class QuestionnaireFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(MainActivity activity) {
         super.onAttach(activity);
         try {
             mListener = (OnFragmentInteractionListener) activity;
@@ -91,6 +91,11 @@ public class QuestionnaireFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -102,6 +107,8 @@ public class QuestionnaireFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
+        void onAttach(MainActivity activity);
+
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }

@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import static com.junkcartrader.junkcartraderapp.OfferFragment.OnFragmentInteractionListener;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,7 +19,7 @@ import android.view.ViewGroup;
  * Use the {@link CustomerInfoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CustomerInfoFragment extends Fragment {
+public class CustomerInfoFragment extends Fragment implements QuestionnaireFragment.OnFragmentInteractionListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -75,7 +77,7 @@ public class CustomerInfoFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(MainActivity activity) {
         super.onAttach(activity);
         try {
             mListener = (OnFragmentInteractionListener) activity;
@@ -89,6 +91,11 @@ public class CustomerInfoFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
     /**

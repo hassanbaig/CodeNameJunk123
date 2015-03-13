@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.util.JsonWriter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +25,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.junkcartrader.junkcartraderapp.DataModel.Set_Make;
+import com.junkcartrader.junkcartraderapp.DataModel.Set_Model;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -35,6 +39,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -130,16 +135,23 @@ public class MainActivity extends ActionBarActivity
     }
 
     public static class PlaceholderFragment extends Fragment {
-        private  final String BASE_URL = URLHelper.GetBaseUrl();
-        private  String SERVICE_URL = BASE_URL;
+        private final String BASE_URL = URLHelper.GetBaseUrl();
+        private String SERVICE_URL = BASE_URL;
         private ProgressDialog dialog;
         private Button btnNextMain;
-        private Spinner spRegistrationYears,spMakes,spModels,spCylinders;
+        private Spinner spRegistrationYears, spMakes, spModels, spCylinders;
         private Integer operationType;
-        String [] years,makes,models,cylinders;
-        ArrayAdapter<String> yearsAdapter,makesAdapter,modelsAdapter,cylindersAdapter;
-        String yearsResponse,makesResponse,modelsResponse,cylindersResponse;
+        String[] years, cylinders;
+        String[] makes;
+        JSONObject[] m;
+        JSONArray makesList;
+        Set_Model[] models;
+        ArrayAdapter<String> yearsAdapter, modelsAdapter, cylindersAdapter;
+        ArrayAdapter<JSONObject> makesAdapter;
+        String yearsResponse, modelsResponse, cylindersResponse;;
+        JSONObject makesResponse;
         FragmentTransaction fragmentTransaction;
+        JSONObject jsonObject;
         View rootView;
 
         private static final String ARG_SECTION_NUMBER = "section_number";
@@ -162,24 +174,25 @@ public class MainActivity extends ActionBarActivity
             Initialize();
             return rootView;
         }
+
         private void Initialize() {
-            spRegistrationYears = (Spinner)rootView.findViewById(R.id.spRegistrationYearsMain);
-            spMakes = (Spinner)rootView.findViewById(R.id.spMakesMain);
-            spModels = (Spinner)rootView.findViewById(R.id.spModelsMain);
-            spCylinders = (Spinner)rootView.findViewById(R.id.spCylindersMain);
-spRegistrationYears.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-@Override
-public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-    GetMakes(spRegistrationYears.getSelectedItem().toString());
-}
+            spRegistrationYears = (Spinner) rootView.findViewById(R.id.spRegistrationYearsMain);
+            spMakes = (Spinner) rootView.findViewById(R.id.spMakesMain);
+            spModels = (Spinner) rootView.findViewById(R.id.spModelsMain);
+            spCylinders = (Spinner) rootView.findViewById(R.id.spCylindersMain);
+            spRegistrationYears.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    GetMakes(spRegistrationYears.getSelectedItem().toString());
+                }
 
-@Override
-public void onNothingSelected(AdapterView<?> parent) {
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
 
-}
-});
+                }
+            });
 
-            btnNextMain = (Button)rootView.findViewById(R.id.btnNextMain);
+            btnNextMain = (Button) rootView.findViewById(R.id.btnNextMain);
             btnNextMain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -209,24 +222,27 @@ public void onNothingSelected(AdapterView<?> parent) {
             WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
             wst.execute(new String[]{SERVICE_URL});
         }
+
         public void GetMakes(String year) {
             dialog = ProgressDialog.show(getActivity(),
                     "Loading...", "Please wait...", false);
             dialog.show();
             operationType = 2;
-            SERVICE_URL = BASE_URL + "Home/GetMakes?year="+year;
+            SERVICE_URL = BASE_URL + "Home/GetMakes?year=" + year;
             WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
             wst.execute(new String[]{SERVICE_URL});
         }
-        public void GetModels(String year,String make) {
+
+        public void GetModels(String year, String makeId) {
             dialog = ProgressDialog.show(getActivity(),
                     "Loading...", "Please wait...", false);
             dialog.show();
             operationType = 2;
-            SERVICE_URL = BASE_URL + "Home/GetMakes?year="+year;
+            SERVICE_URL = BASE_URL + "Home/GetModels?year=" + year + "&makeId=" + makeId;
             WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
             wst.execute(new String[]{SERVICE_URL});
         }
+
         public void GetCylinders() {
             dialog = ProgressDialog.show(getActivity(),
                     "Loading...", "Please wait...", false);
@@ -245,23 +261,35 @@ public void onNothingSelected(AdapterView<?> parent) {
             try {
                 JSONObject jso = new JSONObject(response);
                 dialog.dismiss();
-                switch(operationType)
-                {
+                switch (operationType) {
                     case 1:
-                        yearsResponse = jso.get("$values").toString().replace("[","").replace("]","");
+                        yearsResponse = jso.get("$values").toString().replace("[", "").replace("]", "");
                         years = yearsResponse.split(",");
                         yearsAdapter = new ArrayAdapter<String>
-                                (getActivity(), android.R.layout.simple_spinner_item,years);
+                                (getActivity(), android.R.layout.simple_spinner_item, years);
                         yearsAdapter.setDropDownViewResource
                                 (android.R.layout.simple_spinner_dropdown_item);
                         spRegistrationYears.setAdapter(yearsAdapter);
-
                         break;
                     case 2:
-                        makesResponse = jso.get("$values").toString().replace("[","").replace("]","");
-                        makes = makesResponse.split(",");
-                        makesAdapter = new ArrayAdapter<String>
-                                (getActivity(), android.R.layout.simple_spinner_item,makes);
+                        makesList = jso.optJSONArray("$values");
+                        //makesResponse = jso.get("$values").toString().replace("[", "").replace("]", "");
+                        //makesList = makesResponse.split(",");
+                        //makesList = makesResponse.optJSONArray()
+                        //makes = new String[makesList.length];
+
+                       /* for(int i = 0; i<makesList.length;i++)
+                        {
+                            m[i] = new JSONObject(makesList[i]);
+                        }
+                        for(int i = 0; i<makesList.length;i++)
+                        {
+                            makes[i] = m[i].getString("Make_Name");
+                        }
+                        */
+                        //btnNextMain.setText(makes[0]);
+                        makesAdapter = new ArrayAdapter<JSONObject>
+                                (getActivity(), android.R.layout.simple_spinner_item, (List<JSONObject>) makesList);
                         makesAdapter.setDropDownViewResource
                                 (android.R.layout.simple_spinner_dropdown_item);
                         spMakes.setAdapter(makesAdapter);
@@ -269,15 +297,16 @@ public void onNothingSelected(AdapterView<?> parent) {
                     case 3:
                         break;
                     case 4:
-                        cylindersResponse = jso.get("$values").toString().replace("[","").replace("]","");
+                        cylindersResponse = jso.get("$values").toString().replace("[", "").replace("]", "");
                         cylinders = cylindersResponse.split(",");
                         cylindersAdapter = new ArrayAdapter<String>
-                                (getActivity(), android.R.layout.simple_spinner_item,cylinders);
+                                (getActivity(), android.R.layout.simple_spinner_item, cylinders);
                         cylindersAdapter.setDropDownViewResource
                                 (android.R.layout.simple_spinner_dropdown_item);
                         spCylinders.setAdapter(cylindersAdapter);
-                        if(spCylinders.getCount() > 0)
-                        { GetRegistrationYears();}
+                        if (spCylinders.getCount() > 0) {
+                            GetRegistrationYears();
+                        }
                         break;
                     default:
                         break;

@@ -24,9 +24,9 @@ namespace JunkCar.Repository.Repositories
         {
             _context = context;
         }
-        public int Add(string email,string name,string address,string phone, string password, string zipCode)
+        public int Add(string email,string name,string address,string phone, string password, string zipCode, int questionId, string answer)
         {
-            var registerUser = _context.RegisterUser(null, password, name, address, phone, email, zipCode,1);
+            var registerUser = _context.RegisterUser(null, password, name, address, phone, email, zipCode, 1, questionId, answer);
 
             var finalData = (from d in registerUser
                              select d.Customer_Id).FirstOrDefault();
@@ -71,7 +71,7 @@ namespace JunkCar.Repository.Repositories
         public string GetCustomerName(string userId, string password)
         {
             string customerName = string.Empty;
-            var data = _context.Authenticate(null, password, null, null, null, userId, null,0);
+            var data = _context.Authenticate(null, password, null, null, null, userId, null,0,null,null);
             var finalData = (from d in data
                              select d.Customer_Id).FirstOrDefault();
             if (finalData == null)

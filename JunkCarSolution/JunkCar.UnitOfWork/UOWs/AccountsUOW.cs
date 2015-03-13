@@ -57,7 +57,7 @@ namespace JunkCar.UnitOfWork.UOWs
             {
                 signup = (Signup)domainModel;
 
-                int customerId = userRepository.Add(signup.Email, signup.Name, signup.Address, signup.Phone, JunkCar.Core.Common.Encryption.Encrypt("#", signup.Password), signup.ZipCode);
+                int customerId = userRepository.Add(signup.Email, signup.Name, signup.Address, signup.Phone, JunkCar.Core.Common.Encryption.Encrypt("#", signup.Password), signup.ZipCode,signup.QuestionId,signup.Answer);
                 if (customerId <= 0)
                 { throw new Exception("User name already exist. Please login using the existing user name."); }               
             }

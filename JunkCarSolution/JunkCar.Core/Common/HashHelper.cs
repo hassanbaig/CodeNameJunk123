@@ -139,7 +139,7 @@ namespace JunkCar.Core.Common
             getCustomerId["EmailAddress"] = emailAddress;            
             return getCustomerId;
         }        
-        public static Hashtable Signup(string address, string email, string name, string password, string phone, string zipCode)
+        public static Hashtable Signup(string address, string email, string name, string password, string phone, string zipCode, int questionId, string answer)
         {
             Hashtable signup = new Hashtable();
             signup["Address"] = address;
@@ -148,6 +148,8 @@ namespace JunkCar.Core.Common
             signup["Password"] = password;
             signup["Phone"] = phone;
             signup["ZipCode"] = zipCode;
+            signup["QuestionId"] = questionId;
+            signup["Answer"] = answer;
             return signup;
         }
         public static Hashtable GetSecurityQuestion(string userId)

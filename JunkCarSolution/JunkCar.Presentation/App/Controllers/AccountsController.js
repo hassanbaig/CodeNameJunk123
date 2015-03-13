@@ -43,6 +43,7 @@
         accountsControllerVM.signupAddress = '';
         accountsControllerVM.signupPhone = '';
         accountsControllerVM.signupgetAllSecurityQuestions = '';
+        accountsControllerVM.signupSecurityAnswer = '';
        
 
         accountsControllerVM.loginEmail = '';
@@ -286,9 +287,6 @@
                             var response = serviceResponse.data;
                             if (response == "Successful") {
                                 alert("Password has been changed successfully");
-                                //accountsControllerVM.pageTitle = "Log-in";
-                                //accountsControllerVM.isVisibleResetPasswordTextBoxes = false;
-                                //accountsControllerVM.isVisibleLoginTextBoxes = true;
                                 $scope.redirectLogin();
                             }
                             else { alert("There is someting wrong"); }
@@ -378,7 +376,16 @@
             var zipCode = accountsControllerVM.signupZipCode;
             var name = accountsControllerVM.signupName;
             var address = accountsControllerVM.signupAddress;
-            var phone = accountsControllerVM.signupPhone;   
+            var phone = accountsControllerVM.signupPhone;
+            var question = accountsControllerVM.signupgetAllSecurityQuestions;
+            var questionId = '';
+            for (var i = 0; i < $rootScope.allSecurityQuestionsList.$values.length; i++) {
+                if ($rootScope.allSecurityQuestionsList.$values[i].Question == question) {
+                    questionId = parseInt($rootScope.allSecurityQuestionsList.$values[i].Password_Question_Id);
+                    break;
+                }
+            }
+            var answer = accountsControllerVM.signupSecurityAnswer;
 
             $scope.reset();
 
@@ -393,11 +400,15 @@
 
             if (zipCode.length <= 0) {
                 alert("Zip-code required.");
-            }            
+            }
+            if (question.length <= 0)
+            { alert("Please select a Security Question"); }
+            if (answer.length <= 0)
+            { alert("Please enter an answer against the selected question"); }
             
-            if (email.length > 0 && password.length > 0 && retypePassword.length > 0 && zipCode.length > 0) {
+            if (email.length > 0 && password.length > 0 && retypePassword.length > 0 && zipCode.length > 0 && question.length>0 && answer.length>0) {
                 $scope.startSpin();
-                return accountsService.signup({ address:address, email: email, name:name, password: password, phone:phone, zipCode: zipCode })
+                return accountsService.signup({ address: address, email: email, name: name, password: password, phone: phone, zipCode: zipCode, questionId: questionId, answer: answer })
                     .then(function (serviceResponse) {
                         var response = serviceResponse.data;                                                         
                     if (response == 'Your account has been created successfully and you will receive an email shortly with the details') {
@@ -416,6 +427,8 @@
                 accountsControllerVM.signupName = '';
                 accountsControllerVM.signupAddress = '';
                 accountsControllerVM.signupPhone = '';
+                accountsControllerVM.signupgetAllSecurityQuestions = '';
+                accountsControllerVM.signupSecurityAnswer = '';
             }
         }
         function getSecurityQuestion() {

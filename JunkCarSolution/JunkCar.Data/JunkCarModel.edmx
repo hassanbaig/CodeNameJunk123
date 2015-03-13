@@ -1225,6 +1225,8 @@
           <Parameter Name="Customer_Email" Type="varchar(max)" Mode="In" />
           <Parameter Name="Zip_Code" Type="varchar" Mode="In" />
           <Parameter Name="Sign_Up" Type="int" Mode="In" />
+          <Parameter Name="Password_Question_Id" Type="int" Mode="In" />
+          <Parameter Name="Password_Answer" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="usp_Sal_Customer_Validate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
           <Parameter Name="Customer_Id" Type="int" Mode="InOut" />
@@ -1235,6 +1237,8 @@
           <Parameter Name="Customer_Email" Type="varchar(max)" Mode="In" />
           <Parameter Name="Zip_Code" Type="varchar" Mode="In" />
           <Parameter Name="Sign_Up" Type="bit" Mode="InOut" />
+          <Parameter Name="Password_Question_Id" Type="int" Mode="In" />
+          <Parameter Name="Password_Answer" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="usp_Sal_Customer_Vehicle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="shiner49_devuser">
           <Parameter Name="Action_Type" Type="numeric" Mode="In" />
@@ -3801,6 +3805,8 @@
             <Parameter Name="Customer_Email" Mode="In" Type="String" />
             <Parameter Name="Zip_Code" Mode="In" Type="String" />
             <Parameter Name="Sign_Up" Mode="InOut" Type="Boolean" />
+            <Parameter Name="Password_Question_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Password_Answer" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_Sal_Customer_Signup" ReturnType="Collection(shiner49_JunkCarNewModel.usp_Sal_Customer_Signup_Result)">
             <Parameter Name="Customer_Id" Mode="In" Type="Int32" />
@@ -3811,6 +3817,8 @@
             <Parameter Name="Customer_Email" Mode="In" Type="String" />
             <Parameter Name="Zip_Code" Mode="In" Type="String" />
             <Parameter Name="Sign_Up" Mode="In" Type="Int32" />
+            <Parameter Name="Password_Question_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Password_Answer" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetCylinders" ReturnType="Collection(Int32)">
             <Parameter Name="Parameter_Type" Mode="In" Type="String" />
@@ -3826,6 +3834,8 @@
             <Parameter Name="Customer_Email" Mode="In" Type="String" />
             <Parameter Name="Zip_Code" Mode="In" Type="String" />
             <Parameter Name="Sign_Up" Mode="In" Type="Int32" />
+            <Parameter Name="Password_Question_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Password_Answer" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Authenticate" ReturnType="Collection(shiner49_JunkCarNewModel.RegisterUser_Result)">
             <Parameter Name="Customer_Id" Mode="In" Type="Int32" />
@@ -3836,6 +3846,8 @@
             <Parameter Name="Customer_Email" Mode="In" Type="String" />
             <Parameter Name="Zip_Code" Mode="In" Type="String" />
             <Parameter Name="Sign_Up" Mode="In" Type="Int32" />
+            <Parameter Name="Password_Question_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Password_Answer" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="Sec_Password_Question" EntityType="shiner49_JunkCarNewModel.Sec_Password_Question" />
         </EntityContainer>

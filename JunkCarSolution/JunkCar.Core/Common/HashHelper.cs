@@ -185,6 +185,7 @@ namespace JunkCar.Core.Common
             checkUserId["Email"] = userId;
             return checkUserId;
         }
+
         public static Hashtable ChangePassword(string oldPassword, string password,string userId)
         {
             Hashtable changePassword = new Hashtable();
@@ -192,6 +193,24 @@ namespace JunkCar.Core.Common
             changePassword["NewPassword"] = password;
             changePassword["UserId"] = userId;
             return changePassword;
+        }
+        public static Hashtable GetUserInfo(string userId)
+        {
+            Hashtable getUserInfo = new Hashtable();
+            getUserInfo["UserId"] = userId;
+            return getUserInfo;
+        }
+        public static Hashtable EditProfile(string userId,string name,string address,string phone,string zipCode,int? questionId, string answer)
+        {
+            Hashtable editProfile = new Hashtable();
+            editProfile["UserId"] = userId;
+            editProfile["Name"] = name;
+            editProfile["Address"] = address;
+            editProfile["Phone"] = phone;
+            editProfile["ZipCode"] = zipCode;
+            editProfile["QuestionId"] = questionId;
+            editProfile["Answer"] = answer;
+            return editProfile;
         }
         public static Hashtable ContactEmailMessage(string name, string email, string phone, string subject, string message)
         {

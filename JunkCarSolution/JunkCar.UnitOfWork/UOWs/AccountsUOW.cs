@@ -22,6 +22,8 @@ namespace JunkCar.UnitOfWork.UOWs
         private Signup signup;
         private ForgotPassword forgotPassword;
         private ChangePassword changePassword;
+        private UserProfile userProfile;
+        private EditProfile editProfile;
         public AccountsUOW()
             : base()
         {
@@ -171,6 +173,22 @@ namespace JunkCar.UnitOfWork.UOWs
                     else
                     { authenticate.ResponseMessage = "Invalid"; }
                     break;
+                case OperationTypeEnum.GET_USER_INFO:
+                   userProfile = (JunkCar.DomainModel.Models.UserProfile)domainModel;
+                   userProfile.userProfile = userRepository.GetUserInfo(userProfile.UserId);
+                   //userProfile.userProfile = userInfo;
+                   //userProfile.userProfile.Question = userRepository.GetQuestion(userProfile.UserId);
+                   userProfile.userProfile.ZipCode = userRepository.GetZipCode(userProfile.UserId);
+                   userProfile.userProfile.Address = userRepository.GetAddress(userProfile.UserId);
+                   userProfile.userProfile.Phone = userRepository.GetPhone(userProfile.UserId);
+                    break;
+                case OperationTypeEnum.EDIT_PROFILE:
+                    editProfile = (JunkCar.DomainModel.Models.EditProfile)domainModel;
+                    var editInfo = userRepository.EditProfile(editProfile.UserId, editProfile.Name, editProfile.QuestionId,editProfile.Answer);
+                    editInfo = userRepository.EditAddress(editProfile.UserId, editProfile.Address);
+                    editInfo = userRepository.EditPhone(editProfile.UserId, editProfile.Phone);
+                    editInfo = userRepository.EditZipCode(editProfile.UserId, editProfile.ZipCode);
+                    break;
                 default:
                     break;
             }
@@ -191,6 +209,10 @@ namespace JunkCar.UnitOfWork.UOWs
                     return changePassword;
                 case OperationTypeEnum.CHECK_USER_ID:
                     return authenticate;
+                case OperationTypeEnum.GET_USER_INFO:
+                    return userProfile;
+                case OperationTypeEnum.EDIT_PROFILE:
+                    return editProfile;
 
                 default:
                     break;
@@ -199,7 +221,6 @@ namespace JunkCar.UnitOfWork.UOWs
         }
         public AbstractDomainModel GetAll(Core.Enumerations.SearchCriteriaEnum searchCriteria)
         {
-            //throw new NotImplementedException();
             signup = new DomainModel.Models.Signup();
             switch (searchCriteria)
             {

@@ -8,18 +8,21 @@ using System.Reflection;
 using JunkCar.DataModel.Models;
 namespace JunkCar.DomainModel.Models
 {
-    public class ChangePassword:AbstractDomainModel
+    public class UserProfile:AbstractDomainModel
     {
-        public ChangePassword()
+        public UserProfile()
         {
 
         }
 
         #region Propertiess            
         public string UserId { get; set; }
-        public string OldPassword { get; set; }
-        public string NewPassword { get; set; }
-        public string Password { get; set; }
+        public string Name { get; set; }
+        //public string Address { get; set; }
+        //public string Phone { get; set; }
+        //public string ZipCode { get; set; }
+        //public string Answer { get; set; }
+        public JunkCar.DataModel.Models.UserProfile userProfile { get; set; }
         public string ResponseMessage { get; set; }        
         #endregion        
     

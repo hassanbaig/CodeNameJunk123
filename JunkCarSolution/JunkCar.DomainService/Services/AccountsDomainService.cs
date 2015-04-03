@@ -16,6 +16,8 @@ namespace JunkCar.DomainService.Services
         private DomainModel.Models.ForgotPassword forgotPassword;
         private DomainModel.Models.ChangePassword changePassword;
         private JunkCar.DomainModel.Models.Signup signup;
+        private JunkCar.DomainModel.Models.UserProfile userProfile;
+        private JunkCar.DomainModel.Models.EditProfile editProfile;
         public override AbstractDomainModel Save(AbstractDomainModel domainModel, DomainModelEnum domainModelType)
         {
             signup = (JunkCar.DomainModel.Models.Signup)domainModel;
@@ -106,6 +108,22 @@ namespace JunkCar.DomainService.Services
                                 changePassword.ResponseMessage = "Valid";
                             }
                             break;
+                        case DomainModelEnum.EDIT_PROFILE:
+                            editProfile = (DomainModel.Models.EditProfile)domainModel;
+                            if (editProfile.UserId == null || editProfile.UserId.Length <= 0)
+                            { editProfile.ResponseMessage = "Email is required"; }
+                            //if (userProfile.userProfile == null || userProfile.OldPassword.Length <= 0)
+                            //{ changePassword.ResponseMessage = "Old Password is required"; }
+                            //else if (changePassword.NewPassword == null || changePassword.NewPassword.Length <= 0)
+                            //{ changePassword.ResponseMessage = "New Password is required"; }
+                            else
+                            {
+                                FactoryFacade factory = new FactoryFacade();
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.AccountsUOW));
+                                editProfile = (DomainModel.Models.EditProfile)unitOfWork.Get(editProfile, OperationTypeEnum.EDIT_PROFILE);
+                                editProfile.ResponseMessage = "Valid";
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -116,6 +134,9 @@ namespace JunkCar.DomainService.Services
                     {
                         case DomainModelEnum.CHANGE_PASSWORD:
                             changePassword.ResponseMessage = "Invalid domain model";
+                            break;
+                        case DomainModelEnum.EDIT_PROFILE:
+                            editProfile.ResponseMessage = "Invalid domain model";
                             break;
                         default:
                             break;
@@ -129,6 +150,9 @@ namespace JunkCar.DomainService.Services
                     case DomainModelEnum.CHANGE_PASSWORD:
                         changePassword.ResponseMessage = ex.Message;
                         break;
+                    case DomainModelEnum.EDIT_PROFILE:
+                        editProfile.ResponseMessage = ex.Message;
+                        break;
                     default:
                         break;
                 }
@@ -137,6 +161,8 @@ namespace JunkCar.DomainService.Services
             {
                 case DomainModelEnum.CHANGE_PASSWORD:
                     return changePassword;
+                case DomainModelEnum.EDIT_PROFILE:
+                    return editProfile;
                 default:
                     break;
             }
@@ -227,6 +253,17 @@ namespace JunkCar.DomainService.Services
                                 authenticate = (DomainModel.Models.Authenticate)unitOfWork.Get(authenticate, OperationTypeEnum.CHECK_USER_ID);
                             }
                             break;
+                        case DomainModelEnum.GET_USER_INFO:
+                            userProfile = (DomainModel.Models.UserProfile)domainModel;
+                            if (userProfile.UserId == null || userProfile.UserId.Length <= 0)
+                            { userProfile.ResponseMessage = "Please enter valid email"; }
+                            else
+                            {
+                                FactoryFacade factory = new FactoryFacade();
+                                unitOfWork = factory.UnitOfWorkFactory.CreateUnitOfWork(typeof(JunkCar.UnitOfWork.UOWs.AccountsUOW));
+                                userProfile = (DomainModel.Models.UserProfile)unitOfWork.Get(userProfile, OperationTypeEnum.GET_USER_INFO);
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -252,6 +289,9 @@ namespace JunkCar.DomainService.Services
                             break;
                         case DomainModelEnum.CHECK_USER_ID:
                             authenticate.ResponseMessage = "Invalid domain model";
+                            break;
+                        case DomainModelEnum.GET_USER_INFO:
+                            userProfile.ResponseMessage = "Invalid domain model";
                             break;
                         default:
                             break;
@@ -280,6 +320,9 @@ namespace JunkCar.DomainService.Services
                     case DomainModelEnum.CHECK_USER_ID:
                         authenticate.ResponseMessage = ex.Message;
                         break;
+                    case DomainModelEnum.GET_USER_INFO:
+                        userProfile.ResponseMessage = ex.Message;
+                        break;
                     default:
                         break;
                 }
@@ -298,6 +341,8 @@ namespace JunkCar.DomainService.Services
                     return forgotPassword;
                 case DomainModelEnum.CHECK_USER_ID:
                     return authenticate;
+                case DomainModelEnum.GET_USER_INFO:
+                    return userProfile;
                 default:
                     break;
             }

@@ -40,7 +40,9 @@
             checkSecurityQuestionAnswer: checkSecurityQuestionAnswer,
             checkVerificationCode: checkVerificationCode,
             resetPassword: resetPassword,
-            checkUserId: checkUserId
+            checkUserId: checkUserId,
+            getUserInfo: getUserInfo,
+            editProfile: editProfile
         };
 
         return service;               
@@ -173,6 +175,37 @@
             var promise = $http({
                 method: 'GET',
                 url: getBaseUrl() + 'Accounts/GetAllSecurityQuestion'
+            }).success(function (data, status, headers) {
+                response = data;
+                return response;
+            })
+            .error(function (data, status, headers) {
+                response = data;
+                return response;
+            });
+            return promise;
+        }
+        function getUserInfo() {
+            var response = '';
+            var promise = $http({
+                method: 'GET',
+                url: getBaseUrl() + 'Accounts/GetUserInfo'
+            }).success(function (data, status, headers) {
+                response = data;
+                return response;
+            })
+            .error(function (data, status, headers) {
+                response = data;
+                return response;
+            });
+            return promise;
+        }
+        function editProfile(params) {
+            var response = '';
+            var promise = $http({
+                method: 'GET',
+                params: params,
+                url: getBaseUrl() + 'Accounts/EditProfile'
             }).success(function (data, status, headers) {
                 response = data;
                 return response;

@@ -134,6 +134,74 @@ namespace JunkCar.Repository.Repositories
 
             return data;                       
         }
+        public JunkCar.DataModel.Models.UserProfile GetUserInfo(string userId)
+        {
+            var data = (from salCus in _context.Sal_Customer
+                        join salCusCon in _context.Sal_Customer_Contact on salCus.Customer_Id equals salCusCon.Customer_Id
+                        where salCus.Login_Name.Equals(userId)
+                        select salCus).AsEnumerable().Select(x => new JunkCar.DataModel.Models.UserProfile
+                          {
+                              //Name=(x.Customer_Name.Length > 0) ? x.Customer_Name : string.Empty,
+                              Name = x.Customer_Name,
+                              QuestionId = (x.Password_Question_Id > 0) ? x.Password_Question_Id : 0,
+                              Answer = x.Password_Answer,
+                              //ZipCode=GetZipCode(x.Login_Name)
+                              //ZipCode = (GetZipCode(userId).Length > 0) ? GetZipCode(userId) : string.Empty,
+                              //ZipCode = GetZipCode(userId)
+                              //Address = (GetAddress(userId).Length > 0) ? GetAddress(userId) : string.Empty,
+                              //Address = GetAddress(userId),
+                              //Phone = GetPhone(userId)
+                          }).FirstOrDefault();
+            return data;
+        }
+        public string GetQuestion(string userId)
+        {
+            var data = (from salCus in _context.Sal_Customer
+                        join secPasQue in _context.Sec_Password_Question on salCus.Password_Question_Id equals secPasQue.Password_Question_Id
+                        where salCus.Login_Name.Equals(userId)
+                        select secPasQue).FirstOrDefault();
+            return data.Question;
+        }
+        public string GetZipCode(string userId)
+        {
+            var data = (from salCus in _context.Sal_Customer
+                        join salCusCon in _context.Sal_Customer_Contact on salCus.Customer_Id equals salCusCon.Customer_Id
+                        where salCus.Login_Name.Equals(userId)
+                        select salCusCon).FirstOrDefault();
+            return data.Zip_Code;
+        }
+        public string GetAddress(string userId)
+        {
+            var data = (from salCus in _context.Sal_Customer
+                        join salCusCon in _context.Sal_Customer_Contact on salCus.Customer_Id equals salCusCon.Customer_Id
+                        where salCus.Login_Name.Equals(userId) && salCusCon.Contact_Type_Id.Equals(4)
+                        select salCusCon).FirstOrDefault();
+            return data.Customer_Contact;
+        }
+        public string GetPhone(string userId)
+        {
+            var data = (from salCus in _context.Sal_Customer
+                        join salCusCon in _context.Sal_Customer_Contact on salCus.Customer_Id equals salCusCon.Customer_Id
+                        where salCus.Login_Name.Equals(userId) && salCusCon.Contact_Type_Id.Equals(1)
+                        select salCusCon).FirstOrDefault();
+            return data.Customer_Contact;
+        }
+        private int GetStateId(string userId) 
+        {
+            var data = (from salCusCon in _context.Sal_Customer_Contact
+                        join setSta in _context.Set_State on salCusCon.State_Id equals setSta.State_Id
+                        where salCusCon.Customer_Id.Equals(userId)
+                        select setSta).FirstOrDefault();
+            return data.State_Id;
+        }
+        private int GetCityId(string userId)
+        {
+            var data = (from salCusCon in _context.Sal_Customer_Contact
+                        join setCit in _context.Set_City on salCusCon.City_Id equals setCit.City_Id
+                        where salCusCon.Customer_Id.Equals(userId)
+                        select setCit).FirstOrDefault();
+            return data.City_Id;
+        }
         public List<JunkCar.DataModel.Models.Sec_Password_Question> GetAllSecurityQuestions()
         {
             var data = (from secPasQue in _context.Sec_Password_Question
@@ -154,6 +222,7 @@ namespace JunkCar.Repository.Repositories
 
             return data;
         }
+        
         public string CheckSecurityQuestionAnswer(int questionId, string answer)
         {
             var data = (from salCus in _context.Sal_Customer                        
@@ -218,6 +287,47 @@ namespace JunkCar.Repository.Repositories
                 throw new Exception("Please provide correct old password");
             }
             return data.Customer_Id;
+        }
+        public JunkCar.DataModel.Models.UserProfile EditProfile(string userId, string name, int? questionId,string answer)
+        {
+            var data = (from salCus in _context.Sal_Customer
+                        where salCus.Login_Name.Equals(userId)
+                        select salCus).FirstOrDefault();
+            data.Customer_Name = name;
+            data.Password_Question_Id = questionId;
+            data.Password_Answer = answer;
+            _context.SaveChanges();
+            return null;
+        }
+        public JunkCar.DataModel.Models.UserProfile EditAddress(string userId, string address) 
+        {
+            var data = (from salCus in _context.Sal_Customer
+                        join salCusCon in _context.Sal_Customer_Contact on salCus.Customer_Id equals salCusCon.Customer_Id
+                        where salCus.Login_Name.Equals(userId) && salCusCon.Contact_Type_Id.Equals(4)
+                        select salCusCon).FirstOrDefault();
+            data.Customer_Contact = address;
+            _context.SaveChanges();
+            return null;
+        }
+        public JunkCar.DataModel.Models.UserProfile EditPhone(string userId, string phone)
+        {
+            var data = (from salCus in _context.Sal_Customer
+                        join salCusCon in _context.Sal_Customer_Contact on salCus.Customer_Id equals salCusCon.Customer_Id
+                        where salCus.Login_Name.Equals(userId) && salCusCon.Contact_Type_Id.Equals(1)
+                        select salCusCon).FirstOrDefault();
+            data.Customer_Contact = phone;
+            _context.SaveChanges();
+            return null;
+        }
+        public JunkCar.DataModel.Models.UserProfile EditZipCode(string userId, string zipCode)
+        {
+            var data = (from salCus in _context.Sal_Customer
+                        join salCusCon in _context.Sal_Customer_Contact on salCus.Customer_Id equals salCusCon.Customer_Id
+                        where salCus.Login_Name.Equals(userId)
+                        select salCusCon).FirstOrDefault();
+            data.Zip_Code = zipCode;
+            _context.SaveChanges();
+            return null;
         }
     }
 }

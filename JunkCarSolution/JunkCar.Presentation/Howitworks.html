@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿<!--<!DOCTYPE html>
 <html lang="en" data-ng-app="app">
     <head>
         <script>
@@ -27,10 +27,10 @@
         <script src="Scripts/angular-file-upload-shim.min.js"></script>
         <script src="Scripts/angular-file-upload.min.js"></script>
 
-        <script src="App/RouteConfig.js"></script>
+        <script src="App/RouteConfig.js"></script>-->
         <!--<script src="Scripts/angular-sanitize.js"></script>-->
         <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>-->
-        <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+        <!--<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
         <script src="App/Config/App.js"></script>
         <script src="App/Controllers/UtilityController.js"></script>
         <script src="App/Services/UtilityService.js"></script>
@@ -48,7 +48,7 @@
         <link href="Content/Assets/CSS/angular.rangeSlider.css" rel="stylesheet">
         <script type="text/javascript" src="App/CustomDirectives/angular.rangeSlider.js"></script>
         <script type="text/javascript" src="App/CustomDirectives/rangeFilter.js"></script>
-        <script type="text/javascript" src="App/CustomDirectives/timeRangeFilter.js"></script>
+        <script type="text/javascript" src="App/CustomDirectives/timeRangeFilter.js"></script>-->
 
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -56,9 +56,9 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-   </head>
+   <!--</head>-->
 
-<style>
+<!--<style>
 .gt {width:230px; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;padding: 10px 10px 10px 10px; text-decoration:none; display:inline-block;text-shadow: -1px -1px 0 rgba(0,0,0,0.3); color: #FFFFFF;
 background-color: #31a507;background: #3cb0fd;
   background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
@@ -81,358 +81,327 @@ ul {
     font-size: 18px;
 }
 
-</style>
-<body id="page" style="background-color:#fff; overflow-x: hidden;">
+</style>-->
+<!--<body>-->
+    <div id="page" style="background-color:#fff; overflow-x: hidden;">
+        <!-- <ul class="cb-slideshow hidden-xs">
+         <li><span>Image 01</span></li>
+         <li><span>Image 02</span></li>
+         <li><span>Image 03</span></li>
+         <li><span>Image 04</span></li>
+         <li><span>Image 05</span></li>
+         <li><span>Image 06</span></li>
+         </ul> -->
 
-    <!-- <ul class="cb-slideshow hidden-xs">
-     <li><span>Image 01</span></li>
-     <li><span>Image 02</span></li>
-     <li><span>Image 03</span></li>
-     <li><span>Image 04</span></li>
-     <li><span>Image 05</span></li>
-     <li><span>Image 06</span></li>
-     </ul> -->
+        <div class="container-fluid">
 
-    <div class="container-fluid">
+            <!--First Row-->
+            <!--<div class="row">-->
+                <!-- Navigation -->
+                <!--<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                    <div class="container">-->
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <!--<div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a data-ng-controller="utilityController as utilityControllerVM" data-ng-click="utilityControllerVM.redirectIndex();" class="navbar-brand" href="http://www.junkcartrader.com">-->
+                                <!-- <img src="http://placehold.it/150x50&text=Logo" alt="">-->
+                                <!--<img src="Content/Images/logo.png" />
+                            </a>
+                        </div>-->
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <!--<div data-ng-controller="accountsController as accountsControllerVM" class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li><a href="http://www.junkcartrader.com">Get an offer</a></li>
+                                <li class="active"><a href="#">How it works</a></li>-->
+                                <!--<li><a href="#">Testimonial</a></li>-->
+                                <!--<li><a href="Aboutus.html">About us</a></li>
+                                <li><a href="Contactus.html">Contact us</a></li>
+                                <li><a href="Signup.html">Sign up</a></li>
+                                <li data-ng-hide="accountsControllerVM.isLoggedIn"><a href="Login.html">Login</a></li>
+                                <li style="color:#F00"><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right" data-ng-init="accountsControllerVM.getUserName();" data-ng-show="accountsControllerVM.isLoggedIn">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Welcome, {{liun |limitTo:4 }} {{liun.length >= 4 ?'....' : ''}} <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="Settings.html"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                                        <li class="divider"></li>
+                                        <li data-ng-click="accountsControllerVM.logout();"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                                    </ul>
+                            </ul>
+                        </div>-->
+                        <!-- /.navbar-collapse -->
+                    <!--</div>-->
+                    <!-- /.container -->
+                <!--</nav>-->
+            <!--</div>-->
+            <!--End First Row-->
+            <!--Second Row-->
+            <div class="row">
+                <div class="col-lg-12" style="background:url(Content/Images/123.jpg) no-repeat center center; background-size:cover; height:400px; margin-top:55px">
 
-        <!--First Row-->
-        <div class="row">
-            <!-- Navigation -->
-            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                </div>
+            </div>
+            <!--End Second Row-->
+            <!--Third Row-->
+            <div class="row" style="margin-top:1px;background-color:#e9e9e9; background-image:url(Content/Images/footer.png); padding-bottom:30px">
+
+                <div class="col-lg-4 col-sm-4">
+                    <div style="text-align:center;padding-left:15px; padding-right:15px"> <img src="Content/Images/icon2.png" /> </div>
+                    <h2 class="section-heading" style="text-align:center; padding-top:5px; color:#25b5e6; ">Get an offer</h2>
+                </div>
+
+                <div class="col-lg-4 col-sm-4">
+                    <div style="text-align:center;padding-left:15px; padding-right:15px"> <img src="Content/Images/icon1.png" /> </div>
+                    <h2 class="section-heading" style="text-align:center; padding-top:5px;color:#25b5e6; ">Get it towed</h2>
+                </div>
+
+                <div class="col-lg-4 col-sm-4">
+                    <div style="text-align:center;padding-left:15px; padding-right:15px"> <img src="Content/Images/icon3.png" /> </div>
+                    <h2 class="section-heading" style="text-align:center; padding-top:5px;color:#25b5e6; ">Get Paid</h2>
+                </div>
+
+            </div>
+            <!--End Third Row-->
+            <!--Fourth Row-->
+            <div class="row" style="margin-top:20px;">
+
                 <div class="container">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a data-ng-controller="utilityController as utilityControllerVM" data-ng-click="utilityControllerVM.redirectIndex();" class="navbar-brand" href="http://www.junkcartrader.com">
-                            <!-- <img src="http://placehold.it/150x50&text=Logo" alt="">-->
-                            <img src="Content/Images/logo.png" />
-                        </a>
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div data-ng-controller="accountsController as accountsControllerVM" class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li><a href="http://www.junkcartrader.com">Get an offer</a></li>
-                            <li class="active"><a href="#">How it works</a></li>
-                            <!--<li><a href="#">Testimonial</a></li>-->
-                            <li><a href="Aboutus.html">About us</a></li>
-                            <li><a href="Contactus.html">Contact us</a></li>
-                            <li><a href="Signup.html">Sign up</a></li>
-                            <li data-ng-hide="accountsControllerVM.isLoggedIn"><a href="Login.html">Login</a></li>
-                            <li style="color:#F00"><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right" data-ng-init="accountsControllerVM.getUserName();" data-ng-show="accountsControllerVM.isLoggedIn">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Welcome, {{liun |limitTo:4 }} {{liun.length >= 4 ?'....' : ''}} <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="Settings.html"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
-                                    <li class="divider"></li>
-                                    <li data-ng-click="accountsControllerVM.logout();"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-                                </ul>
-                        </ul>
-                    </div>
-                    <!-- /.navbar-collapse -->
-                </div>
-                <!-- /.container -->
-            </nav>
-        </div>
-        <!--End First Row-->
-        <!--Second Row-->
-        <div class="row">
-            <div class="col-lg-12" style="background:url(Content/Images/123.jpg) no-repeat center center; background-size:cover; height:400px; margin-top:55px">
+                    <div class="col-lg-12">
+                        <p style="text-align:left;font-size:20px;">
+                            <div style="border: 1px solid #999; border-radius:20px; padding:20px; font-size:20px;">We understand life is too busy and your time is money, so we’ve worked hard to simplify our process and make it easy on you to get rid of your car and get paid instantly. It’s just a matter of couple of clicks and all the hassle is behind you.</div><br><br>
 
-            </div>
-        </div>
-        <!--End Second Row-->
-        <!--Third Row-->
-        <div class="row" style="margin-top:1px;background-color:#e9e9e9; background-image:url(Content/Images/footer.png); padding-bottom:30px">
-
-            <div class="col-lg-4 col-sm-4">
-                <div style="text-align:center;padding-left:15px; padding-right:15px"> <img src="Content/Images/icon2.png" /> </div>
-                <h2 class="section-heading" style="text-align:center; padding-top:5px; color:#25b5e6; ">Get an offer</h2>
-            </div>
-
-            <div class="col-lg-4 col-sm-4">
-                <div style="text-align:center;padding-left:15px; padding-right:15px"> <img src="Content/Images/icon1.png" /> </div>
-                <h2 class="section-heading" style="text-align:center; padding-top:5px;color:#25b5e6; ">Get it towed</h2>
-            </div>
-
-            <div class="col-lg-4 col-sm-4">
-                <div style="text-align:center;padding-left:15px; padding-right:15px"> <img src="Content/Images/icon3.png" /> </div>
-                <h2 class="section-heading" style="text-align:center; padding-top:5px;color:#25b5e6; ">Get Paid</h2>
-            </div>
-
-        </div>
-        <!--End Third Row-->
-        <!--Fourth Row-->
-        <div class="row" style="margin-top:20px;">
-
-            <div class="container">
-                <div class="col-lg-12">
-                    <p style="text-align:left;font-size:20px;">
-                        <div style="border: 1px solid #999; border-radius:20px; padding:20px; font-size:20px;">We understand life is too busy and your time is money, so we’ve worked hard to simplify our process and make it easy on you to get rid of your car and get paid instantly. It’s just a matter of couple of clicks and all the hassle is behind you.</div><br><br>
-
-                        <div class="row" style="margin-top:20px;">
-                            <div class="col-lg-6" align="center">
-                                <a href="#" class="btn gt btn-lg" role="button" data-toggle="modal" data-target="#Modal4">Get an offer Demo</a>
-
-
-
-                            </div>
-                            <div class="col-lg-6" align="center">
-                                <a href="#" class="btn gt btn-lg" role="button" data-toggle="modal" data-target="#Modal3">Get a better offer Demo</a>
-                            </div>
-
-                        </div>
-
-
-
-                        <h1 style="text-align:center; margin-top:-5px; color:#25b5e6"><span><img src="Content/Images/offer.png" /><br>We offer two options</h1><br><hr>
-                        <ul style="list-style:decimal;text-align:left">
-                            <li>
-                                If you want to get the default offer for your junk car, all you have to do is tell us basic information about your car and where it’s located:
-
-                                <ul style="list-style:lower-alpha; padding-left:50px; padding-top:20px">
-                                    <li>Click on “Get an offer” button fill in your information and get the default offer instantly in no time.</li>
-                                    <li>Once you click on the “Confirm” button, someone from our team will contact you shortlyto arrange a convenient appointment to pick up your car and pay you on the spot.</li>
-                                </ul>
-                            </li>
-                            <br>
-                            <li>
-                                You can give us more details about the condition of your car which will help in offering you a better price, all you have to do:
-                                <ul style="list-style:lower-alpha; padding-left:50px; padding-top:20px">
-                                    <li>Click on “Get a better offer” button after you select what the year, make and model of your car and the zip code where the car is located.</li>
-                                    <li>Now you will have a simple form to fill out that contains a questionnaire about the overall condition of your car.</li>
-                                    <li>
-                                        Once you answer the questions, you will be asked to fill your information and then you will be given the option to upload up to 5 images of your car which will help us better vvaluing your car. (This step is optional so if you don’t want to upload images just click next and you will get the offer along with a phone number that you can call for negotiation.
-                                    </li>
-                                    <li>
-                                        Once you click “Confirm” button you will receive an email with the offer and someone will contact you shortly to setup a convenient appointment to pick up your car and pay you on the spot.
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </p><hr>
-                </div>
-            </div>
-
-        </div>
-        <!--End Fourth Row-->
-        <h1 style="text-align:center; margin-top:15px; font-size:40px"><span><img src="Content/Images/more.png" /> </span><br>But Wait There is more!!! </h1>
-        <!--Fifth Row-->
-        <div class="row" style="margin-top:15px;margin-bottom:60px">
-            <div class="container" style="border:1px solid #fff; border-radius:20px; background-color:#86d5ef">
-                <div class="col-lg-10 col-lg-offset-1">
-
-                    <ul style="list-style: square;padding-top:20px; text-align:left; font-size:20px; color:#000; padding:30px">
-                        <li>The service we offer is completely free.</li>
-                        <li>Not only that it’s free but you will also get paid instantly for your junk car.</li>
-                        <li>Please note that along with every offer our system proposes, we also provide you a phone number that you can call anytime for negotiation before you click on the “Confirm” button.</li>
-                        <li>Note that if our system doesn’t have a specific price for your car setup, thenour system will give you the default price we offer. (That’s why we encourage you to call us if you feel that your car was underpriced)</li>
-                        <li>We will try our best to offer you the best price possible based on the marketvalue of your junk car.</li>
-                        <li>We offer our services to our customer from east coast to west coast of great Florida (The State of the Sunshine).</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!--End Fifth Row-->
-        <!--Modal 3-->
-        <div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content" style="background-color:#27bbed;">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                    </div>
-                    <div class="modal-body">
-                        <div style="padding:20px">
-                            <form role="form">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="callUsZipCode" data-ng-model="homeControllerVM.zipCode" data-ng-keypress="onKeyPress($event);" placeholder="Enter Zipcode">
+                            <div class="row" style="margin-top:20px;">
+                                <div class="col-lg-6" align="center">
+                                    <a href="" class="btn gt btn-lg" role="button" data-toggle="modal" data-target="#Modal4">Get an offer Demo</a>
                                 </div>
-                                <h3 style="text-align:center;"><span class="label label-default" style="background-color:#ee2c3d">{{contactNo}}</span></h3>
-                            </form>
+                                <div class="col-lg-6" align="center">
+                                    <a href="" class="btn gt btn-lg" role="button" data-toggle="modal" data-target="#Modal3">Get a better offer Demo</a>
+                                </div>
+                            </div>
+                            <h1 style="text-align:center; margin-top:-5px; color:#25b5e6"><span><img src="Content/Images/offer.png" /><br>We offer two options</h1><br><hr>
+                            <ul style="list-style:decimal;text-align:left">
+                                <li>
+                                    If you want to get the default offer for your junk car, all you have to do is tell us basic information about your car and where it’s located:
+
+                                    <ul style="list-style:lower-alpha; padding-left:50px; padding-top:20px">
+                                        <li>Click on “Get an offer” button fill in your information and get the default offer instantly in no time.</li>
+                                        <li>Once you click on the “Confirm” button, someone from our team will contact you shortly to arrange a convenient appointment to pick up your car and pay you on the spot.</li>
+                                    </ul>
+                                </li>
+                                <br>
+                                <li>
+                                    You can give us more details about the condition of your car which will help in offering you a better price, all you have to do:
+                                    <ul style="list-style:lower-alpha; padding-left:50px; padding-top:20px">
+                                        <li>Click on “Get a better offer” button after you select what the year, make and model of your car and the zip code where the car is located.</li>
+                                        <li>Now you will have a simple form to fill out that contains a questionnaire about the overall condition of your car.</li>
+                                        <li>
+                                            Once you answer the questions, you will be asked to fill your information and then you will be given the option to upload up to 5 images of your car which will help us better valuing your car. (This step is optional so if you don’t want to upload images just click next and you will get the offer along with a phone number that you can call for negotiation.
+                                        </li>
+                                        <li>
+                                            Once you click “Confirm” button you will receive an email with the offer and someone will contact you shortly to setup a convenient appointment to pick up your car and pay you on the spot.
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </p><hr>
+                    </div>
+                </div>
+            </div>
+            <!--End Fourth Row-->
+            <h1 style="text-align:center; margin-top:15px; font-size:40px"><span><img src="Content/Images/more.png" /> </span><br>But Wait There is more!!! </h1>
+            <!--Fifth Row-->
+            <div class="row" style="margin-top:15px;margin-bottom:60px">
+                <div class="container" style="border:1px solid #fff; border-radius:20px; background-color:#86d5ef">
+                    <div class="col-lg-10 col-lg-offset-1">
+
+                        <ul style="list-style: square;padding-top:20px; text-align:left; font-size:20px; color:#000; padding:30px">
+                            <li>The service we offer is completely free.</li>
+                            <li>Not only that it’s free but you will also get paid instantly for your junk car.</li>
+                            <li>Please note that along with every offer our system proposes, we also provide you a phone number that you can call anytime for negotiation before you click on the “Confirm” button.</li>
+                            <li>Note that if our system doesn’t have a specific price for your car setup, then our system will give you the default price we offer. (That’s why we encourage you to call us if you feel that your car was underpriced)</li>
+                            <li>We will try our best to offer you the best price possible based on the market value of your junk car.</li>
+                            <li>We offer our services to our customer from east coast to west coast of great Florida (The State of the Sunshine).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--End Fifth Row-->
+            <!--Modal 3-->
+            <!--<!--<div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="background-color:#27bbed;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="padding:20px">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="callUsZipCode" data-ng-model="homeControllerVM.zipCode" data-ng-keypress="onKeyPress($event);" placeholder="Enter Zipcode">
+                                    </div>
+                                    <h3 style="text-align:center;"><span class="label label-default" style="background-color:#ee2c3d">{{contactNo}}</span></h3>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <!--End Modal 3-->
+            <!--Modal 4-->
+            <div class="modal fade bs-example-modal-lg" id="Modal3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog "><!--modal-lg-->
+                    <div class="modal-content">
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img class="img-responsive" src="Content/Images/S1.jpg" alt="...">
+                                    <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
+                                      1- (Button Click) Save Edit
+                                    </div>-->
+                                </div>
+                                <div class="item">
+                                    <img class="img-responsive" src="Content/Images/S2.jpg" alt="...">
+                                    <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
+                                      2- (Select) Year Change
+                                    </div>-->
+                                </div>
+                                <div class="item">
+                                    <img class="img-responsive" src="Content/Images/S3.jpg" alt="...">
+                                    <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
+                                     3- (Select) Make Change
+                                    </div>-->
+                                </div>
+                                <div class="item">
+                                    <img class="img-responsive" src="Content/Images/S4.jpg" alt="...">
+                                    <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
+                                      4- (Button Click) Save
+                                    </div>-->
+                                </div>
+                                <div class="item">
+                                    <img class="img-responsive" src="Content/Images/S5.jpg" alt="...">
+                                    <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
+                                     5- (Data) Updated Data
+                                    </div>-->
+                                </div>
+                                <div class="item">
+                                    <img class="img-responsive" src="Content/Images/S6.jpg" alt="...">
+                                    <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
+                                     6- (Data) Updated Data
+                                    </div>-->
+                                </div>
+                            </div>
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!--End Modal 3-->
-        <!--Modal 4-->
-        <div class="modal fade bs-example-modal-lg" id="Modal3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <!--End Modal 4-->
+            <!--Modal 5-->
+            <div class="modal fade bs-example-modal-lg" id="Modal4" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog "><!--modal-lg-->
+                    <div class="modal-content">
+                        <div id="carousel-2" class="carousel slide" data-ride="carousel">
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img class="img-responsive" src="Content/Images/g1.jpg" alt="...">
+                                    <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
+                                      1- (Tab) Car Model & Year
+                                    </div>-->
+                                </div>
+                                <div class="item">
+                                    <img class="img-responsive" src="Content/Images/g2.jpg" alt="...">
+                                    <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
+                                     2- (Tab) Location
+                                    </div>-->
+                                </div>
+                                <div class="item">
+                                    <img class="img-responsive" src="Content/Images/g3.jpg" alt="...">
+                                    <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
+                                    3- (Button Click) Get an Offer
+                                    </div>-->
+                                </div>
 
+                                <div class="item">
+                                    <img class="img-responsive" src="Content/Images/g4.jpg" alt="...">
+                                    <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
+                                      4- (Form) Customer Information
+                                    </div>-->
+                                </div>
 
-
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img class="img-responsive" src="Content/Images/S1.jpg" alt="...">
-                                <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
-                                  1- (Button Click) Save Edit
-                                </div>-->
+                                <div class="item">
+                                    <img class="img-responsive" src="Content/Images/g5.jpg" alt="...">
+                                    <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
+                                    5- (Button Click) Customer Information (Save)
+                                    </div>-->
+                                </div>
                             </div>
-                            <div class="item">
-                                <img class="img-responsive" src="Content/Images/S2.jpg" alt="...">
-                                <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
-                                  2- (Select) Year Change
-                                </div>-->
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive" src="Content/Images/S3.jpg" alt="...">
-                                <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
-                                 3- (Select) Make Change
-                                </div>-->
-                            </div>
-
-                            <div class="item">
-                                <img class="img-responsive" src="Content/Images/S4.jpg" alt="...">
-                                <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
-                                  4- (Button Click) Save
-                                </div>-->
-                            </div>
-
-                            <div class="item">
-                                <img class="img-responsive" src="Content/Images/S5.jpg" alt="...">
-                                <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
-                                 5- (Data) Updated Data
-                                </div>-->
-                            </div>
-                            
-                               <div class="item">
-                                <img class="img-responsive" src="Content/Images/S6.jpg" alt="...">
-                                <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
-                                 6- (Data) Updated Data
-                                </div>-->
-                            </div>
-
-
-
-
-
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-2" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-2" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
                         </div>
-
-
-
-                        <!-- Controls -->
-                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                        </a>
-                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                        </a>
                     </div>
                 </div>
             </div>
-        </div>
-        <!--End Modal 4-->
-        <!--Modal 5-->
-        <div class="modal fade bs-example-modal-lg" id="Modal4" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div id="carousel-2" class="carousel slide" data-ride="carousel">
+            <!--End Modal 5-->
+        </div><!-- /container -->
+        <!--Sixth Row-->
+        <!--<div id="footer" class="row">
+            <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color:#000; height:30px">
+                <div class="navbar-inner navbar-content-center">
 
+                    <div class="col-lg-4 text-center">
+                        <a href="Aboutus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">About Us</a>
+                        <a href="#" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">How it works</a>
+                        <a href="Contactus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">Contact Us</a>
+                    </div>
 
+                    <div class="col-lg-4 text-center">
+                        <span style="display:block; text-align:center; list-style:none; font-size:11px; color:#FFF; height:30px; padding-top:7px ">
+                            Copyright © 2015 junkcartrader.com. All Rights Reserved
+                        </span>
+                    </div>
 
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img class="img-responsive" src="Content/Images/g1.jpg" alt="...">
-                                <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
-                                  1- (Tab) Car Model & Year
-                                </div>-->
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive" src="Content/Images/g2.jpg" alt="...">
-                                <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
-                                 2- (Tab) Location
-                                </div>-->
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive" src="Content/Images/g3.jpg" alt="...">
-                                <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
-                                3- (Button Click) Get an Offer
-                                </div>-->
-                            </div>
-
-                            <div class="item">
-                                <img class="img-responsive" src="Content/Images/g4.jpg" alt="...">
-                                <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
-                                  4- (Form) Customer Information
-                                </div>-->
-                            </div>
-
-                            <div class="item">
-                                <img class="img-responsive" src="Content/Images/g5.jpg" alt="...">
-                                <!--<div class="carousel-caption" style="font-weight:bold; color:#000; font-size:24px">
-                                5- (Button Click) Customer Information (Save)
-                                </div>-->
-                            </div>
-
-                            
-                        </div>
-
-
-
-                        <!-- Controls -->
-                        <a class="left carousel-control" href="#carousel-2" role="button" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                        </a>
-                        <a class="right carousel-control" href="#carousel-2" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                        </a>
+                    <div class="col-lg-4 text-center">
+                        <ul style="display:block; list-style:none; ">
+                            <li style="display:inline"> <a href="https://www.facebook.com/junkcartrader" target="_blank"> <img src="Content/Images/facebook.png" /> </a> </li>
+                            <li style="display:inline"> <a href="https://twitter.com/junkcartrader" target="_blank"> <img src="Content/Images/twitter.png" /> </a> </li>
+                            <li style="display:inline"> <a href="https://www.linkedin.com/company/6386060" target="_blank"> <img src="Content/Images/linkedin.png" /> </a> </li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!--End Modal 5-->
+            </nav>
+        </div>-->
+        <!--End Sixth Row
 
-    </div><!-- /container -->
-    <!--Sixth Row-->
-    <div id="footer" class="row">
-        <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color:#000; height:30px">
-            <div class="navbar-inner navbar-content-center">
 
-                <div class="col-lg-4 text-center">
-                    <a href="Aboutus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">About Us</a>
-                    <a href="#" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">How it works</a>
-                    <a href="Contactus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">Contact Us</a>
-                </div>
-
-                <div class="col-lg-4 text-center">
-                    <span style="display:block; text-align:center; list-style:none; font-size:11px; color:#FFF; height:30px; padding-top:7px ">
-                        Copyright © 2015 junkcartrader.com. All Rights Reserved
-                    </span>
-                </div>
-
-                <div class="col-lg-4 text-center">
-                    <ul style="display:block; list-style:none; ">
-                        <li style="display:inline"> <a href="https://www.facebook.com/junkcartrader" target="_blank"> <img src="Content/Images/facebook.png" /> </a> </li>
-                        <li style="display:inline"> <a href="https://twitter.com/junkcartrader" target="_blank"> <img src="Content/Images/twitter.png" /> </a> </li>
-                        <li style="display:inline"> <a href="https://www.linkedin.com/company/6386060" target="_blank"> <img src="Content/Images/linkedin.png" /> </a> </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <!--<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>-->
+        <!--<script src="Scripts/jquery-2.1.3.min.js"></script>
+        <script src="Content/Assets/JS/bootstrap.min.js"></script>-->
     </div>
-    <!--End Sixth Row-->
-
-
-    <!--<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>-->
-    <script src="Scripts/jquery-2.1.3.min.js"></script>
-    <script src="Content/Assets/JS/bootstrap.min.js"></script>
-
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->
 
 
 
-<script>
+<!--<script>
   $('#myTab a[href="#home"]').tab('show') // Select tab by name
   $(".dropdown-menu li a").click(function(){
   var selText = $(this).text();
@@ -444,13 +413,13 @@ $("#btnSearch").click(function(){
 });
   
   
-  </script>
-  <script type="text/javascript">
+  </script>-->
+  <!--<script type="text/javascript">
   (function($) {
       //fakewaffle.responsiveTabs(['xs', 'sm']);
   })(jQuery);
-</script>
-<script>
+</script>-->
+<!--<script>
  $('.btnNext').click(function(){
   $('.nav-tabs > .active').next('li').find('a').trigger('click');
 });
@@ -458,9 +427,9 @@ $("#btnSearch").click(function(){
   $('.btnPrevious').click(function(){
   $('.nav-tabs > .active').prev('li').find('a').trigger('click');
 });
-</script>
+</script>-->
 
-<script>
+<!--<script>
 $(document).on('change', '.btn-file :file', function() {
   var input = $(this),
       numFiles = input.get(0).files ? input.get(0).files.length : 1,
@@ -482,4 +451,4 @@ $(document).ready( function() {
         
     });
 });
-</script>
+</script>-->

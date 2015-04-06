@@ -2,14 +2,14 @@
 <html lang="en" data-ng-app="app">
 <head>
     <script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date(); a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    ga('create', 'UA-59202259-1', 'auto');
-    ga('send', 'pageview');
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-59202259-1', 'auto');
+        ga('send', 'pageview');
     </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -49,37 +49,49 @@
     <script src="App/Config/App.js"></script>
     <script src="App/Controllers/HomeController.js"></script>
     <script src="App/Controllers/UtilityController.js"></script>
+    <script src="App/Controllers/AccountsController.js"></script>
     <script src="App/Services/HomeService.js"></script>
     <script src="App/Services/UtilityService.js"></script>
     <script src="App/Services/AccountsService.js"></script>
-    <script src="App/Controllers/AccountsController.js"></script>
+    
 
     <script src="App//Authentication.js"></script>
 
     <script type="text/javascript" src="http://fgnass.github.io/spin.js/spin.min.js"></script>
     <script src="App/Animation/angular-spinner.js"></script>
     <script type="text/javascript" src="Scripts/angular-animate.js"></script>
+    <link href="Content/animations.css" rel="stylesheet">
     <link href="Content/Assets/CSS/animations.css" rel="stylesheet">
     <script type="text/javascript" src="App/Animation/alerts-manager.js"></script>
 
     <script type="text/javascript" src="App/CustomDirectives/filters.js"></script>
+
     <link href="Content/Assets/CSS/angular.rangeSlider.css" rel="stylesheet">
     <script type="text/javascript" src="App/CustomDirectives/angular.rangeSlider.js"></script>
     <script type="text/javascript" src="App/CustomDirectives/rangeFilter.js"></script>
     <script type="text/javascript" src="App/CustomDirectives/timeRangeFilter.js"></script>
-        
+
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">-->    
+    <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">-->
     <!--<script type="text/javascript" src="Content/Assets/JS/jquery-1.3.2.min.js"></script>-->
 </head>
 
-<style>
+<script type="text/javascript">
 
-    .container{
- position: relative;
- text-align: center;
-}
+    $(document).ready(function () {
+
+        $('#page_effect').fadeIn(1000);
+
+    });
+
+</script>
+
+<style>
+    .container {
+        position: relative;
+        text-align: center;
+    }
 
     .navbar-brand {
         float: left;
@@ -141,7 +153,7 @@
         color: #FFFFFF;
         background-color: #31a507;
         background-image: linear-gradient(to bottom, #31a507, #63ce3c);
-        }
+    }
 
     ul {
         line-height: 28px;
@@ -173,18 +185,17 @@
         cursor: text !important;
     }
 </style>
-<body id="page" style="background-color:#39F;">
-
-    <ul class="cb-slideshow hidden-xs">
+<body >
+    <!--<ul class="cb-slideshow hidden-xs">
         <li><span>Image 01</span></li>
         <li><span>Image 02</span></li>
         <li><span>Image 03</span></li>
         <li><span>Image 04</span></li>
         <li><span>Image 05</span></li>
         <li><span>Image 06</span></li>
-    </ul>
+    </ul>-->
 
-    <div class="container">
+    <div class="container-fluid">
         <!--First Row-->
         <div class="row">
             <!-- Navigation -->
@@ -204,24 +215,24 @@
                         </a>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div data-ng-controller ="accountsController as accountsControllerVM" class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+                    <div data-ng-controller="accountsController as accountsControllerVM" class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="http://www.junkcartrader.com">Get an offer</a></li>
-                            <li><a href="Howitworks.html">How it works</a></li>
+                            <li><a href="#/get-an-offer">Get an offer</a></li>
+                            <li><a href="#/how-it-works">How it works</a></li>
                             <!--<li><a href="#">Testimonial</a></li>-->
-                            <li><a href="Aboutus.html">About us</a></li>
-                            <li><a href="Contactus.html">Contact us</a></li>
-                            <li><a href="Signup.html">Sign up</a></li>
-                            <li data-ng-hide="accountsControllerVM.isLoggedIn"><a href="Login.html">Login</a></li>
-                            <li style="color:#F00"><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
+                            <li><a href="#/about-us">About us</a></li>
+                            <li><a href="#/contact-us">Contact us</a></li>
+                            <li><a href="#/sign-up">Sign up</a></li>
+                            <li data-ng-hide="accountsControllerVM.isLoggedIn"><a href="#/login">Login</a></li>
+                            <li style="color:#F00"><a href="" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right" data-ng-init="accountsControllerVM.getUserName();" data-ng-show="accountsControllerVM.isLoggedIn">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Welcome, {{liun |limitTo:4 }} {{liun.length >= 4 ?'....' : ''}} <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="Settings.html"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                                    <li><a href="#/settings"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                                     <li class="divider"></li>
-                                    <li data-ng-click="accountsControllerVM.logout();"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                                    <li data-ng-click="accountsControllerVM.logout();"><a href=""><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                                 </ul>
                         </ul>
                     </div>
@@ -230,14 +241,18 @@
                 <!-- /.container -->
             </nav>
         </div>
+        <!--
         <!--End First Row-->
         <!-- Second Row -->
-
+        
         <div class="row">
+            <div>
+                <ng-view>
 
-            <span us-spinner="{radius:50, width:16, length: 32}" spinner-key="spinner-1"></span>
-
-            <div class="col-lg-8">
+                </ng-view>
+            </div>
+            <!--<!--<span us-spinner="{radius:50, width:16, length: 32}" spinner-key="spinner-1"></span>-->
+            <!--<div class="col-lg-8">
                 <div id="mo" style=" border-radius:20px; height:auto; padding:20px; background-image:url(Content/Images/bg1.png); margin-top:70px; margin-bottom:200px;">
                     <h1 style="margin-bottom:5px; margin-top:5px; font-weight:bold"> Sell your car online </h1>
                     <h3 style="text-align:center; color:#aa1a1f"> <b>in few steps instantly</b> </h3><br>
@@ -247,210 +262,207 @@
                             <li id="tabLocation"><a href="#tab2" role="tab"><b>Location</b></a></li>
                             <li id="tabQuestionnaire"><a href="#tab3" role="tab"><b>Questionnaire</b></a></li>
                             <li id="tabPhoto"><a href="#tab4" role="tab"><b>Photo</b></a></li>
-                            <li id="tabOffer"><a href="#tab5" role="tab"><b>Offer</b></a></li>
-                            <!--<li><a href="#tab6 " role="tab" data-toggle="tab"><b>Personal Information</b></a></li>-->
-                            <!--<li><a href="#tab5" role="tab" data-toggle="tab">Step 5</a></li>
-                <li><a href="#tab6" role="tab" data-toggle="tab">Step 6</a></li>-->
-                        </ul>
+                            <li id="tabOffer"><a href="#tab5" role="tab"><b>Offer</b></a></li>-->
+            <!--<li><a href="#tab6 " role="tab" data-toggle="tab"><b>Personal Information</b></a></li>-->
+            <!--<li><a href="#tab5" role="tab" data-toggle="tab">Step 5</a></li>
+            <li><a href="#tab6" role="tab" data-toggle="tab">Step 6</a></li>-->
+            <!--</ul>
 
-                        <div class="tab-content" style="margin-bottom:20px" data-ng-controller="homeController as homeControllerVM">
-                            <div class="tab-pane active" id="tab1" data-ng-init="homeControllerVM.getRegistrationYears(); homeControllerVM.getCylinders();">
-                                <form class="form" role="form">
-                                    <div class="form-group">
-                                        <input min="1900" id="carMakeModelYear" class="form-control" data-ng-model="homeControllerVM.homeSelectedRegistrationYear" data-ng-change="homeControllerVM.saveYearData();homeControllerVM.getMakesByYear();" list="homeRegistrationYearsDatalist" placeholder="Year">
-                                        <datalist id="homeRegistrationYearsDatalist" spellcheck="true">
-                                            <option data-ng-repeat="year in registrationYearsList.$values" value="{{year}}">
-                                        </datalist>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" id="carMakeModelMake" class="form-control" data-ng-model="homeControllerVM.homeSelectedMake" data-ng-change="homeControllerVM.saveMakeData();homeControllerVM.getModelsByYearMake();" list="homeMakesDatalist" placeholder="Make">
-                                        <datalist id="homeMakesDatalist" spellcheck="true">
-                                            <option data-ng-repeat="make in makesList.$values" value="{{make.Make_Name}}">
-                                        </datalist>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" id="carMakeModelModel" class="form-control" data-ng-model="homeControllerVM.homeSelectedModel" data-ng-change="homeControllerVM.saveModelData();" list="homeModelsDatalist" placeholder="Model">
-                                        <datalist id="homeModelsDatalist" spellcheck="true">
-                                            <option data-ng-repeat="model in modelsList.$values" value="{{model.Model_Name}}">
-                                        </datalist>
-                                    </div>
-                                    <div class="form-group">
-                                        <input  min="2" max="8" step="2" id="carMakeModelCylinder" class="form-control" data-ng-model="homeControllerVM.homeSelectedCylinders" data-ng-change="homeControllerVM.saveCylinderData();" list="homeCylindersDatalist" placeholder="Cylinders">
-                                        <datalist id="homeCylindersDatalist" spellcheck="true">
-                                            <option data-ng-repeat="cylinder in cylindersList.$values" value="{{cylinder}}">
-                                        </datalist>
-                                    </div>
-                                </form>
+                <div class="tab-content" style="margin-bottom:20px" data-ng-controller="homeController as homeControllerVM">
+                    <div class="tab-pane active" id="tab1" data-ng-init="homeControllerVM.getRegistrationYears(); homeControllerVM.getCylinders();">
+                        <form class="form" role="form">
+                            <div class="form-group">
+                                <input min="1900" id="carMakeModelYear" class="form-control" data-ng-model="homeControllerVM.homeSelectedRegistrationYear" data-ng-change="homeControllerVM.saveYearData();homeControllerVM.getMakesByYear();" list="homeRegistrationYearsDatalist" placeholder="Year">
+                                <datalist id="homeRegistrationYearsDatalist" spellcheck="true">
+                                    <option data-ng-repeat="year in registrationYearsList.$values" value="{{year}}">
+                                </datalist>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="carMakeModelMake" class="form-control" data-ng-model="homeControllerVM.homeSelectedMake" data-ng-change="homeControllerVM.saveMakeData();homeControllerVM.getModelsByYearMake();" list="homeMakesDatalist" placeholder="Make">
+                                <datalist id="homeMakesDatalist" spellcheck="true">
+                                    <option data-ng-repeat="make in makesList.$values" value="{{make.Make_Name}}">
+                                </datalist>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="carMakeModelModel" class="form-control" data-ng-model="homeControllerVM.homeSelectedModel" data-ng-change="homeControllerVM.saveModelData();" list="homeModelsDatalist" placeholder="Model">
+                                <datalist id="homeModelsDatalist" spellcheck="true">
+                                    <option data-ng-repeat="model in modelsList.$values" value="{{model.Model_Name}}">
+                                </datalist>
+                            </div>
+                            <div class="form-group">
+                                <input min="2" max="8" step="2" id="carMakeModelCylinder" class="form-control" data-ng-model="homeControllerVM.homeSelectedCylinders" data-ng-change="homeControllerVM.saveCylinderData();" list="homeCylindersDatalist" placeholder="Cylinders">
+                                <datalist id="homeCylindersDatalist" spellcheck="true">
+                                    <option data-ng-repeat="cylinder in cylindersList.$values" value="{{cylinder}}">
+                                </datalist>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane" id="tab2">
+                        <h3 style="text-align:center; color:#aa1a1f; margin-top:10px; margin-bottom:10px;"><b>Where is the car located? </b></h3>
+
+                        <form class="form" role="form">
+
+                            <div class="form-group">
+                                <input type="number" data-ng-model="homeControllerVM.homeZipCode" class="form-control" id="locationTabZipCode" placeholder="Zip">
                             </div>
 
-                            <div class="tab-pane" id="tab2">
-                                <h3 style="text-align:center; color:#aa1a1f; margin-top:10px; margin-bottom:10px;"><b>Where is the car located? </b></h3>
-
-                                <form class="form" role="form">
-
-                                    <div class="form-group">
-                                        <input type="number" data-ng-model="homeControllerVM.homeZipCode" class="form-control" id="locationTabZipCode" placeholder="Zip">
+                            <div class="form-group">
+                                <div class="row" style="margin-top:10px; margin-bottom:10px">
+                                    <div class="col-sm-6" style="padding:5px;">
+                                        <button type="button" id="btnGetAnOffer" data-ng-disabled="{{isDisableGetAnOfferButton}}" data-ng-click="homeControllerVM.checkForCustomerInfoPopupOnGetAnOffer(homeControllerVM.homeZipCode);" class="btn gt btn-lg">
+                                            <b>Get an offer</b>
+                                        </button>
                                     </div>
 
-                                    <div class="form-group">
-                                        <div class="row" style="margin-top:10px; margin-bottom:10px">
-                                            <div class="col-sm-6" style="padding:5px;">
-                                                <button type="button" id="btnGetAnOffer" data-ng-disabled="{{isDisableGetAnOfferButton}}" data-ng-click="homeControllerVM.checkForCustomerInfoPopupOnGetAnOffer(homeControllerVM.homeZipCode);" class="btn gt btn-lg">
-                                                    <b>Get an offer</b>
-                                                </button>
-                                            </div>
-
-                                            <div class="col-sm-6" style="padding:5px;">
-                                                <button type="button" class="btn bt btn-lg" data-ng-disabled="{{isDisableGetABetterOfferButton}}" data-ng-click="homeControllerVM.checkZipCodeBeforeQuestionnaireOnGetABetterOffer(homeControllerVM.homeZipCode);">
-                                                    <b>Get a better offer</b>
-                                                </button>
-                                            </div>
-
-                                        </div>
+                                    <div class="col-sm-6" style="padding:5px;">
+                                        <button type="button" class="btn bt btn-lg" data-ng-disabled="{{isDisableGetABetterOfferButton}}" data-ng-click="homeControllerVM.checkZipCodeBeforeQuestionnaireOnGetABetterOffer(homeControllerVM.homeZipCode);">
+                                            <b>Get a better offer</b>
+                                        </button>
                                     </div>
 
-                                </form>
-                            </div>
-
-
-                            <div class="tab-pane" id="tab3">
-                                <div class="row" style="padding-top:10px; padding-bottom:10px; margin-top:20px; ">
-                                    <div class="col-sm-9" style="padding-left:25px;text-align:left">
-                                        <h4 id="dataH4" style="padding-top:10px; color:#000"><span id="selectedYearData"></span> <span id="selectedMakeData"></span> <span id="selectedModelData"></span> <span id="selectedCylindersData"></span></h4>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <button type="button" data-toggle="modal" data-target=".bs-example-modal-sm" data-ng-click="homeControllerVM.setSaveEditData();" data-ng-init="homeControllerVM.getQuestionnaire();" class="btn bt btn-md" style="width:auto">Edit</button>
-                                    </div>
-                                </div>
-                                <h3 style="text-align:left; color:#000; margin-top:10px; margin-bottom:10px; padding-left:10px"><b>Condition</b></h3>
-                                <h5 style="text-align:left; margin-top:-10px;padding-left:10px">Answer the following questions: </h5><br>
-                                <h3 style="text-align:left; color:#aa1a1f; margin-top:10px; margin-bottom:10px;padding-left:10px"><b>Drivetrain </b></h3><hr>
-                                <div class="row" style="padding-top:10px;" data-ng-repeat="drivetrainQuestion in homeControllerVM.drivetrainQuestionnaireList">
-                                    <div class="col-sm-9" style="padding-left:25px;text-align:left" id="Q{{drivetrainQuestion.Question_Id}}">
-                                        <b>{{ drivetrainQuestion.Question.Question }}</b>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <select class="form-control" id="ddQ{{drivetrainQuestion.Question_Id}}">
-                                                <option value="" selected disabled>None</option>
-                                                <option data-ng-repeat="answer in drivetrainQuestion.Answers.$values" value="{{answer.Answer_Id}}">{{answer.Answer}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <br>
-                                <h3 style="text-align:left; color:#aa1a1f; margin-top:10px; margin-bottom:10px;padding-left:10px"><b>Exterior/Interior</b></h3><hr>
-                                <div class="row" style="padding-top:10px;" data-ng-repeat="interiorExteriorQuestion in homeControllerVM.interiorExteriorQuestionnaireList">
-                                    <div class="col-sm-9" style="padding-left:25px;text-align:left" id="Q{{interiorExteriorQuestion.Question_Id}}">
-                                        <b>{{ interiorExteriorQuestion.Question.Question }}</b>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <select class="form-control" id="ddQ{{interiorExteriorQuestion.Question_Id}}">
-                                                <option value="" selected disabled>None</option>
-                                                <option data-ng-repeat="answer in interiorExteriorQuestion.Answers.$values" value="{{answer.Answer_Id}}">{{answer.Answer}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 
-                            <div class="tab-pane" id="tab4">
+                        </form>
+                    </div>
 
-                                <button type="button" class="btn gt btn-lg" data-toggle="modal"
-                                        data-target="#Modal3" data-ng-click="homeControllerVM.getCustomerId();">
-                                    <b>Upload Up to 5 Images</b>
-                                </button>
 
+                    <div class="tab-pane" id="tab3">
+                        <div class="row" style="padding-top:10px; padding-bottom:10px; margin-top:20px; ">
+                            <div class="col-sm-9" style="padding-left:25px;text-align:left">
+                                <h4 id="dataH4" style="padding-top:10px; color:#000"><span id="selectedYearData"></span> <span id="selectedMakeData"></span> <span id="selectedModelData"></span> <span id="selectedCylindersData"></span></h4>
                             </div>
 
-                            <div class="tab-pane" id="tab5">
+                            <div class="col-sm-3">
+                                <button type="button" data-toggle="modal" data-target=".bs-example-modal-sm" data-ng-click="homeControllerVM.setSaveEditData();" data-ng-init="homeControllerVM.getQuestionnaire();" class="btn bt btn-md" style="width:auto">Edit</button>
+                            </div>
+                        </div>
+                        <h3 style="text-align:left; color:#000; margin-top:10px; margin-bottom:10px; padding-left:10px"><b>Condition</b></h3>
+                        <h5 style="text-align:left; margin-top:-10px;padding-left:10px">Answer the following questions: </h5><br>
+                        <h3 style="text-align:left; color:#aa1a1f; margin-top:10px; margin-bottom:10px;padding-left:10px"><b>Drivetrain </b></h3><hr>
+                        <div class="row" style="padding-top:10px;" data-ng-repeat="drivetrainQuestion in homeControllerVM.drivetrainQuestionnaireList">
+                            <div class="col-sm-9" style="padding-left:25px;text-align:left" id="Q{{drivetrainQuestion.Question_Id}}">
+                                <b>{{ drivetrainQuestion.Question.Question }}</b>
+                            </div>
+                            <div class="col-sm-3">
                                 <div class="form-group">
-                                    <span style="font-family:'Century Gothic'; color:darkgreen; font-size:100px;" data-ng-bind-template="{{offerPrice}}"><b></b></span>
-                                    <h3 style="text-align:center; color:#aa1a1f; margin-top:10px; margin-bottom:10px;"><b>{{homeControllerVM.offerTabNegotiationMessage}}</b></h3>
-                                    <div class="row" style="margin-top:10px; margin-bottom:10px">
-                                        <div class="col-sm-12" style=" margin-bottom:10px"><h2><span class="label label-default">{{contactNo}}</span></h2> </div>
-                                        <div class="col-sm-12" data-ng-click="homeControllerVM.confirmOffer();" style="padding:5px;" align="center"><button type="button" class="btn gt btn-lg"><b>Confirm</b></button></div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div style="margin-top:10px;">
-                                <a id="navPrevious" data-ng-click="homeControllerVM.navigatePrevious();" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"> </span> </a>
-                                <a id="navNext" data-ng-click="homeControllerVM.navigateNext();" class="btn btn-default"> <span class="glyphicon glyphicon-chevron-right">  </span> </a>
-                            </div>
-                        </div>
-                    </div><!--End First col-->
-
-                    <div class="col-lg-4 ">
-                    </div>
-                </div>
-                <!-- End Second Row -->
-                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content" style="background-color:#27bbed;">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                                <!-- <h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
-                            </div>
-                            <div class="modal-body" id="myModalForPopup.html">
-                                <div style="padding:20px">
-                                    <form role="form" data-ng-controller="homeController as homeControllerVM">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="editYear" data-ng-model="homeControllerVM.homeSelectedRegistrationYear" data-ng-change="homeControllerVM.getMakesByYear();" list="homeRegistrationYearsDatalist" placeholder="Year">
-                                            <datalist id="homeRegistrationYearsDatalist" spellcheck="true">
-                                                <option data-ng-repeat="year in registrationYearsList" value="{{year}}">
-                                            </datalist>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="editMake" data-ng-model="homeControllerVM.homeSelectedMake" data-ng-change="homeControllerVM.getModelsByYearMake();" list="homeMakesDatalist" placeholder="Make">
-                                            <datalist id="homeMakesDatalist" spellcheck="true">
-                                                <option data-ng-repeat="make in makesList" value="{{make.Make_Name}}">
-                                            </datalist>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="editModel" data-ng-model="homeControllerVM.homeSelectedModel" data-ng-change="homeControllerVM.updateModel(homeControllerVM.homeSelectedModel);" list="homeModelsDatalist" placeholder="Model">
-                                            <datalist id="homeModelsDatalist" spellcheck="true">
-                                                <option data-ng-repeat="model in modelsList" value="{{model.Model_Name}}">
-                                            </datalist>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="number" id="editCylinder" class="form-control" data-ng-model="homeControllerVM.homeSelectedCylinders" data-ng-change="homeControllerVM.saveCylinderData();" list="homeCylindersDatalist" placeholder="Cylinders">
-                                            <datalist id="homeCylindersDatalist" spellcheck="true">
-                                                <option data-ng-repeat="cylinder in cylindersList" value="{{cylinder}}">
-                                            </datalist>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="number" data-ng-model="homeControllerVM.homeZipCode" class="form-control" id="editZipCode" placeholder="Zip">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <button type="button" class="btn bt btn-lg" data-ng-click="homeControllerVM.checkZipCodeOnSaveEdit(homeControllerVM.homeZipCode);homeControllerVM.setSelected();" data-dismiss="modal"><b>Save</b></button>
-                                        </div>
-                                    </form>
+                                    <select class="form-control" id="ddQ{{drivetrainQuestion.Question_Id}}">
+                                        <option value="" selected disabled>None</option>
+                                        <option data-ng-repeat="answer in drivetrainQuestion.Answers.$values" value="{{answer.Answer_Id}}">{{answer.Answer}}</option>
+                                    </select>
                                 </div>
                             </div>
+                        </div>
 
+                        <br>
+                        <h3 style="text-align:left; color:#aa1a1f; margin-top:10px; margin-bottom:10px;padding-left:10px"><b>Exterior/Interior</b></h3><hr>
+                        <div class="row" style="padding-top:10px;" data-ng-repeat="interiorExteriorQuestion in homeControllerVM.interiorExteriorQuestionnaireList">
+                            <div class="col-sm-9" style="padding-left:25px;text-align:left" id="Q{{interiorExteriorQuestion.Question_Id}}">
+                                <b>{{ interiorExteriorQuestion.Question.Question }}</b>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <select class="form-control" id="ddQ{{interiorExteriorQuestion.Question_Id}}">
+                                        <option value="" selected disabled>None</option>
+                                        <option data-ng-repeat="answer in interiorExteriorQuestion.Answers.$values" value="{{answer.Answer_Id}}">{{answer.Answer}}</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="tab-pane" id="tab4">
+
+                        <button type="button" class="btn gt btn-lg" data-toggle="modal"
+                                data-target="#Modal3" data-ng-click="homeControllerVM.getCustomerId();">
+                            <b>Upload Up to 5 Images</b>
+                        </button>
+
+                    </div>
+
+                    <div class="tab-pane" id="tab5">
+                        <div class="form-group">
+                            <span style="font-family:'Century Gothic'; color:darkgreen; font-size:100px;" data-ng-bind-template="{{offerPrice}}"><b></b></span>
+                            <h3 style="text-align:center; color:#aa1a1f; margin-top:10px; margin-bottom:10px;"><b>{{homeControllerVM.offerTabNegotiationMessage}}</b></h3>
+                            <div class="row" style="margin-top:10px; margin-bottom:10px">
+                                <div class="col-sm-12" style=" margin-bottom:10px"><h2><span class="label label-default">{{contactNo}}</span></h2> </div>
+                                <div class="col-sm-12" data-ng-click="homeControllerVM.confirmOffer();" style="padding:5px;" align="center"><button type="button" class="btn gt btn-lg"><b>Confirm</b></button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:10px;">
+                        <a id="navPrevious" data-ng-click="homeControllerVM.navigatePrevious();" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"> </span> </a>
+                        <a id="navNext" data-ng-click="homeControllerVM.navigateNext();" class="btn btn-default"> <span class="glyphicon glyphicon-chevron-right">  </span> </a>
+                    </div>
                 </div>
+            </div>-->
+            <!--End First col-->
+            <!--<!--<div class="col-lg-4 ">
+            </div>-->
+            <!--</div>-->
+            <!-- End Second Row -->
 
-            </div>
+            <!--<!--<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content" style="background-color:#27bbed;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>-->
+            
+            <!-- <h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
+            <!--</div>-->
+            <!--<div class="modal-body" id="myModalForPopup.html">
+                <div style="padding:20px">
+                    <form role="form" data-ng-controller="homeController as homeControllerVM">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="editYear" data-ng-model="homeControllerVM.homeSelectedRegistrationYear" data-ng-change="homeControllerVM.getMakesByYear();" list="homeRegistrationYearsDatalist" placeholder="Year">
+                            <datalist id="homeRegistrationYearsDatalist" spellcheck="true">
+                                <option data-ng-repeat="year in registrationYearsList" value="{{year}}">
+                            </datalist>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="editMake" data-ng-model="homeControllerVM.homeSelectedMake" data-ng-change="homeControllerVM.getModelsByYearMake();" list="homeMakesDatalist" placeholder="Make">
+                            <datalist id="homeMakesDatalist" spellcheck="true">
+                                <option data-ng-repeat="make in makesList" value="{{make.Make_Name}}">
+                            </datalist>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="editModel" data-ng-model="homeControllerVM.homeSelectedModel" data-ng-change="homeControllerVM.updateModel(homeControllerVM.homeSelectedModel);" list="homeModelsDatalist" placeholder="Model">
+                            <datalist id="homeModelsDatalist" spellcheck="true">
+                                <option data-ng-repeat="model in modelsList" value="{{model.Model_Name}}">
+                            </datalist>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="editCylinder" class="form-control" data-ng-model="homeControllerVM.homeSelectedCylinders" data-ng-change="homeControllerVM.saveCylinderData();" list="homeCylindersDatalist" placeholder="Cylinders">
+                            <datalist id="homeCylindersDatalist" spellcheck="true">
+                                <option data-ng-repeat="cylinder in cylindersList" value="{{cylinder}}">
+                            </datalist>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" data-ng-model="homeControllerVM.homeZipCode" class="form-control" id="editZipCode" placeholder="Zip">
+                        </div>
 
+                        <div class="form-group">
+                            <button type="button" class="btn bt btn-lg" data-ng-click="homeControllerVM.checkZipCodeOnSaveEdit(homeControllerVM.homeZipCode);homeControllerVM.setSelected();" data-dismiss="modal"><b>Save</b></button>
+                        </div>
+                    </form>
+                </div>
+            </div>-->
+            <!--</div>
+                </div>
+            </div>-->
+            
 
+            <!--</div>-->
             <!--Modal 2-->
-            <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+            <!--<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content" style="background-color:#27bbed;">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                            <!-- <h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
-                        </div>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>-->
+            <!-- <h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
+            <!--</div>
                         <div class="modal-body">
                             <div style="padding:20px">
                                 <form role="form" name="basicInfoForm" data-ng-controller="homeController as homeControllerVM" data-ng-init="homeControllerVM.getStates();">
@@ -492,10 +504,9 @@
                                         <span style="color:red" ng-show="basicInfoForm.basicModalEmail.$dirty && basicInfoForm.basicModalEmail.$invalid">
                                             <span ng-show="basicInfoForm.basicModalEmail.$error.required">email address is required.</span>
                                             <span class="error" data-ng-show="basicInfoForm.basicModalEmail.$error.email">Invalid email address.</span>
-                                        </span>                                      
-                                        
-                                    </div>
+                                        </span>
 
+                                    </div>
                                     <div class="form-group">
                                         <button type="button" class="btn bt btn-lg" data-ng-click="homeControllerVM.checkOfferType();" data-ng-disabled="(basicInfoForm.basicModalName.$dirty && basicInfoForm.basicModalName.$invalid)
                                                 || (basicInfoForm.basicModalZipCode.$dirty && basicInfoForm.basicModalZipCode.$invalid) || (basicInfoForm.basicModalPhone.$dirty && basicInfoForm.basicModalPhone.$invalid) || (basicInfoForm.basicModalEmail.$dirty && basicInfoForm.basicModalEmail.$invalid)">
@@ -505,12 +516,10 @@
 
                                 </form>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-            </div>
+            </div>-->
             <!--End Modal 2-->
             <!--Modal 3-->
             <div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -525,7 +534,7 @@
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="callUsZipCode" data-ng-model="homeControllerVM.homeZipCode" data-ng-keypress="onKeyPress($event,homeControllerVM.homeZipCode);" placeholder="Enter Zipcode">
                                     </div>
-                                    <h3><span class="label label-default" style="background-color:#ee2c3d">{{contactNo}}</span></h3>
+                                    <h3 style="text-align:center;"><span class="label label-default" style="background-color:#ee2c3d">{{contactNo}}</span></h3>
                                 </form>
                             </div>
                         </div>
@@ -533,8 +542,11 @@
                 </div>
             </div>
             <!--End Modal 3-->
+            
+
+
             <!--Modal 4-->
-            <div class="modal fade" id="Modal3" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+            <!--<div class="modal fade" id="Modal3" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content" style="height:auto; background-color:#27bbed">
                         <div class="modal-header">
@@ -623,17 +635,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <!--End Modal 4-->
 
             <div id="footer" class="row">
                 <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color:#000; height:30px">
                     <div class="navbar-inner navbar-content-center">
-
                         <div class="col-lg-4 text-center">
-                            <a href="Aboutus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">About Us</a>
-                            <a href="Howitworks.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">How it works</a>                            
-                            <a href="Contactus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">Contact Us</a>
+                            <a href="#/about-us" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">About Us</a>
+                            <a href="#/how-it-works" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">How it works</a>
+                            <a href="#/contact-us" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">Contact Us</a>
                         </div>
 
                         <div class="col-lg-4 text-center">
@@ -645,13 +656,15 @@
                         <div class="col-lg-4 text-center">
                             <ul style="display:block; list-style:none; ">
                                 <li style="display:inline"> <a href="https://www.facebook.com/junkcartrader" target="_blank"> <img src="Content/Images/facebook.png" /> </a> </li>
-                        		<li style="display:inline"> <a href="https://twitter.com/junkcartrader" target="_blank"> <img src="Content/Images/twitter.png" /> </a> </li>
-                        		<li style="display:inline"> <a href="https://www.linkedin.com/company/6386060" target="_blank"> <img src="Content/Images/linkedin.png" /> </a> </li>
+                                <li style="display:inline"> <a href="https://twitter.com/junkcartrader" target="_blank"> <img src="Content/Images/twitter.png" /> </a> </li>
+                                <li style="display:inline"> <a href="https://www.linkedin.com/company/6386060" target="_blank"> <img src="Content/Images/linkedin.png" /> </a> </li>
                             </ul>
                         </div>
                     </div>
                 </nav>
             </div>
+
+        <!--here-->
         </div><!-- /container -->
     </div>
     <!--<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>-->
@@ -661,7 +674,7 @@
 </body>
 </html>
 
-<!--<script>
+<script>
     $('#myTab a[href="#home"]').tab('show') // Select tab by name
     $(".dropdown-menu li a").click(function () {
         var selText = $(this).text();
@@ -673,12 +686,23 @@
     });
 
 
-</script>-->
+</script>
 <script type="text/javascript">
     (function ($) {
         //fakewaffle.responsiveTabs(['xs', 'sm']);
     })(jQuery);
 </script>
+
+<script>
+ $('.btnNext').click(function(){
+  $('.nav-tabs > .active').next('li').find('a').trigger('click');
+});
+
+  $('.btnPrevious').click(function(){
+  $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+});
+</script>
+
 <script>
     $(document).on('change', '.btn-file :file', function () {
         var input = $(this),

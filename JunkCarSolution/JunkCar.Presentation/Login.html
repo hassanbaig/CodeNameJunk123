@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿<!--<!DOCTYPE html>
 <html lang="en" data-ng-app="app">
 <head>
     <script>
@@ -19,26 +19,26 @@
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="Content/Images/favicon.png">
 
-    <title>Sell your junk car, lightning fast!</title>
+    <title>Sell your junk car, lightning fast!</title>-->
 
     <!-- Bootstrap core CSS -->
-    <link href="Content/Assets/CSS/bootstrap.css" rel="stylesheet">
+    <!--<link href="Content/Assets/CSS/bootstrap.css" rel="stylesheet">-->
 
     <!-- Custom styles for this template -->
-    <link href="Content/Assets/CSS/main.css" rel="stylesheet">
-    <link href="Content/Assets/CSS/custom.css" rel="stylesheet">
+    <!--<link href="Content/Assets/CSS/main.css" rel="stylesheet">
+    <link href="Content/Assets/CSS/custom.css" rel="stylesheet">-->
 
 
     <!-- Fonts from Google Fonts -->
     <!--<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Helvetica" />-->
-    <link href="Content/Assets/CSS/demo.css" rel="stylesheet">
-    <link href="Content/Assets/CSS/style1.css" rel="stylesheet">
+    <!--<link href="Content/Assets/CSS/demo.css" rel="stylesheet">
+    <link href="Content/Assets/CSS/style1.css" rel="stylesheet">-->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-    <script src="Scripts/angular.min.js"></script>
+    <!--<script src="Scripts/angular.min.js"></script>
     <script src="Scripts/angular-route.js"></script>
     <script src="Scripts/angular-file-upload-shim.min.js"></script>
     <script src="Scripts/angular-file-upload.min.js"></script>
@@ -64,11 +64,11 @@
     <script type="text/javascript" src="App/CustomDirectives/timeRangeFilter.js"></script>
 
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>-->
     <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">-->
     <!--<script type="text/javascript" src="Content/Assets/JS/jquery-1.3.2.min.js"></script>-->
-</head>
-<script type="text/javascript">
+<!--</head>-->
+<!--<script type="text/javascript">
 
     $(document).ready(function () {
 
@@ -76,9 +76,9 @@
 
     });
 
-</script>
+</script>-->
 
-<style>
+<!--<style>
     .bt {
         width: 230px;
         -webkit-border-radius: 3px;
@@ -144,208 +144,202 @@
         line-height: 28px;
         font-size: 18px;
     }
-</style>
-<body style="overflow-x: hidden; ">
-    <div class="container">
-        <!--First Row-->
-        <div class="row">
-            <!-- Navigation -->
-            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                <div class="container">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a data-ng-controller="utilityController as utilityControllerVM" data-ng-click="utilityControllerVM.redirectIndex();" class="navbar-brand" href="http://www.junkcartrader.com">
-                            <!-- <img src="http://placehold.it/150x50&text=Logo" alt="">-->
-                            <img src="Content/Images/logo.png" />
-                        </a>
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div data-ng-controller="accountsController as accountsControllerVM" class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li><a href="http://www.junkcartrader.com">Get an offer</a></li>
-                            <li><a href="Howitworks.html">How it works</a></li>
-                            <!--<li><a href="#">Testimonial</a></li>-->
-                            <li><a href="Aboutus.html">About us</a></li>
-                            <li><a href="Contactus.html">Contact us</a></li>
-                            <li><a href="Signup.html">Sign up</a></li>
-                            <li class="active" data-ng-hide="accountsControllerVM.isLoggedIn"><a href="#">Login</a></li>
-                            <li style="color:#F00"><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right" data-ng-init="accountsControllerVM.getUserName();" data-ng-show="accountsControllerVM.isLoggedIn">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Welcome, {{liun |limitTo:4 }} {{liun.length >= 4 ?'....' : ''}} <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="Settings.html"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
-                                    <li class="divider"></li>
-                                    <li data-ng-click="accountsControllerVM.logout();"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-                                </ul>
-                        </ul>
-                    </div>
-                    <!-- /.navbar-collapse -->
-                </div>
-                <!-- /.container -->
-            </nav>
-        </div>
-        <!--End First Row-->
-        <!-- Second Row -->
-
-        <div class="row" data-ng-controller="accountsController as accountsControllerVM">
-
-            <span us-spinner="{radius:50, width:16, length: 32}" spinner-key="spinner-1"></span>
-
-            <div id="page_effect" style="display:none;">
-                <div class="row">
-                    <div class="col-lg-6 col-lg-offset-3" style="background-color:#fff; border-radius:20px; border:1px solid #FFF;margin-top:90px; padding:20px; margin-bottom:360px">
-                        <div class="col-lg-6 col-lg-offset-3">
-                            <h2 style="color:#000;">{{accountsControllerVM.pageTitle}}</h2>
-                            <hr />
-                            <div class="form-group" data-ng-show="accountsControllerVM.isVisibleLoginTextBoxes">
-                                <input id="textinput" name="email" placeholder="Email" class="form-control input-md" type="text" data-ng-model="accountsControllerVM.loginEmail">
-                            </div>
-                            <div class="form-group" data-ng-show="accountsControllerVM.isVisibleLoginTextBoxes">
-                                <input id="textinput" name="password" placeholder="Password" class="form-control input-md" type="password" data-ng-model="accountsControllerVM.loginPassword">
-                            </div>                            
-                            <div class="form-group" style="margin:10px;" data-ng-show="accountsControllerVM.isVisibleLoginTextBoxes">
-                                <a href="#" data-ng-click="accountsControllerVM.authenticateUser();" class="btn gt btn-lg" role="button">Login</a>
-                            </div>
-                            <div class="form-group" style="margin-left:66px;" data-ng-show="accountsControllerVM.isVisibleLoginTextBoxes">
-                                <a href="#" data-ng-click="accountsControllerVM.checkUserId(); " role="link">Forgot Password</a>
-                            </div>
-                            <div data-ng-show="accountsControllerVM.isVisibleSecurityQuestion">
-                                {{accountsControllerVM.forgotPasswordSecurityQuestion}}
-                            </div>
-                            <div class="form-group" data-ng-show="accountsControllerVM.isVisibleSecurityQuestion">
-                                <input id="textinput" name="securityAnswer" placeholder="Security Answer" class="form-control input-md" type="text" data-ng-model="accountsControllerVM.forgotPasswordSecurityQuestionAnswer">
-                            </div>
-                            <div class="form-group" style="margin:10px;" data-ng-show="accountsControllerVM.isVisibleSecurityQuestion">
-                                <a href="#" data-ng-click="accountsControllerVM.checkSecurityQuestionAnswer();" class="btn gt btn-lg" role="button">Check Answer</a>
-                            </div>
-
-                            <div class="form-group" data-ng-show="accountsControllerVM.isVisibleVerificationCode">
-                                <input id="textinput" name="verificationCode" placeholder="Verification Code" class="form-control input-md" type="text" data-ng-model="accountsControllerVM.forgotPasswordVerificationCode">
-                            </div>
-
-                            <div class="form-group" style="margin:10px;" data-ng-show="accountsControllerVM.isVisibleVerificationCode">
-                                <a href="#" data-ng-click="accountsControllerVM.checkVerificationCode();" class="btn gt btn-lg" role="button">Check Code</a>
-                            </div>
-
-                            <div class="form-group" data-ng-show="accountsControllerVM.isVisibleResetPasswordTextBoxes">
-                                <input id="textinput" name="newPassword" placeholder="New Password" class="form-control input-md" type="password" data-ng-model="accountsControllerVM.forgotPasswordNewPassword">
-                            </div>      
-                            <div class="form-group" data-ng-show="accountsControllerVM.isVisibleResetPasswordTextBoxes">
-                                <input id="textinput" name="confirmPassword" placeholder="Confirm Password" class="form-control input-md" type="password" data-ng-model="accountsControllerVM.forgotPasswordConfirmPassword">
-                            </div> 
-                            <div class="form-group" style="margin:10px;" data-ng-show="accountsControllerVM.isVisibleResetPasswordTextBoxes">
-                                <a href="#" data-ng-click="accountsControllerVM.resetPassword();" class="btn gt btn-lg" role="button">Reset</a>
-                            </div>
-     
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="footer" class="row">
-                <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color:#000; height:30px">
-                    <div class="navbar-inner navbar-content-center">
-
-                        <div class="col-lg-4 text-center">
-                            <a href="Aboutus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">About Us</a>
-                            <a href="Howitworks.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">How it works</a>
-                            <a href="Contactus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">Contact Us</a>
-                        </div>
-
-                        <div class="col-lg-4 text-center">
-                            <span style="display:block; text-align:center; list-style:none; font-size:11px; color:#FFF; height:30px; padding-top:7px ">
-                                Copyright © 2015 junkcartrader.com. All Rights Reserved
-                            </span>
-                        </div>
-
-                        <div class="col-lg-4 text-center">
-                            <ul style="display:block; list-style:none; ">
-                                <li style="display:inline"> <a href="https://www.facebook.com/junkcartrader" target="_blank"> <img src="Content/Images/facebook.png" /> </a> </li>
-                        		<li style="display:inline"> <a href="https://twitter.com/junkcartrader" target="_blank"> <img src="Content/Images/twitter.png" /> </a> </li>
-                        		<li style="display:inline"> <a href="https://www.linkedin.com/company/6386060" target="_blank"> <img src="Content/Images/linkedin.png" /> </a> </li>
+</style>-->
+<!--<body >-->
+    <div style="overflow-x: hidden; ">
+        <div class="container">
+            <!--First Row-->
+            <!--<div class="row">-->
+                <!-- Navigation -->
+                <!--<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                    <div class="container">-->
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <!--<!--<div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a data-ng-controller="utilityController as utilityControllerVM" data-ng-click="utilityControllerVM.redirectIndex();" class="navbar-brand" href="http://www.junkcartrader.com">-->
+                                <!-- <img src="http://placehold.it/150x50&text=Logo" alt="">-->
+                                <!--<img src="Content/Images/logo.png" />
+                            </a>
+                        </div>-->
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <!--<div data-ng-controller="accountsController as accountsControllerVM" class="collapse navbar-collapse bs-navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li><a href="http://www.junkcartrader.com">Get an offer</a></li>
+                                <li><a href="Howitworks.html">How it works</a></li>-->
+                                <!--<li><a href="#">Testimonial</a></li>-->
+                                <!--<li><a href="Aboutus.html">About us</a></li>
+                                <li><a href="Contactus.html">Contact us</a></li>
+                                <li><a href="Signup.html">Sign up</a></li>
+                                <li class="active" data-ng-hide="accountsControllerVM.isLoggedIn"><a href="#">Login</a></li>
+                                <li style="color:#F00"><a href="#" data-toggle="modal" data-target="#Modal2"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="color: #F00"></span> Call us</a></li>
                             </ul>
-                        </div>
-                    </div>
-                </nav>
-            </div>
+                            <ul class="nav navbar-nav navbar-right" data-ng-init="accountsControllerVM.getUserName();" data-ng-show="accountsControllerVM.isLoggedIn">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Welcome, {{liun |limitTo:4 }} {{liun.length >= 4 ?'....' : ''}} <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="Settings.html"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                                        <li class="divider"></li>
+                                        <li data-ng-click="accountsControllerVM.logout();"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                                    </ul>
+                            </ul>
+                        </div>-->
+                        <!-- /.navbar-collapse -->
+                    <!--</div>-->
+                    <!-- /.container -->
+                <!--<!--</nav>
+            </div>-->
+            <!--End First Row-->
+            <!-- Second Row -->
 
+            <div class="row" ><!--data-ng-controller="accountsController as accountsControllerVM"-->
 
-            <!--Modal 3-->
-            <div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content" style="background-color:#27bbed;">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                        </div>
-                        <div class="modal-body">
-                            <div style="padding:20px">
-                                <form role="form">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="callUsZipCode" data-ng-model="homeControllerVM.zipCode" data-ng-keypress="onKeyPress($event);" placeholder="Enter Zipcode">
-                                    </div>
-                                    <h3 style="text-align:center;"><span class="label label-default" style="background-color:#ee2c3d">{{contactNo}}</span></h3>
-                                </form>
+                <span us-spinner="{radius:50, width:16, length: 32}" spinner-key="spinner-1"></span>
+
+                <div id="page_effect" style="text-align:left;" >
+                    <div class="row">
+                        <div class="col-lg-6 col-lg-offset-3" style="background-color:#fff; border-radius:20px; border:1px solid #FFF;margin-top:90px; padding:20px; margin-bottom:360px">
+                            <div class="col-lg-6 col-lg-offset-3">
+                                <h2 style="color:#000;">{{accountsControllerVM.pageTitle}}</h2>
+                                <hr />
+                                <div class="form-group" data-ng-show="accountsControllerVM.isVisibleLoginTextBoxes">
+                                    <input id="textinput" name="email" placeholder="Email" class="form-control input-md" type="text" data-ng-model="accountsControllerVM.loginEmail">
+                                </div>
+                                <div class="form-group" data-ng-show="accountsControllerVM.isVisibleLoginTextBoxes">
+                                    <input id="textinput" name="password" placeholder="Password" class="form-control input-md" type="password" data-ng-model="accountsControllerVM.loginPassword">
+                                </div>
+                                <div class="form-group" style="margin:10px;" data-ng-show="accountsControllerVM.isVisibleLoginTextBoxes">
+                                    <a href="" data-ng-click="accountsControllerVM.authenticateUser();" class="btn gt btn-lg" role="button">Login</a>
+                                </div>
+                                <div class="form-group" style="margin-left:66px;" data-ng-show="accountsControllerVM.isVisibleLoginTextBoxes">
+                                    <a href="" data-ng-click="accountsControllerVM.checkUserId(); " role="link">Forgot Password</a>
+                                </div>
+                                <div data-ng-show="accountsControllerVM.isVisibleSecurityQuestion">
+                                    {{accountsControllerVM.forgotPasswordSecurityQuestion}}
+                                </div>
+                                <div class="form-group" data-ng-show="accountsControllerVM.isVisibleSecurityQuestion">
+                                    <input id="textinput" name="securityAnswer" placeholder="Security Answer" class="form-control input-md" type="text" data-ng-model="accountsControllerVM.forgotPasswordSecurityQuestionAnswer">
+                                </div>
+                                <div class="form-group" style="margin:10px;" data-ng-show="accountsControllerVM.isVisibleSecurityQuestion">
+                                    <a href="" data-ng-click="accountsControllerVM.checkSecurityQuestionAnswer();" class="btn gt btn-lg" role="button">Check Answer</a>
+                                </div>
+
+                                <div class="form-group" data-ng-show="accountsControllerVM.isVisibleVerificationCode">
+                                    <input id="textinput" name="verificationCode" placeholder="Verification Code" class="form-control input-md" type="text" data-ng-model="accountsControllerVM.forgotPasswordVerificationCode">
+                                </div>
+
+                                <div class="form-group" style="margin:10px;" data-ng-show="accountsControllerVM.isVisibleVerificationCode">
+                                    <a href="" data-ng-click="accountsControllerVM.checkVerificationCode();" class="btn gt btn-lg" role="button">Check Code</a>
+                                </div>
+
+                                <div class="form-group" data-ng-show="accountsControllerVM.isVisibleResetPasswordTextBoxes">
+                                    <input id="textinput" name="newPassword" placeholder="New Password" class="form-control input-md" type="password" data-ng-model="accountsControllerVM.forgotPasswordNewPassword">
+                                </div>
+                                <div class="form-group" data-ng-show="accountsControllerVM.isVisibleResetPasswordTextBoxes">
+                                    <input id="textinput" name="confirmPassword" placeholder="Confirm Password" class="form-control input-md" type="password" data-ng-model="accountsControllerVM.forgotPasswordConfirmPassword">
+                                </div>
+                                <div class="form-group" style="margin:10px;" data-ng-show="accountsControllerVM.isVisibleResetPasswordTextBoxes">
+                                    <a href="" data-ng-click="accountsControllerVM.resetPassword();" class="btn gt btn-lg" role="button">Reset</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!--End Modal 3-->
+
+                <!--<div id="footer" class="row">
+                    <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color:#000; height:30px">
+                        <div class="navbar-inner navbar-content-center">
+
+                            <div class="col-lg-4 text-center">
+                                <a href="Aboutus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">About Us</a>
+                                <a href="Howitworks.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">How it works</a>
+                                <a href="Contactus.html" class="btn btn-link" role="button" style="color:#fff; font-size:11px;">Contact Us</a>
+                            </div>
+
+                            <div class="col-lg-4 text-center">
+                                <span style="display:block; text-align:center; list-style:none; font-size:11px; color:#FFF; height:30px; padding-top:7px ">
+                                    Copyright © 2015 junkcartrader.com. All Rights Reserved
+                                </span>
+                            </div>
+
+                            <div class="col-lg-4 text-center">
+                                <ul style="display:block; list-style:none; ">
+                                    <li style="display:inline"> <a href="https://www.facebook.com/junkcartrader" target="_blank"> <img src="Content/Images/facebook.png" /> </a> </li>
+                                    <li style="display:inline"> <a href="https://twitter.com/junkcartrader" target="_blank"> <img src="Content/Images/twitter.png" /> </a> </li>
+                                    <li style="display:inline"> <a href="https://www.linkedin.com/company/6386060" target="_blank"> <img src="Content/Images/linkedin.png" /> </a> </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>-->
+
+
+                <!--Modal 3-->
+                <!--<div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="background-color:#27bbed;">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                            </div>
+                            <div class="modal-body">
+                                <div style="padding:20px">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="callUsZipCode" data-ng-model="homeControllerVM.zipCode" data-ng-keypress="onKeyPress($event);" placeholder="Enter Zipcode">
+                                        </div>
+                                        <h3 style="text-align:center;"><span class="label label-default" style="background-color:#ee2c3d">{{contactNo}}</span></h3>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+                <!--End Modal 3-->
 
 
 
-            <script>
-                var myTab, myTabsActive, tabNext, tabPrev;
-                $(function () {
-                    myTabs = $('#myTab li').length;
-                    myTabsActive = 0; //or yours active tab
+                <script>
+                    var myTab, myTabsActive, tabNext, tabPrev;
+                    $(function () {
+                        myTabs = $('#myTab li').length;
+                        myTabsActive = 0; //or yours active tab
 
-                    tabNext = function () {
-                        var index = myTabsActive + 1;
-                        index = index >= myTabs ? 0 : index;
+                        tabNext = function () {
+                            var index = myTabsActive + 1;
+                            index = index >= myTabs ? 0 : index;
 
-                        $('#myTab li:eq(' + index + ') a').tab('show');
-                        myTabsActive = index;
-                    }
+                            $('#myTab li:eq(' + index + ') a').tab('show');
+                            myTabsActive = index;
+                        }
 
-                    tabPrev = function () {
-                        var index = myTabsActive - 1;
-                        index = index < 0 ? myTabs - 1 : index;
+                        tabPrev = function () {
+                            var index = myTabsActive - 1;
+                            index = index < 0 ? myTabs - 1 : index;
 
-                        $('#myTab li:eq(' + index + ') a').tab('show');
-                        myTabsActive = index;
-                    }
+                            $('#myTab li:eq(' + index + ') a').tab('show');
+                            myTabsActive = index;
+                        }
 
-                    offerTab = function () {
-                        $('#myTab li:eq(4) a').tab('show');
-                        myTabsActive = 4;
-                    }
-                });
-            </script>
-
-
-
-
-
-
-        </div><!-- /container -->
+                        offerTab = function () {
+                            $('#myTab li:eq(4) a').tab('show');
+                            myTabsActive = 4;
+                        }
+                    });
+                </script>
+            </div><!-- /container -->
+        </div>
+        <!--<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>-->
+        <!--<script src="Scripts/jquery-2.1.3.min.js"></script>
+        <script src="Content/Assets/JS/bootstrap.min.js"></script>-->
     </div>
-    <!--<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>-->
-    <script src="Scripts/jquery-2.1.3.min.js"></script>
-    <script src="Content/Assets/JS/bootstrap.min.js"></script>
+<!--<!--</body>
+</html>-->
 
-</body>
-</html>
-
-<script>
+<!--<!--<script>
     $('#myTab a[href="#home"]').tab('show') // Select tab by name
     $(".dropdown-menu li a").click(function () {
         var selText = $(this).text();
@@ -395,4 +389,4 @@
 
         });
     });
-</script>
+</script>-->

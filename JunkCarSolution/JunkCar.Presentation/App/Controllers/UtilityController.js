@@ -145,6 +145,11 @@
        //     //    }
        //     //    return true;
         // }
+        // Navigate to Main
+        //$scope.redirectMain = function () {
+        //    //$location.path('/Login');
+        //    window.location = "Index.html";
+        //}
         //------------------------------------------------------------- $rootScope Methods --------------------------------------------------------------
         // On key press, check zip-code
         $rootScope.onKeyPress = function (event) {
@@ -184,7 +189,8 @@
         }
 
         // Authenticate user
-        function contactEmailSend() {            
+        function contactEmailSend() {
+            debugger;
             var name = utilityControllerVM.contactUsName;
             var email = utilityControllerVM.contactUsEmail;
             var phone = utilityControllerVM.contactUsPhone;
@@ -228,19 +234,27 @@
                 utilityControllerVM.isValidPhone = false;
                 utilityControllerVM.isValidSubject = false;
                 utilityControllerVM.isValidMessage = false;
-                utilityService.contactEmailSend({ email: email, message: message, name: name, phone: phone, subject: subject }).then(function (data) {
+                utilityService.contactEmailSend({ email: email, message: message, name: name, phone: phone, subject: subject })
+                    .then(function (data) {
                     var response = data.results;
                     $scope.stopSpin();
                     alert("Message sent successfully");
-                    //$scope.redirectMain();               
+                        //$scope.redirectMain();  
+                    redirectIndex();
                 });
                 utilityControllerVM.contactUsName = '';
                 utilityControllerVM.contactUsEmail = '';
                 utilityControllerVM.contactUsPhone = '';
                 utilityControllerVM.contactUsSubject = '';
                 utilityControllerVM.contactUsMessage = '';
-            }               
-        }        
+                //$scope.redirectMain();
+                //redirectIndex();
+                
+            }
+            //redirectIndex();
+        }
+
+
         // Check zip-code
         function checkZipCode(zipCode) {
             if (zipCode.length != 0) {

@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\Sec_Password_Question.cs" />
     <Compile Include="Models\Questionnaire.cs" />
     <Compile Include="Models\RegisterUser_Result.cs" />

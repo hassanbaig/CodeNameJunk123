@@ -266,6 +266,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Howitworks.html" />
+    <Content Include="Index.html" />
     <Content Include="Login.html" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
@@ -1059,7 +1060,7 @@
     <Content Include="Settings.html" />
     <Content Include="Changepassword.html" />
     <Content Include="Signup.html" />
-    <Content Include="Index.html" />
+    <Content Include="Default.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\Assets\Fonts\glyphicons-halflings-regular.eot" />

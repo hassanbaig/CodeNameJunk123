@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\EditProfile.cs" />
+    <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\Home.cs" />
     <Compile Include="Models\Authenticate.cs" />
     <Compile Include="Models\ContactUs.cs" />

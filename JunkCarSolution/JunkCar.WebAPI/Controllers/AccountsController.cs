@@ -56,6 +56,34 @@ namespace JunkCar.WebAPI.Controllers
             return forgotPassword.SecurityQuestion;
         }
         [HttpGet]
+        public UserProfile GetUserInfo()
+        {
+            UserProfile userProfile = null;
+            string data = TicketHelper.GetDecryptedUserId();
+            string[] datalist = data.Split(',');
+            FactoryFacade factory = new FactoryFacade();
+
+            domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(UserProfile));
+            domainModel.Fill(HashHelper.GetUserInfo(datalist[0]));
+            domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
+            userProfile = (UserProfile)domainService.Query(domainModel, DomainModelEnum.GET_USER_INFO);
+            return userProfile;
+        }
+        [HttpGet]
+        public IHttpActionResult EditProfile(string name,string address,string phone,string zipCode,int? questionId,string answer)
+        {
+            EditProfile editProfile = null;
+            string data = TicketHelper.GetDecryptedUserId();
+            string[] dataList = data.Split(',');
+            FactoryFacade factory = new FactoryFacade();
+
+            domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(EditProfile));
+            domainModel.Fill(HashHelper.EditProfile(dataList[0], name, address,phone,zipCode,questionId,answer));
+            domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
+            editProfile = (EditProfile)domainService.Update(domainModel, JunkCar.Core.Enumerations.DomainModelEnum.EDIT_PROFILE);
+            return Ok(editProfile.ResponseMessage);
+        }
+        [HttpGet]
         public List<JunkCar.DataModel.Models.Sec_Password_Question> GetAllSecurityQuestion()
         {
             FactoryFacade factory = new FactoryFacade();
@@ -109,7 +137,6 @@ namespace JunkCar.WebAPI.Controllers
             forgotPassword = (ForgotPassword)domainService.Query(domainModel, DomainModelEnum.RESET_PASSWORD);
             return forgotPassword.ResponseMessage;
         }
-
         [HttpGet]
         public string CheckUserId(string userId)
         {

@@ -277,6 +277,7 @@
         //------------------------------------------------------------- $rootScope Methods --------------------------------------------------------------
         // Add each file in "allFiles" on select 
         $rootScope.onEachFileSelect = function ($files) {
+            debugger;
             allFiles.push($files);
         }
         
@@ -861,6 +862,7 @@
             $scope.startSpin();
             return homeService.getAnOffer({ address: address, cityId: cityId, cylinders: cylinders, emailAddress: email, make: make, model: model, name: name, phone: phone, selectedMakeId: makeId, selectedModelId: modelId, selectedYear: year, stateId: stateId, zipCode: zipcode })
                 .then(function (serviceResponse) {
+                    
                     $rootScope.offerPrice = '$';
                     $rootScope.offerPrice += serviceResponse.data;
                     console.log(serviceResponse);

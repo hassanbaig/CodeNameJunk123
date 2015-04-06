@@ -42,8 +42,10 @@ namespace JunkCar.WebAPI.Controllers
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(HomeDomainService));
             return ((DomainModel.Models.Home)domainService.Query(domainModel, DomainModelEnum.GET_MAKES)).Makes;
         }
+
         public List<JunkCar.DataModel.Models.Set_Model> GetModels(int year, int makeId)
         {
+            
             FactoryFacade factory = new FactoryFacade();
             domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(Home));
             domainModel.Fill(HashHelper.GetModels(year,makeId));

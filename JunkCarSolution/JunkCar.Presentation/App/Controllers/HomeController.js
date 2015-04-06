@@ -863,6 +863,7 @@
                 .then(function (serviceResponse) {
                     $rootScope.offerPrice = '$';
                     $rootScope.offerPrice += serviceResponse.data;
+                    console.log(serviceResponse);
                     if ($rootScope.offerPrice.length > 0) {
                         offerTab();
                     }

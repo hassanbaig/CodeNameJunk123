@@ -6,7 +6,7 @@ package com.junkcartrader.junkcartraderapp;
 public class URLHelper {
     public static String GetBaseUrl() {
         String baseUrl = "http://www.junkcartrader.com/API/API/";
-        //String baseUrl = "http://192.168.0.106/JunkCarWebApi/API/";
+        //String baseUrl = "http://192.168.1.9/JunkCarWebApi/API/";
         return baseUrl;
     }
 }

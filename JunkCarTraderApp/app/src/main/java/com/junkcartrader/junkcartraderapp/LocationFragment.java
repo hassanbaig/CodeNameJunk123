@@ -63,9 +63,11 @@ public class LocationFragment extends Fragment implements CustomerInfoFragment.O
     private Button btnGetAnOffer,btnGetABetterOffer;
     private EditText etZipCode;
     private Integer operationType;
-    String isValidZipCode;
+    String isValidZipCode,year,make,makeId,model,modelId,cylinders;
     FragmentManager fm;
     FragmentTransaction fragmentTransaction;
+    Fragment customerInfoFragment;
+    Bundle args;
     View rootView;
 
     private OnFragmentInteractionListener mListener;
@@ -106,6 +108,12 @@ public class LocationFragment extends Fragment implements CustomerInfoFragment.O
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_location, container, false);
+        year = getArguments().getString("Year");
+        make = getArguments().getString("Make");
+        makeId = getArguments().getString("MakeId");
+        model = getArguments().getString("Model");
+        modelId = getArguments().getString("ModelId");
+        cylinders = getArguments().getString("Cylinders");
         Initialize();
         return rootView;
     }
@@ -171,6 +179,8 @@ public class LocationFragment extends Fragment implements CustomerInfoFragment.O
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
+        void onAttach(MainActivity activity);
+
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
@@ -206,8 +216,19 @@ public class LocationFragment extends Fragment implements CustomerInfoFragment.O
                     isValidZipCode = jso.get("Is_Valid_Zip_Code").toString();
                     if(isValidZipCode=="true")
                     {
+                        customerInfoFragment = new CustomerInfoFragment();
                         fragmentTransaction = getFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.locationFragment, new CustomerInfoFragment());
+                        args = new Bundle();
+                        args.putString("GetAnOffer", "GetAnOffer");
+                        args.putString("Year", year);
+                        args.putString("Make", make);
+                        args.putString("MakeId", makeId);
+                        args.putString("Model", model);
+                        args.putString("ModelId", modelId);
+                        args.putString("Cylinders", cylinders);
+                        args.putString("ZipCode", etZipCode.getText().toString());
+                        customerInfoFragment.setArguments(args);
+                        fragmentTransaction.replace(R.id.container, customerInfoFragment);
                         fragmentTransaction.commit();
                     }
                     break;
@@ -215,11 +236,20 @@ public class LocationFragment extends Fragment implements CustomerInfoFragment.O
                     isValidZipCode = jso.get("Is_Valid_Zip_Code").toString();
                     if(isValidZipCode=="true")
                     {
-                        //CustomerInfoFragment customerInfoFragment = new CustomerInfoFragment();
-                        this.getFragmentManager().beginTransaction()
-                                .replace(R.id.locationFragment, new CustomerInfoFragment())
-                                .addToBackStack(null)
-                                .commit();
+                        customerInfoFragment = new CustomerInfoFragment();
+                        fragmentTransaction = getFragmentManager().beginTransaction();
+                        args = new Bundle();
+                        args.putString("GetABetterOffer", "GetABetterOffer");
+                        args.putString("Year", year);
+                        args.putString("Make", make);
+                        args.putString("MakeId", makeId);
+                        args.putString("Model", model);
+                        args.putString("ModelId", modelId);
+                        args.putString("Cylinders", cylinders);
+                        args.putString("ZipCode", etZipCode.getText().toString());
+                        customerInfoFragment.setArguments(args);
+                        fragmentTransaction.replace(R.id.container, customerInfoFragment);
+                        fragmentTransaction.commit();
                     }
                     break;
                 default:

@@ -40,6 +40,7 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -48,10 +49,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks,LocationFragment.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,LocationFragment.OnFragmentInteractionListener,OfferFragment.OnFragmentInteractionListener {
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
@@ -130,6 +132,11 @@ public class MainActivity extends ActionBarActivity
     }
 
     @Override
+    public void onAttach(MainActivity activity) {
+
+    }
+
+    @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
@@ -141,17 +148,16 @@ public class MainActivity extends ActionBarActivity
         private Button btnNextMain;
         private Spinner spRegistrationYears, spMakes, spModels, spCylinders;
         private Integer operationType;
-        String[] years, cylinders;
-        String[] makes;
-        JSONObject[] m;
-        JSONArray makesList;
-        Set_Model[] models;
-        ArrayAdapter<String> yearsAdapter, modelsAdapter, cylindersAdapter;
-        ArrayAdapter<JSONObject> makesAdapter;
-        String yearsResponse, modelsResponse, cylindersResponse;;
-        JSONObject makesResponse;
+
+        ArrayAdapter<String> yearsAdapter,makesAdapter, modelsAdapter, cylindersAdapter;
+        JSONArray makesJSON,modelsJSON;
+        List<String> makesList,modelsList;
+        String[] years,cylinders;
+        String yearsResponse,cylindersResponse;;
         FragmentTransaction fragmentTransaction;
-        JSONObject jsonObject;
+        Fragment locationFragment;
+        Bundle args;
+
         View rootView;
 
         private static final String ARG_SECTION_NUMBER = "section_number";
@@ -191,14 +197,42 @@ public class MainActivity extends ActionBarActivity
 
                 }
             });
+            spMakes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    try {
+                        GetModels(spRegistrationYears.getSelectedItem().toString(),makesJSON.getJSONObject(position).getString("Make_Id"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
 
             btnNextMain = (Button) rootView.findViewById(R.id.btnNextMain);
             btnNextMain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    fragmentTransaction = getFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.container, new LocationFragment());
-                    fragmentTransaction.commit();
+                    try {
+                        locationFragment = new LocationFragment();
+                        fragmentTransaction = getFragmentManager().beginTransaction();
+                        args = new Bundle();
+                        args.putString("Year", spRegistrationYears.getSelectedItem().toString());
+                        args.putString("Make", spMakes.getSelectedItem().toString());
+                        args.putString("MakeId", makesJSON.getJSONObject(spMakes.getSelectedItemPosition()).getString("Make_Id"));
+                        args.putString("Model", spModels.getSelectedItem().toString());
+                        args.putString("ModelId", modelsJSON.getJSONObject(spModels.getSelectedItemPosition()).getString("Model_Id"));
+                        args.putString("Cylinders", spRegistrationYears.getSelectedItem().toString());
+                        locationFragment.setArguments(args);
+                        fragmentTransaction.replace(R.id.container, locationFragment);
+                        fragmentTransaction.commit();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
             operationType = 0;
@@ -237,7 +271,7 @@ public class MainActivity extends ActionBarActivity
             dialog = ProgressDialog.show(getActivity(),
                     "Loading...", "Please wait...", false);
             dialog.show();
-            operationType = 2;
+            operationType = 3;
             SERVICE_URL = BASE_URL + "Home/GetModels?year=" + year + "&makeId=" + makeId;
             WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
             wst.execute(new String[]{SERVICE_URL});
@@ -272,29 +306,32 @@ public class MainActivity extends ActionBarActivity
                         spRegistrationYears.setAdapter(yearsAdapter);
                         break;
                     case 2:
-                        makesList = jso.optJSONArray("$values");
-                        //makesResponse = jso.get("$values").toString().replace("[", "").replace("]", "");
-                        //makesList = makesResponse.split(",");
-                        //makesList = makesResponse.optJSONArray()
-                        //makes = new String[makesList.length];
+                        makesJSON = new JSONArray(jso.get("$values").toString());
+                        makesList = new ArrayList<String>();
+                        makesList.clear();
+                        for(int i = 0; i < makesJSON.length(); i++){
+                            makesList.add(makesJSON.getJSONObject(i).getString("Make_Name"));
+                        }
 
-                       /* for(int i = 0; i<makesList.length;i++)
-                        {
-                            m[i] = new JSONObject(makesList[i]);
-                        }
-                        for(int i = 0; i<makesList.length;i++)
-                        {
-                            makes[i] = m[i].getString("Make_Name");
-                        }
-                        */
-                        //btnNextMain.setText(makes[0]);
-                        makesAdapter = new ArrayAdapter<JSONObject>
-                                (getActivity(), android.R.layout.simple_spinner_item, (List<JSONObject>) makesList);
+                        makesAdapter = new ArrayAdapter<String>
+                                (getActivity(), android.R.layout.simple_spinner_item, makesList);
                         makesAdapter.setDropDownViewResource
                                 (android.R.layout.simple_spinner_dropdown_item);
                         spMakes.setAdapter(makesAdapter);
                         break;
                     case 3:
+                        modelsJSON = new JSONArray(jso.get("$values").toString());
+                        modelsList = new ArrayList<String>();
+                        modelsList.clear();
+                        for(int i = 0; i < modelsJSON.length(); i++){
+                            modelsList.add(modelsJSON.getJSONObject(i).getString("Model_Name"));
+                        }
+
+                        modelsAdapter = new ArrayAdapter<String>
+                                (getActivity(), android.R.layout.simple_spinner_item, modelsList);
+                        modelsAdapter.setDropDownViewResource
+                                (android.R.layout.simple_spinner_dropdown_item);
+                        spModels.setAdapter(modelsAdapter);
                         break;
                     case 4:
                         cylindersResponse = jso.get("$values").toString().replace("[", "").replace("]", "");

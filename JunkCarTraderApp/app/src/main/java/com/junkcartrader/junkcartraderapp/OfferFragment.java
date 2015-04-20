@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.content.Intent;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -32,6 +36,7 @@ import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -62,11 +67,12 @@ public class OfferFragment extends Fragment{
     private  final String BASE_URL = URLHelper.GetBaseUrl();
     private  String SERVICE_URL = BASE_URL;
     private ProgressDialog dialog;
-    private Button btnNextCustomerInfo;
+    private Button btnContactNumber,btnconfirmOffer;
+    private TextView tvprice;
     private EditText etName,etAddress,etZipCode,etPhoneNumber,etEmail;
     private Spinner spStates,spCities;
     private Integer operationType;
-    String isValidZipCode,OfferType,offerPrice,year,make,makeId,model,modelId,cylinders,zipCode;
+    String isValidZipCode,OfferType,offerPrice,year,make,makeId,model,modelId,cylinders,zipCode,name,email,address,stateId,cityId,phoneNumber;
     FragmentManager fm;
     FragmentTransaction fragmentTransaction;
     ArrayAdapter<String> statesAdapter,citiesAdapter;
@@ -113,7 +119,66 @@ public class OfferFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_offer, container, false);
+        rootView= inflater.inflate(R.layout.fragment_offer, container, false);
+        year = getArguments().getString("Year");
+        make = getArguments().getString("Make");
+        makeId = getArguments().getString("MakeId");
+        model = getArguments().getString("Model");
+        modelId = getArguments().getString("ModelId");
+        cylinders = getArguments().getString("Cylinders");
+        zipCode = getArguments().getString("ZipCode");
+        name=getArguments().getString("Name");
+        address=getArguments().getString("Address");
+        stateId=getArguments().getString("StateId");
+        cityId=getArguments().getString("CityId");
+        phoneNumber=getArguments().getString("PhoneNumber");
+        email=getArguments().getString("EmailAddress");
+        Initialize();
+        GetAnOffer(address,cityId,cylinders,email,make,model,name,phoneNumber,makeId,modelId,year,stateId,zipCode);
+
+        return  rootView;
+    }
+    public void Initialize(){
+        tvprice=(TextView)rootView.findViewById(R.id.tvPriceOffer);
+        btnContactNumber=(Button)rootView.findViewById(R.id.btnContactNumberOffer);
+        btnconfirmOffer=(Button)rootView.findViewById(R.id.btnConfirmOffer);
+
+        btnContactNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:" + btnContactNumber.getText().toString()));
+
+                TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(getActivity().TELEPHONY_SERVICE);
+                if (telephonyManager.getPhoneType() == TelephonyManager.PHONE_TYPE_NONE) {
+                    Toast toast=Toast.makeText(getActivity().getApplicationContext(), "Your device does not support call feature", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                else {
+                    try {
+                        startActivity(callIntent);
+                        //Toast.makeText(getActivity().getApplicationContext(), "Your device does not support call feature", Toast.LENGTH_LONG);
+                    } catch (Exception e) {
+                        btnContactNumber.setText(e.getMessage());
+                    }
+                }
+            }
+        });
+
+        btnconfirmOffer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog = ProgressDialog.show(getActivity(),
+                        "Loading...", "Please wait...", false);
+                dialog.show();
+
+                String contactNo=btnContactNumber.getText().toString().replace(" ","");
+                String price=tvprice.getText().toString();
+                ConfirmOffer(address,cityId,contactNo,cylinders,email,make,model,name,phoneNumber,price,makeId,modelId,year,stateId,zipCode);
+
+            }
+        });
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -155,9 +220,18 @@ public class OfferFragment extends Fragment{
         public void onFragmentInteraction(Uri uri);
     }
 
+    public void CheckZipCode(String zipCode) {
+        operationType = 2;
+        dialog = ProgressDialog.show(getActivity(),
+                "Loading...", "Please wait...", false);
+        dialog.show();
+        SERVICE_URL = BASE_URL + "Home/CheckZipCode?zipCode=" + zipCode;
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
+        wst.execute(new String[]{SERVICE_URL});
+    }
 
     public void GetAnOffer(String address, String cityId, String cylinders, String emailAddress, String make, String model, String name, String phone, String selectedMakeId,String selectedModelId, String selectedYear,String stateId, String zipCode) {
-        operationType = 4;
+        operationType = 1;
         dialog = ProgressDialog.show(getActivity(),
                 "Loading...", "Please wait...", false);
         dialog.show();
@@ -179,6 +253,32 @@ public class OfferFragment extends Fragment{
         WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
         wst.execute(new String[]{SERVICE_URL});
     }
+
+    public void ConfirmOffer(String address, String cityId,String contactNo, String cylinders, String emailAddress, String make, String model, String name, String phone,String price, String selectedMakeId,String selectedModelId, String selectedYear,String stateId, String zipCode) {
+        operationType = 3;
+        /*dialog = ProgressDialog.show(getActivity(),
+                "Loading...", "Please wait...", false);
+        dialog.show();*/
+        SERVICE_URL = BASE_URL + "Home/ConfirmOffer?" +
+                "address=" + address +
+                "&cityId=" + cityId +
+                "&contactNo=" + contactNo +
+                "&cylinders=" + cylinders +
+                "&emailAddress=" + emailAddress +
+                "&make=" + make +
+                "&model=" + model +
+                "&name=" + name +
+                "&phone=" + phone +
+                "&price=" + price +
+                "&selectedMakeId=" + selectedMakeId +
+                "&selectedModelId=" + selectedModelId +
+                "&selectedYear=" + selectedYear +
+                "&stateId=" + stateId +
+                "&zipCode=" + zipCode;
+        //btnNextCustomerInfo.setText(SERVICE_URL);
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
+        wst.execute(new String[]{SERVICE_URL});
+    }
     public void postData() {
         WebServiceTask wst = new WebServiceTask(WebServiceTask.POST_TASK, getActivity(), "Posting data...");
         // the passed String is the URL we will POST to
@@ -191,78 +291,29 @@ public class OfferFragment extends Fragment{
 
     public void handleResponse(String response) {
         try {
-            JSONObject jso = new JSONObject(response);
             dialog.dismiss();
             switch(operationType)
             {
                 case 1:
-                    isValidZipCode = jso.get("Is_Valid_Zip_Code").toString();
-                    if(isValidZipCode=="true") {
-                        try {
-                            offerFragment = new OfferFragment();
-                            fragmentTransaction = getFragmentManager().beginTransaction();
-                            args = new Bundle();
-                            args.putString("GetAnOffer", "GetAnOffer");
-                            args.putString("Name", etName.getText().toString());
-                            args.putString("Address", etAddress.getText().toString());
-                            args.putString("StateId", statesJSON.getJSONObject(spStates.getSelectedItemPosition()).getString("State_Id"));
-                            args.putString("CityId", citiesJSON.getJSONObject(spCities.getSelectedItemPosition()).getString("City_Id"));
-                            args.putString("PhoneNumber", etPhoneNumber.getText().toString());
-                            args.putString("EmailAddress", etEmail.getText().toString());
-                            args.putString("Year", year);
-                            args.putString("Make", make);
-                            args.putString("MakeId", makeId);
-                            args.putString("Model", model);
-                            args.putString("ModelId", modelId);
-                            args.putString("Cylinders", cylinders);
-                            args.putString("ZipCode", etZipCode.getText().toString());
-                            offerFragment.setArguments(args);
-                            fragmentTransaction.replace(R.id.container, offerFragment);
-                            fragmentTransaction.commit();
+                    tvprice.setText("$"+response.replace("\"",""));
+                    CheckZipCode(zipCode);
 
-                            // GetAnOffer(address, cityId, cylinders, emailAddress, make, model, name, phone, makeId, modelId, year, stateId, zipCode);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
                     break;
                 case 2:
-                    statesJSON = new JSONArray(jso.get("$values").toString());
-                    statesList = new ArrayList<String>();
-                    statesList.clear();
-                    for(int i = 0; i < statesJSON.length(); i++){
-                        statesList.add(statesJSON.getJSONObject(i).getString("State_Name"));
-                    }
+                    JSONObject jso=new JSONObject(response);
+                    btnContactNumber.setText(jso.getString("Contact_No"));
 
-                    statesAdapter = new ArrayAdapter<String>
-                            (getActivity(), android.R.layout.simple_spinner_item, statesList);
-                    statesAdapter.setDropDownViewResource
-                            (android.R.layout.simple_spinner_dropdown_item);
-                    spStates.setAdapter(statesAdapter);
                     break;
                 case 3:
-                    citiesJSON = new JSONArray(jso.get("$values").toString());
-                    citiesList = new ArrayList<String>();
-                    citiesList.clear();
-                    for(int i = 0; i < citiesJSON.length(); i++){
-                        citiesList.add(citiesJSON.getJSONObject(i).getString("City_Name"));
-                    }
-                    citiesAdapter = new ArrayAdapter<String>
-                            (getActivity(), android.R.layout.simple_spinner_item, citiesList);
-                    citiesAdapter.setDropDownViewResource
-                            (android.R.layout.simple_spinner_dropdown_item);
-                    spCities.setAdapter(citiesAdapter);
-                    break;
-                case 4:
-                    dialog.dismiss();
-                    offerPrice = jso.get("data").toString();
-                    btnNextCustomerInfo.setText(response);
-                    break;
+                    Toast toast=Toast.makeText(getActivity(),"Thank you for your business! someone will contact you shortly to arrange a suitable appointment that fits your schedule",Toast.LENGTH_LONG);
+                    toast.show();
                 default:
                     break;
             }
+
             clearControls();
         } catch (Exception e) {
+            btnContactNumber.setText(e.getMessage());
         }
     }
     private class WebServiceTask extends AsyncTask<String, Integer, String> {

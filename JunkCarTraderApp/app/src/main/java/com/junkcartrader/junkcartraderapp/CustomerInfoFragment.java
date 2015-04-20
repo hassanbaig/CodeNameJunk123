@@ -241,29 +241,7 @@ public class CustomerInfoFragment extends Fragment implements QuestionnaireFragm
         wst.execute(new String[]{SERVICE_URL});
     }
 
-    public void GetAnOffer(String address, String cityId, String cylinders, String emailAddress, String make, String model, String name, String phone, String selectedMakeId,String selectedModelId, String selectedYear,String stateId, String zipCode) {
-        operationType = 4;
-        dialog = ProgressDialog.show(getActivity(),
-                "Loading...", "Please wait...", false);
-        dialog.show();
-        SERVICE_URL = BASE_URL + "Home/GetAnOffer?" +
-                "address=" + address +
-                "&cityId=" + cityId +
-                "&cylinders=" + cylinders +
-                "&emailAddress=" + emailAddress +
-                "&make=" + make +
-                "&model=" + model +
-                "&name=" + name +
-                "&phone=" + phone +
-                "&selectedMakeId=" + selectedMakeId +
-                "&selectedModelId=" + selectedModelId +
-                "&selectedYear=" + selectedYear +
-                "&stateId=" + stateId +
-                "&zipCode=" + zipCode;
-        //btnNextCustomerInfo.setText(SERVICE_URL);
-        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
-        wst.execute(new String[]{SERVICE_URL});
-    }
+
     public void postData() {
         WebServiceTask wst = new WebServiceTask(WebServiceTask.POST_TASK, getActivity(), "Posting data...");
         // the passed String is the URL we will POST to
@@ -338,11 +316,7 @@ public class CustomerInfoFragment extends Fragment implements QuestionnaireFragm
                             (android.R.layout.simple_spinner_dropdown_item);
                     spCities.setAdapter(citiesAdapter);
                     break;
-                case 4:
-                    dialog.dismiss();
-                   offerPrice = jso.get("data").toString();
-                    btnNextCustomerInfo.setText(response);
-                    break;
+
                 default:
                     break;
             }

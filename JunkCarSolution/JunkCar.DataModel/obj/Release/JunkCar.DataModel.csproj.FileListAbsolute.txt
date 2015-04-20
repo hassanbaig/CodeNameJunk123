@@ -3,3 +3,8 @@ D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\bin\Release\JunkCar.
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\obj\Release\JunkCar.DataModel.csprojResolveAssemblyReference.cache
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\obj\Release\JunkCar.DataModel.dll
 D:\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\obj\Release\JunkCar.DataModel.pdb
+C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\bin\Release\JunkCar.DataModel.dll
+C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\bin\Release\JunkCar.DataModel.pdb
+C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\obj\Release\JunkCar.DataModel.csprojResolveAssemblyReference.cache
+C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\obj\Release\JunkCar.DataModel.dll
+C:\Users\srameezk\Documents\GitHub\CodeNameJunk123\JunkCarSolution\JunkCar.DataModel\obj\Release\JunkCar.DataModel.pdb

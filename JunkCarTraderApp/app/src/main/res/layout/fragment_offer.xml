@@ -15,7 +15,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="$300"
         android:id="@+id/tvPriceOffer"
         android:layout_gravity="center_horizontal|top"
         android:layout_marginTop="240dp"/>
@@ -40,7 +39,7 @@
     <Button
         style="@style/Buttons"
         android:background="@drawable/button_blue_gradient"
-        android:text="407-923-2033"
+        android:text="Please Wait..."
         android:id="@+id/btnContactNumberOffer"
         android:layout_marginTop="140dp"
         android:layout_alignParentBottom="true"

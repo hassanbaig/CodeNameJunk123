@@ -3,8 +3,9 @@ package com.junkcartrader.junkcartraderapp;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,7 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
@@ -36,15 +37,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import static com.junkcartrader.junkcartraderapp.R.style.ProgressBar;
-
 
 public class LoginActivity extends Activity {
     final Context context = this;
     private  final String BASE_URL = URLHelper.GetBaseUrl();
     private  String SERVICE_URL = BASE_URL + "Accounts/Authenticate";
     public ProgressDialog dialog;
-private Button btnLogin;
+    public PopupWindow popUp;
+    private Button btnLogin;
     public EditText etUserId, etPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +69,7 @@ private Button btnLogin;
                 //dialog.setProgressStyle(R.style.ProgressBar);
                 dialog.show();
                 retrieveSampleData();
+
             }
         });
     }
@@ -125,8 +126,25 @@ private Button btnLogin;
             dialog.dismiss();
             final String isAuthenticated = jso.getString("IsAuthenticated");
             //Toast.makeText(context, jso.toString(), Toast.LENGTH_LONG);
-            clearControls();
-            etUserId.setText(isAuthenticated);
+            //clearControls();
+            //etUserId.setText(isAuthenticated);
+            if(isAuthenticated=="true"){
+                SharedPreferences sharedPreferences=getSharedPreferences("AppData", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor=sharedPreferences.edit();
+                editor.putString("email",etUserId.getText().toString());
+                editor.putString("password",etPassword.getText().toString());
+                editor.commit();
+                finish();
+                Intent intent=new Intent(context,MainActivity.class);
+                startActivity(intent);
+            }
+            else
+            {
+                final String respone=jso.getString("ResponseMessage");
+                Toast.makeText(context,respone,Toast.LENGTH_LONG).show();
+                clearControls();
+            }
+            //btnLogin.setText(response);
         } catch (Exception e) {
         }
     }

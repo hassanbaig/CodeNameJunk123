@@ -2,7 +2,9 @@ package com.junkcartrader.junkcartraderapp;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,7 +22,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Intent;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -34,9 +35,7 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -146,7 +145,7 @@ public class OfferFragment extends Fragment{
         btnContactNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setData(Uri.parse("tel:" + btnContactNumber.getText().toString()));
 
                 TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(getActivity().TELEPHONY_SERVICE);
@@ -158,7 +157,7 @@ public class OfferFragment extends Fragment{
                     try {
                         startActivity(callIntent);
                         //Toast.makeText(getActivity().getApplicationContext(), "Your device does not support call feature", Toast.LENGTH_LONG);
-                    } catch (Exception e) {
+                    } catch (ActivityNotFoundException e) {
                         btnContactNumber.setText(e.getMessage());
                     }
                 }
@@ -172,7 +171,7 @@ public class OfferFragment extends Fragment{
                         "Loading...", "Please wait...", false);
                 dialog.show();
 
-                String contactNo=btnContactNumber.getText().toString().replace(" ","");
+                String contactNo=btnContactNumber.getText().toString().replace(" ","%20");
                 String price=tvprice.getText().toString();
                 ConfirmOffer(address,cityId,contactNo,cylinders,email,make,model,name,phoneNumber,price,makeId,modelId,year,stateId,zipCode);
 
@@ -216,6 +215,9 @@ public class OfferFragment extends Fragment{
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
+
+        void onAttach(MainActivity activity);
+
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
@@ -307,6 +309,8 @@ public class OfferFragment extends Fragment{
                 case 3:
                     Toast toast=Toast.makeText(getActivity(),"Thank you for your business! someone will contact you shortly to arrange a suitable appointment that fits your schedule",Toast.LENGTH_LONG);
                     toast.show();
+                    Intent change=new Intent(this.getActivity(),MainActivity.class);
+                    startActivity(change);
                 default:
                     break;
             }

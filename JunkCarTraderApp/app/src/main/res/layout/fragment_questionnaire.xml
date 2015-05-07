@@ -21,19 +21,36 @@
         android:layout_gravity="center_horizontal|top"
         android:layout_marginTop="140dp"/>
 
-    <RelativeLayout
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="180dp"
+    android:layout_marginBottom="150dp">
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/questionnaireScroll"
+        android:orientation="vertical">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/questionnaireLayout">
+    </TableLayout>
+    </ScrollView>
+</LinearLayout>
+
+
+    <!--<Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/questionnaireLayout">
-
-        </RelativeLayout>
-
+        android:id="@+id/question"
+        android:layout_marginBottom="120dp"></Spinner>-->
     <Button
         style="@style/Buttons"
         android:background="@drawable/button_blue_gradient"
         android:text="Next"
-        android:id="@+id/btnNextCustomerInfo"
+        android:id="@+id/btnPhotoGetABetterOffer"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_marginBottom="80dp"/>

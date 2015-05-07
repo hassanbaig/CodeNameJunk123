@@ -70,6 +70,18 @@ namespace JunkCar.WebAPI.Controllers
             return userProfile;
         }
         [HttpGet]
+        public UserProfile GetUserInfoApp(string email)
+        {
+            UserProfile userProfile = null;
+            FactoryFacade factory = new FactoryFacade();
+
+            domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(UserProfile));
+            domainModel.Fill(HashHelper.GetUserInfo(email));
+            domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
+            userProfile = (UserProfile)domainService.Query(domainModel, DomainModelEnum.GET_USER_INFO);
+            return userProfile;
+        }
+        [HttpGet]
         public IHttpActionResult EditProfile(string name,string address,string phone,string zipCode,int? questionId,string answer)
         {
             EditProfile editProfile = null;
@@ -79,6 +91,18 @@ namespace JunkCar.WebAPI.Controllers
 
             domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(EditProfile));
             domainModel.Fill(HashHelper.EditProfile(dataList[0], name, address,phone,zipCode,questionId,answer));
+            domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
+            editProfile = (EditProfile)domainService.Update(domainModel, JunkCar.Core.Enumerations.DomainModelEnum.EDIT_PROFILE);
+            return Ok(editProfile.ResponseMessage);
+        }
+        [HttpGet]
+        public IHttpActionResult EditProfileApp(string email,string name, string address, string phone, string zipCode, int? questionId, string answer)
+        {
+            EditProfile editProfile = null;
+            FactoryFacade factory = new FactoryFacade();
+
+            domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(EditProfile));
+            domainModel.Fill(HashHelper.EditProfile(email, name, address, phone, zipCode, questionId, answer));
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
             editProfile = (EditProfile)domainService.Update(domainModel, JunkCar.Core.Enumerations.DomainModelEnum.EDIT_PROFILE);
             return Ok(editProfile.ResponseMessage);
@@ -122,6 +146,17 @@ namespace JunkCar.WebAPI.Controllers
 
             domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(ChangePassword));
             domainModel.Fill(HashHelper.ChangePassword(currentPassword, newPassword, dataList[0]));
+            domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
+            changePassword = (ChangePassword)domainService.Update(domainModel, JunkCar.Core.Enumerations.DomainModelEnum.CHANGE_PASSWORD);
+            return Ok(changePassword.ResponseMessage);
+        }
+        [HttpGet]
+        public IHttpActionResult ChangePasswordApp(string email,string currentPassword, string newPassword)
+        {
+            ChangePassword changePassword = null;
+            FactoryFacade factory = new FactoryFacade();
+            domainModel = factory.DomainModelFactory.CreateDomainModel(typeof(ChangePassword));
+            domainModel.Fill(HashHelper.ChangePassword(currentPassword, newPassword, email));
             domainService = factory.DomainServiceFactory.CreateDomainService(typeof(AccountsDomainService));
             changePassword = (ChangePassword)domainService.Update(domainModel, JunkCar.Core.Enumerations.DomainModelEnum.CHANGE_PASSWORD);
             return Ok(changePassword.ResponseMessage);

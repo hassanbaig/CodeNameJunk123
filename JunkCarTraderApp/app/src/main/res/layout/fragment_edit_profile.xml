@@ -1,0 +1,84 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.junkcartrader.junkcartraderapp.EditProfileFragment"
+    android:background="@drawable/bg">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@id/imgvLogo"
+        android:src="@drawable/logo"
+        />
+
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        style="@style/EditViews"
+        android:inputType="text"
+        android:hint="Name"
+        android:id="@+id/etNameEditProfile"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="200dp"
+        />
+
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        style="@style/EditViews"
+        android:inputType="text"
+        android:hint="Address"
+        android:id="@+id/etAddressEditProfile"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="280dp"
+        />
+
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        style="@style/EditViews"
+        android:inputType="text"
+        android:hint="Contact Number"
+        android:id="@+id/etContactNumberEditProfile"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="360dp"
+        />
+
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        style="@style/EditViews"
+        android:inputType="text"
+        android:hint="Zip Code"
+        android:id="@+id/etZipCodeEditProfile"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="440dp"
+        />
+
+    <Spinner
+        android:background="@drawable/rounded_edittext"
+        style="@style/Spinners"
+        android:id="@+id/spSecurityQuestionEditProfile"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="520dp"
+        />
+
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        style="@style/EditViews"
+        android:inputType="text"
+        android:hint="Security Answer"
+        android:id="@+id/etSecurityAnswerEditProfile"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="600dp"
+        />
+
+    <Button
+        android:id="@+id/btnUpdateProfile"
+        style="@style/Buttons"
+        android:background="@drawable/button_blue_gradient"
+        android:text="Update Profile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300dp"
+        />
+
+
+</FrameLayout>

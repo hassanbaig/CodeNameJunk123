@@ -3,12 +3,12 @@ package com.junkcartrader.junkcartraderapp;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +28,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,12 +39,12 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link LocationFragment.OnFragmentInteractionListener} interface
+ * {@link ChangePasswordFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link LocationFragment#newInstance} factory method to
+ * Use the {@link ChangePasswordFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LocationFragment extends Fragment implements QuestionnaireFragment.OnFragmentInteractionListener,CustomerInfoFragment.OnFragmentInteractionListener{
+public class ChangePasswordFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -55,21 +54,16 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
     private String mParam1;
     private String mParam2;
 
-
-    private  final String BASE_URL = URLHelper.GetBaseUrl();
-    private  String SERVICE_URL = BASE_URL;
-    private ProgressDialog dialog;
-    private Button btnGetAnOffer,btnGetABetterOffer;
-    private EditText etZipCode;
-    private Integer operationType;
-    String isValidZipCode,year,make,makeId,model,modelId,cylinders,OfferType;
-    FragmentManager fm;
-    FragmentTransaction fragmentTransaction;
-    Fragment customerInfoFragment,questionnaireFragment;
-    Bundle args;
-    View rootView;
-
     private OnFragmentInteractionListener mListener;
+
+    private final String BASE_URL = URLHelper.GetBaseUrl();
+    private String SERVICE_URL = BASE_URL;
+    private ProgressDialog dialog;
+    private Button btnConfirmChange;
+    private EditText etOldPassword,etNewPassword,etConfirmPassword;
+    private Integer operationType;
+    String email,password;
+    View rootView;
 
     /**
      * Use this factory method to create a new instance of
@@ -77,19 +71,19 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment LocationFragment.
+     * @return A new instance of fragment ChangePasswordFragment.
      */
+    private static final String ARG_SECTION_NUMBER = "section_number";
     // TODO: Rename and change types and number of parameters
-    public static LocationFragment newInstance(String param1, String param2) {
-        LocationFragment fragment = new LocationFragment();
+    public static ChangePasswordFragment newInstance(int sectionNumber) {
+        ChangePasswordFragment fragment = new ChangePasswordFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public LocationFragment() {
+    public ChangePasswordFragment() {
         // Required empty public constructor
     }
 
@@ -106,38 +100,48 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_location, container, false);
-        year = getArguments().getString("Year");
-        make = getArguments().getString("Make");
-        makeId = getArguments().getString("MakeId");
-        model = getArguments().getString("Model");
-        modelId = getArguments().getString("ModelId");
-        cylinders = getArguments().getString("Cylinders");
+        rootView= inflater.inflate(R.layout.fragment_change_password, container, false);
+        email=getArguments().getString("email");
+        password=getArguments().getString("password");
         Initialize();
         return rootView;
     }
-    private void Initialize() {
-        etZipCode = (EditText)rootView.findViewById(R.id.etZipCodeLocation);
-        btnGetAnOffer = (Button)rootView.findViewById(R.id.btnGetAnOfferLocation);
-        btnGetABetterOffer = (Button)rootView.findViewById(R.id.btnGetABetterOfferLocation);
-        operationType = 0;
-        btnGetAnOffer.setOnClickListener(new View.OnClickListener() {
+
+    private void Initialize()
+    {
+        etOldPassword=(EditText)rootView.findViewById(R.id.etOldPassword);
+        etNewPassword=(EditText)rootView.findViewById(R.id.etNewPassword);
+        etConfirmPassword=(EditText)rootView.findViewById(R.id.etConfirmPassword);
+        btnConfirmChange=(Button)rootView.findViewById(R.id.btnConfirmChange);
+        btnConfirmChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                operationType = 1;
-                String zipCode = etZipCode.getText().toString();
-                CheckZipCode(zipCode);
+                String currentPassword=etOldPassword.getText().toString();
+                String newPassword=etNewPassword.getText().toString();
+                String confirmPassword=etConfirmPassword.getText().toString();
+
+                if(!newPassword.equals(confirmPassword))
+                {
+                    Toast.makeText(getActivity(),"New password mismatch",Toast.LENGTH_LONG).show();
+                }
+                else if(!currentPassword.equals(password))
+                {
+                    Toast.makeText(getActivity(),"Please enter correct password",Toast.LENGTH_LONG).show();
+                }
+                else if(newPassword.equals(password))
+                {
+                    Toast.makeText(getActivity(),"Please enter a new password ",Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    ChangePassword(email,currentPassword,newPassword);
+                }
+
             }
         });
-        btnGetABetterOffer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                operationType = 2;
-                String zipCode = etZipCode.getText().toString();
-                CheckZipCode(zipCode);
-            }
-        });
+
     }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -162,17 +166,6 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
         mListener = null;
     }
 
-
-    @Override
-    public void onAttach(MainActivity activity) {
-        
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -185,27 +178,38 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
      */
     public interface OnFragmentInteractionListener {
         void onAttach(MainActivity activity);
-
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
-    public void retrieveSampleData(View vw) {
-        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
-        wst.execute(new String[]{SERVICE_URL});
-    }
-    public void CheckZipCode(String zipCode) {
+
+    public void ChangePassword(String email,String currentPassword,String newPassword)
+    {
+        operationType=1;
         dialog = ProgressDialog.show(getActivity(),
                 "Loading...", "Please wait...", false);
         dialog.show();
-        SERVICE_URL = BASE_URL + "Home/CheckZipCode?zipCode=" + zipCode;
+        SERVICE_URL = BASE_URL + "Accounts/ChangePasswordApp?" +
+                "email=" + email +
+                "&currentPassword=" + currentPassword +
+                "&newPassword=" + newPassword;
         WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
         wst.execute(new String[]{SERVICE_URL});
     }
-    public void postData() {
-        WebServiceTask wst = new WebServiceTask(WebServiceTask.POST_TASK, getActivity(), "Posting data...");
-        // the passed String is the URL we will POST to
+
+    public void ChangePassword(String currentPassword,String newPassword)
+    {
+        operationType=1;
+        dialog = ProgressDialog.show(getActivity(),
+                "Loading...", "Please wait...", false);
+        dialog.show();
+        SERVICE_URL = BASE_URL + "Accounts/ChangePassword?" +
+
+                "&currentPassword=" + currentPassword +
+                "&newPassword=" + newPassword;
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
         wst.execute(new String[]{SERVICE_URL});
     }
+
 
     public void clearControls() {
         SERVICE_URL = BASE_URL;
@@ -213,63 +217,35 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
 
     public void handleResponse(String response) {
         try {
-            JSONObject jso = new JSONObject(response);
             dialog.dismiss();
-            switch(operationType)
-            {
+            switch (operationType) {
                 case 1:
-                    isValidZipCode = jso.get("Is_Valid_Zip_Code").toString();
-                    if(isValidZipCode=="true")
-                    {
-                        customerInfoFragment = new CustomerInfoFragment();
-                        fragmentTransaction = getFragmentManager().beginTransaction();
-                        args = new Bundle();
-                        args.putString("GetAnOffer", "GetAnOffer");
-                        args.putString("Year", year);
-                        args.putString("Make", make);
-                        args.putString("MakeId", makeId);
-                        args.putString("Model", model);
-                        args.putString("ModelId", modelId);
-                        args.putString("Cylinders", cylinders);
-                        args.putString("ZipCode", etZipCode.getText().toString());
-                        customerInfoFragment.setArguments(args);
-                        fragmentTransaction.replace(R.id.container, customerInfoFragment);
-                        fragmentTransaction.commit();
+                    String res=response.replace("\"","");
+                    if(res.equals("Valid")){
+                        SharedPreferences sharedPreferences=getActivity().getSharedPreferences("AppData", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor=sharedPreferences.edit();
+                        editor.remove("email");
+                        editor.remove("password");
+                        editor.commit();
+                        Toast.makeText(getActivity(),"Your password has been changed. An email has been sent to your email address",Toast.LENGTH_LONG).show();
+                        getActivity().finish();
+                        Intent intent=new Intent(getActivity(),LoginActivity.class);
+                        startActivity(intent);
                     }
-                    else{
-                        Toast.makeText(getActivity(),"Please enter correct Zip-Code",Toast.LENGTH_LONG).show();
-                    }
-                    break;
-                case 2:
-                    isValidZipCode = jso.get("Is_Valid_Zip_Code").toString();
-                    if(isValidZipCode=="true")
-                    {
-                        questionnaireFragment = new QuestionnaireFragment();
-                        fragmentTransaction = getFragmentManager().beginTransaction();
-                        args = new Bundle();
-                        args.putString("GetABetterOffer", "GetABetterOffer");
-                        args.putString("Year", year);
-                        args.putString("Make", make);
-                        args.putString("MakeId", makeId);
-                        args.putString("Model", model);
-                        args.putString("ModelId", modelId);
-                        args.putString("Cylinders", cylinders);
-                        args.putString("ZipCode", etZipCode.getText().toString());
-                        questionnaireFragment.setArguments(args);
-                        fragmentTransaction.replace(R.id.container, questionnaireFragment);
-                        fragmentTransaction.commit();
-                    }
-                    else{
-                        Toast.makeText(getActivity(),"Please enter correct Zip-Code",Toast.LENGTH_LONG).show();
+                    else {
+                        Toast.makeText(getActivity(),"Failed",Toast.LENGTH_LONG).show();
                     }
                     break;
                 default:
                     break;
             }
             clearControls();
+
         } catch (Exception e) {
+            btnConfirmChange.setText(e.getMessage());
         }
     }
+
 
     private class WebServiceTask extends AsyncTask<String, Integer, String> {
 
@@ -369,4 +345,5 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
             return total.toString();
         }
     }
+
 }

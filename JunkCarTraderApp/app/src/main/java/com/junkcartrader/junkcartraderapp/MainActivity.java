@@ -3,30 +3,26 @@ package com.junkcartrader.junkcartraderapp;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.os.Bundle;
-import android.util.JsonWriter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
-
-import com.junkcartrader.junkcartraderapp.DataModel.Set_Make;
-import com.junkcartrader.junkcartraderapp.DataModel.Set_Model;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -49,16 +45,21 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks,LocationFragment.OnFragmentInteractionListener,OfferFragment.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,LocationFragment.OnFragmentInteractionListener,OfferFragment.OnFragmentInteractionListener,PhotoFragment.OnFragmentInteractionListener,SettingsFragment.OnFragmentInteractionListener,ChangePasswordFragment.OnFragmentInteractionListener,EditProfileFragment.OnFragmentInteractionListener{
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
+    private final String BASE_URL = URLHelper.GetBaseUrl();
+    private String SERVICE_URL = BASE_URL;
+    private ProgressDialog dialog;
+    private Button btnNextMain;
+    private Spinner spRegistrationYears, spMakes, spModels, spCylinders;
+    private Integer operationType;
     private CharSequence mTitle;
-
+    android.app.Fragment settingsFragment;
+    android.app.FragmentTransaction fragmentTransaction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,15 +85,43 @@ public class MainActivity extends ActionBarActivity
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
+                mTitle = getString(R.string.section_Home);
+                //Intent intent;
                 break;
             case 2:
-                mTitle = getString(R.string.title_section2);
+                mTitle = getString(R.string.section_Settings);
+                /*finish();
+                intent=new Intent(this,SettingsActivity.class);
+                startActivity(intent);*/
                 break;
             case 3:
-                mTitle = getString(R.string.title_section3);
+                mTitle = getString(R.string.section_Logout);
+                /*SharedPreferences sharedPreferences=getSharedPreferences("AppData",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor=sharedPreferences.edit();
+                editor.remove("email");
+                editor.remove("password");
+                editor.commit();
+                finish();
+                intent=new Intent(this,LoginActivity.class);
+                startActivity(intent);*/
                 break;
         }
+    }
+
+    public String GetEmail()
+    {
+        SharedPreferences sharedPreferences=getSharedPreferences("AppData",MODE_PRIVATE);
+        String email=sharedPreferences.getString("email","");
+        return email;
+
+    }
+
+    public String GetPassword()
+    {
+        SharedPreferences sharedPreferences=getSharedPreferences("AppData",MODE_PRIVATE);
+        String password=sharedPreferences.getString("password","");
+        return password;
+
     }
 
     public void restoreActionBar() {
@@ -100,6 +129,7 @@ public class MainActivity extends ActionBarActivity
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
+
     }
 
 
@@ -141,6 +171,7 @@ public class MainActivity extends ActionBarActivity
 
     }
 
+
     public static class PlaceholderFragment extends Fragment {
         private final String BASE_URL = URLHelper.GetBaseUrl();
         private String SERVICE_URL = BASE_URL;
@@ -153,7 +184,7 @@ public class MainActivity extends ActionBarActivity
         JSONArray makesJSON,modelsJSON;
         List<String> makesList,modelsList;
         String[] years,cylinders;
-        String yearsResponse,cylindersResponse;;
+        String yearsResponse,cylindersResponse;
         FragmentTransaction fragmentTransaction;
         Fragment locationFragment;
         Bundle args;
@@ -283,6 +314,16 @@ public class MainActivity extends ActionBarActivity
             dialog.show();
             operationType = 4;
             SERVICE_URL = BASE_URL + "Home/GetCylinders";
+            WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
+            wst.execute(new String[]{SERVICE_URL});
+        }
+
+        public void Logout() {
+            dialog = ProgressDialog.show(getActivity(),
+                    "Loading...", "Please wait...", false);
+            dialog.show();
+            operationType = 1;
+            SERVICE_URL = BASE_URL + "Home/GetRegistrationYears";
             WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
             wst.execute(new String[]{SERVICE_URL});
         }

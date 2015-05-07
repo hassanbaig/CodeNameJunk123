@@ -65,10 +65,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2015 10:52:56</publishTime>
     </File>
     <File Include="bin/JunkCar.WebAPI.dll">
-      <publishTime>04/15/2015 10:53:00</publishTime>
+      <publishTime>05/07/2015 11:13:21</publishTime>
     </File>
     <File Include="bin/JunkCar.WebAPI.pdb">
-      <publishTime>04/15/2015 10:53:00</publishTime>
+      <publishTime>05/07/2015 11:13:20</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>12/23/2014 15:26:54</publishTime>

@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@id/imgvLogo"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo"
+        />
 
     <EditText
         android:background="@drawable/rounded_edittext"
@@ -18,7 +19,8 @@
         android:hint="Name"
         android:id="@+id/etNameCustomerInfo"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="720dp"/>
+        android:layout_marginBottom="720dp"
+        />
     <EditText
         android:background="@drawable/rounded_edittext"
         style="@style/EditViews"
@@ -78,4 +80,6 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_marginBottom="280dp"/>
+
+
 </FrameLayout>

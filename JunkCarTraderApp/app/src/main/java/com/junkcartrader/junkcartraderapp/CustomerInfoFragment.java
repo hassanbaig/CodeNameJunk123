@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -51,7 +52,7 @@ import java.util.regex.Pattern;
  * Use the {@link CustomerInfoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CustomerInfoFragment extends Fragment implements QuestionnaireFragment.OnFragmentInteractionListener, OfferFragment.OnFragmentInteractionListener {
+public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnFragmentInteractionListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -118,9 +119,12 @@ public class CustomerInfoFragment extends Fragment implements QuestionnaireFragm
         cylinders = getArguments().getString("Cylinders");
         zipCode = getArguments().getString("ZipCode");
         if(offerType1.contentEquals("GetAnOffer"))
-        {OfferType = "GetAnOffer";}
-        else if(offerType2.contentEquals("GetABetterOffer"))
-        {OfferType="GetABetterOffer";}
+        {OfferType = "GetAnOffer";
+            Toast.makeText(this.getActivity(),"Get AN OFFER",Toast.LENGTH_LONG).show();}
+        //else if(offerType2.contentEquals("GetABetterOffer"))
+        else
+        {OfferType="GetABetterOffer";
+        Toast.makeText(this.getActivity(),"Get A BETTER OFFER",Toast.LENGTH_LONG).show();}
         Initialize();
         etName.setText(offerType2);
         GetStates();
@@ -302,6 +306,7 @@ public class CustomerInfoFragment extends Fragment implements QuestionnaireFragm
                     statesAdapter.setDropDownViewResource
                             (android.R.layout.simple_spinner_dropdown_item);
                     spStates.setAdapter(statesAdapter);
+
                     break;
                 case 3:
                     citiesJSON = new JSONArray(jso.get("$values").toString());

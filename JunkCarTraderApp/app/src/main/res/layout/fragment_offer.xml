@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.junkcartrader.junkcartraderapp.OfferFragment"
@@ -9,16 +9,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@id/imgvLogo"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo"/>
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/imgvLogo"
+        android:id="@+id/customerInfoScroll"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/tvPriceOffer"
+        android:text="Please Wait..."
         android:textSize="44dp"
         android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="300dp"/>
+        android:layout_marginTop="50dp"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -26,7 +40,7 @@
         android:id="@+id/imgvCallOffer"
         android:src="@drawable/contact"
         android:layout_gravity="center"
-        android:layout_marginBottom="120dp"/>
+        android:layout_marginTop="30dp"/>
 
     <TextView
         style="@style/TextViews"
@@ -36,21 +50,29 @@
         android:text="Call Us For Negotiation"
         android:id="@+id/tvCallMessageOffer"
         android:layout_gravity="center"
-        android:layout_marginBottom="60dp"/>
+        android:layout_marginTop="20dp"/>
+
     <Button
         style="@style/Buttons"
         android:background="@drawable/button_blue_gradient"
         android:text="Please Wait..."
         android:id="@+id/btnContactNumberOffer"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"/>
+
     <Button
         style="@style/Buttons"
         android:background="@drawable/button_red_gradient"
         android:text="Confirm"
         android:id="@+id/btnConfirmOffer"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
-</FrameLayout>
+
+    </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

@@ -40,7 +40,10 @@ import org.apache.http.params.HttpParams;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -73,12 +76,13 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
     private ProgressDialog dialog;
     private  static ImageView ivphoto1,ivphoto2,ivphoto3,ivphoto4,ivphoto5;
     private Integer operationType;
-    private ImageButton imgBtnCamera1Photo,imgBtnCamera2Photo,imgBtnCamera3Photo,imgBtnCamera4Photo,imgBtnCamera5Photo,imgBtnOpenFolder1Photo,imgBtnOpenFolder2Photo,imgBtnOpenFolder3Photo,imgBtnOpenFolder4Photo,imgBtnOpenFolder5Photo;
+    private ImageButton imgBtnCamera1Photo,imgBtnCamera2Photo,imgBtnCamera3Photo,imgBtnCamera4Photo,imgBtnCamera5Photo,
+            imgBtnOpenFolder1Photo,imgBtnOpenFolder2Photo,imgBtnOpenFolder3Photo,imgBtnOpenFolder4Photo,imgBtnOpenFolder5Photo;
 
     private Button btnNextCustomerInfo;
     private static final int SELECT_PHOTO = 100;
     private static final int MY_INTENT_CLICK=302;
-    String isValidZipCode,OfferType,offerPrice,year,make,makeId,model,modelId,cylinders,zipCode,questionnaire;
+    String isValidZipCode,OfferType,offerPrice,year,make,makeId,model,modelId,cylinders,zipCode,questionnaire,email;
     FragmentManager fm;
     Uri fileUri;
     public static final int MEDIA_TYPE_IMAGE = 1;
@@ -143,6 +147,7 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
         cylinders=getArguments().getString("Cylinders");
         questionnaire=getArguments().getString("Questionnaire");
         zipCode=getArguments().getString("ZipCode");
+        //email=getArguments().getString("email");
         Initialize();
         return rootView;
     }
@@ -336,12 +341,14 @@ public void Initialize()
             switch (requestCode)
             {
                 case 0:
+                    byte[] byteArray;
                     String selectedImagePath;
                     String capturedImagePath;
                     Uri selectedImageUri = data.getData();
                     //MEDIA GALLERY
                     selectedImagePath =ImageFilePath.getPath(getActivity(),selectedImageUri);
                     Bitmap bmp=BitmapFactory.decodeFile(selectedImagePath);
+                    //byteArray=convertToBytes(selectedImagePath);
                     Bitmap image=Bitmap.createScaledBitmap(bmp, 170, 170, true);
                     ivphoto1.setImageBitmap(image);
                     //imageDetails.setText(selectedImagePath);
@@ -478,6 +485,35 @@ public void Initialize()
         return uri.getPath();
     }
 
+    public byte[] convertToBytes(String selectedImagePath)
+    {
+        try
+        {
+            FileInputStream fs = new FileInputStream(selectedImagePath);
+
+            Bitmap bitmap = BitmapFactory.decodeStream(fs);
+
+            ByteArrayOutputStream bOutput = new ByteArrayOutputStream();
+
+            bitmap.compress(Bitmap.CompressFormat.PNG,1, bOutput);
+
+            byte[] dataImage = bOutput.toByteArray();
+
+            return dataImage;
+        }
+        catch(NullPointerException ex)
+        {
+            ex.printStackTrace();
+            return null;
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -531,6 +567,16 @@ public void Initialize()
         wst.execute(new String[]{SERVICE_URL});
     }
 
+    public void Upload()
+    {
+        dialog=ProgressDialog.show(getActivity(),
+                "Loading","Please Wait...",false);
+        SERVICE_URL = "http://www.junkcartrader.com/API/Uploads/Photos";
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.POST_TASK, getActivity(), "Posting data...");
+        // the passed String is the URL we will POST to
+        wst.execute(new String[]{SERVICE_URL});
+    }
+
     public void postData() {
         WebServiceTask wst = new WebServiceTask(WebServiceTask.POST_TASK, getActivity(), "Posting data...");
         // the passed String is the URL we will POST to
@@ -553,20 +599,17 @@ public void Initialize()
                         customerInfoFragment = new CustomerInfoFragment();
                         fragmentTransaction = getFragmentManager().beginTransaction();
                         args = new Bundle();
-                        args.putString("GetABetterOffer", "GetABetterOffer");
-                            /*args.putString("Name", etName.getText().toString());
-                            args.putString("Address", etAddress.getText().toString());
-                            args.putString("StateId", statesJSON.getJSONObject(spStates.getSelectedItemPosition()).getString("State_Id"));
-                            args.putString("CityId", citiesJSON.getJSONObject(spCities.getSelectedItemPosition()).getString("City_Id"));
-                            args.putString("PhoneNumber", etPhoneNumber.getText().toString());
-                            args.putString("EmailAddress", etEmail.getText().toString());
+                            args.putString("GetABetterOffer", "GetABetterOffer");
+                            args.putString("GetAnOffer","");
                             args.putString("Year", year);
                             args.putString("Make", make);
                             args.putString("MakeId", makeId);
                             args.putString("Model", model);
                             args.putString("ModelId", modelId);
                             args.putString("Cylinders", cylinders);
-                            args.putString("ZipCode", etZipCode.getText().toString());*/
+                            args.putString("ZipCode",zipCode);
+                            args.putString("Questionnaire",questionnaire);
+                            //args.putString("email",email);
                         customerInfoFragment.setArguments(args);
                         fragmentTransaction.replace(R.id.container, customerInfoFragment);
                         fragmentTransaction.commit();
@@ -581,10 +624,6 @@ public void Initialize()
         } catch (Exception e) {
         }
     }
-
-
-
-
 
     private class WebServiceTask extends AsyncTask<String, Integer, String> {
 
@@ -684,5 +723,6 @@ public void Initialize()
             return total.toString();
         }
     }
+
 }
 

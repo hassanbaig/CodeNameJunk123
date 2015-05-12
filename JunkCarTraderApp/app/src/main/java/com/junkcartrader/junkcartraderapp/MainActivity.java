@@ -184,7 +184,7 @@ public class MainActivity extends ActionBarActivity
         JSONArray makesJSON,modelsJSON;
         List<String> makesList,modelsList;
         String[] years,cylinders;
-        String yearsResponse,cylindersResponse;
+        String yearsResponse,cylindersResponse,email;
         FragmentTransaction fragmentTransaction;
         Fragment locationFragment;
         Bundle args;
@@ -209,6 +209,8 @@ public class MainActivity extends ActionBarActivity
                                  Bundle savedInstanceState) {
             rootView = inflater.inflate(R.layout.fragment_main, container, false);
             Initialize();
+            MainActivity mainActivity=(MainActivity)getActivity();
+            //email=mainActivity.GetEmail();
             return rootView;
         }
 
@@ -249,6 +251,7 @@ public class MainActivity extends ActionBarActivity
                 @Override
                 public void onClick(View v) {
                     try {
+
                         locationFragment = new LocationFragment();
                         fragmentTransaction = getFragmentManager().beginTransaction();
                         args = new Bundle();
@@ -258,6 +261,7 @@ public class MainActivity extends ActionBarActivity
                         args.putString("Model", spModels.getSelectedItem().toString());
                         args.putString("ModelId", modelsJSON.getJSONObject(spModels.getSelectedItemPosition()).getString("Model_Id"));
                         args.putString("Cylinders", spRegistrationYears.getSelectedItem().toString());
+                        //args.putString("email",email);
                         locationFragment.setArguments(args);
                         fragmentTransaction.replace(R.id.container, locationFragment);
                         fragmentTransaction.commit();

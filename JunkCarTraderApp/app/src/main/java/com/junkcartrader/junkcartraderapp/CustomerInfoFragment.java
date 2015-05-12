@@ -1,6 +1,5 @@
 package com.junkcartrader.junkcartraderapp;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
@@ -40,9 +39,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,7 +66,7 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
     private EditText etName,etAddress,etZipCode,etPhoneNumber,etEmail;
     private Spinner spStates,spCities;
     private Integer operationType;
-    String isValidZipCode,OfferType,offerPrice,year,make,makeId,model,modelId,cylinders,zipCode;
+    String isValidZipCode,OfferType,offerPrice,year,make,makeId,model,modelId,cylinders,zipCode,questionnaire,email, customerId;
     FragmentManager fm;
     FragmentTransaction fragmentTransaction;
     ArrayAdapter<String> statesAdapter,citiesAdapter;
@@ -118,15 +115,16 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
         modelId = getArguments().getString("ModelId");
         cylinders = getArguments().getString("Cylinders");
         zipCode = getArguments().getString("ZipCode");
-        if(offerType1.contentEquals("GetAnOffer"))
+        questionnaire=getArguments().getString("Questionnaire");
+        //email=getArguments().getString("email");
+
+        if(offerType1.equals("GetAnOffer"))
         {OfferType = "GetAnOffer";
-            Toast.makeText(this.getActivity(),"Get AN OFFER",Toast.LENGTH_LONG).show();}
-        //else if(offerType2.contentEquals("GetABetterOffer"))
+            Toast.makeText(this.getActivity(),OfferType,Toast.LENGTH_LONG).show();}
         else
         {OfferType="GetABetterOffer";
-        Toast.makeText(this.getActivity(),"Get A BETTER OFFER",Toast.LENGTH_LONG).show();}
+        Toast.makeText(this.getActivity(),OfferType,Toast.LENGTH_LONG).show();}
         Initialize();
-        etName.setText(offerType2);
         GetStates();
         return rootView;
     }
@@ -145,11 +143,52 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
         btnNextCustomerInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog = ProgressDialog.show(getActivity(),
-                        "Loading...", "Please wait...", false);
-                dialog.show();
-                String zipCode = etZipCode.getText().toString();
-                CheckZipCode(zipCode);
+
+                if(etName.getText().toString().equals(""))
+                {
+                    Toast.makeText(getActivity(),"Please enter name",Toast.LENGTH_SHORT).show();
+                }
+
+                else if(etAddress.getText().toString().equals(""))
+                {
+                    Toast.makeText(getActivity(),"Please enter address",Toast.LENGTH_SHORT).show();
+                }
+
+                else if(etZipCode.getText().toString().equals(""))
+                {
+                    Toast.makeText(getActivity(),"Please enter zipcode",Toast.LENGTH_SHORT).show();
+                }
+
+                else if(etPhoneNumber.getText().toString().equals(""))
+                {
+                    Toast.makeText(getActivity(),"Please enter phone number",Toast.LENGTH_SHORT).show();
+                }
+
+                else if(etEmail.getText().toString().equals(""))
+                {
+                    Toast.makeText(getActivity(),"Please enter email",Toast.LENGTH_SHORT).show();
+                }
+
+                else
+                {
+                    dialog = ProgressDialog.show(getActivity(),
+                            "Loading...", "Please wait...", false);
+                    dialog.show();
+                    try {
+                        String address = etAddress.getText().toString();
+                        String cityId = citiesJSON.getJSONObject(spCities.getSelectedItemPosition()).getString("City_Id");
+                        String email = etEmail.getText().toString();
+                        String name = etName.getText().toString();
+                        String phone = etPhoneNumber.getText().toString();
+                        String stateId = statesJSON.getJSONObject(spStates.getSelectedItemPosition()).getString("State_Id");
+                        String zipCode = etZipCode.getText().toString();
+                        GetCustomerId(address,cityId,email,name,phone,stateId,zipCode);
+                    }
+                    catch (Exception e)
+                    {
+                            btnNextCustomerInfo.setText(e.getMessage());
+                    }
+                }
             }
         });
 
@@ -220,7 +259,30 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
     }
     public void CheckZipCode(String zipCode) {
         operationType = 1;
+        dialog = ProgressDialog.show(getActivity(),
+                "Loading...", "Please wait...", false);
+        dialog.show();
         SERVICE_URL = BASE_URL + "Home/CheckZipCode?zipCode=" + zipCode;
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
+        wst.execute(new String[]{SERVICE_URL});
+    }
+
+    public void GetCustomerId(String address, String cityId, String emailAddress,
+                              String name, String phone,String stateId, String zipCode) {
+
+        operationType = 4;
+        /*dialog = ProgressDialog.show(getActivity(),
+                "Loading...", "Please wait...", false);
+        dialog.show();*/
+        SERVICE_URL = BASE_URL + "Home/GetCustomerId?" +
+                "address=" + address +
+                "&cityId=" + cityId +
+                "&emailAddress=" + emailAddress +
+                "&name=" + name +
+                "&phone=" + phone +
+                "&stateId=" + stateId +
+                "&zipCode=" + zipCode;
+        //btnNextCustomerInfo.setText(SERVICE_URL);
         WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
         wst.execute(new String[]{SERVICE_URL});
     }
@@ -258,18 +320,84 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
 
     public void handleResponse(String response) {
         try {
-            JSONObject jso = new JSONObject(response);
+
             dialog.dismiss();
             switch(operationType)
             {
                 case 1:
+                    JSONObject jso = new JSONObject(response);
                     isValidZipCode = jso.get("Is_Valid_Zip_Code").toString();
                     if(isValidZipCode=="true") {
+                        /*if(OfferType.equals("GetAnOffer")) {
+                            try {
+                                offerFragment = new OfferFragment();
+                                fragmentTransaction = getFragmentManager().beginTransaction();
+                                args = new Bundle();
+                                args.putString("GetAnOffer", "GetAnOffer");
+                                args.putString("GetABetterOffer", "");
+                                args.putString("Name", etName.getText().toString());
+                                args.putString("Address", etAddress.getText().toString());
+                                args.putString("StateId", statesJSON.getJSONObject(spStates.getSelectedItemPosition()).getString("State_Id"));
+                                args.putString("CityId", citiesJSON.getJSONObject(spCities.getSelectedItemPosition()).getString("City_Id"));
+                                args.putString("PhoneNumber", etPhoneNumber.getText().toString());
+                                args.putString("EmailAddress", etEmail.getText().toString());
+                                args.putString("Year", year);
+                                args.putString("Make", make);
+                                args.putString("MakeId", makeId);
+                                args.putString("Model", model);
+                                args.putString("ModelId", modelId);
+                                args.putString("Cylinders", cylinders);
+                                args.putString("ZipCode", etZipCode.getText().toString());
+                                args.putString("Questionnaire", "");
+                                args.putString("CustomerId",customerId);
+                                offerFragment.setArguments(args);
+                                fragmentTransaction.replace(R.id.container, offerFragment);
+                                fragmentTransaction.commit();
+
+                                // GetAnOffer(address, cityId, cylinders, emailAddress, make, model, name, phone, makeId, modelId, year, stateId, zipCode);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else
+                        {
+                            try {
+                                offerFragment = new OfferFragment();
+                                fragmentTransaction = getFragmentManager().beginTransaction();
+                                args = new Bundle();
+                                args.putString("GetAnOffer", "");
+                                args.putString("GetABetterOffer", "GetABetterOffer");
+                                args.putString("Name", etName.getText().toString());
+                                args.putString("Address", etAddress.getText().toString());
+                                args.putString("StateId", statesJSON.getJSONObject(spStates.getSelectedItemPosition()).getString("State_Id"));
+                                args.putString("CityId", citiesJSON.getJSONObject(spCities.getSelectedItemPosition()).getString("City_Id"));
+                                args.putString("PhoneNumber", etPhoneNumber.getText().toString());
+                                args.putString("EmailAddress", etEmail.getText().toString());
+                                args.putString("Year", year);
+                                args.putString("Make", make);
+                                args.putString("MakeId", makeId);
+                                args.putString("Model", model);
+                                args.putString("ModelId", modelId);
+                                args.putString("Cylinders", cylinders);
+                                args.putString("ZipCode", etZipCode.getText().toString());
+                                args.putString("Questionnaire", questionnaire);
+                                args.putString("CustomerId",customerId);
+                                //args.putString("email",email);
+                                offerFragment.setArguments(args);
+                                fragmentTransaction.replace(R.id.container, offerFragment);
+                                fragmentTransaction.commit();
+
+                                // GetAnOffer(address, cityId, cylinders, emailAddress, make, model, name, phone, makeId, modelId, year, stateId, zipCode);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }*/
                         try {
                             offerFragment = new OfferFragment();
                             fragmentTransaction = getFragmentManager().beginTransaction();
                             args = new Bundle();
-                            args.putString("GetAnOffer", "GetAnOffer");
+                            args.putString("OfferType", OfferType);
+                            //args.putString("GetABetterOffer", "");
                             args.putString("Name", etName.getText().toString());
                             args.putString("Address", etAddress.getText().toString());
                             args.putString("StateId", statesJSON.getJSONObject(spStates.getSelectedItemPosition()).getString("State_Id"));
@@ -283,17 +411,20 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
                             args.putString("ModelId", modelId);
                             args.putString("Cylinders", cylinders);
                             args.putString("ZipCode", etZipCode.getText().toString());
+                            args.putString("Questionnaire", questionnaire);
+                            args.putString("CustomerId",customerId);
                             offerFragment.setArguments(args);
                             fragmentTransaction.replace(R.id.container, offerFragment);
                             fragmentTransaction.commit();
 
-                           // GetAnOffer(address, cityId, cylinders, emailAddress, make, model, name, phone, makeId, modelId, year, stateId, zipCode);
+                            // GetAnOffer(address, cityId, cylinders, emailAddress, make, model, name, phone, makeId, modelId, year, stateId, zipCode);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                     break;
                 case 2:
+                    jso = new JSONObject(response);
                     statesJSON = new JSONArray(jso.get("$values").toString());
                     statesList = new ArrayList<String>();
                     statesList.clear();
@@ -309,6 +440,7 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
 
                     break;
                 case 3:
+                    jso = new JSONObject(response);
                     citiesJSON = new JSONArray(jso.get("$values").toString());
                     citiesList = new ArrayList<String>();
                     citiesList.clear();
@@ -321,12 +453,17 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
                             (android.R.layout.simple_spinner_dropdown_item);
                     spCities.setAdapter(citiesAdapter);
                     break;
+                case 4:
+                    customerId=response;
+                    CheckZipCode(zipCode);
+                    break;
 
                 default:
                     break;
             }
             clearControls();
         } catch (Exception e) {
+            btnNextCustomerInfo.setText(e.getMessage());
         }
     }
 

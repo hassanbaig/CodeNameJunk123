@@ -62,7 +62,7 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
     private Button btnGetAnOffer,btnGetABetterOffer;
     private EditText etZipCode;
     private Integer operationType;
-    String isValidZipCode,year,make,makeId,model,modelId,cylinders,OfferType;
+    String isValidZipCode,year,make,makeId,model,modelId,cylinders,OfferType,questionnaire,email;
     FragmentManager fm;
     FragmentTransaction fragmentTransaction;
     Fragment customerInfoFragment,questionnaireFragment;
@@ -113,6 +113,7 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
         model = getArguments().getString("Model");
         modelId = getArguments().getString("ModelId");
         cylinders = getArguments().getString("Cylinders");
+        //email=getArguments().getString("email");
         Initialize();
         return rootView;
     }
@@ -225,6 +226,7 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
                         fragmentTransaction = getFragmentManager().beginTransaction();
                         args = new Bundle();
                         args.putString("GetAnOffer", "GetAnOffer");
+                        args.putString("GetABetterOffer","");
                         args.putString("Year", year);
                         args.putString("Make", make);
                         args.putString("MakeId", makeId);
@@ -232,6 +234,7 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
                         args.putString("ModelId", modelId);
                         args.putString("Cylinders", cylinders);
                         args.putString("ZipCode", etZipCode.getText().toString());
+                        //args.putString("email",email);
                         customerInfoFragment.setArguments(args);
                         fragmentTransaction.replace(R.id.container, customerInfoFragment);
                         fragmentTransaction.commit();
@@ -255,6 +258,7 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
                         args.putString("ModelId", modelId);
                         args.putString("Cylinders", cylinders);
                         args.putString("ZipCode", etZipCode.getText().toString());
+                        args.putString("email",email);
                         questionnaireFragment.setArguments(args);
                         fragmentTransaction.replace(R.id.container, questionnaireFragment);
                         fragmentTransaction.commit();

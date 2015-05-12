@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.junkcartrader.junkcartraderapp.PhotoFragment"
@@ -16,23 +16,35 @@
         style="@style/TextViews"
         android:text="Upload up to 5 photos"
         android:id="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imgvLogo"
         android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="200dp"/>
+        android:layout_marginTop="10dp"/>
 
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="20dp"
+        android:id="@+id/customerInfoScroll"
+        android:orientation="vertical">
 <RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="240dp"
-    android:background="#ffff8e92">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--android:background="#ffff8e92"-->
 
+
+    <!--First Image-->
     <ImageView
         android:id="@+id/ivphoto1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left|top"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="0dp"/>
+        android:layout_gravity="center_horizontal|top"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="10dp"/>
 
     <ImageButton
         android:layout_marginLeft="120dp"
@@ -40,28 +52,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgBtnOpenFolder1Photo"
+        android:layout_toStartOf="@+id/ivphoto1"
+        android:layout_toLeftOf="@+id/ivphoto1"
         android:src="@drawable/folder_open"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="0dp"
-        />
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"/>
 
     <ImageButton
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="120dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgBtnCamera1Photo"
+        android:layout_toEndOf="@+id/ivphoto1"
+        android:layout_toRightOf="@+id/ivphoto1"
         android:src="@drawable/camera"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="120dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <!--End First Image-->
+
+
+    <!--Second Image-->
 
     <ImageView
         android:id="@+id/ivphoto2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left|top"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="90dp"/>
+        android:layout_below="@+id/ivphoto1"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="10dp"/>
+
 
     <ImageButton
         android:layout_marginLeft="120dp"
@@ -69,55 +92,79 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgBtnOpenFolder2Photo"
+        android:layout_toStartOf="@+id/ivphoto2"
+        android:layout_toLeftOf="@+id/ivphoto2"
+        android:layout_below="@+id/imgBtnOpenFolder1Photo"
         android:src="@drawable/folder_open"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="90dp"/>
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center_horizontal"/>
 
     <ImageButton
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="120dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgBtnCamera2Photo"
         android:src="@drawable/camera"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="120dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="130dp"/>
+        android:layout_toEndOf="@+id/ivphoto2"
+        android:layout_toRightOf="@+id/ivphoto2"
+        android:layout_below="@+id/imgBtnCamera1Photo"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <!--End Second Image-->
+
+    <!--Third Image-->
 
     <ImageView
         android:id="@+id/ivphoto3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left|top"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="180dp"/>
+        android:layout_below="@+id/ivphoto2"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="10dp"/>
 
     <ImageButton
         android:layout_marginLeft="120dp"
         android:layout_marginRight="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/ivphoto3"
+        android:layout_toLeftOf="@+id/ivphoto3"
         android:id="@+id/imgBtnOpenFolder3Photo"
         android:src="@drawable/folder_open"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="180dp"/>
+        android:layout_below="@+id/imgBtnCamera2Photo"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center_horizontal"/>
 
     <ImageButton
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="120dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgBtnCamera3Photo"
+        android:layout_toEndOf="@+id/ivphoto3"
+        android:layout_toRightOf="@+id/ivphoto3"
         android:src="@drawable/camera"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="120dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="220dp"/>
+        android:layout_below="@id/imgBtnOpenFolder2Photo"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <!--End Third Image-->
+
+    <!--Fourth Image-->
 
     <ImageView
         android:id="@+id/ivphoto4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left|top"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="270dp"/>
+        android:layout_below="@+id/ivphoto3"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="10dp"/>
 
 
     <ImageButton
@@ -125,50 +172,68 @@
         android:layout_marginRight="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/ivphoto4"
+        android:layout_toLeftOf="@+id/ivphoto4"
         android:id="@+id/imgBtnOpenFolder4Photo"
         android:src="@drawable/folder_open"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="270dp"/>
+        android:layout_below="@+id/imgBtnOpenFolder3Photo"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center_horizontal"/>
 
     <ImageButton
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="120dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/ivphoto4"
+        android:layout_toRightOf="@+id/ivphoto4"
         android:id="@+id/imgBtnCamera4Photo"
         android:src="@drawable/camera"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="120dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="310dp"/>
+        android:layout_below="@+id/imgBtnCamera3Photo"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <!--End Fourth Image-->
+
+    <!--Fifth Image-->
 
     <ImageView
         android:id="@+id/ivphoto5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left|top"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="360dp"/>
+        android:layout_below="@+id/ivphoto4"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="10dp"/>
 
     <ImageButton
         android:layout_marginLeft="120dp"
         android:layout_marginRight="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/ivphoto5"
+        android:layout_toLeftOf="@+id/ivphoto5"
         android:id="@+id/imgBtnOpenFolder5Photo"
         android:src="@drawable/folder_open"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="360dp"/>
+        android:layout_below="@+id/imgBtnCamera4Photo"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center_horizontal"/>
 
     <ImageButton
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="120dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ivphoto5"
+        android:layout_toEndOf="@+id/ivphoto5"
         android:id="@+id/imgBtnCamera5Photo"
         android:src="@drawable/camera"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="120dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="400dp"/>
+        android:layout_below="@+id/imgBtnCamera4Photo"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center_horizontal"/>
 
-</RelativeLayout>
+    <!--End Fifth Image-->
 
     <TextView
         android:id="@+id/imageDetails"
@@ -180,12 +245,17 @@
 
     <Button
         style="@style/Buttons"
-        android:layout_marginLeft="150dp"
-        android:layout_marginRight="150dp"
         android:background="@drawable/button_blue_gradient"
         android:text="Next"
         android:id="@+id/btnNextCustomerInfo"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="50dp"/>
-</FrameLayout>
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/imgBtnCamera5Photo"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignWithParentIfMissing="false"/>
+</RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

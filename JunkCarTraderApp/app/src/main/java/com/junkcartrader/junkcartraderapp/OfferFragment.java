@@ -71,7 +71,7 @@ public class OfferFragment extends Fragment{
     private EditText etName,etAddress,etZipCode,etPhoneNumber,etEmail;
     private Spinner spStates,spCities;
     private Integer operationType;
-    String isValidZipCode,OfferType,offerPrice,year,make,makeId,model,modelId,cylinders,zipCode,name,email,address,stateId,cityId,phoneNumber;
+    String isValidZipCode,OfferType,offerPrice,year,make,makeId,model,modelId,cylinders,zipCode,name,email,address,stateId,cityId,phoneNumber,questionnaire,customerId;
     FragmentManager fm;
     FragmentTransaction fragmentTransaction;
     ArrayAdapter<String> statesAdapter,citiesAdapter;
@@ -119,6 +119,9 @@ public class OfferFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView= inflater.inflate(R.layout.fragment_offer, container, false);
+        //String offerType1 = getArguments().getString("GetAnOffer");
+        //String offerType2 = getArguments().getString("GetABetterOffer");
+        OfferType=getArguments().getString("OfferType");
         year = getArguments().getString("Year");
         make = getArguments().getString("Make");
         makeId = getArguments().getString("MakeId");
@@ -132,8 +135,28 @@ public class OfferFragment extends Fragment{
         cityId=getArguments().getString("CityId");
         phoneNumber=getArguments().getString("PhoneNumber");
         email=getArguments().getString("EmailAddress");
+        questionnaire=getArguments().getString("Questionnaire");
+        customerId=getArguments().getString("CustomerId");
+        //email=getArguments().getString("email");
         Initialize();
-        GetAnOffer(address,cityId,cylinders,email,make,model,name,phoneNumber,makeId,modelId,year,stateId,zipCode);
+
+
+
+        if(OfferType.equals("GetAnOffer"))
+        {
+            //OfferType = "GetAnOffer";
+            Toast.makeText(this.getActivity(),OfferType,Toast.LENGTH_LONG).show();
+            GetAnOffer(address, cityId, cylinders, email, make, model, name, phoneNumber, makeId, modelId, year, stateId, zipCode);
+        }
+        else
+        {
+            OfferType="GetABetterOffer";
+            Toast.makeText(this.getActivity(),OfferType,Toast.LENGTH_LONG).show();
+            //GetCustomerId(address,cityId,email,name,phoneNumber,stateId,zipCode);
+            GetABetterOffer(address, cityId, customerId, cylinders, email, make, model, name, phoneNumber, questionnaire.replace(" ", "%20"), makeId, modelId, year, stateId, zipCode);
+        }
+
+
 
         return  rootView;
     }
@@ -167,17 +190,28 @@ public class OfferFragment extends Fragment{
         btnconfirmOffer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog = ProgressDialog.show(getActivity(),
-                        "Loading...", "Please wait...", false);
-                dialog.show();
+                if (OfferType.equals("GetAnOffer"))
+                {
+                    dialog = ProgressDialog.show(getActivity(),
+                            "Loading...", "Please wait...", false);
+                    dialog.show();
 
-                String contactNo=btnContactNumber.getText().toString().replace(" ","%20");
-                String price=tvprice.getText().toString();
-                ConfirmOffer(address,cityId,contactNo,cylinders,email,make,model,name,phoneNumber,price,makeId,modelId,year,stateId,zipCode);
+                    String contactNo = btnContactNumber.getText().toString().replace(" ", "%20");
+                    String price = tvprice.getText().toString();
+                    ConfirmOffer(address, cityId, contactNo, cylinders, email, make, model, name, phoneNumber, price, makeId, modelId, year, stateId, zipCode);
+                }
+                else
+                {
+                    dialog = ProgressDialog.show(getActivity(),
+                            "Loading...", "Please wait...", false);
+                    dialog.show();
 
+                    String contactNo = btnContactNumber.getText().toString().replace(" ", "%20");
+                    String price = tvprice.getText().toString();
+                    ConfirmOfferWithQuestionnaire(address, cityId, contactNo, customerId, cylinders, email, make, model, name, phoneNumber, price, questionnaire.replace(" ", "%20"), makeId, modelId, year, stateId, zipCode);
+                }
             }
         });
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -222,17 +256,10 @@ public class OfferFragment extends Fragment{
         public void onFragmentInteraction(Uri uri);
     }
 
-    public void CheckZipCode(String zipCode) {
-        operationType = 2;
-        dialog = ProgressDialog.show(getActivity(),
-                "Loading...", "Please wait...", false);
-        dialog.show();
-        SERVICE_URL = BASE_URL + "Home/CheckZipCode?zipCode=" + zipCode;
-        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
-        wst.execute(new String[]{SERVICE_URL});
-    }
+    public void GetAnOffer(String address, String cityId, String cylinders, String emailAddress,
+                           String make, String model, String name, String phone, String selectedMakeId,
+                           String selectedModelId, String selectedYear,String stateId, String zipCode) {
 
-    public void GetAnOffer(String address, String cityId, String cylinders, String emailAddress, String make, String model, String name, String phone, String selectedMakeId,String selectedModelId, String selectedYear,String stateId, String zipCode) {
         operationType = 1;
         dialog = ProgressDialog.show(getActivity(),
                 "Loading...", "Please wait...", false);
@@ -256,7 +283,53 @@ public class OfferFragment extends Fragment{
         wst.execute(new String[]{SERVICE_URL});
     }
 
-    public void ConfirmOffer(String address, String cityId,String contactNo, String cylinders, String emailAddress, String make, String model, String name, String phone,String price, String selectedMakeId,String selectedModelId, String selectedYear,String stateId, String zipCode) {
+    public void GetABetterOffer(String address, String cityId,String customerId,
+                                String cylinders, String emailAddress, String make,
+                                String model, String name, String phone, String questionnaire,
+                                String selectedMakeId,String selectedModelId, String selectedYear,
+                                String stateId, String zipCode) {
+
+        operationType = 1;
+        dialog = ProgressDialog.show(getActivity(),
+                "Loading...", "Please wait...", false);
+        dialog.show();
+        SERVICE_URL = BASE_URL + "Home/GetABetterOffer?" +
+                "address=" + address +
+                "&cityId=" + cityId +
+                "&customerId=" + customerId +
+                "&cylinders=" + cylinders +
+                "&emailAddress=" + emailAddress +
+                "&make=" + make +
+                "&model=" + model +
+                "&name=" + name +
+                "&phone=" + phone +
+                "&questionnaire=" + questionnaire +
+                "&selectedMakeId=" + selectedMakeId +
+                "&selectedModelId=" + selectedModelId +
+                "&selectedYear=" + selectedYear +
+                "&stateId=" + stateId +
+                "&zipCode=" + zipCode;
+        //btnNextCustomerInfo.setText(SERVICE_URL);
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
+        wst.execute(new String[]{SERVICE_URL});
+    }
+
+    public void CheckZipCode(String zipCode) {
+        operationType = 2;
+        dialog = ProgressDialog.show(getActivity(),
+                "Loading...", "Please wait...", false);
+        dialog.show();
+        SERVICE_URL = BASE_URL + "Home/CheckZipCode?zipCode=" + zipCode;
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
+        wst.execute(new String[]{SERVICE_URL});
+    }
+
+    public void ConfirmOffer(String address, String cityId,String contactNo,
+                             String cylinders, String emailAddress, String make,
+                             String model, String name, String phone,String price,
+                             String selectedMakeId,String selectedModelId, String selectedYear,
+                             String stateId, String zipCode) {
+
         operationType = 3;
         /*dialog = ProgressDialog.show(getActivity(),
                 "Loading...", "Please wait...", false);
@@ -277,10 +350,64 @@ public class OfferFragment extends Fragment{
                 "&selectedYear=" + selectedYear +
                 "&stateId=" + stateId +
                 "&zipCode=" + zipCode;
+       // btnconfirmOffer.setText(SERVICE_URL);
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
+        wst.execute(new String[]{SERVICE_URL});
+    }
+
+    /*public void GetCustomerId(String address, String cityId, String emailAddress,
+                              String name, String phone,String stateId, String zipCode) {
+
+        operationType = 4;
+        dialog = ProgressDialog.show(getActivity(),
+                "Loading...", "Please wait...", false);
+        dialog.show();
+        SERVICE_URL = BASE_URL + "Home/GetCustomerId?" +
+                "address=" + address +
+                "&cityId=" + cityId +
+                "&emailAddress=" + emailAddress +
+                "&name=" + name +
+                "&phone=" + phone +
+                "&stateId=" + stateId +
+                "&zipCode=" + zipCode;
+        //btnNextCustomerInfo.setText(SERVICE_URL);
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
+        wst.execute(new String[]{SERVICE_URL});
+    }*/
+
+    public void ConfirmOfferWithQuestionnaire(String address, String cityId, String contactNo,
+                                              String customerId, String cylinders, String emailAddress,
+                                              String make, String model, String name, String phone, String price,
+                                              String questionnaire, String selectedMakeId,String selectedModelId,
+                                              String selectedYear,String stateId, String zipCode) {
+
+        operationType = 4;
+        /*dialog = ProgressDialog.show(getActivity(),
+                "Loading...", "Please wait...", false);
+        dialog.show();*/
+        SERVICE_URL = BASE_URL + "Home/ConfirmOfferWithQuestionnaire?" +
+                "address=" + address +
+                "&cityId=" + cityId +
+                "&contactNo=" + contactNo +
+                "&customerId=" + customerId +
+                "&cylinders=" + cylinders +
+                "&emailAddress=" + emailAddress +
+                "&make=" + make +
+                "&model=" + model +
+                "&name=" + name +
+                "&phone=" + phone +
+                "&price=" + price +
+                "&questionnaire=" + questionnaire +
+                "&selectedMakeId=" + selectedMakeId +
+                "&selectedModelId=" + selectedModelId +
+                "&selectedYear=" + selectedYear +
+                "&stateId=" + stateId +
+                "&zipCode=" + zipCode;
         //btnNextCustomerInfo.setText(SERVICE_URL);
         WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
         wst.execute(new String[]{SERVICE_URL});
     }
+
     public void postData() {
         WebServiceTask wst = new WebServiceTask(WebServiceTask.POST_TASK, getActivity(), "Posting data...");
         // the passed String is the URL we will POST to
@@ -299,18 +426,50 @@ public class OfferFragment extends Fragment{
                 case 1:
                     tvprice.setText("$"+response.replace("\"",""));
                     CheckZipCode(zipCode);
-
                     break;
                 case 2:
                     JSONObject jso=new JSONObject(response);
                     btnContactNumber.setText(jso.getString("Contact_No"));
-
                     break;
                 case 3:
-                    Toast toast=Toast.makeText(getActivity(),"Thank you for your business! someone will contact you shortly to arrange a suitable appointment that fits your schedule",Toast.LENGTH_LONG);
-                    toast.show();
-                    Intent change=new Intent(this.getActivity(),MainActivity.class);
-                    startActivity(change);
+                    Toast toast;
+                    Intent change;
+                    //=Toast.makeText(getActivity(),"Thank you for your business! someone will contact you shortly to arrange a suitable appointment that fits your schedule",Toast.LENGTH_LONG);
+                    //toast.show();
+                    //=new Intent(this.getActivity(),MainActivity.class);
+                    //startActivity(change);
+                    String message=response.replace("\"","");
+                    if(message.equals("Confirmed")){
+                        toast=Toast.makeText(getActivity(),"Thank you for your business! someone will contact you shortly to arrange a suitable appointment that fits your schedule",Toast.LENGTH_LONG);
+                        toast.show();
+                        change=new Intent(this.getActivity(),MainActivity.class);
+                        startActivity(change);
+                    }
+                    btnconfirmOffer.setText(response);
+                /*case 4:
+                    btnconfirmOffer.setText(response);
+
+                    GetABetterOffer(address, cityId, customerId, cylinders, email, make, model, name, phoneNumber, questionnaire.replace(" ", "%20"), makeId, modelId, year, stateId, zipCode);
+                    break;*/
+               /* case 4:
+                    tvprice.setText("$"+response.replace("\"",""));
+                    CheckZipCode(zipCode);
+                    break;*/
+                case 4:
+                    message=response.replace("\"","");
+                    if(message.equals("Confirmed")){
+                        toast=Toast.makeText(getActivity(),"Thank you for your business! someone will contact you shortly to arrange a suitable appointment that fits your schedule",Toast.LENGTH_LONG);
+                        toast.show();
+                        change=new Intent(this.getActivity(),MainActivity.class);
+                        startActivity(change);
+                    }
+                    else
+                    {
+                        toast=Toast.makeText(getActivity(),"There seems to be some problem. Please try again later.",Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                    //btnconfirmOffer.setText(response);
+                    break;
                 default:
                     break;
             }

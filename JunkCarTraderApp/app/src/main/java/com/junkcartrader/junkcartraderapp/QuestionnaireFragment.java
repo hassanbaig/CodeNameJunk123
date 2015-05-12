@@ -1,9 +1,8 @@
 package com.junkcartrader.junkcartraderapp;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -11,18 +10,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -37,13 +35,11 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +73,7 @@ public class QuestionnaireFragment extends Fragment implements PhotoFragment.OnF
     JSONArray questionnaireJSON,answerJSON,jArray;
     List<String> answersList,modelsList;
     String[] questions;
-    String questionResponse,cylindersResponse,isValidZipCode,OfferType,strId;
+    String questionResponse,cylindersResponse,isValidZipCode,OfferType,strId,email;
     FragmentTransaction fragmentTransaction;
     Fragment photoFragment;
     Bundle args;
@@ -132,6 +128,7 @@ public class QuestionnaireFragment extends Fragment implements PhotoFragment.OnF
         modelId=getArguments().getString("ModelId");
         cylinders=getArguments().getString("Cylinders");
         zipCode=getArguments().getString("ZipCode");
+        //email=getArguments().getString("email");
         Initialize();
         GetQuestionnaire();
         return rootView;
@@ -235,9 +232,14 @@ public class QuestionnaireFragment extends Fragment implements PhotoFragment.OnF
                     final ArrayList<String> mergeId=new ArrayList<String>();
                     questionnaireJSON=new JSONArray(jso.get("$values").toString());
 
-
+                    Resources r=getResources();
+                    int width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,220,r.getDisplayMetrics());
+                    int questionnaireheight=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,120,r.getDisplayMetrics());
+                    int answerheight=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,50,r.getDisplayMetrics());
+                    int buttonWidth=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,50,r.getDisplayMetrics());
                     for(int i=0;i<questionnaireJSON.length();i++)
                     {
+
                         //To print the questions dynamically
                         TableRow tableRow=new TableRow(this.getActivity());
                         questionnaire=new TextView(this.getActivity());
@@ -249,8 +251,10 @@ public class QuestionnaireFragment extends Fragment implements PhotoFragment.OnF
                         IdArray.add(entQuestion.getString("Question_Id"));//Add the questionId to an ArrayList
                         questionnaire.setTextColor(Color.parseColor("#000000"));
                         questionnaire.setTextSize(22);
-                        questionnaire.setPadding(20,0,20,0);
-                        questionnaire.setLayoutParams(new TableRow.LayoutParams(900,125));
+                        questionnaire.setPadding(20, 0, 20, 0);
+                        questionnaire.setWidth(width);
+                        questionnaire.setHeight(questionnaireheight);
+                        //questionnaire.setLayoutParams(new TableRow.LayoutParams(900,125));
 
                         //To print the answers dynamically
                         ArrayList<String> answersArray = new ArrayList<String>();
@@ -267,17 +271,29 @@ public class QuestionnaireFragment extends Fragment implements PhotoFragment.OnF
                             answer.setBackgroundColor(Color.parseColor("#ffffff"));
                             answer.setPadding(4, 4, 4, 4);
                             answer.setBackgroundResource(R.drawable.rounded_edittext);
-                            answer.setLayoutParams(new TableRow.LayoutParams(250,100));
+                            answer.setDropDownWidth(width);
+                            answer.setMinimumHeight(answerheight);
+                            answer.setGravity(Gravity.CENTER_HORIZONTAL);
+                            //answer.setLayoutParams(new TableRow.LayoutParams(250,100));
                         }
+
                         tableRow.addView(questionnaire);
                         tableRow.addView(answer);
+                        tableRow.setGravity(Gravity.CENTER_HORIZONTAL);
                         tableLayout.addView(tableRow);
                         IdArray.add(jArray.getJSONObject(answer.getSelectedItemPosition()).getString("Answer_Id"));//Add the answerId to an ArrayList
                     }
                     mergeId.add(IdArray.toString());
                     strId=mergeId.toString().replace("[","").replace("]","");
 
-
+                    /*btnPhotoGetABetterOffer=new Button(this.getActivity());
+                    btnPhotoGetABetterOffer.setBackgroundResource(R.drawable.button_blue_gradient);
+                    btnPhotoGetABetterOffer.setText("Next");
+                    btnPhotoGetABetterOffer.setTextSize(22);
+                    btnPhotoGetABetterOffer.setTextColor(Color.parseColor("#ffffff"));
+                    btnPhotoGetABetterOffer.setTextAppearance(getActivity(),R.style.questionnaireButtons);
+                    btnPhotoGetABetterOffer.setGravity(Gravity.CENTER_HORIZONTAL);
+                    tableLayout.addView(btnPhotoGetABetterOffer);*/
                     //btnNextCustomerInfo.setText(seperate);
                     //merge.add(answerIdArray.toString());
                     /*questionAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,merge);
@@ -302,6 +318,7 @@ public class QuestionnaireFragment extends Fragment implements PhotoFragment.OnF
                         args.putString("Cylinders", cylinders);
                         args.putString("ZipCode", zipCode);
                         args.putString("Questionnaire",strId);
+                        //args.putString("email",email);
                         photoFragment.setArguments(args);
                         fragmentTransaction.replace(R.id.container, photoFragment);
                         fragmentTransaction.commit();

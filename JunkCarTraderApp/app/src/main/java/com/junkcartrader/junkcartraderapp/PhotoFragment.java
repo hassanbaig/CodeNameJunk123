@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -22,7 +21,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
@@ -39,11 +37,9 @@ import org.apache.http.params.HttpParams;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -84,18 +80,16 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
     private Button btnNextCustomerInfo;
     String isValidZipCode,OfferType,year,make,makeId,model,
            modelId,cylinders,zipCode,questionnaire,email,name,address,
-           stateId,cityId,phoneNumber,customerId,imagePath,uploadServerUri = null;
+           stateId,cityId,phoneNumber,customerId,imagePath;
     Uri fileUri;
-    byte[] byteArray;
-    String[] pathArray=new String [5];
-    ArrayList<String> path=null;
+    String[] path=new String [5];
     public static final int MEDIA_TYPE_IMAGE = 1;
     private static final String IMAGE_DIRECTORY_NAME = "JunkCarPhotos";
     FragmentTransaction fragmentTransaction;
     Fragment offerFragment;
     Bundle args;
     View rootView;
-    static TextView imageDetails      = null;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -151,16 +145,12 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
         questionnaire=getArguments().getString("Questionnaire");
         zipCode=getArguments().getString("ZipCode");
         customerId=getArguments().getString("CustomerId");
-        path=new ArrayList<String>();
-        //email=getArguments().getString("email");
         Initialize();
         return rootView;
     }
 
     public void Initialize()
     {
-        imageDetails = (TextView) rootView.findViewById(R.id.imageDetails);
-
         //ImageView assignment
         ivphoto1 = (ImageView) rootView.findViewById(R.id.ivphoto1);
         ivphoto2 = (ImageView) rootView.findViewById(R.id.ivphoto2);
@@ -358,7 +348,7 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
                     ivphoto1.setImageBitmap(image);
                     if(!imagePath.equals(null))
                     {
-                        pathArray[0]=imagePath;
+                        path[0]=imagePath;
                     }
                     else
                     {
@@ -376,7 +366,7 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
                     ivphoto2.setImageBitmap(image);
                     if(!imagePath.equals(null))
                     {
-                        pathArray[1]=imagePath;
+                        path[1]=imagePath;
                     }
                     else
                     {
@@ -391,7 +381,7 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
                     ivphoto3.setImageBitmap(image);
                     if(!imagePath.equals(null))
                     {
-                        pathArray[2]=imagePath;
+                        path[2]=imagePath;
                     }
                     else
                     {
@@ -406,7 +396,7 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
                     ivphoto4.setImageBitmap(image);
                     if(!imagePath.equals(null))
                     {
-                        pathArray[3]=imagePath;
+                        path[3]=imagePath;
                     }
                     else
                     {
@@ -421,7 +411,7 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
                     ivphoto5.setImageBitmap(image);
                     if(!imagePath.equals(null))
                     {
-                        pathArray[4]=imagePath;
+                        path[4]=imagePath;
                     }
                     else
                     {
@@ -438,7 +428,7 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
                     ivphoto1.setImageBitmap(bitmap);
                     if(!imagePath.equals(null))
                     {
-                        pathArray[0]=imagePath;
+                        path[0]=imagePath;
                     }
                     else
                     {
@@ -455,7 +445,7 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
                     ivphoto2.setImageBitmap(bitmap);
                     if(!imagePath.equals(null))
                     {
-                        pathArray[1]=imagePath;
+                        path[1]=imagePath;
                     }
                     else
                     {
@@ -472,7 +462,7 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
                     ivphoto3.setImageBitmap(bitmap);
                     if(!imagePath.equals(null))
                     {
-                        pathArray[2]=imagePath;
+                        path[2]=imagePath;
                     }
                     else
                     {
@@ -488,7 +478,7 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
                     ivphoto4.setImageBitmap(bitmap);
                     if(!imagePath.equals(null))
                     {
-                        pathArray[3]=imagePath;
+                        path[3]=imagePath;
                     }
                     else
                     {
@@ -504,7 +494,7 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
                     ivphoto5.setImageBitmap(bitmap);
                     if(!imagePath.equals(null))
                     {
-                        pathArray[4]=imagePath;
+                        path[4]=imagePath;
                     }
                     else
                     {
@@ -554,47 +544,6 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
 
         return mediaFile;
     }
-
-
-    public String getPath(Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, null);
-        if(cursor!=null){
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);}
-        return uri.getPath();
-    }
-
-    public byte[] convertToBytes(String selectedImagePath)
-    {
-        try
-        {
-            FileInputStream fs = new FileInputStream(selectedImagePath);
-
-            Bitmap bitmap = BitmapFactory.decodeStream(fs);
-
-            ByteArrayOutputStream bOutput = new ByteArrayOutputStream();
-
-            bitmap.compress(Bitmap.CompressFormat.PNG,1, bOutput);
-
-            byte[] dataImage = bOutput.toByteArray();
-
-            return dataImage;
-        }
-        catch(NullPointerException ex)
-        {
-            ex.printStackTrace();
-            return null;
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-            return null;
-        }
-
-    }
-
 
     @Override
     public void onAttach(Activity activity) {
@@ -682,6 +631,7 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
                         fragmentTransaction = getFragmentManager().beginTransaction();
                         args = new Bundle();
                         args.putString("OfferType", OfferType);
+                        args.putString("Name",name);
                         args.putString("Address",address);
                         args.putString("StateId",stateId);
                         args.putString("CityId",cityId);
@@ -812,9 +762,9 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
 
         @Override
         protected String doInBackground(String... params) {
-            for (int i = 0; i < pathArray.length; i++) {
+            for (int i = 0; i < path.length; i++) {
                 try {
-                    String sourceFileUri = pathArray[i];
+                    String sourceFileUri = path[i];
 
                     HttpURLConnection conn = null;
                     DataOutputStream dos = null;
@@ -935,9 +885,7 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
 
             String answer=doInBackground().toString();
             if(answer.equals("Executed")) {
-
                 Toast.makeText(getActivity(), "File(s) have been uploaded successfully", Toast.LENGTH_SHORT).show();
-
                 CheckZipCode(zipCode);
             }
             else

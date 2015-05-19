@@ -265,22 +265,6 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
         wst.execute(new String[]{SERVICE_URL});
     }
 
-    public void GetCustomerId(String address, String cityId, String emailAddress,
-                              String name, String phone,String stateId, String zipCode) {
-
-        operationType = 4;
-        SERVICE_URL = BASE_URL + "Home/GetCustomerId?" +
-                "address=" + address +
-                "&cityId=" + cityId +
-                "&emailAddress=" + emailAddress +
-                "&name=" + name +
-                "&phone=" + phone +
-                "&stateId=" + stateId +
-                "&zipCode=" + zipCode;
-        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
-        wst.execute(new String[]{SERVICE_URL});
-    }
-
     public void GetStates() {
         dialog = ProgressDialog.show(getActivity(),
                 "Loading...", "Please wait...", false);
@@ -301,6 +285,21 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
         wst.execute(new String[]{SERVICE_URL});
     }
 
+    public void GetCustomerId(String address, String cityId, String emailAddress,
+                              String name, String phone,String stateId, String zipCode) {
+
+        operationType = 4;
+        SERVICE_URL = BASE_URL + "Home/GetCustomerId?" +
+                "address=" + address +
+                "&cityId=" + cityId +
+                "&emailAddress=" + emailAddress +
+                "&name=" + name +
+                "&phone=" + phone +
+                "&stateId=" + stateId +
+                "&zipCode=" + zipCode;
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
+        wst.execute(new String[]{SERVICE_URL});
+    }
 
     public void postData() {
         WebServiceTask wst = new WebServiceTask(WebServiceTask.POST_TASK, getActivity(), "Posting data...");

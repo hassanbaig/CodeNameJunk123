@@ -1,0 +1,124 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.junkcartrader.junkcartraderapp.EditProfileFragment"
+    android:background="@drawable/bg">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@id/imgvLogo"
+        android:src="@drawable/logo"/>
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/mainScroll"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/imgvLogo"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:background="@drawable/rounded_edittext"
+                style="@style/EditViews"
+                android:inputType="textEmailAddress"
+                android:hint="Email Address"
+                android:id="@+id/etEmailSignUp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:background="@drawable/rounded_edittext"
+                style="@style/EditViews"
+                android:inputType="textPassword"
+                android:hint="Password"
+                android:id="@+id/etPasswordSignUp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:background="@drawable/rounded_edittext"
+                style="@style/EditViews"
+                android:inputType="textPassword"
+                android:hint="Confirm Password"
+                android:id="@+id/etConfirmPasswordSignUp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"/>
+
+
+            <Spinner
+                android:background="@drawable/rounded_edittext"
+                style="@style/Spinners"
+                android:id="@+id/spSecurityQuestionSignUp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"/>
+
+
+            <EditText
+                android:background="@drawable/rounded_edittext"
+                style="@style/EditViews"
+                android:inputType="text"
+                android:hint="Security Answer"
+                android:id="@+id/etSecurityAnswerSignUp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"/>
+
+
+            <EditText
+                android:background="@drawable/rounded_edittext"
+                style="@style/EditViews"
+                android:inputType="text"
+                android:hint="Name"
+                android:id="@+id/etNameSignUp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:background="@drawable/rounded_edittext"
+                style="@style/EditViews"
+                android:inputType="text"
+                android:hint="Address"
+                android:id="@+id/etAddressSignUp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:background="@drawable/rounded_edittext"
+                style="@style/EditViews"
+                android:inputType="text"
+                android:hint="Contact Number"
+                android:id="@+id/etContactNumberSignUp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:background="@drawable/rounded_edittext"
+                style="@style/EditViews"
+                android:inputType="text"
+                android:hint="Zip Code"
+                android:id="@+id/etZipCodeSignUp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"/>
+
+            <Button
+                android:id="@+id/btnSignUp"
+                style="@style/Buttons"
+                android:background="@drawable/button_blue_gradient"
+                android:text="Sign Up"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

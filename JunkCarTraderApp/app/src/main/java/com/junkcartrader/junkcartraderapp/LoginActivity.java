@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
@@ -43,6 +44,7 @@ public class LoginActivity extends Activity {
     private  String SERVICE_URL = BASE_URL + "Accounts/Authenticate",email,password;
     public ProgressDialog dialog;
     private Button btnLogin;
+    private TextView tvsignUpLogin;
     public EditText etUserId, etPassword;
 
     @Override
@@ -60,6 +62,17 @@ public class LoginActivity extends Activity {
         btnLogin = (Button) findViewById(R.id.btnLoginLogin);
         etUserId = (EditText) findViewById(R.id.etUserIdLogin);
         etPassword = (EditText) findViewById(R.id.etPasswordLogin);
+        tvsignUpLogin=(TextView)findViewById(R.id.tvsignUpLogin);
+
+        tvsignUpLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                Intent intent=new Intent(context,SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

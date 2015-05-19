@@ -62,7 +62,7 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
     private Button btnGetAnOffer,btnGetABetterOffer;
     private EditText etZipCode;
     private Integer operationType;
-    String isValidZipCode,year,make,makeId,model,modelId,cylinders,OfferType,questionnaire,email;
+    String isValidZipCode,year,make,makeId,model,modelId,cylinders,OfferType,email;
     FragmentManager fm;
     FragmentTransaction fragmentTransaction;
     Fragment customerInfoFragment,questionnaireFragment;

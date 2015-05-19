@@ -260,7 +260,7 @@ public class MainActivity extends ActionBarActivity
                         args.putString("MakeId", makesJSON.getJSONObject(spMakes.getSelectedItemPosition()).getString("Make_Id"));
                         args.putString("Model", spModels.getSelectedItem().toString());
                         args.putString("ModelId", modelsJSON.getJSONObject(spModels.getSelectedItemPosition()).getString("Model_Id"));
-                        args.putString("Cylinders", spRegistrationYears.getSelectedItem().toString());
+                        args.putString("Cylinders", spCylinders.getSelectedItem().toString());
                         //args.putString("email",email);
                         locationFragment.setArguments(args);
                         fragmentTransaction.replace(R.id.container, locationFragment);

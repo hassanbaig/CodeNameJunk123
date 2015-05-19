@@ -30,210 +30,243 @@
         android:layout_marginTop="20dp"
         android:id="@+id/customerInfoScroll"
         android:orientation="vertical">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <!--android:background="#ffff8e92"-->
 
 
-    <!--First Image-->
-    <ImageView
-        android:id="@+id/ivphoto1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="10dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--android:background="#ffff8e92"-->
 
-    <ImageButton
-        android:layout_marginLeft="120dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgBtnOpenFolder1Photo"
-        android:layout_toStartOf="@+id/ivphoto1"
-        android:layout_toLeftOf="@+id/ivphoto1"
-        android:src="@drawable/folder_open"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/relativeLayout1">
+            <!--First Image-->
+            <ImageView
+                android:id="@+id/ivphoto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="10dp"/>
 
-    <ImageButton
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="120dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgBtnCamera1Photo"
-        android:layout_toEndOf="@+id/ivphoto1"
-        android:layout_toRightOf="@+id/ivphoto1"
-        android:src="@drawable/camera"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"/>
+            <ImageButton
+                android:layout_marginLeft="120dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgBtnOpenFolder1Photo"
+                android:layout_toStartOf="@+id/ivphoto1"
+                android:layout_toLeftOf="@+id/ivphoto1"
+                android:src="@drawable/folder_open"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"/>
 
-    <!--End First Image-->
+            <ImageButton
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="120dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgBtnCamera1Photo"
+                android:layout_toEndOf="@+id/ivphoto1"
+                android:layout_toRightOf="@+id/ivphoto1"
+                android:src="@drawable/camera"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"/>
 
+            <!--End First Image-->
+        </RelativeLayout>
 
-    <!--Second Image-->
+        <!--Second Image-->
 
-    <ImageView
-        android:id="@+id/ivphoto2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ivphoto1"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="10dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/relativeLayout2"
+            android:layout_below="@+id/relativeLayout1">
 
+            <ImageView
+                android:id="@+id/ivphoto2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-    <ImageButton
-        android:layout_marginLeft="120dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgBtnOpenFolder2Photo"
-        android:layout_toStartOf="@+id/ivphoto2"
-        android:layout_toLeftOf="@+id/ivphoto2"
-        android:layout_below="@+id/imgBtnOpenFolder1Photo"
-        android:src="@drawable/folder_open"
-        android:layout_marginTop="80dp"
-        android:layout_gravity="center_horizontal"/>
-
-    <ImageButton
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="120dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgBtnCamera2Photo"
-        android:src="@drawable/camera"
-        android:layout_toEndOf="@+id/ivphoto2"
-        android:layout_toRightOf="@+id/ivphoto2"
-        android:layout_below="@+id/imgBtnCamera1Photo"
-        android:layout_marginTop="80dp"
-        android:layout_gravity="center_horizontal"/>
-
-    <!--End Second Image-->
-
-    <!--Third Image-->
-
-    <ImageView
-        android:id="@+id/ivphoto3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ivphoto2"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="10dp"/>
-
-    <ImageButton
-        android:layout_marginLeft="120dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/ivphoto3"
-        android:layout_toLeftOf="@+id/ivphoto3"
-        android:id="@+id/imgBtnOpenFolder3Photo"
-        android:src="@drawable/folder_open"
-        android:layout_below="@+id/imgBtnCamera2Photo"
-        android:layout_marginTop="80dp"
-        android:layout_gravity="center_horizontal"/>
-
-    <ImageButton
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="120dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgBtnCamera3Photo"
-        android:layout_toEndOf="@+id/ivphoto3"
-        android:layout_toRightOf="@+id/ivphoto3"
-        android:src="@drawable/camera"
-        android:layout_below="@id/imgBtnOpenFolder2Photo"
-        android:layout_marginTop="80dp"
-        android:layout_gravity="center_horizontal"/>
-
-    <!--End Third Image-->
-
-    <!--Fourth Image-->
-
-    <ImageView
-        android:id="@+id/ivphoto4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ivphoto3"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="10dp"/>
+                android:layout_gravity="center_horizontal|top"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="10dp"/>
 
 
-    <ImageButton
-        android:layout_marginLeft="120dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/ivphoto4"
-        android:layout_toLeftOf="@+id/ivphoto4"
-        android:id="@+id/imgBtnOpenFolder4Photo"
-        android:src="@drawable/folder_open"
-        android:layout_below="@+id/imgBtnOpenFolder3Photo"
-        android:layout_marginTop="80dp"
-        android:layout_gravity="center_horizontal"/>
+            <ImageButton
+                android:layout_marginLeft="120dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgBtnOpenFolder2Photo"
+                android:layout_toStartOf="@+id/ivphoto2"
+                android:layout_toLeftOf="@+id/ivphoto2"
 
-    <ImageButton
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="120dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/ivphoto4"
-        android:layout_toRightOf="@+id/ivphoto4"
-        android:id="@+id/imgBtnCamera4Photo"
-        android:src="@drawable/camera"
-        android:layout_below="@+id/imgBtnCamera3Photo"
-        android:layout_marginTop="80dp"
-        android:layout_gravity="center_horizontal"/>
+                android:src="@drawable/folder_open"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"/>
 
-    <!--End Fourth Image-->
+            <ImageButton
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="120dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgBtnCamera2Photo"
+                android:src="@drawable/camera"
+                android:layout_toEndOf="@+id/ivphoto2"
+                android:layout_toRightOf="@+id/ivphoto2"
 
-    <!--Fifth Image-->
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"/>
 
-    <ImageView
-        android:id="@+id/ivphoto5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ivphoto4"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="10dp"/>
+            <!--End Second Image-->
+        </RelativeLayout>
 
-    <ImageButton
-        android:layout_marginLeft="120dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/ivphoto5"
-        android:layout_toLeftOf="@+id/ivphoto5"
-        android:id="@+id/imgBtnOpenFolder5Photo"
-        android:src="@drawable/folder_open"
-        android:layout_below="@+id/imgBtnCamera4Photo"
-        android:layout_marginTop="80dp"
-        android:layout_gravity="center_horizontal"/>
+        <!--Third Image-->
 
-    <ImageButton
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="120dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/ivphoto5"
-        android:layout_toEndOf="@+id/ivphoto5"
-        android:id="@+id/imgBtnCamera5Photo"
-        android:src="@drawable/camera"
-        android:layout_below="@+id/imgBtnCamera4Photo"
-        android:layout_marginTop="80dp"
-        android:layout_gravity="center_horizontal"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/relativeLayout3"
+            android:layout_below="@+id/relativeLayout2">
+            <ImageView
+                android:id="@+id/ivphoto3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-    <!--End Fifth Image-->
+                android:layout_gravity="center_horizontal|top"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="10dp"/>
+
+            <ImageButton
+                android:layout_marginLeft="120dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/ivphoto3"
+                android:layout_toLeftOf="@+id/ivphoto3"
+                android:id="@+id/imgBtnOpenFolder3Photo"
+                android:src="@drawable/folder_open"
+
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <ImageButton
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="120dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgBtnCamera3Photo"
+                android:layout_toEndOf="@+id/ivphoto3"
+                android:layout_toRightOf="@+id/ivphoto3"
+                android:src="@drawable/camera"
+
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <!--End Third Image-->
+        </RelativeLayout>
+
+        <!--Fourth Image-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/relativeLayout4"
+            android:layout_below="@+id/relativeLayout3">
+
+            <ImageView
+                android:id="@+id/ivphoto4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center_horizontal|top"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="10dp"/>
+
+
+            <ImageButton
+                android:layout_marginLeft="120dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/ivphoto4"
+                android:layout_toLeftOf="@+id/ivphoto4"
+                android:id="@+id/imgBtnOpenFolder4Photo"
+                android:src="@drawable/folder_open"
+
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <ImageButton
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="120dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/ivphoto4"
+                android:layout_toRightOf="@+id/ivphoto4"
+                android:id="@+id/imgBtnCamera4Photo"
+                android:src="@drawable/camera"
+
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <!--End Fourth Image-->
+        </RelativeLayout>
+
+        <!--Fifth Image-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/relativeLayout5"
+            android:layout_below="@+id/relativeLayout4">
+
+            <ImageView
+                android:id="@+id/ivphoto5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center_horizontal|top"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="10dp"/>
+
+            <ImageButton
+                android:layout_marginLeft="120dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/ivphoto5"
+                android:layout_toLeftOf="@+id/ivphoto5"
+                android:id="@+id/imgBtnOpenFolder5Photo"
+                android:src="@drawable/folder_open"
+
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <ImageButton
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="120dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/ivphoto5"
+                android:layout_toEndOf="@+id/ivphoto5"
+                android:id="@+id/imgBtnCamera5Photo"
+                android:src="@drawable/camera"
+
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <!--End Fifth Image-->
+        </RelativeLayout>
+
 
     <TextView
         android:id="@+id/imageDetails"
@@ -252,7 +285,7 @@
         android:layout_gravity="center_horizontal|bottom"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="20dp"
-        android:layout_below="@+id/imgBtnCamera5Photo"
+        android:layout_below="@+id/relativeLayout5"
         android:layout_alignParentTop="false"
         android:layout_alignParentLeft="false"
         android:layout_alignWithParentIfMissing="false"/>

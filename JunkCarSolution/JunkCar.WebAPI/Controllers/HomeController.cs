@@ -134,6 +134,6 @@ namespace JunkCar.WebAPI.Controllers
             HttpFileCollection uploads = HttpContext.Current.Request.Files;
             string response = Utility.SaveUploads(uploads, customerId, cylinders, makeId, modelId, year);
             return response;
-        }
+        }        
     }
 }

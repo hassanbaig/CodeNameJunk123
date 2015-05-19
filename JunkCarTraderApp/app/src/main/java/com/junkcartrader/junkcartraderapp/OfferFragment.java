@@ -9,17 +9,12 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +29,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -42,7 +36,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -68,16 +61,11 @@ public class OfferFragment extends Fragment{
     private ProgressDialog dialog;
     private Button btnContactNumber,btnconfirmOffer;
     private TextView tvprice;
-    private EditText etName,etAddress,etZipCode,etPhoneNumber,etEmail;
-    private Spinner spStates,spCities;
     private Integer operationType;
-    String isValidZipCode,OfferType,offerPrice,year,make,makeId,model,modelId,cylinders,zipCode,name,email,address,stateId,cityId,phoneNumber,questionnaire,customerId;
-    FragmentManager fm;
-    FragmentTransaction fragmentTransaction;
-    ArrayAdapter<String> statesAdapter,citiesAdapter;
-    JSONArray statesJSON,citiesJSON;
-    List<String> statesList,citiesList;
-    Fragment offerFragment;
+    private Toast toast;
+    Intent intentRestartActivity;
+    String OfferType,year,make,makeId,model,modelId,
+           cylinders,zipCode,name,email,address,stateId,cityId,phoneNumber,questionnaire,customerId;
     Bundle args;
     View rootView;
 
@@ -118,9 +106,9 @@ public class OfferFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        //Receiving data from previous fragment
         rootView= inflater.inflate(R.layout.fragment_offer, container, false);
-        //String offerType1 = getArguments().getString("GetAnOffer");
-        //String offerType2 = getArguments().getString("GetABetterOffer");
         OfferType=getArguments().getString("OfferType");
         year = getArguments().getString("Year");
         make = getArguments().getString("Make");
@@ -137,29 +125,22 @@ public class OfferFragment extends Fragment{
         email=getArguments().getString("EmailAddress");
         questionnaire=getArguments().getString("Questionnaire");
         customerId=getArguments().getString("CustomerId");
-        //email=getArguments().getString("email");
+
         Initialize();
-
-
 
         if(OfferType.equals("GetAnOffer"))
         {
-            //OfferType = "GetAnOffer";
-            Toast.makeText(this.getActivity(),OfferType,Toast.LENGTH_LONG).show();
+            //Toast.makeText(this.getActivity(),OfferType,Toast.LENGTH_SHORT).show();
             GetAnOffer(address, cityId, cylinders, email, make, model, name, phoneNumber, makeId, modelId, year, stateId, zipCode);
         }
         else
         {
-            OfferType="GetABetterOffer";
-            Toast.makeText(this.getActivity(),OfferType,Toast.LENGTH_LONG).show();
-            //GetCustomerId(address,cityId,email,name,phoneNumber,stateId,zipCode);
+            //Toast.makeText(this.getActivity(),OfferType,Toast.LENGTH_SHORT).show();
             GetABetterOffer(address, cityId, customerId, cylinders, email, make, model, name, phoneNumber, questionnaire.replace(" ", "%20"), makeId, modelId, year, stateId, zipCode);
         }
-
-
-
         return  rootView;
     }
+
     public void Initialize(){
         tvprice=(TextView)rootView.findViewById(R.id.tvPriceOffer);
         btnContactNumber=(Button)rootView.findViewById(R.id.btnContactNumberOffer);
@@ -173,13 +154,14 @@ public class OfferFragment extends Fragment{
 
                 TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(getActivity().TELEPHONY_SERVICE);
                 if (telephonyManager.getPhoneType() == TelephonyManager.PHONE_TYPE_NONE) {
-                    Toast toast=Toast.makeText(getActivity().getApplicationContext(), "Your device does not support call feature", Toast.LENGTH_LONG);
+                    Toast toast=Toast.makeText(getActivity().getApplicationContext(),
+                                               "Your device does not support call feature",
+                                               Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 else {
                     try {
                         startActivity(callIntent);
-                        //Toast.makeText(getActivity().getApplicationContext(), "Your device does not support call feature", Toast.LENGTH_LONG);
                     } catch (ActivityNotFoundException e) {
                         btnContactNumber.setText(e.getMessage());
                     }
@@ -198,7 +180,9 @@ public class OfferFragment extends Fragment{
 
                     String contactNo = btnContactNumber.getText().toString().replace(" ", "%20");
                     String price = tvprice.getText().toString();
-                    ConfirmOffer(address, cityId, contactNo, cylinders, email, make, model, name, phoneNumber, price, makeId, modelId, year, stateId, zipCode);
+
+                    ConfirmOffer(address, cityId, contactNo, cylinders, email, make, model, name,
+                                 phoneNumber, price, makeId, modelId, year, stateId, zipCode);
                 }
                 else
                 {
@@ -208,7 +192,10 @@ public class OfferFragment extends Fragment{
 
                     String contactNo = btnContactNumber.getText().toString().replace(" ", "%20");
                     String price = tvprice.getText().toString();
-                    ConfirmOfferWithQuestionnaire(address, cityId, contactNo, customerId, cylinders, email, make, model, name, phoneNumber, price, questionnaire.replace(" ", "%20"), makeId, modelId, year, stateId, zipCode);
+
+                    ConfirmOfferWithQuestionnaire(address, cityId, contactNo, customerId, cylinders,
+                                                  email, make, model, name, phoneNumber, price,
+                                                  questionnaire.replace(" ", "%20"), makeId, modelId, year, stateId, zipCode);
                 }
             }
         });
@@ -278,7 +265,6 @@ public class OfferFragment extends Fragment{
                 "&selectedYear=" + selectedYear +
                 "&stateId=" + stateId +
                 "&zipCode=" + zipCode;
-        //btnNextCustomerInfo.setText(SERVICE_URL);
         WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
         wst.execute(new String[]{SERVICE_URL});
     }
@@ -309,7 +295,6 @@ public class OfferFragment extends Fragment{
                 "&selectedYear=" + selectedYear +
                 "&stateId=" + stateId +
                 "&zipCode=" + zipCode;
-        //btnNextCustomerInfo.setText(SERVICE_URL);
         WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
         wst.execute(new String[]{SERVICE_URL});
     }
@@ -331,9 +316,6 @@ public class OfferFragment extends Fragment{
                              String stateId, String zipCode) {
 
         operationType = 3;
-        /*dialog = ProgressDialog.show(getActivity(),
-                "Loading...", "Please wait...", false);
-        dialog.show();*/
         SERVICE_URL = BASE_URL + "Home/ConfirmOffer?" +
                 "address=" + address +
                 "&cityId=" + cityId +
@@ -350,30 +332,9 @@ public class OfferFragment extends Fragment{
                 "&selectedYear=" + selectedYear +
                 "&stateId=" + stateId +
                 "&zipCode=" + zipCode;
-       // btnconfirmOffer.setText(SERVICE_URL);
         WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
         wst.execute(new String[]{SERVICE_URL});
     }
-
-    /*public void GetCustomerId(String address, String cityId, String emailAddress,
-                              String name, String phone,String stateId, String zipCode) {
-
-        operationType = 4;
-        dialog = ProgressDialog.show(getActivity(),
-                "Loading...", "Please wait...", false);
-        dialog.show();
-        SERVICE_URL = BASE_URL + "Home/GetCustomerId?" +
-                "address=" + address +
-                "&cityId=" + cityId +
-                "&emailAddress=" + emailAddress +
-                "&name=" + name +
-                "&phone=" + phone +
-                "&stateId=" + stateId +
-                "&zipCode=" + zipCode;
-        //btnNextCustomerInfo.setText(SERVICE_URL);
-        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
-        wst.execute(new String[]{SERVICE_URL});
-    }*/
 
     public void ConfirmOfferWithQuestionnaire(String address, String cityId, String contactNo,
                                               String customerId, String cylinders, String emailAddress,
@@ -382,9 +343,6 @@ public class OfferFragment extends Fragment{
                                               String selectedYear,String stateId, String zipCode) {
 
         operationType = 4;
-        /*dialog = ProgressDialog.show(getActivity(),
-                "Loading...", "Please wait...", false);
-        dialog.show();*/
         SERVICE_URL = BASE_URL + "Home/ConfirmOfferWithQuestionnaire?" +
                 "address=" + address +
                 "&cityId=" + cityId +
@@ -403,7 +361,6 @@ public class OfferFragment extends Fragment{
                 "&selectedYear=" + selectedYear +
                 "&stateId=" + stateId +
                 "&zipCode=" + zipCode;
-        //btnNextCustomerInfo.setText(SERVICE_URL);
         WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
         wst.execute(new String[]{SERVICE_URL});
     }
@@ -432,43 +389,29 @@ public class OfferFragment extends Fragment{
                     btnContactNumber.setText(jso.getString("Contact_No"));
                     break;
                 case 3:
-                    Toast toast;
-                    Intent change;
-                    //=Toast.makeText(getActivity(),"Thank you for your business! someone will contact you shortly to arrange a suitable appointment that fits your schedule",Toast.LENGTH_LONG);
-                    //toast.show();
-                    //=new Intent(this.getActivity(),MainActivity.class);
-                    //startActivity(change);
                     String message=response.replace("\"","");
                     if(message.equals("Confirmed")){
                         toast=Toast.makeText(getActivity(),"Thank you for your business! someone will contact you shortly to arrange a suitable appointment that fits your schedule",Toast.LENGTH_LONG);
                         toast.show();
-                        change=new Intent(this.getActivity(),MainActivity.class);
-                        startActivity(change);
+                        getActivity().finish();
+                        intentRestartActivity=new Intent(this.getActivity(),MainActivity.class);
+                        startActivity(intentRestartActivity);
                     }
                     btnconfirmOffer.setText(response);
-                /*case 4:
-                    btnconfirmOffer.setText(response);
-
-                    GetABetterOffer(address, cityId, customerId, cylinders, email, make, model, name, phoneNumber, questionnaire.replace(" ", "%20"), makeId, modelId, year, stateId, zipCode);
-                    break;*/
-               /* case 4:
-                    tvprice.setText("$"+response.replace("\"",""));
-                    CheckZipCode(zipCode);
-                    break;*/
                 case 4:
                     message=response.replace("\"","");
                     if(message.equals("Confirmed")){
                         toast=Toast.makeText(getActivity(),"Thank you for your business! someone will contact you shortly to arrange a suitable appointment that fits your schedule",Toast.LENGTH_LONG);
                         toast.show();
-                        change=new Intent(this.getActivity(),MainActivity.class);
-                        startActivity(change);
+                        getActivity().finish();
+                        intentRestartActivity=new Intent(this.getActivity(),MainActivity.class);
+                        startActivity(intentRestartActivity);
                     }
                     else
                     {
-                        toast=Toast.makeText(getActivity(),"There seems to be some problem. Please try again later.",Toast.LENGTH_LONG);
+                        toast=Toast.makeText(getActivity(),"There seems to be some problem. Please try again later.",Toast.LENGTH_SHORT);
                         toast.show();
                     }
-                    //btnconfirmOffer.setText(response);
                     break;
                 default:
                     break;

@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,12 +40,15 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -76,29 +78,24 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
     private ProgressDialog dialog;
     private  static ImageView ivphoto1,ivphoto2,ivphoto3,ivphoto4,ivphoto5;
     private Integer operationType;
+    private int serverResponseCode = 0;
     private ImageButton imgBtnCamera1Photo,imgBtnCamera2Photo,imgBtnCamera3Photo,imgBtnCamera4Photo,imgBtnCamera5Photo,
             imgBtnOpenFolder1Photo,imgBtnOpenFolder2Photo,imgBtnOpenFolder3Photo,imgBtnOpenFolder4Photo,imgBtnOpenFolder5Photo;
-
     private Button btnNextCustomerInfo;
-    private static final int SELECT_PHOTO = 100;
-    private static final int MY_INTENT_CLICK=302;
-    String isValidZipCode,OfferType,offerPrice,year,make,makeId,model,modelId,cylinders,zipCode,questionnaire,email;
-    FragmentManager fm;
+    String isValidZipCode,OfferType,year,make,makeId,model,
+           modelId,cylinders,zipCode,questionnaire,email,name,address,
+           stateId,cityId,phoneNumber,customerId,imagePath,uploadServerUri = null;
     Uri fileUri;
+    byte[] byteArray;
+    String[] pathArray=new String [5];
+    ArrayList<String> path=null;
     public static final int MEDIA_TYPE_IMAGE = 1;
-    private static final String IMAGE_DIRECTORY_NAME = "Hello Camera";
+    private static final String IMAGE_DIRECTORY_NAME = "JunkCarPhotos";
     FragmentTransaction fragmentTransaction;
-    Fragment customerInfoFragment;
+    Fragment offerFragment;
     Bundle args;
     View rootView;
-    Uri imageUri                      = null;
     static TextView imageDetails      = null;
-    PhotoFragment CameraActivity = null;
-
-    private Button captureButton;
-    private ImageView showImage;
-    private Bitmap bitmap;
-
 
     private OnFragmentInteractionListener mListener;
 
@@ -138,7 +135,13 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView= inflater.inflate(R.layout.fragment_photo, container, false);
-        OfferType = getArguments().getString("GetABetterOffer");
+        OfferType = getArguments().getString("OfferType");
+        name=getArguments().getString("Name");
+        address=getArguments().getString("Address");
+        stateId=getArguments().getString("StateId");
+        cityId=getArguments().getString("CityId");
+        phoneNumber=getArguments().getString("PhoneNumber");
+        email=getArguments().getString("EmailAddress");
         year=getArguments().getString("Year");
         make=getArguments().getString("Make");
         makeId=getArguments().getString("MakeId");
@@ -147,182 +150,188 @@ public class PhotoFragment extends Fragment implements CustomerInfoFragment.OnFr
         cylinders=getArguments().getString("Cylinders");
         questionnaire=getArguments().getString("Questionnaire");
         zipCode=getArguments().getString("ZipCode");
+        customerId=getArguments().getString("CustomerId");
+        path=new ArrayList<String>();
         //email=getArguments().getString("email");
         Initialize();
         return rootView;
     }
-public void Initialize()
-{
 
-    CameraActivity = this;
+    public void Initialize()
+    {
+        imageDetails = (TextView) rootView.findViewById(R.id.imageDetails);
 
-    imageDetails = (TextView) rootView.findViewById(R.id.imageDetails);
+        //ImageView assignment
+        ivphoto1 = (ImageView) rootView.findViewById(R.id.ivphoto1);
+        ivphoto2 = (ImageView) rootView.findViewById(R.id.ivphoto2);
+        ivphoto3 = (ImageView) rootView.findViewById(R.id.ivphoto3);
+        ivphoto4 = (ImageView) rootView.findViewById(R.id.ivphoto4);
+        ivphoto5 = (ImageView) rootView.findViewById(R.id.ivphoto5);
 
-    //ImageView assignment
-    ivphoto1 = (ImageView) rootView.findViewById(R.id.ivphoto1);
-    ivphoto2 = (ImageView) rootView.findViewById(R.id.ivphoto2);
-    ivphoto3 = (ImageView) rootView.findViewById(R.id.ivphoto3);
-    ivphoto4 = (ImageView) rootView.findViewById(R.id.ivphoto4);
-    ivphoto5 = (ImageView) rootView.findViewById(R.id.ivphoto5);
+        //ImageButton assignment
+        imgBtnCamera1Photo=(ImageButton)rootView.findViewById(R.id.imgBtnCamera1Photo);
+        imgBtnCamera2Photo=(ImageButton)rootView.findViewById(R.id.imgBtnCamera2Photo);
+        imgBtnCamera3Photo=(ImageButton)rootView.findViewById(R.id.imgBtnCamera3Photo);
+        imgBtnCamera4Photo=(ImageButton)rootView.findViewById(R.id.imgBtnCamera4Photo);
+        imgBtnCamera5Photo=(ImageButton)rootView.findViewById(R.id.imgBtnCamera5Photo);
+        imgBtnOpenFolder1Photo=(ImageButton)rootView.findViewById(R.id.imgBtnOpenFolder1Photo);
+        imgBtnOpenFolder2Photo=(ImageButton)rootView.findViewById(R.id.imgBtnOpenFolder2Photo);
+        imgBtnOpenFolder3Photo=(ImageButton)rootView.findViewById(R.id.imgBtnOpenFolder3Photo);
+        imgBtnOpenFolder4Photo=(ImageButton)rootView.findViewById(R.id.imgBtnOpenFolder4Photo);
+        imgBtnOpenFolder5Photo=(ImageButton)rootView.findViewById(R.id.imgBtnOpenFolder5Photo);
 
-    //ImageButton assignment
-    imgBtnCamera1Photo=(ImageButton)rootView.findViewById(R.id.imgBtnCamera1Photo);
-    imgBtnCamera2Photo=(ImageButton)rootView.findViewById(R.id.imgBtnCamera2Photo);
-    imgBtnCamera3Photo=(ImageButton)rootView.findViewById(R.id.imgBtnCamera3Photo);
-    imgBtnCamera4Photo=(ImageButton)rootView.findViewById(R.id.imgBtnCamera4Photo);
-    imgBtnCamera5Photo=(ImageButton)rootView.findViewById(R.id.imgBtnCamera5Photo);
-    imgBtnOpenFolder1Photo=(ImageButton)rootView.findViewById(R.id.imgBtnOpenFolder1Photo);
-    imgBtnOpenFolder2Photo=(ImageButton)rootView.findViewById(R.id.imgBtnOpenFolder2Photo);
-    imgBtnOpenFolder3Photo=(ImageButton)rootView.findViewById(R.id.imgBtnOpenFolder3Photo);
-    imgBtnOpenFolder4Photo=(ImageButton)rootView.findViewById(R.id.imgBtnOpenFolder4Photo);
-    imgBtnOpenFolder5Photo=(ImageButton)rootView.findViewById(R.id.imgBtnOpenFolder5Photo);
+        //Button assignment
+        btnNextCustomerInfo=(Button)rootView.findViewById(R.id.btnNextCustomerInfo);
 
-    //Button assignment
-    btnNextCustomerInfo=(Button)rootView.findViewById(R.id.btnNextCustomerInfo);
+        //Button click function declaration
+        btnNextCustomerInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    //Button click function declaration
-    btnNextCustomerInfo.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            CheckZipCode(zipCode);
-        }
-    });
-
-    imgBtnOpenFolder1Photo.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "Select File"), 0);
-        }
-
-    });
-    imgBtnOpenFolder2Photo.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "Select File"),1);
-        }
-    });
-    imgBtnOpenFolder3Photo.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "Select File"),2);
-        }
-    });
-    imgBtnOpenFolder4Photo.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "Select File"),3);
-        }
-    });
-    imgBtnOpenFolder5Photo.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-
-            startActivityForResult(Intent.createChooser(intent, "Select File"),4);
-        }
-    });
-
-
-    imgBtnCamera1Photo.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Context context=getActivity();
-            PackageManager packageManager=context.getPackageManager();
-            if(packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)==false){
-                Toast.makeText(getActivity(),"Your Device Does not support camera feature",Toast.LENGTH_LONG).show();
+                Upload();
             }
-            else{
-                /*Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI.getPath());
-                startActivityForResult(intent, 5);*/
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-                // start the image capture Intent
-                startActivityForResult(intent, 5);
-            }
-        }
-    });
-    imgBtnCamera2Photo.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Context context=getActivity();
-            PackageManager packageManager=context.getPackageManager();
-            if(packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)==false){
-                Toast.makeText(getActivity(),"Your Device Does not support camera feature",Toast.LENGTH_LONG).show();
-            }
-            else{
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-                startActivityForResult(intent, 6);
-            }
-        }
-    });
-    imgBtnCamera3Photo.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-             Context context=getActivity();
-            PackageManager packageManager=context.getPackageManager();
-            if(packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)==false){
-                Toast.makeText(getActivity(),"Your Device Does not support camera feature",Toast.LENGTH_LONG).show();
-            }
-            else{
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-                startActivityForResult(intent, 7);
-            }
-        }
-    });
-    imgBtnCamera4Photo.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Context context=getActivity();
-            PackageManager packageManager=context.getPackageManager();
-            if(packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)==false){
-                Toast.makeText(getActivity(),"Your Device Does not support camera feature",Toast.LENGTH_LONG).show();
-            }
-            else{
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-                startActivityForResult(intent, 8);
-            }
-        }
-    });
-    imgBtnCamera5Photo.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+        });
 
-            Context context=getActivity();
-            PackageManager packageManager=context.getPackageManager();
-            if(packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)==false){
-                Toast.makeText(getActivity(),"Your Device Does not support camera feature",Toast.LENGTH_LONG).show();
+        imgBtnOpenFolder1Photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select File"), 0);
             }
-            else{
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-                startActivityForResult(intent, 9);
+
+        });
+        imgBtnOpenFolder2Photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select File"),1);
             }
-        }
-    });
-}
+        });
+        imgBtnOpenFolder3Photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select File"),2);
+            }
+        });
+        imgBtnOpenFolder4Photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select File"),3);
+            }
+        });
+        imgBtnOpenFolder5Photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+
+                startActivityForResult(Intent.createChooser(intent, "Select File"),4);
+            }
+        });
+
+
+        imgBtnCamera1Photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Context context = getActivity();
+                    PackageManager packageManager = context.getPackageManager();
+                    if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA) == false) {
+                        Toast.makeText(getActivity(), "Your Device Does not support camera feature", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+                        startActivityForResult(intent, 5);
+                    }
+                }
+                catch (Exception e){}
+            }
+        });
+        imgBtnCamera2Photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Context context = getActivity();
+                    PackageManager packageManager = context.getPackageManager();
+                    if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA) == false) {
+                        Toast.makeText(getActivity(), "Your Device Does not support camera feature", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+                        startActivityForResult(intent, 6);
+                    }
+                }
+                catch (Exception e){}
+            }
+        });
+        imgBtnCamera3Photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Context context = getActivity();
+                    PackageManager packageManager = context.getPackageManager();
+                    if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA) == false) {
+                        Toast.makeText(getActivity(), "Your Device Does not support camera feature", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+                        startActivityForResult(intent, 7);
+                    }
+                }
+                catch (Exception e){}
+            }
+        });
+        imgBtnCamera4Photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Context context = getActivity();
+                    PackageManager packageManager = context.getPackageManager();
+                    if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA) == false) {
+                        Toast.makeText(getActivity(), "Your Device Does not support camera feature", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+                        startActivityForResult(intent, 8);
+                    }
+                }
+                catch (Exception e){}
+            }
+        });
+        imgBtnCamera5Photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Context context = getActivity();
+                    PackageManager packageManager = context.getPackageManager();
+                    if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA) == false) {
+                        Toast.makeText(getActivity(), "Your Device Does not support camera feature", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+                        startActivityForResult(intent, 9);
+                    }
+                }
+                catch (Exception e){}
+            }
+        });
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -341,98 +350,170 @@ public void Initialize()
             switch (requestCode)
             {
                 case 0:
-                    byte[] byteArray;
-                    String selectedImagePath;
-                    String capturedImagePath;
                     Uri selectedImageUri = data.getData();
                     //MEDIA GALLERY
-                    selectedImagePath =ImageFilePath.getPath(getActivity(),selectedImageUri);
-                    Bitmap bmp=BitmapFactory.decodeFile(selectedImagePath);
-                    //byteArray=convertToBytes(selectedImagePath);
+                    imagePath =ImageFilePath.getPath(getActivity(),selectedImageUri);
+                    Bitmap bmp=BitmapFactory.decodeFile(imagePath);
                     Bitmap image=Bitmap.createScaledBitmap(bmp, 170, 170, true);
                     ivphoto1.setImageBitmap(image);
+                    if(!imagePath.equals(null))
+                    {
+                        pathArray[0]=imagePath;
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(),"Null value",Toast.LENGTH_SHORT).show();
+                    }
+                    //imageDetails.setText(imagePath);
+                    //byteArray=convertToBytes(selectedImagePath);
                     //imageDetails.setText(selectedImagePath);
                     break;
                 case 1:
                     selectedImageUri = data.getData();
-                    selectedImagePath = ImageFilePath.getPath(this.getActivity(), selectedImageUri);
-                    bmp=BitmapFactory.decodeFile(selectedImagePath);
+                    imagePath = ImageFilePath.getPath(this.getActivity(), selectedImageUri);
+                    bmp=BitmapFactory.decodeFile(imagePath);
                     image=Bitmap.createScaledBitmap(bmp, 170, 170, true);
                     ivphoto2.setImageBitmap(image);
+                    if(!imagePath.equals(null))
+                    {
+                        pathArray[1]=imagePath;
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(),"Null value",Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case 2:
                     selectedImageUri = data.getData();
-                    selectedImagePath = ImageFilePath.getPath(this.getActivity(), selectedImageUri);
-                    bmp=BitmapFactory.decodeFile(selectedImagePath);
+                    imagePath = ImageFilePath.getPath(this.getActivity(), selectedImageUri);
+                    bmp=BitmapFactory.decodeFile(imagePath);
                     image=Bitmap.createScaledBitmap(bmp, 170, 170, true);
                     ivphoto3.setImageBitmap(image);
+                    if(!imagePath.equals(null))
+                    {
+                        pathArray[2]=imagePath;
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(),"Null value",Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case 3:
                     selectedImageUri = data.getData();
-                    selectedImagePath = ImageFilePath.getPath(this.getActivity(), selectedImageUri);
-                    bmp=BitmapFactory.decodeFile(selectedImagePath);
+                    imagePath = ImageFilePath.getPath(this.getActivity(), selectedImageUri);
+                    bmp=BitmapFactory.decodeFile(imagePath);
                     image=Bitmap.createScaledBitmap(bmp, 170, 170, true);
                     ivphoto4.setImageBitmap(image);
+                    if(!imagePath.equals(null))
+                    {
+                        pathArray[3]=imagePath;
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(),"Null value",Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case 4:
                     selectedImageUri = data.getData();
-                    selectedImagePath = ImageFilePath.getPath(this.getActivity(), selectedImageUri);
-                    bmp=BitmapFactory.decodeFile(selectedImagePath);
+                    imagePath = ImageFilePath.getPath(this.getActivity(), selectedImageUri);
+                    bmp=BitmapFactory.decodeFile(imagePath);
                     image=Bitmap.createScaledBitmap(bmp, 170, 170, true);
                     ivphoto5.setImageBitmap(image);
+                    if(!imagePath.equals(null))
+                    {
+                        pathArray[4]=imagePath;
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(),"Null value",Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case 5:
-                   /* Log.i("StartUpActivity", "Photo Captured");
-                    bitmap=(Bitmap) data.getExtras().get("data");
-                    MediaStore.Images.Media.insertImage(getActivity().getContentResolver(),bitmap,null,null);
-                    //ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    //bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    bitmap=Bitmap.createScaledBitmap(bitmap,170,170,true);
-                    ivphoto1.setImageBitmap(bitmap);*/
                     // downsizing image as it throws OutOfMemory Exception for larger images
                     options.inSampleSize = 8;
                     Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
                             options);
-                    capturedImagePath=fileUri.getPath();
+                    imagePath=fileUri.getPath();
                     bitmap=Bitmap.createScaledBitmap(bitmap,170,170,true);
                     ivphoto1.setImageBitmap(bitmap);
+                    if(!imagePath.equals(null))
+                    {
+                        pathArray[0]=imagePath;
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(),"Null value",Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case 6:
                     options.inSampleSize = 8;
+
                     bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
                             options);
-                    capturedImagePath=fileUri.getPath();
+                    imagePath=fileUri.getPath();
                     bitmap=Bitmap.createScaledBitmap(bitmap,170,170,true);
                     ivphoto2.setImageBitmap(bitmap);
+                    if(!imagePath.equals(null))
+                    {
+                        pathArray[1]=imagePath;
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(),"Null value",Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case 7:
+
                     options.inSampleSize = 8;
                     bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
                             options);
-                    capturedImagePath=fileUri.getPath();
+                    imagePath=fileUri.getPath();
                     bitmap=Bitmap.createScaledBitmap(bitmap,170,170,true);
                     ivphoto3.setImageBitmap(bitmap);
+                    if(!imagePath.equals(null))
+                    {
+                        pathArray[2]=imagePath;
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(),"Null value",Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case 8:
                     options.inSampleSize = 8;
                     bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
                             options);
-                    capturedImagePath=fileUri.getPath();
+                    imagePath=fileUri.getPath();
                     bitmap=Bitmap.createScaledBitmap(bitmap,170,170,true);
                     ivphoto4.setImageBitmap(bitmap);
+                    if(!imagePath.equals(null))
+                    {
+                        pathArray[3]=imagePath;
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(),"Null value",Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case 9:
                     options.inSampleSize = 8;
                     bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
                             options);
-                    capturedImagePath=fileUri.getPath();
+                    imagePath=fileUri.getPath();
                     bitmap=Bitmap.createScaledBitmap(bitmap,170,170,true);
                     ivphoto5.setImageBitmap(bitmap);
+                    if(!imagePath.equals(null))
+                    {
+                        pathArray[4]=imagePath;
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(),"Null value",Toast.LENGTH_SHORT).show();
+                    }
                     break;
             }
         }
     }
-
 
     public Uri getOutputMediaFileUri(int type) {
         return Uri.fromFile(getOutputMediaFile(type));
@@ -514,6 +595,7 @@ public void Initialize()
 
     }
 
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -569,12 +651,11 @@ public void Initialize()
 
     public void Upload()
     {
-        dialog=ProgressDialog.show(getActivity(),
-                "Loading","Please Wait...",false);
-        SERVICE_URL = "http://www.junkcartrader.com/API/Uploads/Photos";
-        WebServiceTask wst = new WebServiceTask(WebServiceTask.POST_TASK, getActivity(), "Posting data...");
-        // the passed String is the URL we will POST to
-        wst.execute(new String[]{SERVICE_URL});
+            dialog = ProgressDialog.show(getActivity(),
+                    "Uploading", "Please Wait...", false);
+            UploadFileAsync uploadFile = new UploadFileAsync();
+            uploadFile.execute();
+
     }
 
     public void postData() {
@@ -589,32 +670,35 @@ public void Initialize()
 
     public void handleResponse(String response) {
         try {
-            JSONObject jso = new JSONObject(response);
+
             dialog.dismiss();
             switch(operationType)
             {
                 case 1:
+                    JSONObject jso = new JSONObject(response);
                     isValidZipCode = jso.get("Is_Valid_Zip_Code").toString();
                     if(isValidZipCode=="true") {
-                        customerInfoFragment = new CustomerInfoFragment();
+                        offerFragment = new OfferFragment();
                         fragmentTransaction = getFragmentManager().beginTransaction();
                         args = new Bundle();
-                            args.putString("GetABetterOffer", "GetABetterOffer");
-                            args.putString("GetAnOffer","");
-                            args.putString("Year", year);
-                            args.putString("Make", make);
-                            args.putString("MakeId", makeId);
-                            args.putString("Model", model);
-                            args.putString("ModelId", modelId);
-                            args.putString("Cylinders", cylinders);
-                            args.putString("ZipCode",zipCode);
-                            args.putString("Questionnaire",questionnaire);
-                            //args.putString("email",email);
-                        customerInfoFragment.setArguments(args);
-                        fragmentTransaction.replace(R.id.container, customerInfoFragment);
+                        args.putString("OfferType", OfferType);
+                        args.putString("Address",address);
+                        args.putString("StateId",stateId);
+                        args.putString("CityId",cityId);
+                        args.putString("PhoneNumber",phoneNumber);
+                        args.putString("EmailAddress",email);
+                        args.putString("Year", year);
+                        args.putString("Make", make);
+                        args.putString("MakeId", makeId);
+                        args.putString("Model", model);
+                        args.putString("ModelId", modelId);
+                        args.putString("Cylinders", cylinders);
+                        args.putString("ZipCode",zipCode);
+                        args.putString("Questionnaire",questionnaire);
+                        args.putString("CustomerId",customerId);
+                        offerFragment.setArguments(args);
+                        fragmentTransaction.replace(R.id.container, offerFragment);
                         fragmentTransaction.commit();
-
-                        // GetAnOffer(address, cityId, cylinders, emailAddress, make, model, name, phone, makeId, modelId, year, stateId, zipCode);
                     }
                     break;
                 default:
@@ -631,9 +715,9 @@ public void Initialize()
         public static final int GET_TASK = 2;
         private static final String TAG = "WebServiceTask";
         // connection timeout, in milliseconds (waiting to connect)
-        private static final int CONN_TIMEOUT = 3000 * 60 * 60 * 10;
+        private static final int CONN_TIMEOUT = 3000;
         // socket timeout, in milliseconds (waiting for data)
-        private static final int SOCKET_TIMEOUT = 5000 * 60 * 60 * 10;
+        private static final int SOCKET_TIMEOUT = 5000;
         private int taskType = GET_TASK;
         private Context mContext = null;
         private String processMessage = "Processing...";
@@ -724,5 +808,152 @@ public void Initialize()
         }
     }
 
+    private class UploadFileAsync extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            for (int i = 0; i < pathArray.length; i++) {
+                try {
+                    String sourceFileUri = pathArray[i];
+
+                    HttpURLConnection conn = null;
+                    DataOutputStream dos = null;
+                    String lineEnd = "\r\n";
+                    String twoHyphens = "--";
+                    String boundary = "*****";
+                    int bytesRead, bytesAvailable, bufferSize;
+                    byte[] buffer;
+                    int maxBufferSize = 1 * 1024 * 1024;
+                    File sourceFile = new File(sourceFileUri);
+
+                    if (sourceFile.isFile()) {
+
+                        try {
+                            String upLoadServerUri = BASE_URL + "Home/Upload?"
+                            + "customerid=" + customerId + "&cylinders=" + cylinders +
+                            "&makeId=" + makeId + "&modelId=" + modelId + "&year=" + year;
+
+                            // open a URL connection to the Servlet
+                            FileInputStream fileInputStream = new FileInputStream(
+                                    sourceFile);
+                            URL url = new URL(upLoadServerUri);
+
+                            // Open a HTTP connection to the URL
+                            conn = (HttpURLConnection) url.openConnection();
+                            conn.setDoInput(true); // Allow Inputs
+                            conn.setDoOutput(true); // Allow Outputs
+                            conn.setUseCaches(false); // Don't use a Cached Copy
+                            conn.setRequestMethod("POST");
+                            conn.setRequestProperty("Connection", "Keep-Alive");
+                            conn.setRequestProperty("ENCTYPE",
+                                    "multipart/form-data");
+                            conn.setRequestProperty("Content-Type",
+                                    "multipart/form-data;boundary=" + boundary);
+                            conn.setRequestProperty("bill", sourceFileUri);
+
+                            dos = new DataOutputStream(conn.getOutputStream());
+
+                            dos.writeBytes(twoHyphens + boundary + lineEnd);
+                            dos.writeBytes("Content-Disposition: form-data; name=\"bill\";filename=\""
+                                    + sourceFileUri + "\"" + lineEnd);
+
+                            dos.writeBytes(lineEnd);
+
+                            // create a buffer of maximum size
+                            bytesAvailable = fileInputStream.available();
+
+                            bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                            buffer = new byte[bufferSize];
+
+                            // read file and write it into form...
+                            bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+                            while (bytesRead > 0) {
+
+                                dos.write(buffer, 0, bufferSize);
+                                bytesAvailable = fileInputStream.available();
+                                bufferSize = Math
+                                        .min(bytesAvailable, maxBufferSize);
+                                bytesRead = fileInputStream.read(buffer, 0,
+                                        bufferSize);
+
+                            }
+
+                            // send multipart form data necesssary after file
+                            // data...
+                            dos.writeBytes(lineEnd);
+                            dos.writeBytes(twoHyphens + boundary + twoHyphens
+                                    + lineEnd);
+
+                            // Responses from the server (code and message)
+                            serverResponseCode = conn.getResponseCode();
+                            String serverResponseMessage = conn
+                                    .getResponseMessage();
+
+                            if (serverResponseCode == 200) {
+
+                                // messageText.setText(msg);
+                                Toast.makeText(getActivity(), "File Upload Complete.",
+                                        Toast.LENGTH_SHORT).show();
+
+                                // recursiveDelete(mDirectory1);
+
+                            }
+
+                            // close the streams //
+                            fileInputStream.close();
+                            dos.flush();
+                            dos.close();
+
+                        } catch (Exception e) {
+
+                            // dialog.dismiss();
+                            e.printStackTrace();
+
+                        }
+                        // dialog.dismiss();
+
+                    } // End else block
+
+
+                } catch (Exception ex) {
+                    // dialog.dismiss();
+
+                    ex.printStackTrace();
+                }
+                // dialog.dismiss();
+
+
+            }
+            dialog.dismiss();
+            return "Executed";
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            String answer=doInBackground().toString();
+            if(answer.equals("Executed")) {
+
+                Toast.makeText(getActivity(), "File(s) have been uploaded successfully", Toast.LENGTH_SHORT).show();
+
+                CheckZipCode(zipCode);
+            }
+            else
+            {
+                Toast.makeText(getActivity(),"There was some problem uploading the file(s). Please try again later",Toast.LENGTH_SHORT);
+            }
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
 }
 

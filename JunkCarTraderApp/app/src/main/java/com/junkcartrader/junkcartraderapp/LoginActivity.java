@@ -15,7 +15,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
@@ -41,11 +40,11 @@ import java.util.ArrayList;
 public class LoginActivity extends Activity {
     final Context context = this;
     private  final String BASE_URL = URLHelper.GetBaseUrl();
-    private  String SERVICE_URL = BASE_URL + "Accounts/Authenticate";
+    private  String SERVICE_URL = BASE_URL + "Accounts/Authenticate",email,password;
     public ProgressDialog dialog;
-    public PopupWindow popUp;
     private Button btnLogin;
     public EditText etUserId, etPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Full screen
@@ -64,11 +63,26 @@ public class LoginActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog = ProgressDialog.show(context,
-                        "Loading...", "Please wait...", false);
-                //dialog.setProgressStyle(R.style.ProgressBar);
-                dialog.show();
-                retrieveSampleData();
+
+                email=etUserId.getText().toString();
+                password=etPassword.getText().toString();
+
+
+                if(email.equals(""))
+                {
+                    Toast.makeText(context,"Please enter your email",Toast.LENGTH_SHORT).show();
+                }
+                else if(password.equals(""))
+                {
+                    Toast.makeText(context,"Please enter your password",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    dialog = ProgressDialog.show(context,
+                            "Loading...", "Please wait...", false);
+                    dialog.show();
+                    Authenticate(email,password);
+                }
 
             }
         });
@@ -99,11 +113,11 @@ public class LoginActivity extends Activity {
         WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, this, "Getting data...");
         wst.execute(new String[]{SERVICE_URL});
     }
-    public void retrieveSampleData() {
-        String userId = etUserId.getText().toString();
-        String password = etPassword.getText().toString();
-        SERVICE_URL +="?" + "password="+ password + "&"
-                          + "userId=" + userId;
+    public void Authenticate(String email,String password) {
+
+        SERVICE_URL = BASE_URL + "Accounts/Authenticate?" +
+                            "password="+ password +
+                            "&userId=" + email;
         WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, this, "Getting data...");
         wst.execute(new String[]{SERVICE_URL});
     }
@@ -125,10 +139,8 @@ public class LoginActivity extends Activity {
             JSONObject jso = new JSONObject(response);
             dialog.dismiss();
             final String isAuthenticated = jso.getString("IsAuthenticated");
-            //Toast.makeText(context, jso.toString(), Toast.LENGTH_LONG);
-            //clearControls();
-            //etUserId.setText(isAuthenticated);
-            if(isAuthenticated=="true"){
+            if(isAuthenticated.equals("true"))
+            {
                 SharedPreferences sharedPreferences=getSharedPreferences("AppData", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor=sharedPreferences.edit();
                 editor.putString("email",etUserId.getText().toString());
@@ -140,11 +152,10 @@ public class LoginActivity extends Activity {
             }
             else
             {
-                final String respone=jso.getString("ResponseMessage");
-                Toast.makeText(context,respone,Toast.LENGTH_LONG).show();
+                final String responseMessage=jso.getString("ResponseMessage");
+                Toast.makeText(context,responseMessage,Toast.LENGTH_SHORT).show();
                 clearControls();
             }
-            //btnLogin.setText(response);
         } catch (Exception e) {
         }
     }

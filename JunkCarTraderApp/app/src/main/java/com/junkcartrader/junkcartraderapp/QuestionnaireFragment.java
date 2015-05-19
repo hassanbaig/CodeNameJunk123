@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -41,7 +42,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -63,26 +63,20 @@ public class QuestionnaireFragment extends Fragment implements PhotoFragment.OnF
     private  String SERVICE_URL=BASE_URL;
     private String mParam1;
     private String mParam2;
+    private Spinner answer;
+    private TextView questionnaire;
     private String year,make,makeId,model,modelId,cylinders,zipCode;
     private Button btnPhotoGetABetterOffer;
     private ProgressDialog dialog;
     private Integer operationType;
-
-
-    ArrayAdapter<String> answersAdapter,questionAdapter, modelsAdapter, cylindersAdapter;
-    JSONArray questionnaireJSON,answerJSON,jArray;
-    List<String> answersList,modelsList;
-    String[] questions;
-    String questionResponse,cylindersResponse,isValidZipCode,OfferType,strId,email;
-    FragmentTransaction fragmentTransaction;
-    Fragment photoFragment;
-    Bundle args;
-    Spinner question,answer;
-    View rootView;
-    TextView questionnaire;
-
-
     private OnFragmentInteractionListener mListener;
+    ArrayAdapter<String> answersAdapter;
+    JSONArray questionnaireJSON,questionJSON;
+    String isValidZipCode,OfferType,strId,email;
+    FragmentTransaction fragmentTransaction;
+    Fragment customerInfoFragment;
+    Bundle args;
+    View rootView;
 
     /**
      * Use this factory method to create a new instance of
@@ -120,7 +114,7 @@ public class QuestionnaireFragment extends Fragment implements PhotoFragment.OnF
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView= inflater.inflate(R.layout.fragment_questionnaire, container, false);
-        String offerType2 = getArguments().getString("GetABetterOffer");
+        OfferType=getArguments().getString("OfferType");
         year=getArguments().getString("Year");
         make=getArguments().getString("Make");
         makeId=getArguments().getString("MakeId");
@@ -128,7 +122,7 @@ public class QuestionnaireFragment extends Fragment implements PhotoFragment.OnF
         modelId=getArguments().getString("ModelId");
         cylinders=getArguments().getString("Cylinders");
         zipCode=getArguments().getString("ZipCode");
-        //email=getArguments().getString("email");
+
         Initialize();
         GetQuestionnaire();
         return rootView;
@@ -136,7 +130,6 @@ public class QuestionnaireFragment extends Fragment implements PhotoFragment.OnF
     public void Initialize()
     {
         btnPhotoGetABetterOffer=(Button)rootView.findViewById(R.id.btnPhotoGetABetterOffer);
-        //question=(Spinner)rootView.findViewById(R.id.question);
         btnPhotoGetABetterOffer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,49 +214,48 @@ public class QuestionnaireFragment extends Fragment implements PhotoFragment.OnF
     public void handleResponse(String response) {
         try {
             JSONObject jso = new JSONObject(response);
-            //
             dialog.dismiss();
             switch(operationType)
             {
                 case 1:
                     TableLayout tableLayout=(TableLayout)rootView.findViewById(R.id.questionnaireLayout);
                     final ArrayList<String> IdArray=new ArrayList<String>();
-                    //ArrayList<String> answerIdArray=new ArrayList<String>();
                     final ArrayList<String> mergeId=new ArrayList<String>();
                     questionnaireJSON=new JSONArray(jso.get("$values").toString());
 
+
+                    //Converting DIP To Pixels
                     Resources r=getResources();
                     int width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,220,r.getDisplayMetrics());
                     int questionnaireheight=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,120,r.getDisplayMetrics());
                     int answerheight=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,50,r.getDisplayMetrics());
-                    int buttonWidth=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,50,r.getDisplayMetrics());
+
+
+
                     for(int i=0;i<questionnaireJSON.length();i++)
                     {
-
                         //To print the questions dynamically
                         TableRow tableRow=new TableRow(this.getActivity());
                         questionnaire=new TextView(this.getActivity());
                         answer=new Spinner(this.getActivity());
-                        //tableRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,100));
                         JSONObject entQuestion=(JSONObject)questionnaireJSON.getJSONObject(i).get("Question");
                         questionnaire.setGravity(Gravity.LEFT);
                         questionnaire.setText(entQuestion.getString("Question"));
-                        IdArray.add(entQuestion.getString("Question_Id"));//Add the questionId to an ArrayList
+                        //Add the questionId to an ArrayList
+                        IdArray.add(entQuestion.getString("Question_Id"));
                         questionnaire.setTextColor(Color.parseColor("#000000"));
                         questionnaire.setTextSize(22);
                         questionnaire.setPadding(20, 0, 20, 0);
                         questionnaire.setWidth(width);
                         questionnaire.setHeight(questionnaireheight);
-                        //questionnaire.setLayoutParams(new TableRow.LayoutParams(900,125));
-
                         //To print the answers dynamically
                         ArrayList<String> answersArray = new ArrayList<String>();
                         answersArray.clear();
                         JSONObject entAnswer=questionnaireJSON.getJSONObject(i);
                         JSONObject ans=(JSONObject)entAnswer.get("Answers");
-                        jArray=ans.getJSONArray("$values");
-                        for(int j=0;j<jArray.length();j++) {
-                            answersArray.add(jArray.getJSONObject(j).getString("Answer"));
+                        questionJSON=ans.getJSONArray("$values");
+                        for(int j=0;j<questionJSON.length();j++) {
+                            answersArray.add(questionJSON.getJSONObject(j).getString("Answer"));
                             answersAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, answersArray);
                             answersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             answer.setAdapter(answersAdapter);
@@ -274,42 +266,26 @@ public class QuestionnaireFragment extends Fragment implements PhotoFragment.OnF
                             answer.setDropDownWidth(width);
                             answer.setMinimumHeight(answerheight);
                             answer.setGravity(Gravity.CENTER_HORIZONTAL);
-                            //answer.setLayoutParams(new TableRow.LayoutParams(250,100));
                         }
 
                         tableRow.addView(questionnaire);
                         tableRow.addView(answer);
                         tableRow.setGravity(Gravity.CENTER_HORIZONTAL);
                         tableLayout.addView(tableRow);
-                        IdArray.add(jArray.getJSONObject(answer.getSelectedItemPosition()).getString("Answer_Id"));//Add the answerId to an ArrayList
+                        //Add the answerId to an ArrayList
+                        IdArray.add(questionJSON.getJSONObject(answer.getSelectedItemPosition()).getString("Answer_Id"));
                     }
                     mergeId.add(IdArray.toString());
                     strId=mergeId.toString().replace("[","").replace("]","");
-
-                    /*btnPhotoGetABetterOffer=new Button(this.getActivity());
-                    btnPhotoGetABetterOffer.setBackgroundResource(R.drawable.button_blue_gradient);
-                    btnPhotoGetABetterOffer.setText("Next");
-                    btnPhotoGetABetterOffer.setTextSize(22);
-                    btnPhotoGetABetterOffer.setTextColor(Color.parseColor("#ffffff"));
-                    btnPhotoGetABetterOffer.setTextAppearance(getActivity(),R.style.questionnaireButtons);
-                    btnPhotoGetABetterOffer.setGravity(Gravity.CENTER_HORIZONTAL);
-                    tableLayout.addView(btnPhotoGetABetterOffer);*/
-                    //btnNextCustomerInfo.setText(seperate);
-                    //merge.add(answerIdArray.toString());
-                    /*questionAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,merge);
-                    questionAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                    question.setAdapter(questionAdapter);
-                    questionAdapter.notifyDataSetChanged();*/
-                    //questionIdArray;
                     break;
                 case 2:
                     isValidZipCode = jso.get("Is_Valid_Zip_Code").toString();
                     if(isValidZipCode=="true")
                     {
-                        photoFragment = new PhotoFragment();
+                        customerInfoFragment = new CustomerInfoFragment();
                         fragmentTransaction = getFragmentManager().beginTransaction();
                         args = new Bundle();
-                        args.putString("GetABetterOffer", "GetABetterOffer");
+                        args.putString("OfferType", OfferType);
                         args.putString("Year", year);
                         args.putString("Make", make);
                         args.putString("MakeId", makeId);
@@ -318,9 +294,8 @@ public class QuestionnaireFragment extends Fragment implements PhotoFragment.OnF
                         args.putString("Cylinders", cylinders);
                         args.putString("ZipCode", zipCode);
                         args.putString("Questionnaire",strId);
-                        //args.putString("email",email);
-                        photoFragment.setArguments(args);
-                        fragmentTransaction.replace(R.id.container, photoFragment);
+                        customerInfoFragment.setArguments(args);
+                        fragmentTransaction.replace(R.id.container, customerInfoFragment);
                         fragmentTransaction.commit();
                     }
                     break;

@@ -114,6 +114,7 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
         modelId = getArguments().getString("ModelId");
         cylinders = getArguments().getString("Cylinders");
         //email=getArguments().getString("email");
+
         Initialize();
         return rootView;
     }
@@ -222,10 +223,11 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
                     isValidZipCode = jso.get("Is_Valid_Zip_Code").toString();
                     if(isValidZipCode=="true")
                     {
+                        OfferType="GetAnOffer";
                         customerInfoFragment = new CustomerInfoFragment();
                         fragmentTransaction = getFragmentManager().beginTransaction();
                         args = new Bundle();
-                        args.putString("GetAnOffer", "GetAnOffer");
+                        args.putString("OfferType", OfferType);
                         args.putString("GetABetterOffer","");
                         args.putString("Year", year);
                         args.putString("Make", make);
@@ -233,24 +235,25 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
                         args.putString("Model", model);
                         args.putString("ModelId", modelId);
                         args.putString("Cylinders", cylinders);
+                        args.putString("Questionnaire","");
                         args.putString("ZipCode", etZipCode.getText().toString());
-                        //args.putString("email",email);
                         customerInfoFragment.setArguments(args);
                         fragmentTransaction.replace(R.id.container, customerInfoFragment);
                         fragmentTransaction.commit();
                     }
                     else{
-                        Toast.makeText(getActivity(),"Please enter correct Zip-Code",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(),"Please enter correct Zip-Code",Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case 2:
                     isValidZipCode = jso.get("Is_Valid_Zip_Code").toString();
                     if(isValidZipCode=="true")
                     {
+                        OfferType="GetABetterOffer";
                         questionnaireFragment = new QuestionnaireFragment();
                         fragmentTransaction = getFragmentManager().beginTransaction();
                         args = new Bundle();
-                        args.putString("GetABetterOffer", "GetABetterOffer");
+                        args.putString("OfferType", OfferType);
                         args.putString("Year", year);
                         args.putString("Make", make);
                         args.putString("MakeId", makeId);
@@ -258,13 +261,12 @@ public class LocationFragment extends Fragment implements QuestionnaireFragment.
                         args.putString("ModelId", modelId);
                         args.putString("Cylinders", cylinders);
                         args.putString("ZipCode", etZipCode.getText().toString());
-                        args.putString("email",email);
                         questionnaireFragment.setArguments(args);
                         fragmentTransaction.replace(R.id.container, questionnaireFragment);
                         fragmentTransaction.commit();
                     }
                     else{
-                        Toast.makeText(getActivity(),"Please enter correct Zip-Code",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(),"Please enter correct Zip-Code",Toast.LENGTH_SHORT).show();
                     }
                     break;
                 default:

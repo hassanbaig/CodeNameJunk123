@@ -17,10 +17,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/23/2014 15:25:19</publishTime>
     </File>
     <File Include="bin/JunkCar.Core.dll">
-      <publishTime>04/15/2015 10:52:49</publishTime>
+      <publishTime>05/14/2015 17:42:34</publishTime>
     </File>
     <File Include="bin/JunkCar.Core.pdb">
-      <publishTime>04/15/2015 10:52:49</publishTime>
+      <publishTime>05/14/2015 17:42:33</publishTime>
     </File>
     <File Include="bin/JunkCar.Data.dll">
       <publishTime>04/15/2015 10:52:53</publishTime>
@@ -35,40 +35,40 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2015 10:52:48</publishTime>
     </File>
     <File Include="bin/JunkCar.DomainModel.dll">
-      <publishTime>04/15/2015 10:52:55</publishTime>
+      <publishTime>05/14/2015 17:42:37</publishTime>
     </File>
     <File Include="bin/JunkCar.DomainModel.pdb">
-      <publishTime>04/15/2015 10:52:54</publishTime>
+      <publishTime>05/14/2015 17:42:37</publishTime>
     </File>
     <File Include="bin/JunkCar.DomainService.dll">
-      <publishTime>04/15/2015 10:52:59</publishTime>
+      <publishTime>05/14/2015 17:42:39</publishTime>
     </File>
     <File Include="bin/JunkCar.DomainService.pdb">
-      <publishTime>04/15/2015 10:52:59</publishTime>
+      <publishTime>05/14/2015 17:42:39</publishTime>
     </File>
     <File Include="bin/JunkCar.Factory.dll">
-      <publishTime>04/15/2015 10:52:54</publishTime>
+      <publishTime>05/14/2015 17:42:35</publishTime>
     </File>
     <File Include="bin/JunkCar.Factory.pdb">
-      <publishTime>04/15/2015 10:52:54</publishTime>
+      <publishTime>05/14/2015 17:42:35</publishTime>
     </File>
     <File Include="bin/JunkCar.Repository.dll">
-      <publishTime>04/15/2015 10:52:55</publishTime>
+      <publishTime>05/14/2015 17:42:38</publishTime>
     </File>
     <File Include="bin/JunkCar.Repository.pdb">
-      <publishTime>04/15/2015 10:52:55</publishTime>
+      <publishTime>05/14/2015 17:42:38</publishTime>
     </File>
     <File Include="bin/JunkCar.UnitOfWork.dll">
-      <publishTime>04/15/2015 10:52:56</publishTime>
+      <publishTime>05/14/2015 17:42:38</publishTime>
     </File>
     <File Include="bin/JunkCar.UnitOfWork.pdb">
-      <publishTime>04/15/2015 10:52:56</publishTime>
+      <publishTime>05/14/2015 17:42:38</publishTime>
     </File>
     <File Include="bin/JunkCar.WebAPI.dll">
-      <publishTime>05/07/2015 11:13:21</publishTime>
+      <publishTime>05/14/2015 17:42:40</publishTime>
     </File>
     <File Include="bin/JunkCar.WebAPI.pdb">
-      <publishTime>05/07/2015 11:13:20</publishTime>
+      <publishTime>05/14/2015 17:42:40</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>12/23/2014 15:26:54</publishTime>

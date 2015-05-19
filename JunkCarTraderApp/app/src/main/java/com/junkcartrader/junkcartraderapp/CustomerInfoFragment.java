@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -66,13 +65,12 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
     private EditText etName,etAddress,etZipCode,etPhoneNumber,etEmail;
     private Spinner spStates,spCities;
     private Integer operationType;
-    String isValidZipCode,OfferType,offerPrice,year,make,makeId,model,modelId,cylinders,zipCode,questionnaire,email, customerId;
-    FragmentManager fm;
+    String isValidZipCode,OfferType,year,make,makeId,model,modelId,cylinders,zipCode,questionnaire,email,customerId;
     FragmentTransaction fragmentTransaction;
     ArrayAdapter<String> statesAdapter,citiesAdapter;
     JSONArray statesJSON,citiesJSON;
     List<String> statesList,citiesList;
-    Fragment offerFragment;
+    Fragment offerFragment,photoFragment;
     Bundle args;
     View rootView;
 
@@ -106,8 +104,7 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_customer_info, container, false);
-        String offerType1 = getArguments().getString("GetAnOffer");
-        String offerType2 = getArguments().getString("GetABetterOffer");
+        OfferType=getArguments().getString("OfferType");
         year = getArguments().getString("Year");
         make = getArguments().getString("Make");
         makeId = getArguments().getString("MakeId");
@@ -116,14 +113,15 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
         cylinders = getArguments().getString("Cylinders");
         zipCode = getArguments().getString("ZipCode");
         questionnaire=getArguments().getString("Questionnaire");
-        //email=getArguments().getString("email");
 
-        if(offerType1.equals("GetAnOffer"))
-        {OfferType = "GetAnOffer";
-            Toast.makeText(this.getActivity(),OfferType,Toast.LENGTH_LONG).show();}
+        /*if(OfferType.equals("GetAnOffer"))
+        {
+            Toast.makeText(this.getActivity(),OfferType,Toast.LENGTH_SHORT).show();
+        }
         else
-        {OfferType="GetABetterOffer";
-        Toast.makeText(this.getActivity(),OfferType,Toast.LENGTH_LONG).show();}
+        {
+            Toast.makeText(this.getActivity(),OfferType,Toast.LENGTH_SHORT).show();
+        }*/
         Initialize();
         GetStates();
         return rootView;
@@ -271,9 +269,6 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
                               String name, String phone,String stateId, String zipCode) {
 
         operationType = 4;
-        /*dialog = ProgressDialog.show(getActivity(),
-                "Loading...", "Please wait...", false);
-        dialog.show();*/
         SERVICE_URL = BASE_URL + "Home/GetCustomerId?" +
                 "address=" + address +
                 "&cityId=" + cityId +
@@ -282,7 +277,6 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
                 "&phone=" + phone +
                 "&stateId=" + stateId +
                 "&zipCode=" + zipCode;
-        //btnNextCustomerInfo.setText(SERVICE_URL);
         WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, getActivity(), "Getting data...");
         wst.execute(new String[]{SERVICE_URL});
     }
@@ -328,45 +322,12 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
                     JSONObject jso = new JSONObject(response);
                     isValidZipCode = jso.get("Is_Valid_Zip_Code").toString();
                     if(isValidZipCode=="true") {
-                        /*if(OfferType.equals("GetAnOffer")) {
+                        if(OfferType.equals("GetAnOffer")) {
                             try {
                                 offerFragment = new OfferFragment();
                                 fragmentTransaction = getFragmentManager().beginTransaction();
                                 args = new Bundle();
-                                args.putString("GetAnOffer", "GetAnOffer");
-                                args.putString("GetABetterOffer", "");
-                                args.putString("Name", etName.getText().toString());
-                                args.putString("Address", etAddress.getText().toString());
-                                args.putString("StateId", statesJSON.getJSONObject(spStates.getSelectedItemPosition()).getString("State_Id"));
-                                args.putString("CityId", citiesJSON.getJSONObject(spCities.getSelectedItemPosition()).getString("City_Id"));
-                                args.putString("PhoneNumber", etPhoneNumber.getText().toString());
-                                args.putString("EmailAddress", etEmail.getText().toString());
-                                args.putString("Year", year);
-                                args.putString("Make", make);
-                                args.putString("MakeId", makeId);
-                                args.putString("Model", model);
-                                args.putString("ModelId", modelId);
-                                args.putString("Cylinders", cylinders);
-                                args.putString("ZipCode", etZipCode.getText().toString());
-                                args.putString("Questionnaire", "");
-                                args.putString("CustomerId",customerId);
-                                offerFragment.setArguments(args);
-                                fragmentTransaction.replace(R.id.container, offerFragment);
-                                fragmentTransaction.commit();
-
-                                // GetAnOffer(address, cityId, cylinders, emailAddress, make, model, name, phone, makeId, modelId, year, stateId, zipCode);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        else
-                        {
-                            try {
-                                offerFragment = new OfferFragment();
-                                fragmentTransaction = getFragmentManager().beginTransaction();
-                                args = new Bundle();
-                                args.putString("GetAnOffer", "");
-                                args.putString("GetABetterOffer", "GetABetterOffer");
+                                args.putString("OfferType", OfferType);
                                 args.putString("Name", etName.getText().toString());
                                 args.putString("Address", etAddress.getText().toString());
                                 args.putString("StateId", statesJSON.getJSONObject(spStates.getSelectedItemPosition()).getString("State_Id"));
@@ -382,44 +343,41 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
                                 args.putString("ZipCode", etZipCode.getText().toString());
                                 args.putString("Questionnaire", questionnaire);
                                 args.putString("CustomerId",customerId);
-                                //args.putString("email",email);
                                 offerFragment.setArguments(args);
                                 fragmentTransaction.replace(R.id.container, offerFragment);
                                 fragmentTransaction.commit();
-
-                                // GetAnOffer(address, cityId, cylinders, emailAddress, make, model, name, phone, makeId, modelId, year, stateId, zipCode);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }*/
-                        try {
-                            offerFragment = new OfferFragment();
-                            fragmentTransaction = getFragmentManager().beginTransaction();
-                            args = new Bundle();
-                            args.putString("OfferType", OfferType);
-                            //args.putString("GetABetterOffer", "");
-                            args.putString("Name", etName.getText().toString());
-                            args.putString("Address", etAddress.getText().toString());
-                            args.putString("StateId", statesJSON.getJSONObject(spStates.getSelectedItemPosition()).getString("State_Id"));
-                            args.putString("CityId", citiesJSON.getJSONObject(spCities.getSelectedItemPosition()).getString("City_Id"));
-                            args.putString("PhoneNumber", etPhoneNumber.getText().toString());
-                            args.putString("EmailAddress", etEmail.getText().toString());
-                            args.putString("Year", year);
-                            args.putString("Make", make);
-                            args.putString("MakeId", makeId);
-                            args.putString("Model", model);
-                            args.putString("ModelId", modelId);
-                            args.putString("Cylinders", cylinders);
-                            args.putString("ZipCode", etZipCode.getText().toString());
-                            args.putString("Questionnaire", questionnaire);
-                            args.putString("CustomerId",customerId);
-                            offerFragment.setArguments(args);
-                            fragmentTransaction.replace(R.id.container, offerFragment);
-                            fragmentTransaction.commit();
-
-                            // GetAnOffer(address, cityId, cylinders, emailAddress, make, model, name, phone, makeId, modelId, year, stateId, zipCode);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        }
+                        else
+                        {
+                            try {
+                                photoFragment = new PhotoFragment();
+                                fragmentTransaction = getFragmentManager().beginTransaction();
+                                args = new Bundle();
+                                args.putString("OfferType", OfferType);
+                                args.putString("Name", etName.getText().toString());
+                                args.putString("Address", etAddress.getText().toString());
+                                args.putString("StateId", statesJSON.getJSONObject(spStates.getSelectedItemPosition()).getString("State_Id"));
+                                args.putString("CityId", citiesJSON.getJSONObject(spCities.getSelectedItemPosition()).getString("City_Id"));
+                                args.putString("PhoneNumber", etPhoneNumber.getText().toString());
+                                args.putString("EmailAddress", etEmail.getText().toString());
+                                args.putString("Year", year);
+                                args.putString("Make", make);
+                                args.putString("MakeId", makeId);
+                                args.putString("Model", model);
+                                args.putString("ModelId", modelId);
+                                args.putString("Cylinders", cylinders);
+                                args.putString("ZipCode", etZipCode.getText().toString());
+                                args.putString("Questionnaire", questionnaire);
+                                args.putString("CustomerId",customerId);
+                                photoFragment.setArguments(args);
+                                fragmentTransaction.replace(R.id.container, photoFragment);
+                                fragmentTransaction.commit();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                     break;
@@ -457,7 +415,6 @@ public class CustomerInfoFragment extends Fragment implements  OfferFragment.OnF
                     customerId=response;
                     CheckZipCode(zipCode);
                     break;
-
                 default:
                     break;
             }
